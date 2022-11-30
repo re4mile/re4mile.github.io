@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="搜索关键字 1234Python 逆向Python字节码PYC逆向pyc字节码混淆    文章 1https:&#x2F;&#x2F;taardisaa.github.io&#x2F;categories&#x2F;pyc&#x2F;      脚本获取指令和字节码对应关系123import opcodefor op in range(len(opcode.opname)):    print(&amp;#x27;Hex 0x%.2X Dec:%.3d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PYC逆向">
+<meta property="og:url" content="https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/index.html">
+<meta property="og:site_name" content="Resmile">
+<meta property="og:description" content="搜索关键字 1234Python 逆向Python字节码PYC逆向pyc字节码混淆    文章 1https:&#x2F;&#x2F;taardisaa.github.io&#x2F;categories&#x2F;pyc&#x2F;      脚本获取指令和字节码对应关系123import opcodefor op in range(len(opcode.opname)):    print(&amp;#x27;Hex 0x%.2X Dec:%.3d">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221112001915716.png">
+<meta property="og:image" content="https://s2.51cto.com/images/blog/202211/09125602_636b32e2db0b411988.png?x-oss-process=image/watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221110172538964.png">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221110171349830.png">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221110171927889.png">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221109204242000.png">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221109204325285.png">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221109204409497.png">
+<meta property="og:image" content="https://resmile.gitee.io/blog/DisPy/image-20221109142051844.png">
+<meta property="article:published_time" content="2022-11-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-30T09:45:25.938Z">
+<meta property="article:author" content="D0g3.Resmile">
+<meta property="article:tag" content="Pytohn">
+<meta property="article:tag" content="PYC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://resmile.gitee.io/blog/DisPy/image-20221112001915716.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="https://s1.ax1x.com/2022/11/30/zwfoKH.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="https://s1.ax1x.com/2022/11/30/zwfoKH.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="https://s1.ax1x.com/2022/11/30/zwfoKH.png">
+        
+      
+    
+    <!-- title -->
+    <title>PYC逆向</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/resmile/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/resmile/">Home</a></li><!--
+     --><!--
+       --><li><a href="/resmile/categories/">目录</a></li><!--
+     --><!--
+       --><li><a href="/resmile/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/resmile/list/">任务清单</a></li><!--
+     --><!--
+       --><li><a href="/resmile/link/">资源链接</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/resmile/2022/11/30/other-%E8%B5%84%E6%BA%90%E6%94%B6%E9%9B%86/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&text=PYC逆向"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&is_video=false&description=PYC逆向"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PYC逆向&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&name=PYC逆向&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&t=PYC逆向"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%8C%87%E4%BB%A4%E5%92%8C%E5%AD%97%E8%8A%82%E7%A0%81%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.</span> <span class="toc-text">获取指令和字节码对应关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py-gt-exe"><span class="toc-number">1.2.</span> <span class="toc-text">py-&gt;exe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exe-gt-pyc"><span class="toc-number">1.3.</span> <span class="toc-text">exe-&gt;pyc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py-gt-pyc"><span class="toc-number">1.4.</span> <span class="toc-text">py-&gt;pyc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%8D%95%E4%B8%AApyc%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">生成单个pyc文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%A4%9A%E4%B8%AApyc%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text">生成多个pyc文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py-gt-%E6%B1%87%E7%BC%96"><span class="toc-number">1.5.</span> <span class="toc-text">py-&gt;汇编</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pyc-gt-py"><span class="toc-number">1.6.</span> <span class="toc-text">pyc-&gt;py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flare-bytecode-graph"><span class="toc-number">1.7.</span> <span class="toc-text">flare-bytecode_graph</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pyc-py3"><span class="toc-number">2.</span> <span class="toc-text">pyc:py3</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text">源代码文件信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AApyc%E7%9A%84%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.</span> <span class="toc-text">一个pyc的文件介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">指令介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Learn"><span class="toc-number">4.</span> <span class="toc-text">Learn</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-number">4.1.</span> <span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5"><span class="toc-number">4.1.1.</span> <span class="toc-text">导入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#try"><span class="toc-number">4.1.1.1.</span> <span class="toc-text">try</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#except"><span class="toc-number">4.1.1.2.</span> <span class="toc-text">except</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#else"><span class="toc-number">4.1.1.3.</span> <span class="toc-text">else</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#finally"><span class="toc-number">4.1.1.4.</span> <span class="toc-text">finally</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#raise"><span class="toc-number">4.1.1.5.</span> <span class="toc-text">raise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">4.1.2.</span> <span class="toc-text">应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#opcode%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.2.</span> <span class="toc-text">opcode学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">4.2.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.2.2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#list"><span class="toc-number">4.2.2.1.</span> <span class="toc-text">list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dict"><span class="toc-number">4.2.2.2.</span> <span class="toc-text">dict</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#slice"><span class="toc-number">4.2.2.3.</span> <span class="toc-text">slice</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-number">4.2.3.</span> <span class="toc-text">循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#while"><span class="toc-number">4.2.3.1.</span> <span class="toc-text">while</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for"><span class="toc-number">4.2.3.2.</span> <span class="toc-text">for</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-%E5%88%A4%E6%96%AD"><span class="toc-number">4.2.4.</span> <span class="toc-text">if 判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.5.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#opcode%E5%AF%B9%E7%85%A7%E8%A1%A8"><span class="toc-number">4.2.6.</span> <span class="toc-text">opcode对照表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#py%E4%BF%9D%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">py保护方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86"><span class="toc-number">5.1.</span> <span class="toc-text">源代码混淆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AD%94%E6%94%B9pyc%E6%8C%87%E4%BB%A4"><span class="toc-number">5.2.</span> <span class="toc-text">魔改pyc指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81"><span class="toc-number">5.3.</span> <span class="toc-text">垃圾代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%BA%A2%E5%87%BA"><span class="toc-number">5.3.1.</span> <span class="toc-text">基于溢出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E5%81%87%E5%88%86%E6%94%AF"><span class="toc-number">5.4.</span> <span class="toc-text">虚假分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%B1%E6%8C%87%E4%BB%A4"><span class="toc-number">5.5.</span> <span class="toc-text">花指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AC"><span class="toc-number">5.5.1.</span> <span class="toc-text">强制跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%B6%E6%95%B0%E8%B7%B3%E8%BD%AC-%E5%A5%87%E6%95%B0%E8%B7%B3%E8%BD%AC"><span class="toc-number">5.5.2.</span> <span class="toc-text">偶数跳转|奇数跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">5.5.3.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9dis%E6%A8%A1%E5%9D%97"><span class="toc-number">5.5.3.1.</span> <span class="toc-text">修改dis模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nop"><span class="toc-number">5.5.3.2.</span> <span class="toc-text">nop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9CPython%E5%90%AF%E7%94%A8debug"><span class="toc-number">5.5.3.3.</span> <span class="toc-text">修改CPython启用debug</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%81%E5%B9%B3%E5%8C%96"><span class="toc-number">5.6.</span> <span class="toc-text">扁平化</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        PYC逆向
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">D0g3.Resmile</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-29T16:00:00.000Z" itemprop="datePublished">2022-11-30</time>
+        
+        (Updated: <time datetime="2022-11-30T09:45:25.938Z" itemprop="dateModified">2022-11-30</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/resmile/categories/Reverse/">Reverse</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/resmile/tags/PYC/" rel="tag">PYC</a>, <a class="tag-link-link" href="/resmile/tags/Pytohn/" rel="tag">Pytohn</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>搜索关键字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python 逆向</span><br><span class="line">Python字节码</span><br><span class="line">PYC逆向</span><br><span class="line">pyc字节码混淆</span><br></pre></td></tr></table></figure>
+
+
+
+<p>文章</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://taardisaa.github.io/categories/pyc/</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><h2 id="获取指令和字节码对应关系"><a href="#获取指令和字节码对应关系" class="headerlink" title="获取指令和字节码对应关系"></a>获取指令和字节码对应关系</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> opcode</span><br><span class="line"><span class="keyword">for</span> op <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(opcode.opname)):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Hex 0x%.2X Dec:%.3d Name: %s&#x27;</span> % (op, op, opcode.opname[op]))</span><br></pre></td></tr></table></figure>
+
+<p>python2和python3的结果不同</p>
+<h2 id="py-gt-exe"><a href="#py-gt-exe" class="headerlink" title="py-&gt;exe"></a>py-&gt;exe</h2><p>如果你做好了准备工作,直接下面的操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F xx.py</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果没有或者看其它的操作,就看下面</p>
+<p>安装pyinstaller</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller</span><br></pre></td></tr></table></figure>
+<p>检查pyinstaller安装成功与否：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller --version</span><br><span class="line">pyinstaller -v</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在生成exe文件后，无法正常运行exe文件，可以尝试下面这种安装,然后再重新生成exe</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz</span><br></pre></td></tr></table></figure>
+
+
+
+<p>pyinstaller参数作用</p>
+<p>-F 指定打包后只生成一个exe格式的文件(建议写上这个参数)</p>
+<p>-D –onedir 创建一个目录，包含exe文件，但会依赖很多文件（默认选项）</p>
+<p>-c –console, –nowindowed 使用控制台，无界面(默认) 会弹出窗口</p>
+<p>-w –windowed, –noconsole 使用窗口，无控制台,找cmd允许</p>
+<p>-p 添加搜索路径，让其找到对应的库。</p>
+<p>-i  改变生成程序的icon图标</p>
+<p>其他参数，可以通过pyinstaller –help查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例1.指定文件路径打包：pyinstaller -F D:\project\tanchishe.py</span><br><span class="line">例2.不带窗口，后台运行打包：pyinstaller -F -w D:\project\tanchishe.py</span><br><span class="line">例3.更换程序图标打包：pyinstaller -F -w -i D:\project\test.ico D:\project\tanchishe.py</span><br></pre></td></tr></table></figure>
+
+<p>直接生成exe</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F xx.py</span><br></pre></td></tr></table></figure>
+
+<p>带ico的图标</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F -i xx.ico yy.py</span><br></pre></td></tr></table></figure>
+
+<p>生成exe文件后，打开速度慢问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -D xx.py -w</span><br></pre></td></tr></table></figure>
+
+
+<p>打包完成后，进入到当前目录下，会发现多了__pycache__、build、dist、nhdz.spec这四个文件夹或者文件，</p>
+<p>其中打包好的exe应用在dist目录下面，进入即可看到，可以把他拷贝到其他地方直接使用，如下图所示，是打包完成后的目录：</p>
+<p>关于加密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/extremecoders-re/pyinstxtractor/wiki/Frequently-Asked-Questions</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="exe-gt-pyc"><a href="#exe-gt-pyc" class="headerlink" title="exe-&gt;pyc"></a>exe-&gt;pyc</h2><p>如果做好了准备工作,直接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pyinstxtractor.py F:\CTF\ez_python.exe</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果没有,就看下面</p>
+<p>pyinstxtractor</p>
+<p>解析exe包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/extremecoders-re/pyinstxtractor</span><br></pre></td></tr></table></figure>
+
+
+
+<p>将需解包的exe与下载的pyinstxtractor.py存入同级文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">python pyinstxtractor.py F:\CTF\ez_python.exe</span><br><span class="line"></span><br><span class="line">[+] Processing F:\CTF\ez_python.exe</span><br><span class="line">[+] Pyinstaller version: 2.1+</span><br><span class="line">[+] Python version: 3.4</span><br><span class="line">[+] Length of package: 4023776 bytes</span><br><span class="line">[+] Found 24 files in CArchive</span><br><span class="line">[+] Beginning extraction...please standby</span><br><span class="line">[+] Possible entry point: pyiboot01_bootstrap.pyc</span><br><span class="line">[+] Possible entry point: pyi_rth_multiprocessing.pyc</span><br><span class="line">[+] Possible entry point: src.pyc</span><br><span class="line">[!] Warning: This script is running in a different Python version than the one used to build the executable.</span><br><span class="line">[!] Please run this script in Python 3.4 to prevent extraction errors during unmarshalling</span><br><span class="line">[!] Skipping pyz extraction</span><br><span class="line">[+] Successfully extracted pyinstaller archive: F:\CTF\ez_python.exe</span><br><span class="line"></span><br><span class="line">You can now use a python decompiler on the pyc files within the extracted directory</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="py-gt-pyc"><a href="#py-gt-pyc" class="headerlink" title="py-&gt;pyc"></a>py-&gt;pyc</h2><p>如果准备好了,就按照下面的操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m py_compile file.py </span><br></pre></td></tr></table></figure>
+
+
+
+<p>没有就看下面的</p>
+<p>pyc的内容与python的版本是相关的，不同版本编译后的pyc文件是不同的，</p>
+<p>例如2.5版本编译的是pyc文件，而2.4版本编译的python是无法执行的</p>
+<h3 id="生成单个pyc文件"><a href="#生成单个pyc文件" class="headerlink" title="生成单个pyc文件"></a>生成单个pyc文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python -m py_compile file.py  <span class="comment"># 生成单个pyc文件</span></span><br><span class="line">python -m py_compile /<span class="built_in">dir</span>/&#123;file1,file2&#125;.py  <span class="comment"># 生成多个pyc文件</span></span><br><span class="line">python -m compileall /<span class="built_in">dir</span>/  <span class="comment">#　生成目录下所有py文件对应的pyc文件</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>py_compile模块可以把py文件生成pyc文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> py_compile</span><br><span class="line">py_compile.<span class="built_in">compile</span>(<span class="string">r&#x27;H:/game/test.py&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>函数介绍:生成单个pyc文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile(file[, cfile[, dfile[, doraise]]])</span><br></pre></td></tr></table></figure>
+
+
+
+<p>参数1 py文件的路径</p>
+<p>参数2 pyc文件的生成路径 ,在参数2后面加 c 或者 o 表示优化的字节码</p>
+<p>参数3 错误消息保存的路径</p>
+<p>参数4 有两个值分别是true或false，如果为true时则会引发一个PyCompileError，否则如果编译文件出错，</p>
+<p>则会有一个错误，默认显示在sys.stderr中，而不会引发异常</p>
+<h3 id="生成多个pyc文件"><a href="#生成多个pyc文件" class="headerlink" title="生成多个pyc文件"></a>生成多个pyc文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> compileall</span><br><span class="line">compileall.compile_dir(<span class="string">r&#x27;H:/game&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>意思就是把game目录下以及其子目录下的py文件都编译为pyc文件了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile_dir(dir[, maxlevels[, ddir[, force[, rx[, quiet]]]]])</span><br></pre></td></tr></table></figure>
+
+<p>参数1： 表示需要编译py的文件目录</p>
+<p>参数2 ：表示需要递归编译的子目录的层数，默认是10层，即默认会把10层子目录中的py文件编译为pyc</p>
+<p>参数3 ：表示错误消息保存的路径</p>
+<p>参数4：当为true时表示会被强制编译成pyc文件，即使pyc文件是最新的依然会被强制编译一次</p>
+<p>参数5： 表示一个正则表达式，可以排除掉不想要的目录，或者只有符合条件的目录才进行编译</p>
+<p>参数6：当为True时，在编译后不会再标准输出中来打印信息</p>
+<h2 id="py-gt-汇编"><a href="#py-gt-汇编" class="headerlink" title="py-&gt;汇编"></a>py-&gt;汇编</h2><p>查看16进制汇编代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dis</span><br><span class="line">source = <span class="built_in">open</span>(<span class="string">&quot;F:\\0xC0de\\Python\\test.py&quot;</span>).read()</span><br><span class="line">code = <span class="built_in">compile</span>(source, <span class="string">&#x27;F:\\0xC0de\\Python\\test.py&#x27;</span>, <span class="string">&#x27;exec&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;-------------------------------------------------------------------&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;源码行号     |指令EIP,指令符号       |指令参数,实际参数值&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;-------------------------------------------------------------------&quot;</span>)</span><br><span class="line">dis.dis(code)</span><br><span class="line"><span class="comment">#test.py</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>compile返回的是和marshal一样的东西</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dis</span><br><span class="line"><span class="keyword">import</span> marshal</span><br><span class="line"></span><br><span class="line">fp=<span class="built_in">open</span>(<span class="string">&#x27;E:\\0xC0de\\Python\\q.pyc&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>).read()</span><br><span class="line">code=marshal.loads(fp[<span class="number">16</span>:])<span class="comment">#python3的头部是16字节,python2的头部是8字节</span></span><br><span class="line">dis.dis(code)</span><br><span class="line"><span class="comment">#print(&quot;0x%.8X&quot; % (len(code.co_code)))</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dis</span><br><span class="line"><span class="keyword">import</span> marshal</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># &#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">comp_py</span>(<span class="params">py_path,flag</span>):</span><br><span class="line">    source = <span class="built_in">open</span>(py_path).read()</span><br><span class="line">    code = <span class="built_in">compile</span>(source, py_path, <span class="string">&#x27;exec&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span>(flag==<span class="string">&#x27;0&#x27;</span>):</span><br><span class="line">        dis.dis(code)</span><br><span class="line">    <span class="keyword">else</span>:   </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;len 0x%.8X&quot;</span> % (<span class="built_in">len</span>(code.co_code)))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_argcount))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_nlocals))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_stacksize))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_flags))</span><br><span class="line">        <span class="built_in">print</span>(code.co_code)</span><br><span class="line">        <span class="built_in">print</span>(code.co_consts)</span><br><span class="line">        <span class="built_in">print</span>(code.co_names)</span><br><span class="line">        <span class="built_in">print</span>(code.co_varnames)</span><br><span class="line">        <span class="built_in">print</span>(code.co_cellvars)</span><br><span class="line">        <span class="built_in">print</span>(code.co_freevars)</span><br><span class="line">        <span class="built_in">print</span>(code.co_filename)</span><br><span class="line">        <span class="built_in">print</span>(code.co_name)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_firstlineno))</span><br><span class="line">        <span class="built_in">print</span>(code.co_lnotab)</span><br><span class="line">        <span class="comment"># print(code.co_zombieframe)</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">comp_pyc</span>(<span class="params">pyc_path,flag</span>):</span><br><span class="line">    fp=<span class="built_in">open</span>(pyc_path, <span class="string">&#x27;rb&#x27;</span>).read()</span><br><span class="line">    code=marshal.loads(fp[<span class="number">16</span>:])<span class="comment">#python3的头部是16字节,python2的头部是8字节</span></span><br><span class="line">    <span class="keyword">if</span>(flag==<span class="string">&#x27;0&#x27;</span>):</span><br><span class="line">        dis.dis(code)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;len 0x%.8X&quot;</span> % (<span class="built_in">len</span>(code.co_code)))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_argcount))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_nlocals))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_stacksize))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_flags))</span><br><span class="line">        <span class="built_in">print</span>(code.co_code)</span><br><span class="line">        <span class="built_in">print</span>(code.co_consts)</span><br><span class="line">        <span class="built_in">print</span>(code.co_names)</span><br><span class="line">        <span class="built_in">print</span>(code.co_varnames)</span><br><span class="line">        <span class="built_in">print</span>(code.co_cellvars)</span><br><span class="line">        <span class="built_in">print</span>(code.co_freevars)</span><br><span class="line">        <span class="built_in">print</span>(code.co_filename)</span><br><span class="line">        <span class="built_in">print</span>(code.co_name)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;0x%.8X&quot;</span> % (code.co_firstlineno))</span><br><span class="line">        <span class="built_in">print</span>(code.co_lnotab)</span><br><span class="line">    <span class="comment"># print(code.co_zombieframe)3086</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">#test.py</span></span><br><span class="line">path=<span class="built_in">input</span>()</span><br><span class="line">flag=<span class="built_in">input</span>()</span><br><span class="line"><span class="keyword">if</span> path==<span class="string">&#x27;pyc&#x27;</span>:</span><br><span class="line">    path=<span class="string">&#x27;E:\\0xC0de\\Python\\pyc\\test.pyc&#x27;</span></span><br><span class="line">    comp_pyc(path,flag)</span><br><span class="line"><span class="keyword">elif</span> path==<span class="string">&#x27;py&#x27;</span>:</span><br><span class="line">    path=<span class="string">&#x27;E:\\0xC0de\\Python\\test.py&#x27;</span></span><br><span class="line">    comp_py(path,flag)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;no&quot;</span>)</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    71 03 87</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>pyc是基于pyc文件的反汇编</p>
+<p>pc是基于源文件的反汇编</p>
+<h2 id="pyc-gt-py"><a href="#pyc-gt-py" class="headerlink" title="pyc-&gt;py"></a>pyc-&gt;py</h2><p>uncompyle6</p>
+<p>一个原生python的跨版本反编译器和fragment反编译器</p>
+<p>反汇编</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install uncompyle6</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后反汇编pyc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uncompyle6.exe 源.pyc &gt; 目的.py </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="flare-bytecode-graph"><a href="#flare-bytecode-graph" class="headerlink" title="flare-bytecode_graph"></a>flare-bytecode_graph</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/mandiant/flare-bytecode_graph</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="pyc-py3"><a href="#pyc-py3" class="headerlink" title="pyc:py3"></a>pyc:py3</h1><p>类似于java的class文件,是可以直接运行的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python q.pyc</span><br><span class="line">python q.py</span><br></pre></td></tr></table></figure>
+
+<p>Python3的每条指令是2个字节</p>
+<p>Python2的每条指令是3个字节</p>
+<p>pyc文件一般由3个部分组成:MagincNumnber+TimeStamp+PyCodeObject,</p>
+<blockquote>
+<p>magic number</p>
+</blockquote>
+<p>不同版本的 Python 生成的 pyc 文件的 magic number 都不相同。四个字节的16进制形式为 xxxx 0d0a</p>
+<blockquote>
+<p>time stamp</p>
+</blockquote>
+<blockquote>
+<p>文件源码大小</p>
+</blockquote>
+<h2 id="源代码文件信息"><a href="#源代码文件信息" class="headerlink" title="源代码文件信息"></a>源代码文件信息</h2><p>在 Python 不同的版本之后差别较大</p>
+<p>在 Python2的时候，这部分只有4个字节，为源代码文件的修改时间的 Unix timestamp（精确到秒）以小端法写入</p>
+<p>在 Python 3.5 之前的版本已经找不到了</p>
+<p>在 Python 3.5 和 3.6 相对于 Python 2，源代码文件信息这部分，在时间后面增加了4个字节的源代码文件的大小，</p>
+<p>​	单位字节，以小端法写入。如源码文件大小为87个字节，那么文件信息部分就写入 5700 0000。</p>
+<p>​	加上前面的修改时间，就是 <code>b9c7 895e 5700 0000</code></p>
+<p>关于看了前8字节,第9字节是0x63,也就是PyCodeObject的标识符，</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[object.h]</span><br><span class="line"><span class="comment">/* PyObject_HEAD defines the initial segment of every PyObject. */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PyObject_HEAD </span></span><br><span class="line">	_PyObject_HEAD_EXTRA </span><br><span class="line">	<span class="type">int</span> ob_refcnt; </span><br><span class="line">	<span class="class"><span class="keyword">struct</span> _<span class="title">typeobject</span> *<span class="title">ob_type</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PyObject_VAR_HEAD </span></span><br><span class="line">	PyObject_HEAD </span><br><span class="line">	<span class="type">int</span> ob_size; <span class="comment">/* Number of items in variable part */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PyObject</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> ob_refcnt;     <span class="comment">//引用计数器，和内存回收有关</span></span><br><span class="line">    PyTypeObject *ob_type;  <span class="comment">//定义Python对象的元类信息</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PyCodeObject</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    PyObject_HEAD</span><br><span class="line">    <span class="type">int</span> co_argcount;       	<span class="comment">/* 一个函数接收参数的个数 */</span></span><br><span class="line">    <span class="type">int</span> co_kwonlyargcount;</span><br><span class="line">    <span class="type">int</span> co_nlocals;         <span class="comment">/* 局部变量个数 (得加上函数参数,因为参数也是局部变量)*/</span></span><br><span class="line">    <span class="type">int</span> co_stacksize;       <span class="comment">/* 需要的栈个数 */</span></span><br><span class="line">    <span class="type">int</span> co_flags;   		<span class="comment">//无用</span></span><br><span class="line">    PyObject *co_code;      <span class="comment">/* 字节码本尊,(&#x27;s&#x27;+字节码长度(4字节)+字节码) */</span></span><br><span class="line">    PyObject *co_consts;    <span class="comment">/* 包含了当前函数的 数值,字符串,子函数名..一系列构成的数组 */</span></span><br><span class="line">    PyObject *co_names;     <span class="comment">/* 包含了当前函数的 一些列变量的名称构成的数组,比如print也是变量,他是一个类 */</span></span><br><span class="line">    PyObject *co_varnames;  <span class="comment">/* 一个函数的局部变量名称数组,不包含main函数*/</span></span><br><span class="line">    PyObject *co_freevars;  <span class="comment">/* 闭包用的的变量名集合 */</span></span><br><span class="line">    PyObject *co_cellvars;  <span class="comment">/* 内部嵌套函数引用的变量名集合 */</span></span><br><span class="line">    </span><br><span class="line">   </span><br><span class="line">    PyObject *co_filename;  <span class="comment">/* 当前py文件的名字 */</span></span><br><span class="line">    PyObject *co_name;      <span class="comment">/* 当前函数名|类名|模块名	*/</span></span><br><span class="line">    <span class="type">int</span> co_firstlineno;     <span class="comment">/* 当前函数在源代码文件中开始的行号 */</span></span><br><span class="line">    PyObject *co_lnotab;    <span class="comment">/* 字节码指令和行号的对应关系 */</span></span><br><span class="line">    <span class="type">void</span> *co_zombieframe;   <span class="comment">/* for optimization only (see frameobject.c) */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><img src="https://resmile.gitee.io/blog/DisPy/image-20221112001915716.png"></p>
+<p>正的字节序列存在于PyStringObject类型的对象里</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct PyStringObject</span><br><span class="line">&#123;</span><br><span class="line">    char  flag=&#x27;s&#x27;, //PyStringObject的类型标识</span><br><span class="line">    DWORD length    //4字节，字符串内容的长度 </span><br><span class="line">    BYTE opcode[1]  //byte数组，字符串内容  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<p><img src="https://s2.51cto.com/images/blog/202211/09125602_636b32e2db0b411988.png?x-oss-process=image/watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk=" alt="在这里插入图片描述"></p>
+<p>pyinstaller库中找到archieve这么一个文件夹，里面有一个pyz_crypto.py文件，是对pyz文件的加密代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">‪C:\Users\tinyx\AppData\Local\Programs\Python\Python38\Lib\site-packages\PyInstaller\archive\pyz_crypto.py</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="一个pyc的文件介绍"><a href="#一个pyc的文件介绍" class="headerlink" title="一个pyc的文件介绍"></a>一个pyc的文件介绍</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># test.py</span><br><span class="line">s = &quot;Hello&quot;</span><br><span class="line"></span><br><span class="line">def func(a, b=3, *args):</span><br><span class="line">	c = 114514</span><br><span class="line">	print(a, b)</span><br><span class="line">	print(args)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line">42 0d 0d 0a 	// 版本魔数</span><br><span class="line">00 00 00 00 	// 位域（暂时没用）</span><br><span class="line">49 a6 04 62 	// 时间戳</span><br><span class="line">5b 00 00 00		// 文件大小</span><br><span class="line"></span><br><span class="line">// ===============主PyCodeObject===================</span><br><span class="line"></span><br><span class="line">e3 				// TYPE_CODE | FLAG_REF 0</span><br><span class="line">00 00 00 00 	// co_argcount</span><br><span class="line">00 00 00 00 	// co_kwonlyargcount</span><br><span class="line">00 00 00 00 	// co_nlocals</span><br><span class="line">03 00 00 00 	// co_stacksize</span><br><span class="line">40 00 00 00 	// co_flags（CO_NOFREE）</span><br><span class="line"></span><br><span class="line">// co_code(作为TYPE_STRING存在)</span><br><span class="line">73              // TYPE_STRING，字符串对象（其实通常是字节码对象） 也就是1字节的标志</span><br><span class="line">12 00 00 00 	// 长度0x12</span><br><span class="line">64 00 5a 00 64 05 64 02 64 03 84 01 5a 01 64 04 53 00 </span><br><span class="line"></span><br><span class="line">// co_consts</span><br><span class="line">29			   // TYPE_SMALLTUPLE，PyTupleObject : PySequenceObject</span><br><span class="line">06			   // size</span><br><span class="line">	// value[0]</span><br><span class="line">	5a			   // TYPE_SHORT_ASCII_INTERNED = &#x27;Z&#x27;,</span><br><span class="line">	05			   // length</span><br><span class="line">	48 65 6c 6c 6f </span><br><span class="line">	// value[1]</span><br><span class="line">	e9 			   // TYPE_INT&#x27;i&#x27; | FLAG_REF 1</span><br><span class="line">	03 00 00 00     // 4字节int</span><br><span class="line">	// value[2]</span><br><span class="line">	63			   // TYPE_CODE</span><br><span class="line">	02 00 00 00	    // co_argcount</span><br><span class="line">	00 00 00 00     // co_kwonlyargcount</span><br><span class="line">	04 00 00 00     // co_nlocals</span><br><span class="line">	03 00 00 00     // co_stacksize</span><br><span class="line">	47 00 00 00     // co_flags (NOFREE | VARARGS | NEWLOCALS | OPTIMIZED)</span><br><span class="line">        // co_code</span><br><span class="line">        73              // TYPE_STRING</span><br><span class="line">        1a 00 00 00     // 长度</span><br><span class="line">        64 01 7d 03 74 00 7c 00 7c 01 83 02 01 00 74 00 7c 02 83 01 01 00 64 00 53 00 </span><br><span class="line">        // co_consts</span><br><span class="line">        29			   // TYPE_SMALLTUPLE</span><br><span class="line">        02			   // size</span><br><span class="line">        	// value[0]</span><br><span class="line">   		    4e		   // TYPE_NONE = &#x27;N&#x27;,</span><br><span class="line">   		    // value[1]</span><br><span class="line">   		    69		   // TYPE_INT</span><br><span class="line">   		    52 bf 01 00 // 114514</span><br><span class="line">        // co_names</span><br><span class="line">        29              // TYPE_SMALLTUPLE</span><br><span class="line">        01              // size</span><br><span class="line">        	da              // TYPE_SHORT_ASCII_INTERNED | FLAG_REF 2</span><br><span class="line">        	05              // length</span><br><span class="line">        	70 72 69 6e 74 // &#x27;print&#x27;</span><br><span class="line">        	</span><br><span class="line">        // co_varnames</span><br><span class="line">        29              // TYPE_SMALLTUPLE</span><br><span class="line">        04              // size </span><br><span class="line">        	// value[0]</span><br><span class="line">        	da              // TYPE_SHORT_ASCII_INTERNED | FLAG_REF  3</span><br><span class="line">        	01              // length </span><br><span class="line">        	61              // &#x27;a&#x27; </span><br><span class="line">        	// value[1]</span><br><span class="line">        	da              // TYPE_SHORT_ASCII_INTERNED | FLAG_REF  4</span><br><span class="line">        	01              // length </span><br><span class="line">        	62              // &#x27;b&#x27;</span><br><span class="line">        	// value[2]</span><br><span class="line">        	da              // TYPE_SHORT_ASCII_INTERNED | FLAG_REF  5</span><br><span class="line">        	04              // length </span><br><span class="line">        	61 72 67 73	    // &#x27;args&#x27;</span><br><span class="line">        	// value[3]</span><br><span class="line">        	da              // TYPE_SHORT_ASCII_INTERNED | FLAG_REF  6</span><br><span class="line">        	01              // length </span><br><span class="line">        	63              // &#x27;c&#x27;</span><br><span class="line">        // co_freevars</span><br><span class="line">        a9              // TYPE_SMALLTUPLE | FLAG_REF 	7</span><br><span class="line">        00 </span><br><span class="line">        // co_cellvars</span><br><span class="line">        72              // TYPE_OBREF = &#x27;r&#x27;,</span><br><span class="line">        07 00 00 00 	// 指向上面的co_freevars，是空的。</span><br><span class="line">        // co_filename</span><br><span class="line">        fa              // TYPE_SHORT_ASCII | FLAG_REF 8</span><br><span class="line">        09 </span><br><span class="line">        2e 5c 74 65 73 74 2e 70 79 	// r&quot;.\test.py&quot;</span><br><span class="line">        // co_name</span><br><span class="line">        da              // TYPE_SHORT_ASCII_INTERNED | FLAG_REF 9</span><br><span class="line">        04              // length </span><br><span class="line">        66 75 6e 63     // &quot;func&quot;</span><br><span class="line">        // co_firstlineno</span><br><span class="line">        04 00 00 00     // 4</span><br><span class="line">        // co_lnotab</span><br><span class="line">        73              // TYPE_STRING </span><br><span class="line">        06 00 00 00 </span><br><span class="line">        00 01 04 01 0a 01 </span><br><span class="line">	// value[3] -&gt; &quot;func&quot;</span><br><span class="line">	72 			   // TYPE_OBREF = &#x27;r&#x27;</span><br><span class="line">	09 00 00 00     // index</span><br><span class="line">	// value[4]</span><br><span class="line">	4e 			   // TYPE_NONE = &#x27;N&#x27;</span><br><span class="line">	// value[5]</span><br><span class="line">	29 			   // TYPE_SMALLTUPLE</span><br><span class="line">	01 			   // size</span><br><span class="line">	    // value[0] -&gt; 3</span><br><span class="line">        72	       // TYPE_OBREF = &#x27;r&#x27;</span><br><span class="line">        01 00 00 00 	// index</span><br><span class="line">// co_names</span><br><span class="line">29         // TYPE_SMALLTUPLE</span><br><span class="line">02         // size </span><br><span class="line">    // value[0]</span><br><span class="line">    da    // TYPE_SHORT_ASCII_INTERNED | FLAG_REF 10 </span><br><span class="line">    01    // length</span><br><span class="line">    73    // &#x27;s&#x27;</span><br><span class="line">    // value[1] -&gt; &quot;func&quot;</span><br><span class="line">    72 			   // TYPE_OBREF = &#x27;r&#x27; </span><br><span class="line">    09 00 00 00     // index = 9 </span><br><span class="line">// co_varnames</span><br><span class="line">72 			       // TYPE_OBREF = &#x27;r&#x27;</span><br><span class="line">07 00 00 00         // index</span><br><span class="line">// co_freevars -&gt; None</span><br><span class="line">72 			       // TYPE_OBREF = &#x27;r&#x27; </span><br><span class="line">07 00 00 00         // index </span><br><span class="line">// co_cellvars -&gt; None</span><br><span class="line">72 			       // TYPE_OBREF = &#x27;r&#x27; </span><br><span class="line">07 00 00 00         // index </span><br><span class="line">// co_filename -&gt; r&quot;.\test.py&quot;</span><br><span class="line">72 			       // TYPE_OBREF = &#x27;r&#x27;</span><br><span class="line">08 00 00 00         // index </span><br><span class="line">// co_name</span><br><span class="line">da              // TYPE_SHORT_ASCII_INTERNED | FLAG_REF  </span><br><span class="line">08              // length</span><br><span class="line">3c 6d 6f 64 75 6c 65 3e // &quot;&lt;module&gt;&quot;</span><br><span class="line">// co_firstlineno</span><br><span class="line">02 00 00 00</span><br><span class="line">// co_lnotab</span><br><span class="line">73              // TYPE_STRING </span><br><span class="line">02 00 00 00 </span><br><span class="line">04 02</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="指令介绍"><a href="#指令介绍" class="headerlink" title="指令介绍"></a>指令介绍</h1><p>PyFrameObject其实就是通常所说的执行环境，这也是python对X86平台上栈帧的模拟</p>
+<p>PyFrameObject &#x3D; PyCodeObject + 名字空间 + 静态信息 + 动态内存空间</p>
+<p>FOR_ITER 相对于下一个指令的偏移量</p>
+<pre><code>98	 	FOR_ITER                 54 (to 154)
+100 	STORE_NAME               14 (i) 
+154是一个经过计算的地址,而不是字节流的数据
+154怎么算的? next_ip+相对位移=100+54=154
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ADD_TWO_VALUES：加法操作弹出栈中的两个数，将它们相加并将结果压入栈中（这不需要任何参数）</span><br><span class="line">PRINT_RESULT：弹出栈中的元素并打印</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">参数:</span><br><span class="line"></span><br><span class="line">LOAD_CONST + index : index是`PyObject co_consts[index]`</span><br><span class="line">LOAD_NAME + index ：index 是`PyObject co_names[index]`</span><br><span class="line">LOAD_FAST + 变量的索引</span><br><span class="line">LOAD_GLOBAL + 全局变量索引       0 (0)  # push global_obj co_names[0] == &quot;print&quot;</span><br><span class="line"></span><br><span class="line">LOAD_VALUE：找到指定的数据进行压栈（根据tuple的第二个元素（指令的参数）从常量表找）</span><br><span class="line">STORE_NAME： 存储变量值，将栈顶的内容存入变量中（对象的创建与初始化，变量名列表）</span><br><span class="line">POP_TOP 类似于add esp,4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">跳转:</span><br><span class="line">JUMP_FORWARD + 相对于下一个的偏移</span><br><span class="line">POP_JUMP_IF_FALSE + 一个绝对地址</span><br><span class="line">JUMP_ABSOLUTE + 一个绝对地址</span><br><span class="line">EXTENDED_ARG + 一个额外的字节,表示字节参数拼凑</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Learn"><a href="#Learn" class="headerlink" title="Learn"></a>Learn</h1><h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p><img src="https://resmile.gitee.io/blog/DisPy/image-20221110172538964.png" alt="image-20221110172538964"></p>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><p>异常类型很多</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        x = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入一个数字: &quot;</span>))</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;您输入的不是数字，请再次尝试输入！&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="try"><a href="#try" class="headerlink" title="try"></a>try</h4><p><img src="https://resmile.gitee.io/blog/DisPy/image-20221110171349830.png" alt="image-20221110171349830"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    正常的操作</span><br><span class="line">   ......................</span><br><span class="line"><span class="keyword">except</span>(Exception1[, Exception2[,...ExceptionN]]):</span><br><span class="line">   发生以上多个异常中的一个，执行这块代码</span><br><span class="line">   ......................</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    如果没有异常执行这块代码</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>except</strong> ZeroDivisionError <strong>as</strong> err:</p>
+<h4 id="except"><a href="#except" class="headerlink" title="except"></a>except</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&#x27;myfile.txt&#x27;</span>)</span><br><span class="line">    s = f.readline()</span><br><span class="line">    i = <span class="built_in">int</span>(s.strip())</span><br><span class="line"><span class="keyword">except</span> OSError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;OS error: &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(err))</span><br><span class="line"><span class="keyword">except</span> ValueError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Could not convert data to an integer.&quot;</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Unexpected error:&quot;</span>, sys.exc_info()[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">raise</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">model_exception</span>(<span class="params">x,y</span>):</span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line">    b = name</span><br><span class="line">    a =x/y</span><br><span class="line">  <span class="keyword">except</span>(ZeroDivisionError,NameError,TypeError):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;one of ZeroDivisionError or NameError or TypeError happend&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#调用函数结果</span></span><br><span class="line">model_exception(<span class="number">2</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">BaseException</span><br><span class="line"> +-- SystemExit</span><br><span class="line"> +-- KeyboardInterrupt</span><br><span class="line"> +-- GeneratorExit</span><br><span class="line"> +-- Exception</span><br><span class="line">      +-- StopIteration</span><br><span class="line">      +-- StopAsyncIteration</span><br><span class="line">      +-- ArithmeticError</span><br><span class="line">      |    +-- FloatingPointError</span><br><span class="line">      |    +-- OverflowError</span><br><span class="line">      |    +-- ZeroDivisionError</span><br><span class="line">      +-- AssertionError</span><br><span class="line">      +-- AttributeError</span><br><span class="line">      +-- BufferError</span><br><span class="line">      +-- EOFError</span><br><span class="line">      +-- ImportError</span><br><span class="line">      |    +-- ModuleNotFoundError</span><br><span class="line">      +-- LookupError</span><br><span class="line">      |    +-- IndexError</span><br><span class="line">      |    +-- KeyError</span><br><span class="line">      +-- MemoryError</span><br><span class="line">      +-- NameError</span><br><span class="line">      |    +-- UnboundLocalError</span><br><span class="line">      +-- OSError</span><br><span class="line">      |    +-- BlockingIOError</span><br><span class="line">      |    +-- ChildProcessError</span><br><span class="line">      |    +-- ConnectionError</span><br><span class="line">      |    |    +-- BrokenPipeError</span><br><span class="line">      |    |    +-- ConnectionAbortedError</span><br><span class="line">      |    |    +-- ConnectionRefusedError</span><br><span class="line">      |    |    +-- ConnectionResetError</span><br><span class="line">      |    +-- FileExistsError</span><br><span class="line">      |    +-- FileNotFoundError</span><br><span class="line">      |    +-- InterruptedError</span><br><span class="line">      |    +-- IsADirectoryError</span><br><span class="line">      |    +-- NotADirectoryError</span><br><span class="line">      |    +-- PermissionError</span><br><span class="line">      |    +-- ProcessLookupError</span><br><span class="line">      |    +-- TimeoutError</span><br><span class="line">      +-- ReferenceError</span><br><span class="line">      +-- RuntimeError</span><br><span class="line">      |    +-- NotImplementedError</span><br><span class="line">      |    +-- RecursionError</span><br><span class="line">      +-- SyntaxError</span><br><span class="line">      |    +-- IndentationError</span><br><span class="line">      |         +-- TabError</span><br><span class="line">      +-- SystemError</span><br><span class="line">      +-- TypeError</span><br><span class="line">      +-- ValueError</span><br><span class="line">      |    +-- UnicodeError</span><br><span class="line">      |         +-- UnicodeDecodeError</span><br><span class="line">      |         +-- UnicodeEncodeError</span><br><span class="line">      |         +-- UnicodeTranslateError</span><br><span class="line">      +-- Warning</span><br><span class="line">           +-- DeprecationWarning</span><br><span class="line">           +-- PendingDeprecationWarning</span><br><span class="line">           +-- RuntimeWarning</span><br><span class="line">           +-- SyntaxWarning</span><br><span class="line">           +-- UserWarning</span><br><span class="line">           +-- FutureWarning</span><br><span class="line">           +-- ImportWarning</span><br><span class="line">           +-- UnicodeWarning</span><br><span class="line">           +-- BytesWarning</span><br><span class="line">           +-- ResourceWarning</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="else"><a href="#else" class="headerlink" title="else"></a>else</h4><p><img src="https://resmile.gitee.io/blog/DisPy/image-20221110171927889.png" alt="image-20221110171927889"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">for</span> arg <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        f = <span class="built_in">open</span>(arg, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> IOError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;cannot open&#x27;</span>, arg)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(arg, <span class="string">&#x27;has&#x27;</span>, <span class="built_in">len</span>(f.readlines()), <span class="string">&#x27;lines&#x27;</span>)</span><br><span class="line">        f.close()</span><br></pre></td></tr></table></figure>
+
+<p>可以说else执行的代码是衔接try的代码</p>
+<p>也就是有异常就执行except</p>
+<p>没有异常就执行else</p>
+<h4 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h4><p>finally 无论是否发生异常都将执行最后的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">finally:</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    fh = <span class="built_in">open</span>(<span class="string">&quot;testfile&quot;</span>, <span class="string">&quot;w&quot;</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fh.write(<span class="string">&quot;这是一个测试文件，用于测试异常!!&quot;</span>)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;关闭文件&quot;</span></span><br><span class="line">        fh.close()</span><br><span class="line"><span class="keyword">except</span> IOError:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Error: 没有找到文件或读取文件失败&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>一个异常可以带上参数，可作为输出的异常信息参数。</p>
+<h4 id="raise"><a href="#raise" class="headerlink" title="raise"></a>raise</h4><p>raise语句自己触发异常</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raise [Exception [, args [, traceback]]]</span><br></pre></td></tr></table></figure>
+
+<p>语句中 Exception 是异常的类型（例如，NameError）参数标准异常中任一种，args 是自已提供的异常参数。</p>
+<p>最后一个参数是可选的（在实践中很少使用），如果存在，是跟踪异常对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">functionName</span>(<span class="params"> level </span>):</span><br><span class="line">    <span class="keyword">if</span> level &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">&quot;Invalid level!&quot;</span>, level)</span><br><span class="line">        <span class="comment"># 触发异常后，后面的代码就不会再执行</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> NameError(<span class="string">&#x27;HiThere&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;An exception flew by!&#x27;</span>)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;dqx&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>发生异常会中断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> NameError(<span class="string">&#x27;HiThere&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;An exception flew by!&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;dqx&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>发生异常,但是不处理</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><h2 id="opcode学习"><a href="#opcode学习" class="headerlink" title="opcode学习"></a>opcode学习</h2><p>LOAD 读取</p>
+<p>STORE 保存</p>
+<p>源码行号 | 指令在函数中的偏移 | 指令符号 | 指令参数 | 实际参数值</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><blockquote>
+<p>常量</p>
+</blockquote>
+<p><code>LOAD_CONST</code>加载<code>const</code>变量，比如数值、字符串等等，一般用于传给函数的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">55       12 LOAD_GLOBAL              1 (test)</span><br><span class="line">         15 LOAD_FAST                0 (2) #读取2</span><br><span class="line">         18 LOAD_CONST               1 (&#x27;output&#x27;)</span><br><span class="line">         21 CALL_FUNCTION            2</span><br></pre></td></tr></table></figure>
+
+<p>转为python代码就是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="number">2</span>, <span class="string">&#x27;output&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>局部变量</p>
+</blockquote>
+<p><code>LOAD_FAST</code>一般加载局部变量的值，也就是读取值，用于计算或者函数调用传参等。<br><code>STORE_FAST</code>一般用于保存值到局部变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">61          77 LOAD_FAST                0 (n)</span><br><span class="line">             80 LOAD_FAST                3 (p)</span><br><span class="line">             83 INPLACE_DIVIDE</span><br><span class="line">             84 STORE_FAST               0 (n)</span><br></pre></td></tr></table></figure>
+
+<p>等价于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n = n / p</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<blockquote>
+<p>区分局部变量和形参</p>
+</blockquote>
+<p>形参没有初始化，也就是从函数开始到<code>LOAD_FAST</code>该变量的位置，如果没有看到<code>STORE_FAST</code>，那么该变量就是函数形参。</p>
+<p>而其他局部变量在使用之前肯定会使用<code>STORE_FAST</code>进行初始化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">4           0 LOAD_CONST               1 (0)</span><br><span class="line">            3 STORE_FAST               1 (local1)</span><br><span class="line"> </span><br><span class="line">5           6 LOAD_FAST                1 (local1)</span><br><span class="line">            9 PRINT_ITEM</span><br><span class="line">           10 LOAD_FAST                0 (arg1)</span><br><span class="line">           13 PRINT_ITEM</span><br><span class="line">           14 PRINT_NEWLINE</span><br><span class="line">           15 LOAD_CONST               0 (None)</span><br><span class="line">           18 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+<p>等价于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">arg1</span>):</span><br><span class="line">    local1 = <span class="number">0</span></span><br><span class="line">    <span class="built_in">print</span> local1, arg1</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>全局变量</p>
+</blockquote>
+<p><code>LOAD_GLOBAL</code>用来加载全局变量，包括指定函数名，类名，模块名等全局符号。</p>
+<p><code>STORE_GLOBAL</code>用来给全局变量赋值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">8           6 LOAD_CONST               2 (101) //载入101</span><br><span class="line">            9 STORE_GLOBAL             0 (global1) //存入全局变量</span><br><span class="line">            20 LOAD_GLOBAL              0 (global1) //把全局变量压入print</span><br><span class="line">            23 PRINT_ITEM</span><br></pre></td></tr></table></figure>
+
+<p>等价于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">    <span class="keyword">global</span> global1</span><br><span class="line">    global1 = <span class="number">101</span></span><br><span class="line">    <span class="built_in">print</span> <span class="keyword">global</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><p>​	</p>
+<p><code>BUILD_LIST</code>用于创建一个list结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">13           0 LOAD_CONST               1 (1) //载入常量</span><br><span class="line">             3 LOAD_CONST               2 (2) //载入常量</span><br><span class="line">             6 BUILD_LIST               2		//创建数组</span><br><span class="line">             9 STORE_FAST               0 (k) 	//把载入的常量存入数组</span><br></pre></td></tr></table></figure>
+
+<p>等价于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k = [<span class="number">1</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">22         235 BUILD_LIST               0 //创建list，为赋值给某变量，这种时候一般都是语法糖结构了</span><br><span class="line">           238 LOAD_FAST                3 (sieve)</span><br><span class="line">           241 GET_ITER</span><br><span class="line">       &gt;&gt;  242 FOR_ITER                24 (to 269)</span><br><span class="line">           245 STORE_FAST               4 (x)</span><br><span class="line">           248 LOAD_FAST                4 (x)</span><br><span class="line">           251 LOAD_CONST               2 (0)</span><br><span class="line">           254 COMPARE_OP               3 (!=)</span><br><span class="line">           257 POP_JUMP_IF_FALSE      242 //不满足条件contine</span><br><span class="line">           260 LOAD_FAST                4 (x)//读取满足条件的x</span><br><span class="line">           263 LIST_APPEND              2 //把每个满足条件的x存入list</span><br><span class="line">           266 JUMP_ABSOLUTE          242</span><br><span class="line">       &gt;&gt;  269 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+<p>dist</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">x=[y for y in arr if y!=0 ]</span><br><span class="line">--------------------------------------------------------</span><br><span class="line"> 2            0 BUILD_LIST               0</span><br><span class="line">              2 LOAD_FAST                0 (.0)</span><br><span class="line">        &gt;&gt;    4 FOR_ITER                16 (to 22)</span><br><span class="line">              6 STORE_FAST               1 (y)</span><br><span class="line">              ;if y!=0</span><br><span class="line">              8 LOAD_FAST                1 (y)</span><br><span class="line">             10 LOAD_CONST               0 (0)</span><br><span class="line">             12 COMPARE_OP               3 (!=)</span><br><span class="line">             ;不满足条件contine</span><br><span class="line">             14 POP_JUMP_IF_FALSE        4</span><br><span class="line">             16 LOAD_FAST                1 (y) ;载入y</span><br><span class="line">             18 LIST_APPEND              2 ;拼接到数组</span><br><span class="line">             20 JUMP_ABSOLUTE            4 ;去往最上面的label</span><br><span class="line">        &gt;&gt;   22 RETURN_VALUE </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="dict"><a href="#dict" class="headerlink" title="dict"></a>dict</h4><p><code>BUILD_MAP</code>用于创建一个空的dict。<code>STORE_MAP</code>用于初始化dict的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> arr=&#123;&#x27;a&#x27;: 1,&#x27;b&#x27;:2&#125;</span><br><span class="line"> ------------------------------------------------------------</span><br><span class="line"> 1            0 LOAD_CONST               0 (1)</span><br><span class="line">              2 LOAD_CONST               1 (2)</span><br><span class="line">              4 LOAD_CONST               2 ((&#x27;a&#x27;, &#x27;b&#x27;))</span><br><span class="line">              6 BUILD_CONST_KEY_MAP      2</span><br><span class="line">              8 STORE_NAME               0 (arr)       </span><br><span class="line">             10 LOAD_CONST               3 (None)      </span><br><span class="line">            </span><br><span class="line">             </span><br><span class="line"> arr[&#x27;b&#x27;]=100</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">  2          10 LOAD_CONST               3 (100)</span><br><span class="line">             12 LOAD_NAME                0 (arr)</span><br><span class="line">             14 LOAD_CONST               4 (&#x27;b&#x27;)</span><br><span class="line">             16 STORE_SUBSCR</span><br><span class="line">             18 LOAD_CONST               5 (None)</span><br><span class="line">             20 RETURN_VALUE             </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h4><blockquote>
+<p>下面的没看懂</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SLICE+0()</span><br><span class="line">Implements TOS = TOS[:].</span><br><span class="line"> </span><br><span class="line">SLICE+1()</span><br><span class="line">Implements TOS = TOS1[TOS:].</span><br><span class="line"> </span><br><span class="line">SLICE+2()</span><br><span class="line">Implements TOS = TOS1[:TOS].</span><br><span class="line"> </span><br><span class="line">SLICE+3()</span><br><span class="line">Implements TOS = TOS2[TOS1:TOS].</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>BUILD_SLICE</code>用于创建slice。对于list、元组、字符串都可以使用slice的方式进行访问。</p>
+<p>但是要注意<code>BUILD_SLICE</code>用于[x:y:z]这种类型的slice，结合<code>BINARY_SUBSCR</code>读取slice的值，结合<code>STORE_SUBSCR</code>用于修改slice的值。</p>
+<p>另外<code>SLICE+n</code>用于[a:b]类型的访问，<code>STORE_SLICE+n</code>用于[a:b]类型的修改，其中<code>n</code>表示如下</p>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p><code>SETUP_LOOP</code>用于开始一个循环。<code>SETUP_LOOP 26 (to 35)</code>中<code>35</code>表示循环退出点</p>
+<h4 id="while"><a href="#while" class="headerlink" title="while"></a>while</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">i= 0</span><br><span class="line">while i &lt; 10:</span><br><span class="line">    i += 2  </span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">  1           0 LOAD_CONST               0 (0) </span><br><span class="line">              2 STORE_NAME               0 (i) ;i=0</span><br><span class="line"></span><br><span class="line">  2     &gt;&gt;    4 LOAD_NAME                0 (i) ;循环起点</span><br><span class="line">              6 LOAD_CONST               1 (10)</span><br><span class="line">              8 COMPARE_OP               0 (&lt;) ;i&lt;10</span><br><span class="line">             10 POP_JUMP_IF_FALSE        22    ;while(i&lt;10) </span><br><span class="line"></span><br><span class="line">  3          12 LOAD_NAME                0 (i)</span><br><span class="line">             14 LOAD_CONST               2 (2)</span><br><span class="line">             16 INPLACE_ADD						</span><br><span class="line">             18 STORE_NAME               0 (i)	;i=i+2</span><br><span class="line">             20 JUMP_ABSOLUTE            4		;回到起点</span><br><span class="line">        &gt;&gt;   22 LOAD_CONST               3 (None)</span><br><span class="line">             24 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">arr=[&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;]</span><br><span class="line">x=0</span><br><span class="line">for y in arr:</span><br><span class="line">    x=y</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">  3          14 LOAD_NAME                0 (arr)</span><br><span class="line">             16 GET_ITER</span><br><span class="line">        &gt;&gt;   18 FOR_ITER                 8 (to 28) ; for循环的标志</span><br><span class="line">             20 STORE_NAME               2 (y)</span><br><span class="line"></span><br><span class="line">  4          22 LOAD_NAME                2 (y)</span><br><span class="line">             24 STORE_NAME               1 (x)</span><br><span class="line">             26 JUMP_ABSOLUTE           18</span><br><span class="line">        &gt;&gt;   28 LOAD_CONST               4 (None)</span><br><span class="line">             30 RETURN_VALUE    </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="if-判断"><a href="#if-判断" class="headerlink" title="if 判断"></a>if 判断</h3><p><code>POP_JUMP_IF_FALSE</code>和<code>JUMP_FORWARD</code>一般用于分支判断跳转。</p>
+<p><code>POP_JUMP_IF_FALSE</code>表示条件结果<code>IF</code>为<code>FALSE</code>就跳转到目标偏移指令。</p>
+<p><code>JUMP_FORWARD</code>直接跳转到目标偏移指令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">i = 5</span><br><span class="line">if i &lt; 5:</span><br><span class="line">    print (&#x27;i &lt; 5&#x27;)</span><br><span class="line">elif i &gt; 5:</span><br><span class="line">    print (&#x27;i &gt; 5&#x27;)</span><br><span class="line">else:</span><br><span class="line">    print (&#x27;i = 5&#x27;)</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">源码行号     |指令EIP,指令符号       |指令参数,实际参数值</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">  1           0 LOAD_CONST               0 (5) ;加载常量</span><br><span class="line">              2 STORE_NAME               0 (i) ;存入常量</span><br><span class="line"></span><br><span class="line">  2           4 LOAD_NAME                0 (i) ;加载变量</span><br><span class="line">              6 LOAD_CONST               0 (5) ;加载常量</span><br><span class="line">              8 COMPARE_OP               0 (&lt;) ;i&lt;5</span><br><span class="line">             10 POP_JUMP_IF_FALSE       22     ;跳转到22行</span><br><span class="line"></span><br><span class="line">  3          12 LOAD_NAME                1 (print) ;加载变量</span><br><span class="line">             14 LOAD_CONST               1 (&#x27;i &lt; 5&#x27;);加载常量</span><br><span class="line">             16 CALL_FUNCTION            1 ;调用函数</span><br><span class="line">             18 POP_TOP</span><br><span class="line">             20 JUMP_FORWARD            26 (to 48) ;直接跳转到48行</span><br><span class="line"></span><br><span class="line">  4     &gt;&gt;   22 LOAD_NAME                0 (i)</span><br><span class="line">             24 LOAD_CONST               0 (5)</span><br><span class="line">             26 COMPARE_OP               4 (&gt;)</span><br><span class="line">             28 POP_JUMP_IF_FALSE       40</span><br><span class="line"></span><br><span class="line">  5          30 LOAD_NAME                1 (print)</span><br><span class="line">             32 LOAD_CONST               2 (&#x27;i &gt; 5&#x27;)</span><br><span class="line">             34 CALL_FUNCTION            1</span><br><span class="line">             36 POP_TOP</span><br><span class="line">             38 JUMP_FORWARD             8 (to 48)</span><br><span class="line"></span><br><span class="line">  7     &gt;&gt;   40 LOAD_NAME                1 (print)</span><br><span class="line">             42 LOAD_CONST               3 (&#x27;i = 5&#x27;)</span><br><span class="line">             44 CALL_FUNCTION            1</span><br><span class="line">             46 POP_TOP</span><br><span class="line">        &gt;&gt;   48 LOAD_CONST               4 (None)</span><br><span class="line">             50 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>0就是函数开始，</p>
+<p>下一个0前一条指令就是函数结束位置，</p>
+<p>当然也可以通过<code>RETURN_VALUE</code>来确定函数结尾</p>
+<p>创建一个函数指针变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def dqx():</span><br><span class="line">    return 1</span><br><span class="line">    </span><br><span class="line">0 LOAD_CONST               0 (&lt;code object dqx at 0x00000213152D3F50, file &quot;E:\0xC0de\Python\2.py&quot;, line 1&gt;)</span><br><span class="line">2 LOAD_CONST               1 (&#x27;dqx&#x27;)</span><br><span class="line">4 MAKE_FUNCTION            0</span><br><span class="line">6 STORE_NAME               0 (dqx)  </span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">def func1():</span><br><span class="line">    a=2</span><br><span class="line">    return a</span><br><span class="line">def func2():</span><br><span class="line">    a=3</span><br><span class="line">    return a</span><br><span class="line"></span><br><span class="line">func1()</span><br><span class="line">func2()</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">源码行号       |指令EIP,指令符号       |指令参数,实际参数值</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line"> ;函数1 变量 建立</span><br><span class="line">  1           0 LOAD_CONST               0 (&lt;code object func1 at 0x0000021E908A8190, file &quot;E:\0xC0de\Python\2.py&quot;, line 1&gt;)</span><br><span class="line">              2 LOAD_CONST               1 (&#x27;func1&#x27;)</span><br><span class="line">              4 MAKE_FUNCTION            0</span><br><span class="line">              6 STORE_NAME               0 (func1)</span><br><span class="line"></span><br><span class="line"> ;函数2 变量 建立</span><br><span class="line">  4           8 LOAD_CONST               2 (&lt;code object func2 at 0x0000021E908A82F0, file &quot;E:\0xC0de\Python\2.py&quot;, line 4&gt;)</span><br><span class="line">             10 LOAD_CONST               3 (&#x27;func2&#x27;)</span><br><span class="line">             12 MAKE_FUNCTION            0</span><br><span class="line">             14 STORE_NAME               1 (func2)</span><br><span class="line"></span><br><span class="line">			;一些自定义函数的调用</span><br><span class="line">  8          16 LOAD_NAME                0 (func1) ;载入参数func1</span><br><span class="line">             18 CALL_FUNCTION            0			;调用函数</span><br><span class="line">             20 POP_TOP</span><br><span class="line"></span><br><span class="line">  9          22 LOAD_NAME                1 (func2) ;载入参数fun2</span><br><span class="line">             24 CALL_FUNCTION            0			;调用函数</span><br><span class="line">             26 POP_TOP</span><br><span class="line">             </span><br><span class="line">             28 LOAD_CONST               4 (None)</span><br><span class="line">             30 RETURN_VALUE</span><br><span class="line">             </span><br><span class="line">;下面是函数的具体实现,而不是调用过程,函数的返回就是0起点,下一个0之前的终点</span><br><span class="line">Disassembly of &lt;code object func1 at 0x0000021E908A8190, file &quot;E:\0xC0de\Python\2.py&quot;, line 1&gt;:</span><br><span class="line">  2           0 LOAD_CONST               1 (2) ;载入常量</span><br><span class="line">              2 STORE_FAST               0 (a) ;存入变量</span><br><span class="line"></span><br><span class="line">  3           4 LOAD_FAST                0 (a) ;载入常量</span><br><span class="line">              6 RETURN_VALUE 				  ;返回值</span><br><span class="line"></span><br><span class="line">Disassembly of &lt;code object func2 at 0x0000021E908A82F0, file &quot;E:\0xC0de\Python\2.py&quot;, line 4&gt;:</span><br><span class="line">  5           0 LOAD_CONST               1 (3)</span><br><span class="line">              2 STORE_FAST               0 (a)</span><br><span class="line"></span><br><span class="line">  6           4 LOAD_FAST                0 (a)</span><br><span class="line">              6 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+
+
+<p>内置函数的调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">import math</span><br><span class="line">x = 25</span><br><span class="line">y = int(math.sqrt(x))  </span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">源码行号     |指令EIP,指令符号       |指令参数,实际参数值</span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">  2           0 LOAD_CONST               0 (0)</span><br><span class="line">              2 LOAD_CONST               1 (None)</span><br><span class="line">              4 IMPORT_NAME              0 (math)</span><br><span class="line">              6 STORE_NAME               0 (math)</span><br><span class="line"></span><br><span class="line">  3           8 LOAD_CONST               2 (25) </span><br><span class="line">             10 STORE_NAME               1 (x) ;x=25</span><br><span class="line"></span><br><span class="line">  4          12 LOAD_NAME                2 (int) ;</span><br><span class="line">             14 LOAD_NAME                0 (math);push const_math</span><br><span class="line">             16 LOAD_METHOD              3 (sqrt) ;push method_sqrt</span><br><span class="line">             18 LOAD_NAME                1 (x) ; push </span><br><span class="line">             20 CALL_METHOD              1</span><br><span class="line">             22 CALL_FUNCTION            1</span><br><span class="line">             24 STORE_NAME               4 (y)</span><br><span class="line">             26 LOAD_CONST               1 (None)</span><br><span class="line">             28 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="opcode对照表"><a href="#opcode对照表" class="headerlink" title="opcode对照表"></a>opcode对照表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;用于常量集合load const</span></span><br><span class="line"><span class="string">PyObject *co_consts; </span></span><br><span class="line"><span class="string">(</span></span><br><span class="line"><span class="string">    &lt;code object func1 at 0x00000248EB178500, file &quot;E:\0xC0de\Python\test.py&quot;, line 1&gt;, 交代了函数func1的实现位置</span></span><br><span class="line"><span class="string">    &#x27;func1&#x27;, </span></span><br><span class="line"><span class="string">    &lt;code object func2 at 0x00000248EB178710, file &quot;E:\0xC0de\Python\test.py&quot;, line 5&gt;, 交代了函数func2的实现位置</span></span><br><span class="line"><span class="string">    &#x27;func2&#x27;, </span></span><br><span class="line"><span class="string">    &#x27;Hello&#x27;, </span></span><br><span class="line"><span class="string">    3, </span></span><br><span class="line"><span class="string">    4, </span></span><br><span class="line"><span class="string">    None</span></span><br><span class="line"><span class="string">)   </span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func1</span>(<span class="params">x,y</span>):</span><br><span class="line">    <span class="built_in">sum</span>=x+y</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func2</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;world&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">下面的 符号名称PyObject *co_names;  </span></span><br><span class="line"><span class="string">(&#x27;func1&#x27;, &#x27;func2&#x27;, &#x27;str&#x27;, &#x27;print&#x27;, &#x27;ret&#x27;) </span></span><br><span class="line"><span class="string">用于 LOAD_NAME  </span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">str</span>=<span class="string">&quot;Hello&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>)</span><br><span class="line">func2()</span><br><span class="line">ret=func1(<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">  1           0 LOAD_CONST 64          	 0 (&lt;code object func1 at 0x00000206F6750500, file &quot;E:\0xC0de\Python\test.py&quot;, line 1&gt;)</span><br><span class="line">              2 LOAD_CONST 64            1 (&#x27;func1&#x27;)</span><br><span class="line">              4 MAKE_FUNCTION 84         0</span><br><span class="line">              6 STORE_NAME 5A            0 (func1)</span><br><span class="line"></span><br><span class="line">  5           8 LOAD_CONST 64            2 (&lt;code object func2 at 0x00000206F67F0A80, file &quot;E:\0xC0de\Python\test.py&quot;, line 5&gt;)</span><br><span class="line">             10 LOAD_CONST  64           3 (&#x27;func2&#x27;)</span><br><span class="line">             12 MAKE_FUNCTION84          0</span><br><span class="line">             14 STORE_NAME  5A           1 (func2)</span><br><span class="line"></span><br><span class="line">  8          16 LOAD_CONST 64            4 (&#x27;Hello&#x27;)</span><br><span class="line">             18 STORE_NAME 5A            2 (str)</span><br><span class="line"></span><br><span class="line">  9          20 LOAD_NAME  65            3 (print)</span><br><span class="line">             22 LOAD_NAME  65            2 (str)</span><br><span class="line">             24 CALL_FUNCTION   83       1</span><br><span class="line">             26 POP_TOP	01</span><br><span class="line"></span><br><span class="line"> 10          28 LOAD_NAME 65             1 (func2)</span><br><span class="line">             30 CALL_FUNCTION   83       0</span><br><span class="line">             32 POP_TOP	01</span><br><span class="line"></span><br><span class="line"> 11          34 LOAD_NAME    65          0 (func1)</span><br><span class="line">             36 LOAD_CONST   64          5 (3)</span><br><span class="line">             38 LOAD_CONST   64          6 (4)</span><br><span class="line">             40 CALL_FUNCTION 83         2</span><br><span class="line">             42 STORE_NAME    5A         4 (ret)</span><br><span class="line">             44 LOAD_CONST    64         7 (None)</span><br><span class="line">             46 RETURN_VALUE	53</span><br><span class="line"></span><br><span class="line">Disassembly of &lt;code object func1 at 0x00000206F6750500, file &quot;E:\0xC0de\Python\test.py&quot;, line 1&gt;:</span><br><span class="line">  2           0 LOAD_FAST  7C            0 (x)</span><br><span class="line">              2 LOAD_FAST   7C           1 (y)</span><br><span class="line">              4 BINARY_ADD	17</span><br><span class="line">              6 STORE_FAST   7D          2 (sum)</span><br><span class="line"></span><br><span class="line">  3           8 LOAD_FAST   7C           2 (sum)</span><br><span class="line">             10 RETURN_VALUE	53</span><br><span class="line"></span><br><span class="line">Disassembly of &lt;code object func2 at 0x00000206F67F0A80, file &quot;E:\0xC0de\Python\test.py&quot;, line 5&gt;:</span><br><span class="line">  6           0 LOAD_GLOBAL   74         0 (print)</span><br><span class="line">              2 LOAD_CONST  64           1 (&#x27;world&#x27;)</span><br><span class="line">              4 CALL_FUNCTION    83      1</span><br><span class="line">              6 POP_TOP	1</span><br><span class="line"></span><br><span class="line">  7           8 LOAD_CONST     64        0 (None)</span><br><span class="line">             10 RETURN_VALUE	53</span><br></pre></td></tr></table></figure>
+
+
+
+<p>main 函数,然后那个30就是main函数的字节码长度,接着还有func1和func2在另外的部分</p>
+<p><img src="https://resmile.gitee.io/blog/DisPy/image-20221109204242000.png" alt="image-20221109204242000"></p>
+<p>func1</p>
+<p><img src="https://resmile.gitee.io/blog/DisPy/image-20221109204325285.png" alt="image-20221109204325285"></p>
+<p>func2</p>
+<p><img src="https://resmile.gitee.io/blog/DisPy/image-20221109204409497.png" alt="image-20221109204409497"></p>
+<h1 id="py保护方法"><a href="#py保护方法" class="headerlink" title="py保护方法"></a>py保护方法</h1><p>对于愿意进行手动逆向的人来说，唯一可行的手段是增加其逆向的难度和时间成本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/mandiant/flare-bytecode_graph</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查阅资料发现 Python 源码有几种保护的方式：</p>
+<ol>
+<li>生成 pyc 文件：这感觉完全不能算保护，uncompyle6 一键反编译，支持 Python 1.0 到 3.8 全部版本（恐怖）</li>
+<li>py 源码混淆：一般针对 py 源码混淆就是往代码里插入一些没有意义跳转分支，修改变量名和函数名等这些操作，但是这种虽然阅读起来很难理解，但是混淆效果并不好。(简称花指令)</li>
+<li>打包成可执行的二进制文件,py-&gt;exe-&gt;pyc-&gt;py</li>
+<li>自定义 opcode 的 Python 解释器</li>
+</ol>
+<p>花指令 :简单的包括跳转混淆、控制流混淆，复杂一些的</p>
+<p>除了花指令:可能涉及 byte-code 加密等等</p>
+<p>-. pyc考点</p>
+<ol>
+<li><p>给pyc uncompyle6直接反编译</p>
+</li>
+<li><p>给一个txt 翻译机器码</p>
+<ol>
+<li>通过脚本变成结构体和一个文件</li>
+<li>再把时间属性和版本的魔术字放回去保存</li>
+<li>然后uncompyle6</li>
+</ol>
+</li>
+<li><p>加花的pyc</p>
+<p>1.根据uncompyle6和字节码判断花</p>
+<p>2.读取co_code的长度</p>
+<p>3.去掉花并修改co_code长度</p>
+<p>4.保存uncompyle6即可</p>
+</li>
+</ol>
+<p>听说解包之后的目标.pyc和struct.pyc要做一些修改</p>
+<p>也就是把struct.pyc的一些数据放入目标的.pyc</p>
+<p>但是,在实践中我发现,struct.pyc和目标的.pyc的二进制文件的前面几个部分,是一样的</p>
+<h2 id="源代码混淆"><a href="#源代码混淆" class="headerlink" title="源代码混淆"></a>源代码混淆</h2><p>他们对类名&#x2F;函数名&#x2F;变量名进行重新命名，pyminifier甚至能够对部分Python常量进行扰乱（如True&#x2F;False&#x2F;None)，然而代码的逻辑与控制流并没有被改变</p>
+<h2 id="魔改pyc指令"><a href="#魔改pyc指令" class="headerlink" title="魔改pyc指令"></a>魔改pyc指令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># c = 114514</span><br><span class="line">0 LOAD_CONST               1 (1)	# push 114514</span><br><span class="line">2 STORE_FAST               3 (3)  # c = 114514</span><br><span class="line"># print(a, b)</span><br><span class="line">4 LOAD_GLOBAL              0 (0)  # push global_obj co_names[0] == &quot;print&quot;</span><br><span class="line">6 LOAD_FAST                0 (0)  # push a</span><br><span class="line">8 LOAD_FAST                1 (1)  # push b --&gt; 这个在最顶端</span><br><span class="line">10 CALL_FUNCTION            2      # 其中最右边的参数在最顶端，即从左往右push；区别于C式栈，从右往左push</span><br><span class="line">12 POP_TOP                         # 不要返回值，直接弹掉</span><br><span class="line"># ============================魔改部分==========================================</span><br><span class="line"># print(a, b)</span><br><span class="line">4 LOAD_GLOBAL              0 (0)  # push global_obj co_names[0] == &quot;print&quot;</span><br><span class="line">6 LOAD_FAST                0 (0)  # push a</span><br><span class="line">8 LOAD_FAST                1 (1)  # push b --&gt; 这个在最顶端</span><br><span class="line">10 CALL_FUNCTION            2      # 其中最右边的参数在最顶端，即从左往右push；区别于C式栈，从右往左push</span><br><span class="line">12 POP_TOP                         # 不要返回值，直接弹掉</span><br><span class="line"># =============================================================================</span><br><span class="line"># print(args)</span><br><span class="line">14 LOAD_GLOBAL              0 (0)  # push global_obj co_names[0] == &quot;print&quot;</span><br><span class="line">16 LOAD_FAST                2 (2)  # push args</span><br><span class="line">18 CALL_FUNCTION            1</span><br><span class="line">20 POP_TOP</span><br><span class="line"></span><br><span class="line"># return None</span><br><span class="line">22 LOAD_CONST               0 (0)  # push None</span><br><span class="line">24 RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="垃圾代码"><a href="#垃圾代码" class="headerlink" title="垃圾代码"></a>垃圾代码</h2><h3 id="基于溢出"><a href="#基于溢出" class="headerlink" title="基于溢出"></a>基于溢出</h3><p>如果有垃圾数据arr[0xFF]</p>
+<p>反汇编器去根据索引乖乖的找数据，结果就会溢出而报错。</p>
+<p>python原生反汇编器会炸，因为它不检查越界问题</p>
+<p>pycdas不会炸，而是会直接显示<code>&lt;INVALID&gt;</code>，说明已经考虑到越界问题了。</p>
+<p>pycdas&#x2F;uncompyle6会炸。经典的<code>tuple out of range</code></p>
+<h2 id="虚假分支"><a href="#虚假分支" class="headerlink" title="虚假分支"></a>虚假分支</h2><p>开发者可以故意构造复杂的分支结构，然而通过预置条件来实现仅覆盖特定分支，可以有效的浪费手动逆向者的时间与精力，</p>
+<p>即便逆向者使用控制流分析软件也无济于事。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#flag可以是一些计算的结果</span><br><span class="line">#或者是隐藏在某处的预置常量</span><br><span class="line">#也可以是某次函数调用的返回值</span><br><span class="line"></span><br><span class="line">if 满足条件的情况下:</span><br><span class="line">    正常代码</span><br><span class="line">else</span><br><span class="line">    无用的但复杂的代码,甚至是不合法的代码</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try:</span><br><span class="line">    一些正常代码</span><br><span class="line">    产生异常,于是开启流程跳转</span><br><span class="line">    无用的但复杂的代码,甚至是不合法的代码</span><br><span class="line">except:</span><br><span class="line">    继续正常的代码</span><br></pre></td></tr></table></figure>
+
+
+
+<p>比如一些异常</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">raise_exeception = __import__(&#x27;module_does_not_exist&#x27;) 抛出一个&#x27;ImportError&#x27;的意外</span><br><span class="line"></span><br><span class="line">raise_exeception = __import__(&#x27;sys&#x27;).non_exist_function() 抛出一个&#x27;AttributeError&#x27;的意外</span><br><span class="line"></span><br><span class="line">raise_exeception = 1/0 抛出一个&#x27;ZeroDivisionError&#x27;的意外，控制流将转向except分支</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="花指令"><a href="#花指令" class="headerlink" title="花指令"></a>花指令</h2><p>题目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://qiumingshanshangdexiaoning.gitee.io/2021/11/28/CTF%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%9B%9B%E7%A7%8Dpython%E9%80%86%E5%90%91/#%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4%E7%9A%84pyc</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如何寻找花指令?</p>
+<p>去dis反编译,然后他会遇到花指令然后报错</p>
+<p>uncompyle 的工作原理和一般的反编译器类似，它会尽力去匹配每一条指令，匹配失败就g</p>
+<h3 id="强制跳转"><a href="#强制跳转" class="headerlink" title="强制跳转"></a>强制跳转</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/ChiWu98/article/details/118674302</span><br><span class="line">https://cloud.tencent.com/developer/article/1421880</span><br><span class="line">https://juejin.cn/post/7143110497951285256</span><br></pre></td></tr></table></figure>
+
+
+
+<p>花指令主要分为两种</p>
+<ol>
+<li>可执行花指令<br>a. 可以运行，但无意义<br>b. 不改变寄存器的数值<br>c. 可以被反汇编器识别 但是会破坏反汇编器的分析</li>
+<li>不可执行花指令<br>a. 无法运行<br>b. 直接扰乱反汇编器的线性扫描 阻止反汇编</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JUMP_ABSOULUTE xxx</span><br><span class="line">LOAD_CONST 	   255</span><br><span class="line"></span><br><span class="line">常用的JUMP_ABSOLUTE和Load_Const</span><br><span class="line">71 04 64 FF </span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://resmile.gitee.io/blog/DisPy/image-20221109142051844.png" alt="image-20221109142051844"></p>
+<p>举个简单的例子64 00</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 LOAD_NAME                0 (print)</span><br><span class="line">2 LOAD_CONST               0 (&#x27;Hello, world&#x27;)</span><br><span class="line">4 CALL_FUNCTION            1</span><br><span class="line">6 POP_TOP</span><br></pre></td></tr></table></figure>
+
+<p>这是我们上面 Python 3.7生成的 pyc 的一段 opcode 序列，考虑在它的前面加两条指令。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0 JUMP_ABSOLUTE            4</span><br><span class="line">2 LOAD_CONST               255</span><br><span class="line">4 LOAD_NAME                0 (print)</span><br><span class="line">6 LOAD_CONST               0 (&#x27;Hello, world&#x27;)</span><br><span class="line">8 CALL_FUNCTION            1</span><br><span class="line">10 POP_TOP</span><br></pre></td></tr></table></figure>
+
+<p>其中 JUMP_ABSOLUTE 4 表示直接跳转到 offset 为4的位置去执行指令</p>
+<p>也就是插入的第二条指令 LOAD_CONST 255 并不会被执行，所以所以也并不会报错。</p>
+<p>但是对于反编译工具来说，这就是一个错误了，直接导致了反编译的失败。</p>
+<p>Python 的 opcode 中 JUMP 相关的有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x27;JUMP_FORWARD&#x27;,</span><br><span class="line">&#x27;JUMP_IF_FALSE_OR_POP&#x27;,</span><br><span class="line">&#x27;JUMP_IF_TRUE_OR_POP&#x27;,</span><br><span class="line">&#x27;JUMP_ABSOLUTE&#x27;,</span><br><span class="line">&#x27;POP_JUMP_IF_FALSE&#x27;,</span><br><span class="line">&#x27;POP_JUMP_IF_TRUE&#x27;,</span><br></pre></td></tr></table></figure>
+
+<p>原则上这六个都可以使用，但是实际上为了方便的话，其实还是 JUMP_FORWARD 和 JUMP_ABSOLUTE 比较好用</p>
+<p>(字面理解，一个是相对跳转，一个是绝对跳转)</p>
+<p>因为其他的 JUMP 指令存在一些当前栈顶元素判断的问题（要做也可以，只不过实现同样的功能可能需要写更多的指令）</p>
+<h3 id="偶数跳转-奇数跳转"><a href="#偶数跳转-奇数跳转" class="headerlink" title="偶数跳转|奇数跳转"></a>偶数跳转|奇数跳转</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">71 03</span><br><span class="line">87 NO</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>导言</p>
+<p>一般的反汇编器由于是线性扫描的，2字节2字节的，所以我们这样正好凑偶数地址偶数跳转，就能够正常反汇编。</p>
+<p>垃圾数据没识别出来的，直接显示成<code>&lt;invalid&gt;</code>，不会导致完全失败</p>
+</blockquote>
+<p>因为Python3解释器是默认偶数地址执行，所以实际上地址会向前取偶，即从如果地址是13,那么实际会14开始执行。</p>
+<p>这样实现，还是能保证14-2-2&#x3D;10个字节可以用于垃圾数据，但是后续的指令仍然能够很正常完美的被反汇编器打印出来</p>
+<p>下面是一个py2的例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 例1 Python单重叠指令</span><br><span class="line">0 JUMP_ABSOLUTE        [71 07 00]     7</span><br><span class="line">3 PRINT_ITEM           [47 xx xx]</span><br><span class="line">6 LOAD_CONST           [64 64 01]</span><br><span class="line">9 STOP_CODE            [00 xx xx]</span><br><span class="line"></span><br><span class="line"># 例1 实际执行</span><br><span class="line">0 JUMP_ABSOLUTE        [71 07 00]     7</span><br><span class="line">7 LOAD_CONST           [64 01 00]     1</span><br></pre></td></tr></table></figure>
+
+<p>上面的JUMP_ABSOLUTE跳到了一个未知的地方</p>
+<p>显示的汇编指令是没去花的,它逐字逐句的翻译,其实执行不是</p>
+<p>因为他们之间有很多的垃圾代码</p>
+<p>下面是x86的eg,结合python字节码的举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">例1单重叠指令</span><br><span class="line">00: EB 01           jmp  3</span><br><span class="line">02: 68 c3 90 90 90  push 0x909090c3</span><br><span class="line"></span><br><span class="line">#例1实际执行</span><br><span class="line">00: EB 01           jmp  3</span><br><span class="line">03: C3              retn</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">例2多重叠指令</span><br><span class="line">00: EB02                    jmp  4</span><br><span class="line">02: 69846A40682C104000EB02  imul eax, [edx + ebp*2 + 0102C6840], 0x002EB0040</span><br><span class="line"></span><br><span class="line">#例2实际执行</span><br><span class="line">00: EB02       jmp  4</span><br><span class="line">04: 6A40       push 040</span><br><span class="line">06: 682C104000 push 0x40102C</span><br><span class="line">0B: EB02       jmp  0xF</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#例3跳转至自身</span><br><span class="line">00: EBFF    jmp 1</span><br><span class="line">02: C0C300  rol bl, 0</span><br><span class="line"></span><br><span class="line">#例3实际执行</span><br><span class="line">00: EBFF    jmp 1</span><br><span class="line">01: FFC0    inc eax</span><br><span class="line">03: C3      retn</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="修改dis模块"><a href="#修改dis模块" class="headerlink" title="修改dis模块"></a>修改dis模块</h4><p>也就是源代码反编译出错,那么你就修改反编译的函数</p>
+<p>比如下面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> opname[op].ljust(<span class="number">20</span>),</span><br><span class="line">i = i+<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> op &gt;= HAVE_ARGUMENT:</span><br><span class="line">    oparg = <span class="built_in">ord</span>(code[i]) + <span class="built_in">ord</span>(code[i+<span class="number">1</span>])*<span class="number">256</span> + extended_arg</span><br><span class="line">    extended_arg = <span class="number">0</span></span><br><span class="line">    i = i+<span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> op == EXTENDED_ARG:</span><br><span class="line">        extended_arg = oparg*<span class="number">65536L</span></span><br><span class="line">    <span class="built_in">print</span> <span class="built_in">repr</span>(oparg).rjust(<span class="number">5</span>),</span><br></pre></td></tr></table></figure>
+
+<p>修改后</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> opname[op].ljust(<span class="number">20</span>),</span><br><span class="line">i = i+<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> op &gt;= HAVE_ARGUMENT:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        oparg = <span class="built_in">ord</span>(code[i]) + <span class="built_in">ord</span>(code[i+<span class="number">1</span>])*<span class="number">256</span> + extended_arg</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    extended_arg = <span class="number">0</span></span><br><span class="line">    i = i+<span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> op == EXTENDED_ARG:</span><br><span class="line">        extended_arg = oparg*<span class="number">65536L</span></span><br><span class="line">    <span class="built_in">print</span> <span class="built_in">repr</span>(oparg).rjust(<span class="number">5</span>),</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="nop"><a href="#nop" class="headerlink" title="nop"></a>nop</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hex 0x09 Dec:009 Name: NOP</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="修改CPython启用debug"><a href="#修改CPython启用debug" class="headerlink" title="修改CPython启用debug"></a>修改CPython启用debug</h4><p>…我不多说,因为不会</p>
+<h2 id="扁平化"><a href="#扁平化" class="headerlink" title="扁平化"></a>扁平化</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.anquanke.com/post/id/185482</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>查看main函数流程图,我不知道如何遍历所有的pycodeobject</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bytecode_graph </span><br><span class="line"><span class="keyword">from</span> dis <span class="keyword">import</span> opmap</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> marshal</span><br><span class="line"></span><br><span class="line">pyc_file = <span class="built_in">open</span>(<span class="string">&quot;test.pyc&quot;</span>, <span class="string">&quot;rb&quot;</span>).read()</span><br><span class="line">pyc = marshal.loads(pyc_file[<span class="number">8</span>:])</span><br><span class="line">bcg = bytecode_graph.BytecodeGraph(pyc)</span><br><span class="line">graph = bytecode_graph.Render(bcg, pyc).dot()</span><br><span class="line">graph.write_png(<span class="string">&#x27;example_graph.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>如果有源码,比如查看源码中的函数My_base64_encode</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bytecode_graph</span><br><span class="line"><span class="comment">#...</span></span><br><span class="line">bcg = bytecode_graph.BytecodeGraph(My_base64_encode.__code__)</span><br><span class="line">graph = bytecode_graph.Render(bcg, My_base64_encode.__code__).dot()</span><br><span class="line">graph.write_png(<span class="string">&#x27;example_graph.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/resmile/">Home</a></li>
+         
+          <li><a href="/resmile/categories/">目录</a></li>
+         
+          <li><a href="/resmile/tags/">标签</a></li>
+         
+          <li><a href="/resmile/list/">任务清单</a></li>
+         
+          <li><a href="/resmile/link/">资源链接</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%8C%87%E4%BB%A4%E5%92%8C%E5%AD%97%E8%8A%82%E7%A0%81%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.</span> <span class="toc-text">获取指令和字节码对应关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py-gt-exe"><span class="toc-number">1.2.</span> <span class="toc-text">py-&gt;exe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exe-gt-pyc"><span class="toc-number">1.3.</span> <span class="toc-text">exe-&gt;pyc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py-gt-pyc"><span class="toc-number">1.4.</span> <span class="toc-text">py-&gt;pyc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%8D%95%E4%B8%AApyc%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">生成单个pyc文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%A4%9A%E4%B8%AApyc%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text">生成多个pyc文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#py-gt-%E6%B1%87%E7%BC%96"><span class="toc-number">1.5.</span> <span class="toc-text">py-&gt;汇编</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pyc-gt-py"><span class="toc-number">1.6.</span> <span class="toc-text">pyc-&gt;py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flare-bytecode-graph"><span class="toc-number">1.7.</span> <span class="toc-text">flare-bytecode_graph</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pyc-py3"><span class="toc-number">2.</span> <span class="toc-text">pyc:py3</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text">源代码文件信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AApyc%E7%9A%84%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.</span> <span class="toc-text">一个pyc的文件介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">指令介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Learn"><span class="toc-number">4.</span> <span class="toc-text">Learn</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-number">4.1.</span> <span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5"><span class="toc-number">4.1.1.</span> <span class="toc-text">导入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#try"><span class="toc-number">4.1.1.1.</span> <span class="toc-text">try</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#except"><span class="toc-number">4.1.1.2.</span> <span class="toc-text">except</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#else"><span class="toc-number">4.1.1.3.</span> <span class="toc-text">else</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#finally"><span class="toc-number">4.1.1.4.</span> <span class="toc-text">finally</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#raise"><span class="toc-number">4.1.1.5.</span> <span class="toc-text">raise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">4.1.2.</span> <span class="toc-text">应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#opcode%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.2.</span> <span class="toc-text">opcode学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">4.2.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.2.2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#list"><span class="toc-number">4.2.2.1.</span> <span class="toc-text">list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dict"><span class="toc-number">4.2.2.2.</span> <span class="toc-text">dict</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#slice"><span class="toc-number">4.2.2.3.</span> <span class="toc-text">slice</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-number">4.2.3.</span> <span class="toc-text">循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#while"><span class="toc-number">4.2.3.1.</span> <span class="toc-text">while</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for"><span class="toc-number">4.2.3.2.</span> <span class="toc-text">for</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-%E5%88%A4%E6%96%AD"><span class="toc-number">4.2.4.</span> <span class="toc-text">if 判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.5.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#opcode%E5%AF%B9%E7%85%A7%E8%A1%A8"><span class="toc-number">4.2.6.</span> <span class="toc-text">opcode对照表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#py%E4%BF%9D%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">py保护方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86"><span class="toc-number">5.1.</span> <span class="toc-text">源代码混淆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AD%94%E6%94%B9pyc%E6%8C%87%E4%BB%A4"><span class="toc-number">5.2.</span> <span class="toc-text">魔改pyc指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81"><span class="toc-number">5.3.</span> <span class="toc-text">垃圾代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%BA%A2%E5%87%BA"><span class="toc-number">5.3.1.</span> <span class="toc-text">基于溢出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E5%81%87%E5%88%86%E6%94%AF"><span class="toc-number">5.4.</span> <span class="toc-text">虚假分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%B1%E6%8C%87%E4%BB%A4"><span class="toc-number">5.5.</span> <span class="toc-text">花指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AC"><span class="toc-number">5.5.1.</span> <span class="toc-text">强制跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%B6%E6%95%B0%E8%B7%B3%E8%BD%AC-%E5%A5%87%E6%95%B0%E8%B7%B3%E8%BD%AC"><span class="toc-number">5.5.2.</span> <span class="toc-text">偶数跳转|奇数跳转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">5.5.3.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9dis%E6%A8%A1%E5%9D%97"><span class="toc-number">5.5.3.1.</span> <span class="toc-text">修改dis模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nop"><span class="toc-number">5.5.3.2.</span> <span class="toc-text">nop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9CPython%E5%90%AF%E7%94%A8debug"><span class="toc-number">5.5.3.3.</span> <span class="toc-text">修改CPython启用debug</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%81%E5%B9%B3%E5%8C%96"><span class="toc-number">5.6.</span> <span class="toc-text">扁平化</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&text=PYC逆向"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&is_video=false&description=PYC逆向"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PYC逆向&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&title=PYC逆向"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&name=PYC逆向&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/11/30/Reverse-Python-PYC/&t=PYC逆向"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022
+    D0g3.Resmile
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/resmile/">Home</a></li><!--
+     --><!--
+       --><li><a href="/resmile/categories/">目录</a></li><!--
+     --><!--
+       --><li><a href="/resmile/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/resmile/list/">任务清单</a></li><!--
+     --><!--
+       --><li><a href="/resmile/link/">资源链接</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/resmile/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -494,7 +494,6 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  left: -5rem;
   min-height: 100%;
   overflow-wrap: break-word;
 }
@@ -552,7 +551,7 @@ body {
   }
 }
 .max-width {
-  max-width: 65rem;
+  max-width: 70rem;
 }
 @media (max-width: 480px) {
   .px3 {

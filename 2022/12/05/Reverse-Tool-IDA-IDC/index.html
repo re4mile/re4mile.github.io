@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="IDC脚本🧡参考链接: https:&#x2F;&#x2F;www.cnblogs.com&#x2F;LyShark&#x2F;p&#x2F;13100048.html 在IDA中按下【shift + F2】可调出脚本编辑器 导入基本结构123456#include&lt;idc.idc&gt;   &#x2F;&#x2F;头文件static main()&amp;#123;	&#x2F;&#x2F;do something fun here&amp;#125;    数据类型IDC中所有变量都被定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDC脚本学习">
+<meta property="og:url" content="https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/index.html">
+<meta property="og:site_name" content="re4mile">
+<meta property="og:description" content="IDC脚本🧡参考链接: https:&#x2F;&#x2F;www.cnblogs.com&#x2F;LyShark&#x2F;p&#x2F;13100048.html 在IDA中按下【shift + F2】可调出脚本编辑器 导入基本结构123456#include&lt;idc.idc&gt;   &#x2F;&#x2F;头文件static main()&amp;#123;	&#x2F;&#x2F;do something fun here&amp;#125;    数据类型IDC中所有变量都被定">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-12-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-12T11:12:48.979Z">
+<meta property="article:author" content="D0g3.re4mile">
+<meta property="article:tag" content="IDA">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="https://s1.ax1x.com/2022/11/11/zCfRiT.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="https://s1.ax1x.com/2022/11/11/zCfRiT.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="https://s1.ax1x.com/2022/11/11/zCfRiT.png">
+        
+      
+    
+    <!-- title -->
+    <title>IDC脚本学习</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/resmile/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/resmile/">Home</a></li><!--
+     --><!--
+       --><li><a href="/resmile/categories/">目录</a></li><!--
+     --><!--
+       --><li><a href="/resmile/tags/">标签</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/resmile/2022/12/05/Reverse-Exception/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/resmile/2022/12/05/Reverse-ProcessThread/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&text=IDC脚本学习"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&is_video=false&description=IDC脚本学习"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=IDC脚本学习&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&name=IDC脚本学习&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&t=IDC脚本学习"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC%E8%84%9A%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">IDC脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.5.</span> <span class="toc-text">输出语句</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC-Example"><span class="toc-number">2.</span> <span class="toc-text">IDC-Example</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#patch"><span class="toc-number">2.1.</span> <span class="toc-text">patch</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC-API"><span class="toc-number">3.</span> <span class="toc-text">IDC-API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%BF%AE%E6%94%B9"><span class="toc-number">3.1.</span> <span class="toc-text">数据读取修改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchByte"><span class="toc-number">3.1.1.</span> <span class="toc-text">PatchByte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchWord"><span class="toc-number">3.1.2.</span> <span class="toc-text">PatchWord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchDword"><span class="toc-number">3.1.3.</span> <span class="toc-text">PatchDword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Byte"><span class="toc-number">3.1.4.</span> <span class="toc-text">Byte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Word"><span class="toc-number">3.1.5.</span> <span class="toc-text">Word</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dword"><span class="toc-number">3.1.6.</span> <span class="toc-text">Dword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#isLoaded"><span class="toc-number">3.1.7.</span> <span class="toc-text">isLoaded</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92%E5%87%BD%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text">用户交互函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Message"><span class="toc-number">3.2.1.</span> <span class="toc-text">Message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#print"><span class="toc-number">3.2.2.</span> <span class="toc-text">print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#warning"><span class="toc-number">3.2.3.</span> <span class="toc-text">warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskStr"><span class="toc-number">3.2.4.</span> <span class="toc-text">AskStr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskFile"><span class="toc-number">3.2.5.</span> <span class="toc-text">AskFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskYN"><span class="toc-number">3.2.6.</span> <span class="toc-text">AskYN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ScreenEA"><span class="toc-number">3.2.7.</span> <span class="toc-text">ScreenEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jump"><span class="toc-number">3.2.8.</span> <span class="toc-text">Jump</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">字符串操作函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#form"><span class="toc-number">3.3.1.</span> <span class="toc-text">form</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sprintf"><span class="toc-number">3.3.2.</span> <span class="toc-text">sprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atol"><span class="toc-number">3.3.3.</span> <span class="toc-text">atol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xtol"><span class="toc-number">3.3.4.</span> <span class="toc-text">xtol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ltoa"><span class="toc-number">3.3.5.</span> <span class="toc-text">ltoa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">3.3.6.</span> <span class="toc-text">ord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strlen"><span class="toc-number">3.3.7.</span> <span class="toc-text">strlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strstr"><span class="toc-number">3.3.8.</span> <span class="toc-text">strstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr"><span class="toc-number">3.3.9.</span> <span class="toc-text">substr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">3.4.</span> <span class="toc-text">文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fopen"><span class="toc-number">3.4.1.</span> <span class="toc-text">fopen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fclose"><span class="toc-number">3.4.2.</span> <span class="toc-text">fclose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filelength"><span class="toc-number">3.4.3.</span> <span class="toc-text">filelength</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fgetc"><span class="toc-number">3.4.4.</span> <span class="toc-text">fgetc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fputc"><span class="toc-number">3.4.5.</span> <span class="toc-text">fputc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fprintf"><span class="toc-number">3.4.6.</span> <span class="toc-text">fprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writestr"><span class="toc-number">3.4.7.</span> <span class="toc-text">writestr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readstr"><span class="toc-number">3.4.8.</span> <span class="toc-text">readstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writelong"><span class="toc-number">3.4.9.</span> <span class="toc-text">writelong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readlong"><span class="toc-number">3.4.10.</span> <span class="toc-text">readlong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writeshort"><span class="toc-number">3.4.11.</span> <span class="toc-text">writeshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readshort"><span class="toc-number">3.4.12.</span> <span class="toc-text">readshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loadfile"><span class="toc-number">3.4.13.</span> <span class="toc-text">loadfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#savefile"><span class="toc-number">3.4.14.</span> <span class="toc-text">savefile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E7%A7%B0"><span class="toc-number">3.5.</span> <span class="toc-text">操作数据库名称</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Name"><span class="toc-number">3.5.1.</span> <span class="toc-text">Name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NameEx"><span class="toc-number">3.5.2.</span> <span class="toc-text">NameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeNameEx"><span class="toc-number">3.5.3.</span> <span class="toc-text">MakeNameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByName"><span class="toc-number">3.5.4.</span> <span class="toc-text">LocByName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByNameEx"><span class="toc-number">3.5.5.</span> <span class="toc-text">LocByNameEx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.6.</span> <span class="toc-text">操作数据库的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeUnkn"><span class="toc-number">3.6.1.</span> <span class="toc-text">MakeUnkn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeCode"><span class="toc-number">3.6.2.</span> <span class="toc-text">MakeCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeByte"><span class="toc-number">3.6.3.</span> <span class="toc-text">MakeByte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeComm"><span class="toc-number">3.6.4.</span> <span class="toc-text">MakeComm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeFunction"><span class="toc-number">3.6.5.</span> <span class="toc-text">MakeFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeStr"><span class="toc-number">3.6.6.</span> <span class="toc-text">MakeStr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%90%9C%E7%B4%A2%E5%87%BD%E6%95%B0"><span class="toc-number">3.7.</span> <span class="toc-text">数据库搜索函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FindCode"><span class="toc-number">3.7.1.</span> <span class="toc-text">FindCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindData"><span class="toc-number">3.7.2.</span> <span class="toc-text">FindData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindBinary"><span class="toc-number">3.7.3.</span> <span class="toc-text">FindBinary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindText"><span class="toc-number">3.7.4.</span> <span class="toc-text">FindText</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.8.</span> <span class="toc-text">操作函数的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionAttr"><span class="toc-number">3.8.1.</span> <span class="toc-text">GetFunctionAttr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionName"><span class="toc-number">3.8.2.</span> <span class="toc-text">GetFunctionName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NextFunction"><span class="toc-number">3.8.3.</span> <span class="toc-text">NextFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PrevFunction"><span class="toc-number">3.8.4.</span> <span class="toc-text">PrevFunction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">3.9.</span> <span class="toc-text">代码交叉引用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rfirst"><span class="toc-number">3.9.1.</span> <span class="toc-text">Rfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rnext"><span class="toc-number">3.9.2.</span> <span class="toc-text">Rnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType"><span class="toc-number">3.9.3.</span> <span class="toc-text">XrefType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RfirstB"><span class="toc-number">3.9.4.</span> <span class="toc-text">RfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RnextB"><span class="toc-number">3.9.5.</span> <span class="toc-text">RnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8"><span class="toc-number">3.10.</span> <span class="toc-text">数据交叉引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dfirst"><span class="toc-number">3.10.1.</span> <span class="toc-text">Dfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnext"><span class="toc-number">3.10.2.</span> <span class="toc-text">Dnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType-1"><span class="toc-number">3.10.3.</span> <span class="toc-text">XrefType()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DfirstB"><span class="toc-number">3.10.4.</span> <span class="toc-text">DfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DnextB"><span class="toc-number">3.10.5.</span> <span class="toc-text">DnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E6%B1%87%E7%BC%96%E6%8F%90%E5%8F%96"><span class="toc-number">3.11.</span> <span class="toc-text">反汇编提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetDisasm"><span class="toc-number">3.11.1.</span> <span class="toc-text">GetDisasm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetMnem"><span class="toc-number">3.11.2.</span> <span class="toc-text">GetMnem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpnd"><span class="toc-number">3.11.3.</span> <span class="toc-text">GetOpnd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpType"><span class="toc-number">3.11.4.</span> <span class="toc-text">GetOpType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOperandValue"><span class="toc-number">3.11.5.</span> <span class="toc-text">GetOperandValue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#misc-func"><span class="toc-number">3.12.</span> <span class="toc-text">misc-func</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        IDC脚本学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">D0g3.re4mile</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-12-04T16:00:00.000Z" itemprop="datePublished">2022-12-05</time>
+        
+        (Updated: <time datetime="2022-12-12T11:12:48.979Z" itemprop="dateModified">2022-12-12</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/resmile/categories/Tool/">Tool</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/resmile/tags/IDA/" rel="tag">IDA</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="IDC脚本"><a href="#IDC脚本" class="headerlink" title="IDC脚本"></a>IDC脚本</h1><p>🧡参考链接: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/LyShark/p/13100048.html">https://www.cnblogs.com/LyShark/p/13100048.html</a></p>
+<p>在IDA中按下【shift + F2】可调出脚本编辑器</p>
+<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><h2 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;idc.idc&gt;</span>   <span class="comment">//头文件</span></span></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//do something fun here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>IDC中所有变量都被定义成auto类型，会自动进行类型转换，一般类型有整数型、字符串类型、浮点型</p>
+<ul>
+<li><p>局部变量：auto counter;</p>
+</li>
+<li><p>extern 引入全局变量的声明，extern outsideGlobal;</p>
+</li>
+<li><p>字符串支持加好连接：auto str &#x3D; “hello” + “world”;</p>
+</li>
+<li><p>字符串支持分片操作：str1 &#x3D; str[7:9];</p>
+</li>
+<li><p>没有strcat…等等函数</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> addr, reg, val;    <span class="comment">//没有初始化声明的多个变量</span></span><br><span class="line"><span class="keyword">auto</span> count = <span class="number">0</span>;         <span class="comment">//已声明和初始化</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> outsideGlobal;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">extern</span> insideGlobal;</span><br><span class="line">	outsideGlobal = <span class="string">&quot;Global&quot;</span>;</span><br><span class="line">	insideGlobal = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>虽然IDC没有数组数据类型,但你可以使用分片运算符来处理IDC字符串,</p>
+<p>就好像他们是数组一样,IDC分片的用法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> str = <span class="string">&quot;String to slice&quot;</span>;</span><br><span class="line"><span class="keyword">auto</span> s1, s2, s3, s4;</span><br><span class="line">s1 = str[<span class="number">7</span>:<span class="number">9</span>];          <span class="comment">//&#x27;to&#x27;</span></span><br><span class="line">s2 = str[ :<span class="number">6</span>];		   <span class="comment">//&#x27;String&#x27;</span></span><br><span class="line">s3 = str[<span class="number">10</span>: ];		   <span class="comment">//&#x27;slice&#x27;</span></span><br><span class="line">s4 = str[<span class="number">5</span>];		       <span class="comment">//&#x27;g&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>许多标准的C语言操作符（+、-、*、&#x2F;、%、&lt;&lt;、&gt;&gt;、++、–）包括三元运算符（?:)</p>
+<p>在IDC同样适用，但复合赋值运算符<code>+=不支持</code>、<code>逗号操作符也不被支持</code>。</p>
+<p>IDC几乎支持C中的所有运算和逻辑操作符，<code>但是</code>所有整数操作数均作为有符号的值处理。</p>
+<p>这会影响到整数比较与右移位运算。如果需要进行逻辑右移位运算，你必须修改结果的最高位，自己移位，</p>
+<p>如下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = ( x &gt;&gt; <span class="number">1</span> ) &amp; <span class="number">0x7fffffff</span>;   <span class="comment">//将最大有效位设置为0</span></span><br></pre></td></tr></table></figure>
+
+<p>与C语言一样，IDC所有简单语句均以分号结束。</p>
+<p>Switch语句是IDC唯一不支持的C风格复合语句。</p>
+<p>在使用for语句时IDC不支持复合赋值运算符，如果你希望以除1以外的其他值为单位进行计数，就需要注意这一点，</p>
+<p>如下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> i;</span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i += <span class="number">2</span>) </span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;       <span class="comment">//不合法，不支持 +=</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i = i + <span class="number">2</span>)</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;    <span class="comment">//合法</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="输出语句"><a href="#输出语句" class="headerlink" title="输出语句"></a>输出语句</h2><p>输出语句（Message函数类似于C中的printf函数）</p>
+<p>输出（类似C语言中的printf函数）</p>
+<p>void Message(string format, …);</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">      <span class="keyword">auto</span> i = <span class="number">10</span>;</span><br><span class="line">      <span class="keyword">auto</span> j = <span class="number">20</span>;</span><br><span class="line">Message(“i = %d\n”, i）;</span><br><span class="line">      Message(“j = %d\n”, j）;</span><br><span class="line">      Message(“Hello world!”);</span><br><span class="line">      Message(“%s\n”, “Hello world!”);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>循环判断</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;idc.idc&gt;</span><br><span class="line"></span><br><span class="line">static main()</span><br><span class="line">&#123;</span><br><span class="line">    auto CurrAddress = ScreenEA(); </span><br><span class="line">    if(CurrAddress == 0x401161)</span><br><span class="line">    &#123;</span><br><span class="line">       Message(&quot;程序OEP =&gt; 0x%x \n&quot;,CurrAddress);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      Message(&quot;没有扎到OEP %08X \n&quot;,CurrAddress);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="IDC-Example"><a href="#IDC-Example" class="headerlink" title="IDC-Example"></a>IDC-Example</h1><p>这个师傅写了很多的IDC例子</p>
+<p>你自己可以跟着学习</p>
+<h2 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文件名：test.idc</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> x,FBin,ProcRange;</span><br><span class="line">    FBin = <span class="string">&quot;E8 0A 00 00 00 E8 EB 0C 00 00 E8 F6 FF FF FF&quot;</span>;</span><br><span class="line">    <span class="comment">//目标 = &quot;E8 0A tel:00 00 00 90 EB 0C tel:90 90 90 90 90 90 90&quot;;</span></span><br><span class="line">    <span class="comment">//花指令1的特征码</span></span><br><span class="line">    <span class="keyword">for</span> (x = FindBinary(MinEA(),<span class="number">0x03</span>,FBin);x != BADADDR;x = FindBinary(x,<span class="number">0x03</span>,FBin))</span><br><span class="line">    &#123;</span><br><span class="line">            x=x+<span class="number">5</span>; <span class="comment">//返回的x是第一个E8的地址，</span></span><br><span class="line">                  <span class="comment">//加上5是第二个E8的地址</span></span><br><span class="line">            PatchByte (x,<span class="number">0x90</span>);<span class="comment">//nop掉</span></span><br><span class="line">            x = x + <span class="number">3</span>; <span class="comment">//00</span></span><br><span class="line">            PatchByte (x,<span class="number">0x90</span>);</span><br><span class="line">            x++;  <span class="comment">//00 E8</span></span><br><span class="line">            PatchWord (x,<span class="number">0x9090</span>);</span><br><span class="line">            x =x + <span class="number">2</span> ; <span class="comment">//F6 FF FF FF</span></span><br><span class="line">            PatchDword(x,<span class="number">0x90909090</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<p>寻找当前函数的开始与结束的虚拟地址</p>
+<p>显示每个条汇编指令的地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> origEA,currEA,funcStart,funcEnd;</span><br><span class="line">    </span><br><span class="line">    origEA = ScreenEA();</span><br><span class="line">    <span class="comment">// origEA = OEP 如果origEA 不在函数内则返回-1</span></span><br><span class="line">    funcStart = GetFunctionAttr(origEA,FUNCATTR_START);</span><br><span class="line">    </span><br><span class="line">    funcEnd = GetFunctionAttr(origEA,FUNCATTR_END);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//Message(&quot;OEP: %x 起始地址: %x --&gt; 结束地址: %x \n&quot;,origEA,funcStart,funcEnd);</span></span><br><span class="line">     Message(<span class="string">&quot;++++++++++\n&quot;</span>);`</span><br><span class="line">    <span class="comment">// NextHead 在currEA开始的位置寻找下一条指令的地址</span></span><br><span class="line">    <span class="keyword">for</span>(currEA = funcStart; currEA != <span class="number">-1</span>; currEA=NextHead(currEA,funcEnd))</span><br><span class="line">    &#123;</span><br><span class="line">        Message(<span class="string">&quot;--&gt; %8x \n&quot;</span>,currEA);</span><br><span class="line">    &#125;</span><br><span class="line">    Message(<span class="string">&quot;++++++++++\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">++++++++++</span><br><span class="line">--&gt;   4006e3 </span><br><span class="line">--&gt;   4006e4 </span><br><span class="line">--&gt;   4006e7 </span><br><span class="line">--&gt;   4006eb </span><br><span class="line">--&gt;   4006f0 </span><br><span class="line">--&gt;   4006f5 </span><br><span class="line">--&gt;   4006fa </span><br><span class="line">--&gt;   4006ff </span><br><span class="line">--&gt;   400704 </span><br><span class="line">--&gt;   400709 </span><br><span class="line">--&gt;   40070e </span><br><span class="line">--&gt;   400713 </span><br><span class="line">--&gt;   400717 </span><br><span class="line">--&gt;   40071c </span><br><span class="line">--&gt;   400721 </span><br><span class="line">--&gt;   400726 </span><br><span class="line">--&gt;   40072a </span><br><span class="line">--&gt;   40072c </span><br><span class="line">--&gt;   400730 </span><br><span class="line">--&gt;   400737 </span><br><span class="line">--&gt;   40073b </span><br><span class="line">--&gt;   40073d </span><br><span class="line">--&gt;   400740 </span><br><span class="line">--&gt;   400742 </span><br><span class="line">--&gt;   400749 </span><br><span class="line">--&gt;   40074c </span><br><span class="line">--&gt;   40074f </span><br><span class="line">--&gt;   400751 </span><br><span class="line">--&gt;   400758 </span><br><span class="line">--&gt;   40075a </span><br><span class="line">--&gt;   40075c </span><br><span class="line">--&gt;   400760 </span><br><span class="line">--&gt;   400764 </span><br><span class="line">--&gt;   400766 </span><br><span class="line">--&gt;   40076a </span><br><span class="line">--&gt;   40076c </span><br><span class="line">--&gt;   400771 </span><br><span class="line">--&gt;   400776 </span><br><span class="line">--&gt;   400778 </span><br><span class="line">--&gt;   40077d </span><br><span class="line">--&gt;   400782 </span><br><span class="line">--&gt;   400787 </span><br><span class="line">--&gt;   400788 </span><br><span class="line">++++++++++</span><br></pre></td></tr></table></figure>
+
+
+
+<p>寻找函数的oep</p>
+<p>寻找每条汇编指令的虚拟地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> origEA,currEA,funcStart,funcEnd;</span><br><span class="line">    </span><br><span class="line">    origEA = ScreenEA();</span><br><span class="line">    funcStart = GetFunctionAttr(origEA,FUNCATTR_START);</span><br><span class="line">    funcEnd = GetFunctionAttr(origEA,FUNCATTR_END);</span><br><span class="line">    </span><br><span class="line">    Message(<span class="string">&quot;%x --&gt; %x \n&quot;</span>,funcStart,funcEnd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(currEA != BADADDR)</span><br><span class="line">    &#123;</span><br><span class="line">        Message(<span class="string">&quot;--&gt; %x \n&quot;</span>,currEA);</span><br><span class="line">        currEA = NextHead(currEA,funcEnd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>定义一个函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个函数</span></span><br><span class="line"><span class="type">static</span> <span class="title function_">OutPutAddress</span><span class="params">(MyString)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> currAddress;</span><br><span class="line">    currAddress = ScreenEA();</span><br><span class="line">    Message(<span class="string">&quot;%d \n&quot;</span>,MyString);</span><br><span class="line">    <span class="keyword">return</span> currAddress;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> ret = OutPutAddress(<span class="number">1314</span>);</span><br><span class="line">    Message(<span class="string">&quot;%x \n&quot;</span>,ret);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>每条汇编指令来自哪个函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> origEA, currEA, funcStart, funcEnd;</span><br><span class="line"></span><br><span class="line">    origEA = ScreenEA();</span><br><span class="line">    <span class="comment">// origEA = OEP 如果origEA 不在函数内则返回-1</span></span><br><span class="line">    funcStart = GetFunctionAttr(origEA, FUNCATTR_START);</span><br><span class="line">    funcEnd = GetFunctionAttr(origEA, FUNCATTR_END);</span><br><span class="line"></span><br><span class="line">    Message(<span class="string">&quot;OEP: %x 起始地址: %x --&gt; 结束地址: %x \n&quot;</span>,origEA,funcStart,funcEnd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (currEA != BADADDR)</span><br><span class="line">    &#123;</span><br><span class="line">        Message(<span class="string">&quot;%x &lt;-- %s \n&quot;</span>, currEA, GetFunctionName(currEA));</span><br><span class="line">        currEA = NextHead(currEA, funcEnd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;idc.idc&gt;</span><br><span class="line"></span><br><span class="line">static main()</span><br><span class="line">&#123;</span><br><span class="line">    auto currAddr, func, endSeg, funcName, counter;</span><br><span class="line"></span><br><span class="line">    currAddr    = ScreenEA();</span><br><span class="line">    func        = SegStart(currAddr);</span><br><span class="line">    endSeg      = SegEnd(currAddr);</span><br><span class="line"></span><br><span class="line">    Message(&quot;%x --&gt; %x \n&quot;, func, endSeg);</span><br><span class="line"></span><br><span class="line">    counter = 0;</span><br><span class="line"></span><br><span class="line">    while (func != BADADDR &amp;&amp; func &lt; endSeg)</span><br><span class="line">    &#123;</span><br><span class="line">        funcName = GetFunctionName(func);</span><br><span class="line">        if (funcName != &quot; &quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            Message(&quot;%x --&gt; %s \n&quot;, func, funcName);</span><br><span class="line">            counter++;</span><br><span class="line">        &#125;</span><br><span class="line">        func = NextFunction(func);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>枚举所有函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> currAddr, func, endSeg, funcName, counter;</span><br><span class="line"></span><br><span class="line">    currAddr    = ScreenEA();</span><br><span class="line">    func        = SegStart(currAddr);</span><br><span class="line">    endSeg      = SegEnd(currAddr);</span><br><span class="line"></span><br><span class="line">    Message(<span class="string">&quot;%x --&gt; %x \n&quot;</span>, func, endSeg);</span><br><span class="line"></span><br><span class="line">    counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (func != BADADDR &amp;&amp; func &lt; endSeg)</span><br><span class="line">    &#123;</span><br><span class="line">        funcName = GetFunctionName(func);</span><br><span class="line">        <span class="keyword">if</span> (funcName != <span class="string">&quot; &quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Message(<span class="string">&quot;%x --&gt; %s \n&quot;</span>, func, funcName);</span><br><span class="line">            counter++;</span><br><span class="line">        &#125;</span><br><span class="line">        func = NextFunction(func);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>搜索指定函数的地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> currAddr, func, endSeg, funcName, counter;</span><br><span class="line"></span><br><span class="line">    currAddr    = ScreenEA();</span><br><span class="line">    func        = SegStart(currAddr);</span><br><span class="line">    endSeg      = SegEnd(currAddr);</span><br><span class="line"></span><br><span class="line">    Message(<span class="string">&quot;%x --&gt; %x \n&quot;</span>, func, endSeg);</span><br><span class="line"></span><br><span class="line">    counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (func != BADADDR &amp;&amp; func &lt; endSeg)</span><br><span class="line">    &#123;</span><br><span class="line">        funcName = GetFunctionName(func);</span><br><span class="line">        <span class="keyword">if</span> (funcName != <span class="string">&quot; &quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (funcName == <span class="string">&quot;__lock&quot;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Message(<span class="string">&quot;%x --&gt; %s \n&quot;</span>, func, funcName);</span><br><span class="line">            &#125;</span><br><span class="line">            counter++;</span><br><span class="line">        &#125;</span><br><span class="line">        func = NextFunction(func);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>对指定汇编指令高亮显示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> head, op;</span><br><span class="line">    head = NextHead(<span class="number">0x00000000</span>, <span class="number">0xFFFFFFFF</span>);</span><br><span class="line">    <span class="keyword">while</span> (head != BADADDR)</span><br><span class="line">    &#123;</span><br><span class="line">        op = GetMnem(head);</span><br><span class="line">        Message(<span class="string">&quot;%x %s \n&quot;</span>, head, op);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (op == <span class="string">&quot;ret&quot;</span>)</span><br><span class="line">            SetColor(head, CIC_ITEM,  <span class="number">0x98FF98</span>);</span><br><span class="line">        head = NextHead(head, <span class="number">0xFFFFFFFF</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>SetColor第三个参数是颜色</p>
+<p>0x98FF98 荧光绿 0x00ff00</p>
+<p>将函数的名字dump到本地,dump出的文件名字是xxxfile_name_dump.log</p>
+<p>文件的路径与你的xxx.exe相同</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">getFuncName</span><span class="params">(ea)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> funcName = get_func_name(ea);</span><br><span class="line">		</span><br><span class="line">    <span class="keyword">auto</span> dm = demangle_name(funcName, get_inf_attr(INF_LONG_DN));</span><br><span class="line">    <span class="keyword">if</span>(dm != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        funcName = dm;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> funcName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">functionDump</span><span class="params">(ea)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> funcName = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">auto</span> end = <span class="number">0x0</span>;</span><br><span class="line">    <span class="keyword">auto</span> file_open = get_idb_path()[<span class="number">0</span>:<span class="number">-4</span>] + <span class="string">&quot;_dump.log&quot;</span>;</span><br><span class="line">    <span class="keyword">auto</span> stream = fopen(file_open, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">    <span class="keyword">auto</span> peekAhead;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>( ea != BADADDR )</span><br><span class="line">    &#123;</span><br><span class="line">        ea = NextFunction(ea);		</span><br><span class="line">        peekAhead = NextFunction(ea);</span><br><span class="line">        end = FindFuncEnd(ea);	</span><br><span class="line">        funcName = getFuncName(ea);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(peekAhead == BADADDR)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">fprintf</span>(stream, <span class="string">&quot;&#123; 0x%X, 0x%X, \&quot;%s\&quot; &#125;\n&quot;</span>, ea, end, funcName);</span><br><span class="line">            ea = peekAhead;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">            end = peekAhead - <span class="number">1</span>;		</span><br><span class="line">            <span class="built_in">fprintf</span>(stream, <span class="string">&quot;&#123; 0x%X, 0x%X, \&quot;%s\&quot; &#125;\n&quot;</span>, ea, end,funcName);</span><br><span class="line">    &#125;</span><br><span class="line">        fclose(stream);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    functionDump(<span class="number">0x40000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="IDC-API"><a href="#IDC-API" class="headerlink" title="IDC-API"></a>IDC-API</h1><p>jmp 到当前位置+1</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">EB FF			jmp     <span class="type">short</span> near ptr loc_1144+<span class="number">1</span></span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">                dw <span class="number">0B</span>FC0h</span><br><span class="line">                dq <span class="number">0F</span>FFEDFE800000068h, <span class="number">65B</span>FC0FFEBFFh, <span class="number">0F</span>FEBFFFFFED2E800h</span><br><span class="line">                dq <span class="number">0</span>C5E80000006CBFC0h, <span class="number">6</span>CBFC0FFEBFFFFFEh, <span class="number">0F</span>FFFFEB8E8000000h</span><br><span class="line">                dq <span class="number">6F</span>BFC0FFEBh, <span class="number">0</span>C0FFEBFFFFFEABE8h, <span class="number">0F</span>E9EE800000020BFh</span><br><span class="line">                dq <span class="number">77B</span>FC0FFEBFFFFh, <span class="number">0</span>EBFFFFFE91E80000h, <span class="number">0E80000006</span>FBFC0FFh</span><br></pre></td></tr></table></figure>
+
+<p>他的特征代码是<code>EB FF</code></p>
+<p>EB是jmp FF是偏移</p>
+<p>于是这种没有意义的跳转应该给nop掉</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">EB                                      db <span class="number">0</span>EBh</span><br><span class="line">;---------------------------------------------------------------------------</span><br><span class="line">FF C0                                   inc     eax</span><br><span class="line">BF <span class="number">68</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>                          mov     edi, <span class="number">68</span>h ; <span class="string">&#x27;h&#x27;</span></span><br><span class="line">E8 DF FE FF FF                          call    _putchar</span><br></pre></td></tr></table></figure>
+
+<p>如果程序中有大量的这种花指令.那么你不可能手动的一个一个去nop掉</p>
+<p>用脚本</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> x, target_str, ProcRange;</span><br><span class="line">    target_str = <span class="string">&quot;EB FF C0 BF&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (x = FindBinary(MinEA(), <span class="number">0x03</span>, target_str); x != BADADDR; x = FindBinary(x, <span class="number">0x03</span>, target_str))</span><br><span class="line">    &#123;       </span><br><span class="line">        PatchByte(x, <span class="number">0x90</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>FindBinary(MinEA(), 0x03, target_str)的意思是?</p>
+<p>从地址MinEA()处按0x03的模式遍历字节码target_str</p>
+<p>MinEA()是最小的地址</p>
+<p> PatchByte(x, 0x90);是把x指向的第一个字节给nop掉</p>
+<h2 id="数据读取修改"><a href="#数据读取修改" class="headerlink" title="数据读取修改"></a>数据读取修改</h2><h3 id="PatchByte"><a href="#PatchByte" class="headerlink" title="PatchByte"></a>PatchByte</h3><h3 id="PatchWord"><a href="#PatchWord" class="headerlink" title="PatchWord"></a>PatchWord</h3><h3 id="PatchDword"><a href="#PatchDword" class="headerlink" title="PatchDword"></a>PatchDword</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">PatchByte</span><span class="params">(<span class="type">long</span> addr , <span class="type">long</span> val)</span> </span><br></pre></td></tr></table></figure>
+
+<p>设置虚拟地址addr处的一个字节值，</p>
+<p>PatchByte可更换为</p>
+<p>PatchWord，PatchDword</p>
+<p>设置虚拟地址addr处的2字节和4字节值。</p>
+<h3 id="Byte"><a href="#Byte" class="headerlink" title="Byte"></a>Byte</h3><h3 id="Word"><a href="#Word" class="headerlink" title="Word"></a>Word</h3><h3 id="Dword"><a href="#Dword" class="headerlink" title="Dword"></a>Dword</h3><p>long Byte( long addr)，从虚拟地址 addr处读取一个字节值。</p>
+<p>long word(long addr)，从虚拟地址addr处读取一个字（2字节）值。</p>
+<p>1ong Dword(long addr)，从虚拟地址addr处读取一个双字（4字节)值。</p>
+<h3 id="isLoaded"><a href="#isLoaded" class="headerlink" title="isLoaded"></a>isLoaded</h3><p>boo1 isLoaded(long addr)，如果addr包含有效数据，则返回1，否则返回0。</p>
+<p>5）long atol（string val），将10进制val转化成对应整数值。</p>
+<p>6）long xtol（string val），将16进制val转化成对应整数值。</p>
+<p>7）long ord（string ch），返回单字符字符串ch的ASCII值。</p>
+<p>8）string Name（long addr），返回与给定地址有关的名称，如果该位置没有名称，则返回空字符串。</p>
+<h2 id="用户交互函数"><a href="#用户交互函数" class="headerlink" title="用户交互函数"></a>用户交互函数</h2><h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>void Message(string format….)，</p>
+<p>在输出窗口打印一条格式化消息。这个函数类似于C语言的printf函数，并接受printf风格的格式化字符串。</p>
+<h3 id="print"><a href="#print" class="headerlink" title="print"></a>print</h3><p>void print( . ..)，</p>
+<p>在输出窗口中打印每个参数的字符串表示形式。</p>
+<h3 id="warning"><a href="#warning" class="headerlink" title="warning"></a>warning</h3><p>void warning(string format. …)，</p>
+<p>在对话框中显示一条格式化消息。</p>
+<h3 id="AskStr"><a href="#AskStr" class="headerlink" title="AskStr"></a>AskStr</h3><p>string AskStr(string default, string prompt)，</p>
+<p>显示一个输入框，要求用户输入一个字符串值。</p>
+<p>如果操作成功，则返回用户的字符串;</p>
+<p>如果对话框被取消，则返回0。</p>
+<h3 id="AskFile"><a href="#AskFile" class="headerlink" title="AskFile"></a>AskFile</h3><p>string AskFile(1ong doSave，string mask,string prompt)，</p>
+<p>显示一个文件选择对话框，以简化选择文件的任务。</p>
+<p>你可以创建新文件保存数据( doSave&#x3D;1)，或选择现有的文件读取数据（ doSave&#x3D;0)。</p>
+<p>你可以根据mask （如* .<em>或</em>. idc)过滤显示的文件列表。</p>
+<p>如果操作成功，则返回选定文件的名称;</p>
+<p>如果对话框被取消,则返回O。</p>
+<h3 id="AskYN"><a href="#AskYN" class="headerlink" title="AskYN"></a>AskYN</h3><p>long AskYN( long default, string prompt)，</p>
+<p>用一个答案为“是”或“否”的问题提示用户，</p>
+<p>突出一个默认的答案(1为是，0为否，-1为取消)。</p>
+<p>返回值是一个表示选定答案的整数。</p>
+<h3 id="ScreenEA"><a href="#ScreenEA" class="headerlink" title="ScreenEA"></a>ScreenEA</h3><p>long ScreenEA(),</p>
+<p>返回当前光标所在位置的虚拟地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> CurrAddress = ScreenEA(); </span><br><span class="line">    <span class="comment">//ScreenEA() 返回当前光标所在的虚拟地址</span></span><br><span class="line">     Message(<span class="string">&quot;程序OEP =&gt; 0x%x \n&quot;</span>,CurrAddress);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Jump"><a href="#Jump" class="headerlink" title="Jump"></a>Jump</h3><p>boo1 Jump( 1ong addr)，跳转到反汇编窗口的指定地址。</p>
+<p>因为IDC没有任何调试工具，你可能需要将Message 函数作为你的主要调试工具。</p>
+<p>其他几个AskXXX函数用于处理更加专用的输人，如整数输人。请参考帮助系统文档了解可用的 AskXXX函数的完整列表。</p>
+<p>如果希望创建一个根据光标位置调整其行为的脚本，这时，ScreenEA函数就非常有用，因为你可以通过它确定光标的当前位置。</p>
+<p>同样，如果你的脚本需要将用户的注意力转移到反汇编代码清单中的某个位置，也需要用到Jump函数。</p>
+<h2 id="字符串操作函数"><a href="#字符串操作函数" class="headerlink" title="字符串操作函数"></a>字符串操作函数</h2><h3 id="form"><a href="#form" class="headerlink" title="form"></a>form</h3><p>string form(string format，…)</p>
+<p>&#x2F;&#x2F;preIDA5.6，返回一个新字符串，该字符串根据所提供的格式化字符串和值进行格式化。这个函数基本上等同于C语言的sprintf函数</p>
+<h3 id="sprintf"><a href="#sprintf" class="headerlink" title="sprintf"></a>sprintf</h3><p>string sprintf(string format . . . .)&#x2F;&#x2F;IDA5.6+，在 IDA5.6中，sprintf用于替代form(参见上面)。</p>
+<h3 id="atol"><a href="#atol" class="headerlink" title="atol"></a>atol</h3><p>1ong ato1(string va1)，将十进制值va1转换成对应的整数值。</p>
+<h3 id="xtol"><a href="#xtol" class="headerlink" title="xtol"></a>xtol</h3><p>1ong xtol(string val)，将十六进制值val(可选择以0x开头）转换成对应的整数值。</p>
+<h3 id="ltoa"><a href="#ltoa" class="headerlink" title="ltoa"></a>ltoa</h3><p>string ltoa(1ong va1，1ong radix)，</p>
+<p>以指定的radix (2、8、10或16)返回va1的字符串值。</p>
+<h3 id="ord"><a href="#ord" class="headerlink" title="ord"></a>ord</h3><p>long ord(string ch)，返回单字符字符串ch 的ASCI值。</p>
+<h3 id="strlen"><a href="#strlen" class="headerlink" title="strlen"></a>strlen</h3><p>long strlen(string str)，返回所提供字符串的长度。</p>
+<h3 id="strstr"><a href="#strstr" class="headerlink" title="strstr"></a>strstr</h3><p>long strstr(string str. string substr)，</p>
+<p>返回str中 substr 的索引。</p>
+<p>如果没有发现子字符串，则返回-1。</p>
+<h3 id="substr"><a href="#substr" class="headerlink" title="substr"></a>substr</h3><p>string substr(string str. long start.1ong end)，</p>
+<p>返回包含 str 中由start到end-1位置的字符的子字符串。</p>
+<p>如果使用分片（IDA5.6及更高版本)，此函数等同于str[start:end]。<br>如前所述，IDC中没有任何字符数据类型，它也不支持任何数组语法。</p>
+<p>如果你想要遍历字符串的每个字符，必须把字符串中的每个字符当成连续的单字符子字符串处理。</p>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><p>输出窗口并不总是显示脚本输出的理想位置</p>
+<p>对于生成大量文本或二进制数据的脚本，你可能希望将其结果输出到磁盘文件上。</p>
+<p>我们已经讨论了如何使用AskFi1e函数要求用户输入文件名。</p>
+<p>但是，AskFi1e仅返回一个包含文件名的字符串值。</p>
+<p>IDC的文件处理函数如下所示。</p>
+<h3 id="fopen"><a href="#fopen" class="headerlink" title="fopen"></a>fopen</h3><p>long fopen(string filename，string mode)</p>
+<p>返回一个整数文件句柄（如果发生错误，则返回0)</p>
+<p>供所有IDC文件输入&#x2F;输出函数使用</p>
+<p>mode参数与C语言的fopen 函数使用的模式( r表示读取，w表示写入，等等）类似。</p>
+<h3 id="fclose"><a href="#fclose" class="headerlink" title="fclose"></a>fclose</h3><p>void fclose(long hand1e)</p>
+<p>关闭fopen中文件句柄指定的文件。</p>
+<h3 id="filelength"><a href="#filelength" class="headerlink" title="filelength"></a>filelength</h3><p>long filelength(long handle)</p>
+<p>返回指定文件的长度，</p>
+<p>如果发生错误，则返回-1。</p>
+<h3 id="fgetc"><a href="#fgetc" class="headerlink" title="fgetc"></a>fgetc</h3><p>1ong fgetc(long handle)，从给定文件中读取一个字节</p>
+<p>如果发生错误，则返回-1。</p>
+<h3 id="fputc"><a href="#fputc" class="headerlink" title="fputc"></a>fputc</h3><p>long fputc(long val. long handle)，写入一个字节到给定文件中</p>
+<p>如果操作成功，则返回0;</p>
+<p>如果发生错误，则返回-1。</p>
+<h3 id="fprintf"><a href="#fprintf" class="headerlink" title="fprintf"></a>fprintf</h3><p>long fprintf(1ong handle, string format，…)</p>
+<p>将一个格式化字符串写入到给定文件中。</p>
+<h3 id="writestr"><a href="#writestr" class="headerlink" title="writestr"></a>writestr</h3><p>long writestr(long handle. string str)，将指定的字符串写入到给定文件中。</p>
+<h3 id="readstr"><a href="#readstr" class="headerlink" title="readstr"></a>readstr</h3><p>string&#x2F;long readstr(1ong handle)，从给定文件中读取一个字符串</p>
+<p>这个函数读取到下一个换行符为止的所有字符（包括非ASCII字符)，包括换行符本身(ASCII OxA )。</p>
+<p>如果操作成功，则返回字符串;</p>
+<p>如果读取到文件结尾，则返回-1。</p>
+<h3 id="writelong"><a href="#writelong" class="headerlink" title="writelong"></a>writelong</h3><p>long writelong(long handle. long va1， long bigendian)</p>
+<p>使用大端(bigendian-1)或小端( bigendian&#x3D;0)字节顺序将一个4字节整数写入到给定文件。</p>
+<h3 id="readlong"><a href="#readlong" class="headerlink" title="readlong"></a>readlong</h3><p>long readlong( long handle,long bigendian)</p>
+<p>使用大端(bigendian&#x3D;1)</p>
+<p>或小端( bigendian&#x3D;-Q)字节顺序从给定的文件中读取一个4字节整数。</p>
+<h3 id="writeshort"><a href="#writeshort" class="headerlink" title="writeshort"></a>writeshort</h3><p>long writeshort(long handle，long va1,long bigendian)</p>
+<p>使用大端( bigendian&#x3D;1)或小端( bigendian&#x3D;0)字节顺序将一个2字节整数写入到给定的文件。</p>
+<h3 id="readshort"><a href="#readshort" class="headerlink" title="readshort"></a>readshort</h3><p>long readshort( 1ong handle,long bigendian)</p>
+<p>使用大端(bigendian-1)或小端( bigendian&#x3D;0)字节顺序从给定的文件中读取一个2字节整数。</p>
+<h3 id="loadfile"><a href="#loadfile" class="headerlink" title="loadfile"></a>loadfile</h3><p>bool loadfile(long handle.long pos，long addr. long length)</p>
+<p>从给定文件的pos位置读取length数量的字节，并将这些字节写入到以addr地址开头的数据库中。</p>
+<h3 id="savefile"><a href="#savefile" class="headerlink" title="savefile"></a>savefile</h3><p>bool savefile(long handle，1ong pos.long addr. long length)</p>
+<p>将以addr数据库地址开头的length数量的字节写入给定文件的pos位置。</p>
+<h2 id="操作数据库名称"><a href="#操作数据库名称" class="headerlink" title="操作数据库名称"></a>操作数据库名称</h2><p>在脚本中，你经常需要操纵已命名的位置。下面的IDC函数用于处理IDA数据库中已命名的位置。</p>
+<h3 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h3><p>string Name(1ong addr)，</p>
+<p>返回与给定地址有关的名称，</p>
+<p>如果该位置没有名称，则返回空字符串。</p>
+<p>如果名称被标记为局部名称，这个函数并不返回用户定义的名称。</p>
+<h3 id="NameEx"><a href="#NameEx" class="headerlink" title="NameEx"></a>NameEx</h3><p>string NameEx(long from，long addr)，返回与addr有关的名称。如果该位置没有名称，则返回空字符串。</p>
+<p>如果 from是一个同样包含addr的函数中的地址，则这个函数返回用户定义的局部名称。</p>
+<h3 id="MakeNameEx"><a href="#MakeNameEx" class="headerlink" title="MakeNameEx"></a>MakeNameEx</h3><p>bool MakeNameEx(1ong addr. string name. long flags)，</p>
+<p>将给定的名称分配给给定的地址。该名称使用flags位掩码中指定的属性创建而成。</p>
+<p>这些标志在帮助系统中的MakeNameEx文档中有记载描述，</p>
+<p>可用于指定各种属性，如名称是局部名称还是公共名称、名称是否应在名称窗口中列出</p>
+<h3 id="LocByName"><a href="#LocByName" class="headerlink" title="LocByName"></a>LocByName</h3><p>long LocByName(string name)，返回一个位置（名称已给定）的地址。如果数据库中没有这个名称，则返回BADADDR ( -1 )。</p>
+<h3 id="LocByNameEx"><a href="#LocByNameEx" class="headerlink" title="LocByNameEx"></a>LocByNameEx</h3><p>long LocByNameEx(long funcaddr， string loca 1name)，在包含funcaddr的函数中搜索给定的局部名称。如果给定的函数中没有这个名称，则返回BADADDR ( -1 )o</p>
+<h2 id="操作数据库的函数"><a href="#操作数据库的函数" class="headerlink" title="操作数据库的函数"></a>操作数据库的函数</h2><p>有大量函数可用于对数据库的内容进行格式化。这些函数如下所示。</p>
+<h3 id="MakeUnkn"><a href="#MakeUnkn" class="headerlink" title="MakeUnkn"></a>MakeUnkn</h3><p>void MakeUnkn(long addr. long flags)，</p>
+<p>取消位于指定地址的项的定义。</p>
+<p>这里的标志(参见IDC的MakeUnkn文档）指出是否也取消随后的项的定义</p>
+<p>以及是否删除任何与取消定义的项有关的名称。</p>
+<p>相关函数MakeUnknown 允许你取消大块数据的定义。</p>
+<h3 id="MakeCode"><a href="#MakeCode" class="headerlink" title="MakeCode"></a>MakeCode</h3><p>long MakeCode(1ong addr)，</p>
+<p>将位于指定地址的字节转换成一条指令。</p>
+<p>如果操作成功，则返回指令的长度，</p>
+<p>否则返回0。</p>
+<h3 id="MakeByte"><a href="#MakeByte" class="headerlink" title="MakeByte"></a>MakeByte</h3><p>bool MakeByte(long addr)，</p>
+<p>将位于指定地址的项目转换成一个数据字节。</p>
+<p>类似的函数还包括Makeword和 MakeDword。</p>
+<h3 id="MakeComm"><a href="#MakeComm" class="headerlink" title="MakeComm"></a>MakeComm</h3><p>boo1 MakeComm(long addr. string comment)，</p>
+<p>在给定的地址处添加一条常规注释。</p>
+<h3 id="MakeFunction"><a href="#MakeFunction" class="headerlink" title="MakeFunction"></a>MakeFunction</h3><p>bool MakeFunction(long begin，long end)，</p>
+<p>将由begin到end 的指令转换成一个函数。如果end被指定为BADADDR ( -1)，IDA会尝试通过定位函数的返回指令，来自动确定该函数的结束地址。</p>
+<h3 id="MakeStr"><a href="#MakeStr" class="headerlink" title="MakeStr"></a>MakeStr</h3><p>bool MakeStr(1ong begin，long end)，</p>
+<p>创建一个当前字符串(由GetStringType返回)类型的字符串,</p>
+<p>涵盖由begin到end-1之间的所有字节。</p>
+<p>如果end被指定为BADADDR,IDA会尝试自动确定字符串的结束位置。</p>
+<h2 id="数据库搜索函数"><a href="#数据库搜索函数" class="headerlink" title="数据库搜索函数"></a>数据库搜索函数</h2><p>在IDC中，IDA的绝大部分搜索功能可通过各种FindXXX函数来实现，下面我们将介绍其中一些函数。FindXXX函数中的flags参数是一个位掩码，可用于指定查找操作的行为。3个最为常用的标志分别为SEARCH_DOWN，它指示搜索操作扫描高位地址;SEARCH_NEXT，它略过当前匹配项，以搜索下一个匹配项;SEARCH_CASE，它以区分大小写的方式进行二进制和文本搜索。</p>
+<h3 id="FindCode"><a href="#FindCode" class="headerlink" title="FindCode"></a>FindCode</h3><p>long FindCode(long addr. long flags)，</p>
+<p>从给定的地址搜索一条指令。</p>
+<h3 id="FindData"><a href="#FindData" class="headerlink" title="FindData"></a>FindData</h3><p>long FindData(long addr.long flags)，从给定的地址搜索一个数据项。</p>
+<h3 id="FindBinary"><a href="#FindBinary" class="headerlink" title="FindBinary"></a>FindBinary</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="title function_">FindBinary</span><span class="params">(<span class="type">long</span> addr，<span class="type">long</span> flags，<span class="built_in">string</span> binary)</span></span><br></pre></td></tr></table></figure>
+
+<p>从给定的地址<code>addr</code>搜索一个字节序列<code> binary</code></p>
+<p>字符串binary指定一个十六进制字节序列值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flag取值有：</span><br><span class="line"> </span><br><span class="line">SEARCH_DOWN 向下搜索</span><br><span class="line">SEARCH_UP 向上搜索</span><br><span class="line">SEARCH_NEXT 获取下一个找到的对象。</span><br><span class="line">SEARCH_CASE 指定大小写敏感度</span><br><span class="line">SEARCH_UNICODE 搜索 Unicode 字符串。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果没有设置SEARCH_CASE，且一个字节值指定了一个大写或小写ASCII字母，则搜索仍然会匹配对应的互补值。</p>
+<p>例如，”4142”将匹配”61 62”(和“61 42”)，除非你设置了SEARCH_CASE标志。</p>
+<h3 id="FindText"><a href="#FindText" class="headerlink" title="FindText"></a>FindText</h3><p>long FindText(long addr.long flags.1ong row.long column，string text)，</p>
+<p>在给定的地址，从给定行( row)的给定列搜索字符串text。注意，某个给定地址的反汇编文本.可能会跨越几行，因此,你需要指定搜索应从哪一行开始。<br>还要注意的是，SEARCH_NEXT并未定义搜索的方向，根据SEARCH_DOWN 标志，其方向可能向上也可能向下。此外，如果没有设置SEARCH_NEXT，且 addr位置的项与搜索条件匹配，则FindXXX函数很可能会返回addr参数传递给该函数的地址。</p>
+<h2 id="操作函数的函数"><a href="#操作函数的函数" class="headerlink" title="操作函数的函数"></a>操作函数的函数</h2><p>许多脚本专用于分析数据库中的函数。</p>
+<p>IDA为经过反汇编的函数分配大量属性，如函数局部变量区域的大小、函数的参数在运行时栈上的大小。</p>
+<p>下面的IDC函数可用于访问与数据库中的</p>
+<h3 id="GetFunctionAttr"><a href="#GetFunctionAttr" class="headerlink" title="GetFunctionAttr"></a>GetFunctionAttr</h3><p>long GetFunctionAttr(long addr.1ong attrib)，</p>
+<p>返回包含给定地址的函数的被请求的属性</p>
+<p>例如，要查找一个函数的结束地址，可以使用GetFunctionAttr(addr. FUNCATTR_END)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">funcStart = GetFunctionAttr(origEA,FUNCATTR_START);</span><br><span class="line">funcEnd = GetFunctionAttr(origEA,FUNCATTR_END)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="GetFunctionName"><a href="#GetFunctionName" class="headerlink" title="GetFunctionName"></a>GetFunctionName</h3><p>string GetFunctionName(long addr)，</p>
+<p>返回包含给定地址的函数的名称。</p>
+<p>如果给定的地址并不属于-一个函数，则返回一个空字符串。</p>
+<h3 id="NextFunction"><a href="#NextFunction" class="headerlink" title="NextFunction"></a>NextFunction</h3><p>long NextFunction(long addr)，</p>
+<p>返回给定地址后的下一个函数的起始地址。</p>
+<p>如果数据库中给定地址后没有其他函数，则返回-1。</p>
+<h3 id="PrevFunction"><a href="#PrevFunction" class="headerlink" title="PrevFunction"></a>PrevFunction</h3><p>1ong PrevFunction(1ong addr)，</p>
+<p>返回给定地址之前距离最近的函数的起始地址。</p>
+<p>如果在给定地址之前没有函数，则返回-1。</p>
+<p>根据函数的名称，使用LocByName函数查找该函数的起始地址。</p>
+<h2 id="代码交叉引用函数"><a href="#代码交叉引用函数" class="headerlink" title="代码交叉引用函数"></a>代码交叉引用函数</h2><h3 id="Rfirst"><a href="#Rfirst" class="headerlink" title="Rfirst"></a>Rfirst</h3><p>long Rfirst(long from)，</p>
+<p>返回给定地址向其转交控制权的第–个位置。</p>
+<p>如果给定的地址没有引用其他地址，则返回BADADDR ( -1 )</p>
+<h3 id="Rnext"><a href="#Rnext" class="headerlink" title="Rnext"></a>Rnext</h3><p>long Rnext(1ong from，long current)，</p>
+<p>如果current 已经在前一次调用Rfirst或Rnext时返回,</p>
+<p>则返回给定地址( from )转交控制权的下一个位置。</p>
+<p>如果没有其他交叉引用存在，则返回BADADDR。</p>
+<h3 id="XrefType"><a href="#XrefType" class="headerlink" title="XrefType"></a>XrefType</h3><p>long XrefType()，</p>
+<p>返回-个常量，说明某个交叉引用查询函数（如Rfirst)</p>
+<p>返回的最后一个交叉引用的类型。对于代码交叉引用，这些常量包括fl_CN(近调用)、fl_CF(远调用)、f1_JN（近跳转)、f1_JF（远跳转）和f1_F(普通顺序流)。</p>
+<h3 id="RfirstB"><a href="#RfirstB" class="headerlink" title="RfirstB"></a>RfirstB</h3><p>long RfirstB(long to)，</p>
+<p>返回转交控制权到给定地址的第一个位置。</p>
+<p>如果不存在对给定地址的交叉引用，则返回BADADDR( -1 )。</p>
+<h3 id="RnextB"><a href="#RnextB" class="headerlink" title="RnextB"></a>RnextB</h3><p>long RnextB(1ong to. long current)，</p>
+<p>如果current 已经在前一次调用RfirstB或RnextB时返回，则返回下一个转交控制权到给定地址(to)的位置。</p>
+<p>如果不存在其他对给定位置的交叉引用，则返回BADADDR ( -1 ).</p>
+<p>每次调用一个交叉引用函数，</p>
+<p>IDA都会设置一个内部 IDC状态变量,指出返回的最后一个交叉引用的类型。如果需要知道你收到的交叉引用的类型,那么在调用其他交叉引用查询函数之前，必须调用XrefType函数。</p>
+<h2 id="数据交叉引用"><a href="#数据交叉引用" class="headerlink" title="数据交叉引用"></a>数据交叉引用</h2><p>访问数据交叉引用信息的函数与访问代码交叉引用信息的函数非常类似。这些函数如下所示。</p>
+<h3 id="Dfirst"><a href="#Dfirst" class="headerlink" title="Dfirst"></a>Dfirst</h3><p>long Dfirst(long from)，</p>
+<p>返回给定地址引用一个数据值的第–个位置。</p>
+<p>如果给定地址没有引用其他地址，则返回BADADDR ( -1 )。</p>
+<h3 id="Dnext"><a href="#Dnext" class="headerlink" title="Dnext"></a>Dnext</h3><p>long Dnext(1ong from，long current)</p>
+<p>如果current已经在前–次调用Dfirst或Dnext时返回，则返回给定地址( from )</p>
+<p>向其引用一个数据值的下一个位置。</p>
+<p>如果没有其他交叉引用存在，则返回BADADDR。</p>
+<h3 id="XrefType-1"><a href="#XrefType-1" class="headerlink" title="XrefType()"></a>XrefType()</h3><p>long XrefType()，返回一个常量，说明某个交叉引用查询函数（如 Dfirst)返回的最后一个交叉引用的类型。</p>
+<p>对于数据交叉引用，这些常量包括dr_0(提供的偏移量)、dr_w(数据写人）和dr_R（数据读取)</p>
+<h3 id="DfirstB"><a href="#DfirstB" class="headerlink" title="DfirstB"></a>DfirstB</h3><p>long DfirstB(1ong to)</p>
+<p>返回将给定地址作为数据引用的第一个位置。</p>
+<p>如果不存在引用给定地址的交叉引用，则返回BADADDR ( -1 )。</p>
+<h3 id="DnextB"><a href="#DnextB" class="headerlink" title="DnextB"></a>DnextB</h3><p>long DnextB(long to，1ong current)，如果currnet 已经在前一次调用DfristB或DnextB时返回，则返回将给定地址( to)作为数据引用的下一次位置。如果没有其他对给定地址的交叉引用存在，则返回BADADDR。<br>和代码交叉引用一样，如果需要知道你收到的交叉引用的类型，那么在调用另一个交叉引用查询函数之前，必须调用XrefType函数。</p>
+<h2 id="反汇编提取"><a href="#反汇编提取" class="headerlink" title="反汇编提取"></a>反汇编提取</h2><p>许多时候，我们需要从反汇编代码清单的反汇编行中提取出文本或文本的某个部分。下面的函数可用于访问反汇编行的各种组件</p>
+<h3 id="GetDisasm"><a href="#GetDisasm" class="headerlink" title="GetDisasm"></a>GetDisasm</h3><p>string GetDisasm(long addr)，返回给定地址的反汇编文本。返回的文本包括任何注释，但不包括地址信息。</p>
+<h3 id="GetMnem"><a href="#GetMnem" class="headerlink" title="GetMnem"></a>GetMnem</h3><p>string GetMnem( long addr)，返回位于给定地址的指令的助记符部分。</p>
+<h3 id="GetOpnd"><a href="#GetOpnd" class="headerlink" title="GetOpnd"></a>GetOpnd</h3><p>string GetOpnd(long addr. long opnum)，返回指定地址的指定操作数的文本形式。IDA以零为起始编号，从左向右对操作数编号。</p>
+<h3 id="GetOpType"><a href="#GetOpType" class="headerlink" title="GetOpType"></a>GetOpType</h3><p>long GetOpType(long addr.long opnum)，返回一个整数，指出给定地址的给定操作数的类型。请参考GetOpType的 IDC文档，了解操作数类型代码。</p>
+<h3 id="GetOperandValue"><a href="#GetOperandValue" class="headerlink" title="GetOperandValue"></a>GetOperandValue</h3><p>long GetOperandValue(long addr. long opnum)，返回与给定地址的给定操作数有关的整数值。返回值的性质取决于GetOpType指定的给定操作数的类型。<br>15.5 IDC脚本示例211<br>string CommentEx(long addr. long type)，返回给定地址处的注释文本。如果type为0,则返回常规注释的文本;如果type为1，则返回可重复注释的文本。如果给定地址处没有注释,则返回一个空字符串。</p>
+<h2 id="misc-func"><a href="#misc-func" class="headerlink" title="misc-func"></a>misc-func</h2><p>MinEA() MaxEA() 获取当前idb 的最小地址 和 最大地址</p>
+<p>idc.ScreenEA() 获取当前光标所在行的地址, 返回一个 int 类型</p>
+<p>idc.SegName(ea) ea是一个变量存储当前地址, 这个api 是获取当前地址所在的段</p>
+<p>idc.GetDisasm(ea) 获取当前地址的反汇编代码</p>
+<p>idc.GetMnem(ea) 获取当前地址的操作码</p>
+<p>idc.GetOpnd(ea,0) 获取当前地址的操作数,第二个参数表示哪一个操作数</p>
+<p>idc.SegStart(ea) 获取当前地址的段起始地址</p>
+<p>idc.SegEnd(ea) 获取当前地址的段尾地址</p>
+<p>idc.NextSeg(ea) 获取下一个段的起始地址</p>
+<p>idautils.Segments() 返回一个可迭代的对象数组</p>
+<p>idc.GetFunctionName(func) 通过地址,获取函数的名称</p>
+<p>idautils.Functions() 返回一个可迭代的函数首地址数组,</p>
+<p>idaapi.get_func(ea) 获取当前地址的函数首地址和尾地址</p>
+<p>idc.NextFunction(ea) 获取下一个函数地址</p>
+<p>idc.PrevFunction(ea) 获取前一个函数地址</p>
+<p>idc.GetFunctionAttr(ea,FUNCATTR_START) 获取一个函数的边界地址</p>
+<p>idc.GetDunctionAttr(ea,FUNCATTR_END) 获取一个函数的边界地址</p>
+<p>idc.NextHead(当前地址,函数结尾) 获取一个当前指令的下一行地址,第二个参数为结尾</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/resmile/">Home</a></li>
+         
+          <li><a href="/resmile/categories/">目录</a></li>
+         
+          <li><a href="/resmile/tags/">标签</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC%E8%84%9A%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">IDC脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%AD%E5%8F%A5"><span class="toc-number">1.5.</span> <span class="toc-text">输出语句</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC-Example"><span class="toc-number">2.</span> <span class="toc-text">IDC-Example</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#patch"><span class="toc-number">2.1.</span> <span class="toc-text">patch</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC-API"><span class="toc-number">3.</span> <span class="toc-text">IDC-API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%BF%AE%E6%94%B9"><span class="toc-number">3.1.</span> <span class="toc-text">数据读取修改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchByte"><span class="toc-number">3.1.1.</span> <span class="toc-text">PatchByte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchWord"><span class="toc-number">3.1.2.</span> <span class="toc-text">PatchWord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchDword"><span class="toc-number">3.1.3.</span> <span class="toc-text">PatchDword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Byte"><span class="toc-number">3.1.4.</span> <span class="toc-text">Byte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Word"><span class="toc-number">3.1.5.</span> <span class="toc-text">Word</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dword"><span class="toc-number">3.1.6.</span> <span class="toc-text">Dword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#isLoaded"><span class="toc-number">3.1.7.</span> <span class="toc-text">isLoaded</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92%E5%87%BD%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text">用户交互函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Message"><span class="toc-number">3.2.1.</span> <span class="toc-text">Message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#print"><span class="toc-number">3.2.2.</span> <span class="toc-text">print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#warning"><span class="toc-number">3.2.3.</span> <span class="toc-text">warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskStr"><span class="toc-number">3.2.4.</span> <span class="toc-text">AskStr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskFile"><span class="toc-number">3.2.5.</span> <span class="toc-text">AskFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskYN"><span class="toc-number">3.2.6.</span> <span class="toc-text">AskYN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ScreenEA"><span class="toc-number">3.2.7.</span> <span class="toc-text">ScreenEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jump"><span class="toc-number">3.2.8.</span> <span class="toc-text">Jump</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">字符串操作函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#form"><span class="toc-number">3.3.1.</span> <span class="toc-text">form</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sprintf"><span class="toc-number">3.3.2.</span> <span class="toc-text">sprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atol"><span class="toc-number">3.3.3.</span> <span class="toc-text">atol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xtol"><span class="toc-number">3.3.4.</span> <span class="toc-text">xtol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ltoa"><span class="toc-number">3.3.5.</span> <span class="toc-text">ltoa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">3.3.6.</span> <span class="toc-text">ord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strlen"><span class="toc-number">3.3.7.</span> <span class="toc-text">strlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strstr"><span class="toc-number">3.3.8.</span> <span class="toc-text">strstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr"><span class="toc-number">3.3.9.</span> <span class="toc-text">substr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">3.4.</span> <span class="toc-text">文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fopen"><span class="toc-number">3.4.1.</span> <span class="toc-text">fopen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fclose"><span class="toc-number">3.4.2.</span> <span class="toc-text">fclose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filelength"><span class="toc-number">3.4.3.</span> <span class="toc-text">filelength</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fgetc"><span class="toc-number">3.4.4.</span> <span class="toc-text">fgetc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fputc"><span class="toc-number">3.4.5.</span> <span class="toc-text">fputc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fprintf"><span class="toc-number">3.4.6.</span> <span class="toc-text">fprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writestr"><span class="toc-number">3.4.7.</span> <span class="toc-text">writestr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readstr"><span class="toc-number">3.4.8.</span> <span class="toc-text">readstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writelong"><span class="toc-number">3.4.9.</span> <span class="toc-text">writelong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readlong"><span class="toc-number">3.4.10.</span> <span class="toc-text">readlong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writeshort"><span class="toc-number">3.4.11.</span> <span class="toc-text">writeshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readshort"><span class="toc-number">3.4.12.</span> <span class="toc-text">readshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loadfile"><span class="toc-number">3.4.13.</span> <span class="toc-text">loadfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#savefile"><span class="toc-number">3.4.14.</span> <span class="toc-text">savefile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E7%A7%B0"><span class="toc-number">3.5.</span> <span class="toc-text">操作数据库名称</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Name"><span class="toc-number">3.5.1.</span> <span class="toc-text">Name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NameEx"><span class="toc-number">3.5.2.</span> <span class="toc-text">NameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeNameEx"><span class="toc-number">3.5.3.</span> <span class="toc-text">MakeNameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByName"><span class="toc-number">3.5.4.</span> <span class="toc-text">LocByName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByNameEx"><span class="toc-number">3.5.5.</span> <span class="toc-text">LocByNameEx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.6.</span> <span class="toc-text">操作数据库的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeUnkn"><span class="toc-number">3.6.1.</span> <span class="toc-text">MakeUnkn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeCode"><span class="toc-number">3.6.2.</span> <span class="toc-text">MakeCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeByte"><span class="toc-number">3.6.3.</span> <span class="toc-text">MakeByte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeComm"><span class="toc-number">3.6.4.</span> <span class="toc-text">MakeComm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeFunction"><span class="toc-number">3.6.5.</span> <span class="toc-text">MakeFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeStr"><span class="toc-number">3.6.6.</span> <span class="toc-text">MakeStr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%90%9C%E7%B4%A2%E5%87%BD%E6%95%B0"><span class="toc-number">3.7.</span> <span class="toc-text">数据库搜索函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FindCode"><span class="toc-number">3.7.1.</span> <span class="toc-text">FindCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindData"><span class="toc-number">3.7.2.</span> <span class="toc-text">FindData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindBinary"><span class="toc-number">3.7.3.</span> <span class="toc-text">FindBinary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindText"><span class="toc-number">3.7.4.</span> <span class="toc-text">FindText</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.8.</span> <span class="toc-text">操作函数的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionAttr"><span class="toc-number">3.8.1.</span> <span class="toc-text">GetFunctionAttr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionName"><span class="toc-number">3.8.2.</span> <span class="toc-text">GetFunctionName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NextFunction"><span class="toc-number">3.8.3.</span> <span class="toc-text">NextFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PrevFunction"><span class="toc-number">3.8.4.</span> <span class="toc-text">PrevFunction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">3.9.</span> <span class="toc-text">代码交叉引用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rfirst"><span class="toc-number">3.9.1.</span> <span class="toc-text">Rfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rnext"><span class="toc-number">3.9.2.</span> <span class="toc-text">Rnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType"><span class="toc-number">3.9.3.</span> <span class="toc-text">XrefType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RfirstB"><span class="toc-number">3.9.4.</span> <span class="toc-text">RfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RnextB"><span class="toc-number">3.9.5.</span> <span class="toc-text">RnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8"><span class="toc-number">3.10.</span> <span class="toc-text">数据交叉引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dfirst"><span class="toc-number">3.10.1.</span> <span class="toc-text">Dfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnext"><span class="toc-number">3.10.2.</span> <span class="toc-text">Dnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType-1"><span class="toc-number">3.10.3.</span> <span class="toc-text">XrefType()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DfirstB"><span class="toc-number">3.10.4.</span> <span class="toc-text">DfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DnextB"><span class="toc-number">3.10.5.</span> <span class="toc-text">DnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E6%B1%87%E7%BC%96%E6%8F%90%E5%8F%96"><span class="toc-number">3.11.</span> <span class="toc-text">反汇编提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetDisasm"><span class="toc-number">3.11.1.</span> <span class="toc-text">GetDisasm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetMnem"><span class="toc-number">3.11.2.</span> <span class="toc-text">GetMnem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpnd"><span class="toc-number">3.11.3.</span> <span class="toc-text">GetOpnd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpType"><span class="toc-number">3.11.4.</span> <span class="toc-text">GetOpType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOperandValue"><span class="toc-number">3.11.5.</span> <span class="toc-text">GetOperandValue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#misc-func"><span class="toc-number">3.12.</span> <span class="toc-text">misc-func</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&text=IDC脚本学习"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&is_video=false&description=IDC脚本学习"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=IDC脚本学习&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&title=IDC脚本学习"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&name=IDC脚本学习&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-Tool-IDA-IDC/&t=IDC脚本学习"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022
+    D0g3.re4mile
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/resmile/">Home</a></li><!--
+     --><!--
+       --><li><a href="/resmile/categories/">目录</a></li><!--
+     --><!--
+       --><li><a href="/resmile/tags/">标签</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/resmile/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

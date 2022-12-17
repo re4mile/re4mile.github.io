@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="用位运算实现最基本的四则运算参考链接,谢谢原作者 https:&#x2F;&#x2F;blog.csdn.net&#x2F;SunXiWang&#x2F;article&#x2F;details&#x2F;78509096 https:&#x2F;&#x2F;blog.csdn.net&#x2F;kafmws&#x2F;article&#x2F;details&#x2F;88983865 32位加法不需要进位的二进制加法运算可以通过异或运算来实现 为什么? 从二进制位的角度来说 因为1+0&#x3D;1, 1+1&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="花指令">
+<meta property="og:title" content="顶层原理">
 <meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="re4mile">
 <meta property="og:description" content="用位运算实现最基本的四则运算参考链接,谢谢原作者 https:&#x2F;&#x2F;blog.csdn.net&#x2F;SunXiWang&#x2F;article&#x2F;details&#x2F;78509096 https:&#x2F;&#x2F;blog.csdn.net&#x2F;kafmws&#x2F;article&#x2F;details&#x2F;88983865 32位加法不需要进位的二进制加法运算可以通过异或运算来实现 为什么? 从二进制位的角度来说 因为1+0&#x3D;1, 1+1&amp;">
@@ -17,7 +17,7 @@
 <meta property="og:image" content="f:/5008/GItee/res/photo/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/image-20221213235239365.png">
 <meta property="og:image" content="f:/5008/GItee/res/photo/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/image-20221214124141265.png">
 <meta property="article:published_time" content="2022-12-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-12-17T12:12:46.016Z">
+<meta property="article:modified_time" content="2022-12-17T12:25:52.757Z">
 <meta property="article:author" content="D0g3.re4mile">
 <meta property="article:tag" content="AntiDbg">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
       
     
     <!-- title -->
-    <title>花指令</title>
+    <title>顶层原理</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/re4mile/css/style.css">
@@ -79,10 +79,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/re4mile/2022/12/05/Reverse-%E5%8F%8D%E8%B0%83%E8%AF%95/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/re4mile/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/re4mile/2022/12/05/Reverse-%E5%BC%82%E5%B8%B8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/re4mile/2022/12/05/%E6%9C%AC%E7%A7%91%E4%B8%93%E4%B8%9A%E8%AF%BE-%E4%BF%A1%E5%AE%89%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -96,16 +96,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&text=花指令"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&is_video=false&description=花指令"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=花指令&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&name=花指令&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&t=花指令"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&text=顶层原理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&is_video=false&description=顶层原理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=顶层原理&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&name=顶层原理&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&t=顶层原理"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -122,7 +122,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        花指令
+        顶层原理
     </h1>
 
 
@@ -136,7 +136,7 @@
       
         <time datetime="2022-12-04T16:00:00.000Z" itemprop="datePublished">2022-12-05</time>
         
-        (Updated: <time datetime="2022-12-17T12:12:46.016Z" itemprop="dateModified">2022-12-17</time>)
+        (Updated: <time datetime="2022-12-17T12:25:52.757Z" itemprop="dateModified">2022-12-17</time>)
         
       
     </div>
@@ -251,16 +251,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&text=花指令"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&is_video=false&description=花指令"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=花指令&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=花指令"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&name=花指令&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&t=花指令"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&text=顶层原理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&is_video=false&description=顶层原理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=顶层原理&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&title=顶层原理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&name=顶层原理&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/&t=顶层原理"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

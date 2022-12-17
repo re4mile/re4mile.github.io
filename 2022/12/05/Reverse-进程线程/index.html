@@ -9,7 +9,7 @@
     <meta name="description" content="Cpp多线程是多任务处理的一种特殊形式，多任务处理允许让电脑同时运行两个或两个以上的程序。 一般情况下，两种类型的多任务处理：基于进程和基于线程。  基于进程的多任务处理是&#x3D;&#x3D;程序的并发执行&#x3D;&#x3D;。 基于线程的多任务处理是&#x3D;&#x3D;同一程序的片段的并发执行&#x3D;&#x3D;。  多线程程序包含可以同时运行的两个或多个部分。 这样的程序中的每">
 <meta property="og:type" content="article">
 <meta property="og:title" content="进程和线程">
-<meta property="og:url" content="https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/index.html">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="re4mile">
 <meta property="og:description" content="Cpp多线程是多任务处理的一种特殊形式，多任务处理允许让电脑同时运行两个或两个以上的程序。 一般情况下，两种类型的多任务处理：基于进程和基于线程。  基于进程的多任务处理是&#x3D;&#x3D;程序的并发执行&#x3D;&#x3D;。 基于线程的多任务处理是&#x3D;&#x3D;同一程序的片段的并发执行&#x3D;&#x3D;。  多线程程序包含可以同时运行的两个或多个部分。 这样的程序中的每">
 <meta property="og:locale" content="en_US">
@@ -40,7 +40,7 @@
     <title>进程和线程</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/resmile/css/style.css">
+<link rel="stylesheet" href="/re4mile/css/style.css">
 
     <!-- persian styles -->
     
@@ -61,11 +61,11 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/resmile/">Home</a></li><!--
+       --><li><a href="/re4mile/">Home</a></li><!--
      --><!--
-       --><li><a href="/resmile/categories/">目录</a></li><!--
+       --><li><a href="/re4mile/categories/">目录</a></li><!--
      --><!--
-       --><li><a href="/resmile/tags/">标签</a></li><!--
+       --><li><a href="/re4mile/tags/">标签</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
      -->
@@ -75,10 +75,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/resmile/2022/12/05/Reverse-Tool-IDA-IDC/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/re4mile/2022/12/05/Reverse-%E5%BC%82%E5%B8%B8/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/resmile/2022/12/05/%E6%9C%AC%E7%A7%91%E4%B8%93%E4%B8%9A%E8%AF%BE-%E4%BF%A1%E5%AE%89%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/re4mile/2022/12/05/%E6%9C%AC%E7%A7%91%E4%B8%93%E4%B8%9A%E8%AF%BE-%E4%BF%A1%E5%AE%89%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -91,17 +91,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&text=进程和线程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&is_video=false&description=进程和线程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=进程和线程&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&name=进程和线程&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&t=进程和线程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&text=进程和线程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&is_video=false&description=进程和线程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=进程和线程&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&name=进程和线程&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&t=进程和线程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -141,14 +141,14 @@
       
     <div class="article-category">
         <i class="fas fa-archive"></i>
-        <a class="category-link" href="/resmile/categories/Language/">Language</a>
+        <a class="category-link" href="/re4mile/categories/Language/">Language</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/resmile/tags/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" rel="tag">进程和线程</a>
+        <a class="tag-link-link" href="/re4mile/tags/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" rel="tag">进程和线程</a>
     </div>
 
 
@@ -247,11 +247,11 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/resmile/">Home</a></li>
+          <li><a href="/re4mile/">Home</a></li>
          
-          <li><a href="/resmile/categories/">目录</a></li>
+          <li><a href="/re4mile/categories/">目录</a></li>
          
-          <li><a href="/resmile/tags/">标签</a></li>
+          <li><a href="/re4mile/tags/">标签</a></li>
          
           <li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li>
         
@@ -264,17 +264,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&text=进程和线程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&is_video=false&description=进程和线程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=进程和线程&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&title=进程和线程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&name=进程和线程&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-ProcessThread/&t=进程和线程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&text=进程和线程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&is_video=false&description=进程和线程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=进程和线程&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&title=进程和线程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&name=进程和线程&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/&t=进程和线程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -302,11 +302,11 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="/resmile/">Home</a></li><!--
+       --><li><a href="/re4mile/">Home</a></li><!--
      --><!--
-       --><li><a href="/resmile/categories/">目录</a></li><!--
+       --><li><a href="/re4mile/categories/">目录</a></li><!--
      --><!--
-       --><li><a href="/resmile/tags/">标签</a></li><!--
+       --><li><a href="/re4mile/tags/">标签</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
      -->
@@ -356,7 +356,7 @@
   </script>
 
 
-<script src="/resmile/js/main.js"></script>
+<script src="/re4mile/js/main.js"></script>
 
 <!-- search -->
 

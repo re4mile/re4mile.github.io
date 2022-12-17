@@ -9,7 +9,7 @@
     <meta name="description" content="脚本123 搜索关键字 1234Python 逆向Python字节码PYC逆向pyc字节码混淆    文章 1https:&#x2F;&#x2F;taardisaa.github.io&#x2F;categories&#x2F;pyc&#x2F;        获取指令和字节码对应关系123import opcodefor op in range(len(opcode.opname)):    print(&amp;#x27;Hex 0x%.2X Dec">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PYC逆向">
-<meta property="og:url" content="https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/index.html">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/index.html">
 <meta property="og:site_name" content="re4mile">
 <meta property="og:description" content="脚本123 搜索关键字 1234Python 逆向Python字节码PYC逆向pyc字节码混淆    文章 1https:&#x2F;&#x2F;taardisaa.github.io&#x2F;categories&#x2F;pyc&#x2F;        获取指令和字节码对应关系123import opcodefor op in range(len(opcode.opname)):    print(&amp;#x27;Hex 0x%.2X Dec">
 <meta property="og:locale" content="en_US">
@@ -48,7 +48,7 @@
     <title>PYC逆向</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/resmile/css/style.css">
+<link rel="stylesheet" href="/re4mile/css/style.css">
 
     <!-- persian styles -->
     
@@ -69,11 +69,11 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/resmile/">Home</a></li><!--
+       --><li><a href="/re4mile/">Home</a></li><!--
      --><!--
-       --><li><a href="/resmile/categories/">目录</a></li><!--
+       --><li><a href="/re4mile/categories/">目录</a></li><!--
      --><!--
-       --><li><a href="/resmile/tags/">标签</a></li><!--
+       --><li><a href="/re4mile/tags/">标签</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
      -->
@@ -83,10 +83,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/resmile/2022/11/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80-%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/re4mile/2022/11/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80-%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/resmile/2022/06/21/Reverse-%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/re4mile/2022/06/21/Reverse-%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -99,17 +99,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&text=PYC逆向"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&is_video=false&description=PYC逆向"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=PYC逆向&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&name=PYC逆向&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&t=PYC逆向"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&text=PYC逆向"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&is_video=false&description=PYC逆向"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PYC逆向&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&name=PYC逆向&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&t=PYC逆向"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -149,14 +149,14 @@
       
     <div class="article-category">
         <i class="fas fa-archive"></i>
-        <a class="category-link" href="/resmile/categories/Reverse/">Reverse</a>
+        <a class="category-link" href="/re4mile/categories/Reverse/">Reverse</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/resmile/tags/PYC/" rel="tag">PYC</a>, <a class="tag-link-link" href="/resmile/tags/Pytohn/" rel="tag">Pytohn</a>
+        <a class="tag-link-link" href="/re4mile/tags/PYC/" rel="tag">PYC</a>, <a class="tag-link-link" href="/re4mile/tags/Pytohn/" rel="tag">Pytohn</a>
     </div>
 
 
@@ -690,11 +690,11 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/resmile/">Home</a></li>
+          <li><a href="/re4mile/">Home</a></li>
          
-          <li><a href="/resmile/categories/">目录</a></li>
+          <li><a href="/re4mile/categories/">目录</a></li>
          
-          <li><a href="/resmile/tags/">标签</a></li>
+          <li><a href="/re4mile/tags/">标签</a></li>
          
           <li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li>
         
@@ -707,17 +707,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&text=PYC逆向"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&is_video=false&description=PYC逆向"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=PYC逆向&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&title=PYC逆向"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&name=PYC逆向&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/11/30/%E9%80%86%E5%90%91-Python-PYC/&t=PYC逆向"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&text=PYC逆向"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&is_video=false&description=PYC逆向"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PYC逆向&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&title=PYC逆向"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&name=PYC逆向&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/11/30/%E9%80%86%E5%90%91-PYC/&t=PYC逆向"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -745,11 +745,11 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="/resmile/">Home</a></li><!--
+       --><li><a href="/re4mile/">Home</a></li><!--
      --><!--
-       --><li><a href="/resmile/categories/">目录</a></li><!--
+       --><li><a href="/re4mile/categories/">目录</a></li><!--
      --><!--
-       --><li><a href="/resmile/tags/">标签</a></li><!--
+       --><li><a href="/re4mile/tags/">标签</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
      -->
@@ -799,7 +799,7 @@
   </script>
 
 
-<script src="/resmile/js/main.js"></script>
+<script src="/re4mile/js/main.js"></script>
 
 <!-- search -->
 

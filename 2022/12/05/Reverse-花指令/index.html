@@ -9,7 +9,7 @@
     <meta name="description" content="exe我们不应该垃圾代码不仅仅起着一个混淆的作用 因为一旦nop后,垃圾代码就不再起作用.我们应该 1). 让垃圾代码参与加密和运算,你的垃圾代码甚至可以是一堆字符串,用于加密 2). 让垃圾代码和有效代码加密挨着,穿插运行(不知道如何实现) 3).  基于跳转无条件跳转jmp 无符号跳转above&#x2F;below    助记符 说明      JA&#x3D;JNBE &gt; CF|ZF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="花指令">
-<meta property="og:url" content="https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/index.html">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/index.html">
 <meta property="og:site_name" content="re4mile">
 <meta property="og:description" content="exe我们不应该垃圾代码不仅仅起着一个混淆的作用 因为一旦nop后,垃圾代码就不再起作用.我们应该 1). 让垃圾代码参与加密和运算,你的垃圾代码甚至可以是一堆字符串,用于加密 2). 让垃圾代码和有效代码加密挨着,穿插运行(不知道如何实现) 3).  基于跳转无条件跳转jmp 无符号跳转above&#x2F;below    助记符 说明      JA&#x3D;JNBE &gt; CF|ZF">
 <meta property="og:locale" content="en_US">
@@ -42,7 +42,7 @@
     <title>花指令</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/resmile/css/style.css">
+<link rel="stylesheet" href="/re4mile/css/style.css">
 
     <!-- persian styles -->
     
@@ -63,11 +63,11 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/resmile/">Home</a></li><!--
+       --><li><a href="/re4mile/">Home</a></li><!--
      --><!--
-       --><li><a href="/resmile/categories/">目录</a></li><!--
+       --><li><a href="/re4mile/categories/">目录</a></li><!--
      --><!--
-       --><li><a href="/resmile/tags/">标签</a></li><!--
+       --><li><a href="/re4mile/tags/">标签</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
      -->
@@ -77,10 +77,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/resmile/2022/12/05/Language-Cpp/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/re4mile/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/resmile/2022/12/05/Reverse-Pe-UPX/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/re4mile/2022/12/05/Reverse-%E5%BC%82%E5%B8%B8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -93,17 +93,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&text=花指令"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&is_video=false&description=花指令"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=花指令&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&name=花指令&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&t=花指令"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&text=花指令"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&is_video=false&description=花指令"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=花指令&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&name=花指令&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&t=花指令"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -143,14 +143,14 @@
       
     <div class="article-category">
         <i class="fas fa-archive"></i>
-        <a class="category-link" href="/resmile/categories/Reverse/">Reverse</a>
+        <a class="category-link" href="/re4mile/categories/Reverse/">Reverse</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/resmile/tags/AntiDbg/" rel="tag">AntiDbg</a>
+        <a class="tag-link-link" href="/re4mile/tags/AntiDbg/" rel="tag">AntiDbg</a>
     </div>
 
 
@@ -365,11 +365,11 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/resmile/">Home</a></li>
+          <li><a href="/re4mile/">Home</a></li>
          
-          <li><a href="/resmile/categories/">目录</a></li>
+          <li><a href="/re4mile/categories/">目录</a></li>
          
-          <li><a href="/resmile/tags/">标签</a></li>
+          <li><a href="/re4mile/tags/">标签</a></li>
          
           <li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li>
         
@@ -382,17 +382,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&text=花指令"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&is_video=false&description=花指令"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=花指令&body=Check out this article: https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&title=花指令"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&name=花指令&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/resmile/resmile.git/2022/12/05/Reverse-FlowerOpcode/&t=花指令"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&text=花指令"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&is_video=false&description=花指令"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=花指令&body=Check out this article: https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&name=花指令&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gitee.com/re4mile/re4mile.git/2022/12/05/Reverse-%E8%8A%B1%E6%8C%87%E4%BB%A4/&t=花指令"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -420,11 +420,11 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="/resmile/">Home</a></li><!--
+       --><li><a href="/re4mile/">Home</a></li><!--
      --><!--
-       --><li><a href="/resmile/categories/">目录</a></li><!--
+       --><li><a href="/re4mile/categories/">目录</a></li><!--
      --><!--
-       --><li><a href="/resmile/tags/">标签</a></li><!--
+       --><li><a href="/re4mile/tags/">标签</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
      -->
@@ -474,7 +474,7 @@
   </script>
 
 
-<script src="/resmile/js/main.js"></script>
+<script src="/re4mile/js/main.js"></script>
 
 <!-- search -->
 

@@ -1,347 +1,269 @@
-<!DOCTYPE html>
-<html lang=en>
-<head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="re4mile">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>null</title><meta name="author" content="D0g3.re4mile"><meta name="copyright" content="D0g3.re4mile"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="专注于技术,分享生活,分享知识">
+<meta property="og:type" content="website">
+<meta property="og:title">
 <meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/index.html">
-<meta property="og:site_name" content="re4mile">
+<meta property="og:site_name">
+<meta property="og:description" content="专注于技术,分享生活,分享知识">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/re4mile/re4mile.git/img/wlq.png">
 <meta property="article:author" content="D0g3.re4mile">
 <meta name="twitter:card" content="summary">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="https://s1.ax1x.com/2022/11/11/zCfRiT.png">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="https://s1.ax1x.com/2022/11/11/zCfRiT.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="https://s1.ax1x.com/2022/11/11/zCfRiT.png">
-        
-      
-    
-    <!-- title -->
-    <title>re4mile</title>
-    <!-- styles -->
-    
-<link rel="stylesheet" href="/re4mile/css/style.css">
+<meta name="twitter:image" content="https://gitee.com/re4mile/re4mile.git/img/wlq.png"><link rel="shortcut icon" href="/re4mile/img/favicon.png"><link rel="canonical" href="https://gitee.com/re4mile/re4mile.git/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/re4mile/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/re4mile/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-12-22 00:28:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 6.3.0"></head>
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-<body class="max-width mx-auto px3 ltr">
-    
-    <div class="content index py4">
-        
-          <header id="header">
-  <a href="/re4mile/">
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-    
-      <div id="logo" style="background-image: url(https://s1.ax1x.com/2022/11/30/zwoBng.png);"></div>
-    
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-    <div id="title">
-      <h1>re4mile</h1>
-    </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
-      </li>
-      <!--
-     --><li><a href="/re4mile/">Home</a></li><!--
-   --><!--
-     --><li><a href="/re4mile/categories/">目录</a></li><!--
-   --><!--
-     --><li><a href="/re4mile/tags/">标签</a></li><!--
-   --><!--
-     --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
-   -->
-    </ul>
-  </div>
-</header>
-
-        
-        <section id="about">
-  
-  
-    <p>
-      D0g3:道之若极,形必有格:Go For It..
-      
-      
-      
-        
-          <a class="icon" target="_blank" rel="noopener" href="https://gitee.com/resmile" aria-label="github">
-            <i class="fab fa-github"></i><!--
-      ---></a><!--
-    ---><!--
-    ---> and 
-        
-      
-        
-          <a class="icon" target="_blank" rel="noopener" href="mailto:935797872@qq.com" aria-label="mail">
-            <i class="fas fa-envelope"></i><!--
-      ---></a>
-        <!--
-    --->.
-        
-      
-    </p>
-  
-</section>
-
-<section id="writing">
-  <span class="h1"><a href="/re4mile/">Writing</a></span>
-  
-  <ul class="post-list">
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-    
-      
-    
-    
-      <li class="post-item">
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-17T12:25:52.757Z" itemprop="dateModified">2022-12-17</time>
-        
-      
-    </div>
-
-
-        <span>
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-        <a class="" href="/re4mile/2022/12/05/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">顶层原理</a>
-    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="my.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/re4mile/img/wlq.png" onerror="onerror=null;src='img/banner.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/re4mile/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/re4mile/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a><a href="/re4mile/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/re4mile/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/archives/"><i class="fa-fw fas fa-archive"></i><span> 一路走来</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas  fa-bed"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/2022/11/30/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/"><i class="fa-fw fas fa-list-alt"></i><span> 任务清单</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc"><i class="fa-fw fas fa-book"></i><span> 日记</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/re4mile/img/banner.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/re4mile/"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/re4mile/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/archives/"><i class="fa-fw fas fa-archive"></i><span> 一路走来</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas  fa-bed"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/2022/11/30/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/"><i class="fa-fw fas fa-list-alt"></i><span> 任务清单</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc"><i class="fa-fw fas fa-book"></i><span> 日记</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title"></h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/re4mile" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://gitee.com/re4mile" target="_blank" title="Gitee"><i class="fab fa-google"></i></a><a class="social-icon" href="mailto:935797872@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/re4mile/2022/12/19/%E8%AF%AD%E8%A8%80/Langauge-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" title="文件处理"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="文件处理"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/19/%E8%AF%AD%E8%A8%80/Langauge-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" title="文件处理">文件处理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-19T07:02:41.000Z" title="Created 2022-12-19 15:02:41">2022-12-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Language/">Language</a></span></div><div class="content">C获取文件大小123456789101112131415int ReadFileSize(char* filename)&#123;	int size = 0;	FILE* fp = fopen(filename, &quot;r&quot;);	if (!fp)	&#123;		printf(&quot;wrong open\n&quot;);		return -1;	&#125;	fseek(fp, 0L, SEEK_END);	size = ftell(fp);	fclose(fp);	return size;&#125;
 
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-17T12:22:06.966Z" itemprop="dateModified">2022-12-17</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/re4mile/2022/12/05/Reverse-Tool-IDC%E8%84%9A%E6%9C%AC/">IDC脚本学习</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-17T12:13:19.063Z" itemprop="dateModified">2022-12-17</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/re4mile/2022/12/17/Reverse-Python-Z3/">Python Z3</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-17T03:50:08.195Z" itemprop="dateModified">2022-12-17</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/re4mile/2022/12/17/Language-Python/">Python</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-17T02:27:37.303Z" itemprop="dateModified">2022-12-17</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/re4mile/2022/11/30/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/">任务清单</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-16T16:33:04.549Z" itemprop="dateModified">2022-12-17</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/re4mile/2022/12/12/Reverse-Opcode-%E4%BB%A3%E7%A0%81%E8%99%9A%E6%8B%9F%E5%8C%96/">学习CTF的代码虚拟化</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-16T15:45:13.672Z" itemprop="dateModified">2022-12-16</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/re4mile/2022/12/05/Reverse-%E5%8F%8D%E8%B0%83%E8%AF%95/">反调试原理</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2022-12-14T06:41:00.467Z" itemprop="dateModified">2022-12-14</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/re4mile/2022/12/13/Langauge-C/">C语言</a>
-    
-
-
-</span>
-      </li>
-    
-  </ul>
-  
-</section>
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/re4mile/2022/12/17/Reverse/Reverse-Python-Z3/" title="Python Z3"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="Python Z3"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/17/Reverse/Reverse-Python-Z3/" title="Python Z3">Python Z3</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-16T16:00:00.000Z" title="Created 2022-12-17 00:00:00">2022-12-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Reverse/">Reverse</a></span></div><div class="content">参考链接https://ericpony.github.io/z3py-tutorial/guide-examples.htm
+https://z3prover.github.io/api/html/namespacez3py.html
+https://developer.aliyun.com/article/815127#slide-1
+环境配置运行环境 vscode ,Python3.89
+安装模块
+1pip install z3_solver
 
 
 
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2022
-    D0g3.re4mile
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/re4mile/">Home</a></li><!--
-     --><!--
-       --><li><a href="/re4mile/categories/">目录</a></li><!--
-     --><!--
-       --><li><a href="/re4mile/tags/">标签</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc">日常记录</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
 
-    </div>
-    <!-- styles -->
+
+变量整数变量👋12x  =  Int ( &#x27;x&#x27; ) y  =  Int ( &#x27;y&#x27; )
 
 
 
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+基于bit位的整数👋BitVec(&#39;x&#39;, 16)在 Z3 中创建一个名为x的16位位向量变量。
+BitVecVal(10, 32)创建一个大小为32的位向量，其中包含值10
+1x, y = BitVecs(&#x27;x y&#x27;, 32)
 
 
-    <!-- jquery -->
+
+注意数值的范围,正负,默认是无符号.如果你写入有符号的,会被自动转化为无符号的
+1234567891011121314151 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/re4mile/2022/12/17/%E8%AF%AD%E8%A8%80/Language-Python/" title="Python"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="Python"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/17/%E8%AF%AD%E8%A8%80/Language-Python/" title="Python">Python</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-16T16:00:00.000Z" title="Created 2022-12-17 00:00:00">2022-12-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Language/">Language</a></span></div><div class="content">文件处理重定向示例12345678910111213141516171819202122import sys console = sys.stdout  # 备份一下文件描述符  file = open(r&quot;.\file\data.txt&quot;, &#x27;w&#x27;)sys.stdout = file    # 把输出重定向到文件print(&#x27;hello\n&#x27;+&#x27;java\n&#x27;+&#x27;python&#x27;)   # 输出自然会送往文件sys.stdout = console  # 恢复重定向print(33)  # 向控制台打印33 console = sys.stdin   # 备份一下文件描述符  file = open(r&quot;F:/input.txt&quot;, &#x27;r&#x27;)sys.stdin = file  # 把输入重定向到文件  mod = input() # 一下输入均来自文件src = input()des = input()size= input()file.close ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/re4mile/2022/12/13/Reverse/Reverse-Tool-IDAPython/" title="IDAPython学习"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="IDAPython学习"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/13/Reverse/Reverse-Tool-IDAPython/" title="IDAPython学习">IDAPython学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-12T16:00:00.000Z" title="Created 2022-12-13 00:00:00">2022-12-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Tool/">Tool</a></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/re4mile/2022/12/13/%E8%AF%AD%E8%A8%80/Langauge-C/" title="C语言"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="C语言"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/13/%E8%AF%AD%E8%A8%80/Langauge-C/" title="C语言">C语言</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-12T16:00:00.000Z" title="Created 2022-12-13 00:00:00">2022-12-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Language/">Language</a></span></div><div class="content">可变参数成员参数栈函数传递进来的参数在栈里面的分布情况
  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+va_list1typedef char * va_list;
 
 
 
+INTSIZEOF_INTSIZEOF(n): 把 n 圆整到 sizeof(int) 的倍数
+1#define _INTSIZEOF(n)       ( (sizeof(n)+sizeof(int)-1) &amp; ~(sizeof(int)-1) )
 
-<!-- clipboard -->
+_INTSIZEOF(n)整个做的事情就是将字节长度n化为int长度的整数倍
+~(sizeof(int)-1)  &#x3D; 1111 1100
+一个数&amp; 1111 1100 ,结果一定为4的倍数
+然后(sizeof(n)+ 3)&amp;1111 1100
+例如，若1≤sizeof(n)≤4，则_INTSIZEOF(n)＝4；若5≤sizeof(n)≤8，则_INTSIZEOF(n)=8
+至于如何化到整数倍,我觉得不是我们应该关心的,我我们应该关心,为什么要化到整数倍
+答案: 方便字节对齐,然后方便指针的访问,指针直接4字节4字节的移动
+疑惑: 可不可以不要那个方便…可以呀,如果只去掉那个 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/re4mile/2022/12/12/Reverse/Reverse-Opcode-%E4%BB%A3%E7%A0%81%E8%99%9A%E6%8B%9F%E5%8C%96/" title="学习CTF的代码虚拟化"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="学习CTF的代码虚拟化"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/12/Reverse/Reverse-Opcode-%E4%BB%A3%E7%A0%81%E8%99%9A%E6%8B%9F%E5%8C%96/" title="学习CTF的代码虚拟化">学习CTF的代码虚拟化</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-12T07:01:03.000Z" title="Created 2022-12-12 15:01:03">2022-12-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Reverse/">Reverse</a></span></div><div class="content">参考链接1nt3 :https://www.anquanke.com/post/id/252573#h3-8
+misc: https://www.chuanpuyun.com/article/5736.html
+导入手写一个类似的CPU执行系统
+比如用全局变量去构造堆栈
+实现一些加减乘除
+实现一些跳转,函数的调用
+
+解题一般步骤： 
+分析VM结构-&gt;分析opcode-&gt;编写parser-&gt;re算法 
+VM结构常见类型： 基于栈、基于队列、基于信号量 
+opcode： 
+与VM数据结构对应的指令 ：push pop 
+运算指令：add、sub、mul
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/re4mile/2022/12/05/Reverse/Reverse-Pe-UPX/" title="UPX详讲"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="UPX详讲"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/05/Reverse/Reverse-Pe-UPX/" title="UPX详讲">UPX详讲</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-04T16:00:00.000Z" title="Created 2022-12-05 00:00:00">2022-12-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Reverse/">Reverse</a></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/re4mile/2022/12/05/Reverse/Reverse-Tool-IDC%E8%84%9A%E6%9C%AC/" title="IDC脚本学习"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="IDC脚本学习"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/05/Reverse/Reverse-Tool-IDC%E8%84%9A%E6%9C%AC/" title="IDC脚本学习">IDC脚本学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-04T16:00:00.000Z" title="Created 2022-12-05 00:00:00">2022-12-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Tool/">Tool</a></span></div><div class="content">IDC脚本参考链接🧡参考链接: lyshark  https://www.cnblogs.com/LyShark/p/13100048.html
+https://introspelliam.github.io/2017/09/18/tools/IDA%E7%9A%84%E8%B0%83%E8%AF%95%E8%84%9A%E6%9C%ACidc/
+在IDA中按下【shift + F2】可调出脚本编辑器
+HeloWorld123456#include &lt; idc&gt;static main()&#123;     Message(&quot;HelloWorld \n&quot;);&#125;
 
 
-<script src="/re4mile/js/main.js"></script>
 
-<!-- search -->
+数据类型IDC中所有变量都被定义成auto类型，会自动进行类型转换，一般类型有整数型、字符串类型、浮点型
+变量在没有赋予初始值的情况下,为0
 
-<!-- Google Analytics -->
+局部变量：auto counter;
 
-<!-- Baidu Analytics -->
+extern 引入全局变量的声明，extern outsideGlobal;
 
-<!-- Cloudflare Analytics -->
+字符串支持加好连接：auto str &#x3D; “hello” + “world”;
 
-<!-- Umami Analytics -->
+字符串支持分片操作：str ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/re4mile/2022/12/05/Reverse/Reverse-%E5%8F%8D%E8%B0%83%E8%AF%95/" title="反调试原理"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="反调试原理"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/05/Reverse/Reverse-%E5%8F%8D%E8%B0%83%E8%AF%95/" title="反调试原理">反调试原理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-04T16:00:00.000Z" title="Created 2022-12-05 00:00:00">2022-12-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Reverse/">Reverse</a></span></div><div class="content">参考链接看雪 SSH山水画师傅的https://bbs.pediy.com/thread-266408.htm
+反IDA这是南邮CTF WxyVM2出现的一次IDA反编译故障,原因就是代码量太多,2万行
+IDA直接放弃了
+看wp,说需要修改IDA配置文件
+1xxx\IDA Pro 7.6\cfg\hexrays.cfg
 
-<!-- Disqus Comments -->
+把文本内容MAX_FUNCSIZE= 64修改MAX_FUNCSIZE= 1024
+我觉得,这也算得上是一个反调试的方法,而且很少有人可以解除,虽然手段有点低级
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/re4mile/2022/12/05/Reverse/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="底层原理"><img class="post-bg" src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="底层原理"></a></div><div class="recent-post-info"><a class="article-title" href="/re4mile/2022/12/05/Reverse/Reverse-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="底层原理">底层原理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-12-04T16:00:00.000Z" title="Created 2022-12-05 00:00:00">2022-12-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/re4mile/categories/Reverse/">Reverse</a></span></div><div class="content">用位运算实现最基本的四则运算参考链接,谢谢原作者
+https://blog.csdn.net/SunXiWang/article/details/78509096
+https://blog.csdn.net/kafmws/article/details/88983865
+32位加法不需要进位的二进制加法运算可以通过异或运算来实现
+为什么? 从二进制位的角度来说
+因为1+0&#x3D;1, 1+1&#x3D;0, 0+0&#x3D;0
+因为1^0&#x3D;1, 1^1&#x3D;0, 0^0&#x3D;0
+可以看出结果是一样的
+可是我们的运算是存在进位的
+我们以数值142+294为例子
+分2个步骤考虑
 
-<!-- utterances Comments -->
+二进制怎么获取进位值呢？ps:我们指的是bit位的进位
+进位值可以通过两个数相与，如果相与之后的值为零，说明没有进位。，
+如果相与之后的值不为0，则说明有进位，将其左移一位 即可得到其进位值
+比如1&amp;1&#x3D;0,有进位,1&amp;0&#x3D;0,无进位
+比如上面的例子,进位值1在个位,最后是放在了百分位和336运算
+为什么用&amp;来判断进位,因为其它方法不行,废话 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/re4mile/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/re4mile/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/re4mile/img/wlq.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="avatar"/></div><div class="author-info__name">D0g3.re4mile</div><div class="author-info__description">专注于技术,分享生活,分享知识</div></div><div class="card-info-data site-data is-center"><a href="/re4mile/archives/"><div class="headline">Articles</div><div class="length-num">20</div></a><a href="/re4mile/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a><a href="/re4mile/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.cnblogs.com/re4mile/"><i class="fab fa-linux"></i><span>我的另外一个博客</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/re4mile" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://gitee.com/re4mile" target="_blank" title="Gitee"><i class="fab fa-google"></i></a><a class="social-icon" href="mailto:935797872@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">乌龟🐢大师:昨天是历史, 明天是谜团, 只有今天是天赐的礼物</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/re4mile/2022/12/19/%E8%AF%AD%E8%A8%80/Langauge-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" title="文件处理"><img src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="文件处理"/></a><div class="content"><a class="title" href="/re4mile/2022/12/19/%E8%AF%AD%E8%A8%80/Langauge-%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" title="文件处理">文件处理</a><time datetime="2022-12-19T07:02:41.000Z" title="Created 2022-12-19 15:02:41">2022-12-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/re4mile/2022/12/17/Reverse/Reverse-Python-Z3/" title="Python Z3"><img src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="Python Z3"/></a><div class="content"><a class="title" href="/re4mile/2022/12/17/Reverse/Reverse-Python-Z3/" title="Python Z3">Python Z3</a><time datetime="2022-12-16T16:00:00.000Z" title="Created 2022-12-17 00:00:00">2022-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/re4mile/2022/12/17/%E8%AF%AD%E8%A8%80/Language-Python/" title="Python"><img src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="Python"/></a><div class="content"><a class="title" href="/re4mile/2022/12/17/%E8%AF%AD%E8%A8%80/Language-Python/" title="Python">Python</a><time datetime="2022-12-16T16:00:00.000Z" title="Created 2022-12-17 00:00:00">2022-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/re4mile/2022/12/13/Reverse/Reverse-Tool-IDAPython/" title="IDAPython学习"><img src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="IDAPython学习"/></a><div class="content"><a class="title" href="/re4mile/2022/12/13/Reverse/Reverse-Tool-IDAPython/" title="IDAPython学习">IDAPython学习</a><time datetime="2022-12-12T16:00:00.000Z" title="Created 2022-12-13 00:00:00">2022-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/re4mile/2022/12/13/%E8%AF%AD%E8%A8%80/Langauge-C/" title="C语言"><img src="/re4mile/img/bk5.png" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="C语言"/></a><div class="content"><a class="title" href="/re4mile/2022/12/13/%E8%AF%AD%E8%A8%80/Langauge-C/" title="C语言">C语言</a><time datetime="2022-12-12T16:00:00.000Z" title="Created 2022-12-13 00:00:00">2022-12-13</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/re4mile/categories/Language/"><span class="card-category-list-name">Language</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/re4mile/categories/Reverse/"><span class="card-category-list-name">Reverse</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/re4mile/categories/Tool/"><span class="card-category-list-name">Tool</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/re4mile/categories/%E4%BB%BB%E5%8A%A1/"><span class="card-category-list-name">任务</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/re4mile/categories/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/"><span class="card-category-list-name">大学课程</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/re4mile/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">计算机基础</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/re4mile/tags/AntiDbg/" style="font-size: 1.5em; color: #99a9bf">AntiDbg</a> <a href="/re4mile/tags/Assembly/" style="font-size: 1.1em; color: #999">Assembly</a> <a href="/re4mile/tags/C/" style="font-size: 1.1em; color: #999">C</a> <a href="/re4mile/tags/C/" style="font-size: 1.1em; color: #999">C++</a> <a href="/re4mile/tags/CTF/" style="font-size: 1.1em; color: #999">CTF</a> <a href="/re4mile/tags/Exception/" style="font-size: 1.1em; color: #999">Exception</a> <a href="/re4mile/tags/IDA/" style="font-size: 1.3em; color: #99a1ac">IDA</a> <a href="/re4mile/tags/PE/" style="font-size: 1.1em; color: #999">PE</a> <a href="/re4mile/tags/PYC/" style="font-size: 1.1em; color: #999">PYC</a> <a href="/re4mile/tags/Python/" style="font-size: 1.1em; color: #999">Python</a> <a href="/re4mile/tags/Pytohn/" style="font-size: 1.1em; color: #999">Pytohn</a> <a href="/re4mile/tags/Todolist/" style="font-size: 1.1em; color: #999">Todolist</a> <a href="/re4mile/tags/Z3/" style="font-size: 1.1em; color: #999">Z3</a> <a href="/re4mile/tags/ctf/" style="font-size: 1.1em; color: #999">ctf</a> <a href="/re4mile/tags/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/" style="font-size: 1.1em; color: #999">文件处理</a> <a href="/re4mile/tags/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">算法和数据结构</a> <a href="/re4mile/tags/%E8%A7%85%E9%A9%AC%E5%AD%A6/" style="font-size: 1.1em; color: #999">觅马学</a> <a href="/re4mile/tags/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">进程和线程</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/re4mile/archives/2022/12/"><span class="card-archive-list-date">December 2022</span><span class="card-archive-list-count">16</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/re4mile/archives/2022/11/"><span class="card-archive-list-date">November 2022</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/re4mile/archives/2022/06/"><span class="card-archive-list-date">June 2022</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">20</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2022-12-21T16:28:08.674Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By D0g3.re4mile</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/re4mile/js/utils.js"></script><script src="/re4mile/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    window.typed = new Typed("#subtitle", {
+      strings: ["故不积跬步","无以至千里","不积小流","无以成江海"],
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = '故不积跬步'
+  }
+}
 
-</body>
-</html>
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script src="my.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

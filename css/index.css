@@ -3498,8 +3498,9 @@ h1.page-title + .tag-cloud-list {
   }
 }
 #page-header #site-subtitle {
-  color: var(--light-grey);
-  font-size: 1.15em;
+  color: #00ff7f;
+  font-size: 32px;
+  font-family: 'Long Cang', cursive;
 }
 @media screen and (min-width: 768px) {
   #page-header #site-subtitle {

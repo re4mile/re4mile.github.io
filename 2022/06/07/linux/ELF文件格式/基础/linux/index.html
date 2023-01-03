@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>ELF文件格式基础篇 - re4mile</title>
+
+  
+    <meta name="description" content="ELF的全称是Executable and Linking Format， 这个名字相当关键，包含了ELF所需要支持的两个功能——执行和链接。 不管是ELF，还是Windows的PE，抑或是MacOS的Mach-O，其根本目的都是为了能让处理器正确执行我们所编写的代码 好文 1http:&#x2F;&#x2F;chuquan.me&#x2F;2018&#x2F;05&#x2F;21&#x2F;elf-introduce&#x2F;    导入ELF文件分类  可执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELF文件格式基础篇">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2022/06/07/linux/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/%E5%9F%BA%E7%A1%80/linux/index.html">
+<meta property="og:site_name" content="re4mile">
+<meta property="og:description" content="ELF的全称是Executable and Linking Format， 这个名字相当关键，包含了ELF所需要支持的两个功能——执行和链接。 不管是ELF，还是Windows的PE，抑或是MacOS的Mach-O，其根本目的都是为了能让处理器正确执行我们所编写的代码 好文 1http:&#x2F;&#x2F;chuquan.me&#x2F;2018&#x2F;05&#x2F;21&#x2F;elf-introduce&#x2F;    导入ELF文件分类  可执行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221120003022047.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221119212240031.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221119232217664.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221120005831684.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221119223206838.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221120001209719.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221121032736087.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/re/image-20221120002150960.png">
+<meta property="article:published_time" content="2022-06-07T01:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-29T15:24:07.331Z">
+<meta property="article:author" content="邓渠香">
+<meta property="article:tag" content="ELF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://re4mile.gitee.io/res/photo/re/image-20221120003022047.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/re4mile/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/re4mile/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://s1.ax1x.com/2022/12/21/zOXq9s.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/re4mile/"><div class="main" ff="title">re4mile</div><div class="sub cap">好记性不如烂笔头</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item active" href="/re4mile/">文章</a><a class="nav-item" href="/re4mile/wiki/">项目</a><a class="nav-item" href="/re4mile/about/">关于</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">ELF文件格式基础篇</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF-header"><span class="toc-text">ELF header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Segment-header-%E6%89%A7%E8%A1%8C"><span class="toc-text">Segment header (执行)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Section-header-%E9%93%BE%E6%8E%A5"><span class="toc-text">Section header ( 链接 )</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-text">符号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="toc-text">重定位表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tiny-elf"><span class="toc-text">tiny.elf</span></a></li></ol></div></div></widget>
+
+
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/re4mile/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/re4mile/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/re4mile/categories/Reverse/">Reverse</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-06-07T01:00:00.000Z">2022-06-07</time></div></div>
+
+<article class='md-text content post reveal'>
+<h1 class="article-title"><span>ELF文件格式基础篇</span></h1>
+<p>ELF的全称是<strong>Executable and Linking Format</strong>，</p>
+<p>这个名字相当关键，包含了ELF所需要支持的两个功能——执行和链接。</p>
+<p>不管是ELF，还是Windows的<code>PE</code>，抑或是MacOS的<code>Mach-O</code>，其根本目的都是为了能让处理器正确执行我们所编写的代码</p>
+<p>好文</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://chuquan.me/2018/05/21/elf-introduce/</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>ELF文件分类</p>
+<ul>
+<li>可执行文件 : 被操作系统中的加载器从硬盘中读取，加载到内存中去执行。</li>
+<li>目标文件(.o) ：适合于与其他目标文件链接来创建可执行文件或者共享目标文件的代码和数据。</li>
+<li>共享文件(.so) ：在动态链接的时候，由 ld-linux.so 来读取。</li>
+</ul>
+<p>分类的宏定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span>  ET_REL    1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  ET_EXEC   2</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  ET_DYN    3</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  ET_CORE   4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>ELF文件格式提供了两种不同的视角，(只是用了2个视角看待相同的数据)</p>
+<p>链接视图是以节（section）为单位，</p>
+<p>执行视图是以段（segment）为单位。</p>
+<p><strong>程序头部表</strong>（Program Header Table），如果存在的话，告诉系统如何创建进程映像。</p>
+<p><strong>节区头部表</strong>（Section Header Table）包含了描述文件节区的信息，比如大小、偏移等</p>
+<p>注意这里segments与sections是两个不同的概念。之间的关系如下：</p>
+<p>(1) 每个segments可以包含多个sections</p>
+<p>(2) 每个sections可以属于多个segments</p>
+<p>(3) segments之间可以有重合的部分</p>
+<p>可以说，一个segment是若干个sections的组合。</p>
+<p>目标文件需要链接器做进一步处理，所以一定有Section Header Table；</p>
+<p>可执行文件需要加载运行，所以一定有Program Header Table；</p>
+<p>而共享库既要加载运行，又要在加载时做动态链接，所以既有Section Header Table又有Program Header Tabl</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221120003022047.png" alt="image-20221120003022047"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221119212240031.png" alt="image-20221119212240031"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221119232217664.png" alt="image-20221119232217664"></p>
+<h1 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h1><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221120005831684.png" alt="image-20221120005831684"></p>
+<h2 id="ELF-header"><a href="#ELF-header" class="headerlink" title="ELF header"></a>ELF header</h2><p>ELF头(ELF header)位于文件的开始位置。 它的主要目的是定位文件的其他部分</p>
+<p>描述文件的主要特性：类型，CPU架构，入口地址，现有部分的大小和偏移等等</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> EI_NIDENT 16</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> e_ident[EI_NIDENT];</span><br><span class="line">    Elf32_Half e_type;</span><br><span class="line">    Elf32_Half e_machine;</span><br><span class="line">    Elf32_Word e_version;</span><br><span class="line">    Elf32_Addr e_entry;</span><br><span class="line">    Elf32_Off  e_phoff;</span><br><span class="line">    Elf32_Off  e_shoff;</span><br><span class="line">    Elf32_Word e_flags;</span><br><span class="line">    Elf32_Half e_ehsize;</span><br><span class="line">    Elf32_Half e_phentsize;</span><br><span class="line">    Elf32_Half e_phnum;</span><br><span class="line">    Elf32_Half e_shentsize;</span><br><span class="line">    Elf32_Half e_shnum;</span><br><span class="line">    Elf32_Half e_shstrndx;</span><br><span class="line">&#125;Elf32_Ehdr;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> e_ident[EI_NIDENT];    <span class="comment">//Magic number and other info</span></span><br><span class="line">    Elf64_Half    e_type;                <span class="comment">//文件类型</span></span><br><span class="line">    Elf64_Half    e_machine;             <span class="comment">//文件运行的平台</span></span><br><span class="line">    Elf64_Word    e_version;              <span class="comment">/* Object file version */</span></span><br><span class="line">    Elf64_Addr    e_entry;                <span class="comment">//入口虚拟地址</span></span><br><span class="line">    Elf64_Off     e_phoff;               <span class="comment">//(Program Header)的FA</span></span><br><span class="line">    Elf64_Off     e_shoff;               <span class="comment">//(Section Header)的FA</span></span><br><span class="line">    Elf64_Word    e_flags;                <span class="comment">//处理器特定的标志，一般为0</span></span><br><span class="line">    Elf64_Half    e_ehsize;               <span class="comment">//Elf_Ehdr的大小,也就是本结构体的大小</span></span><br><span class="line">    Elf64_Half    e_phentsize;           <span class="comment">//每个(Program Header)的大小</span></span><br><span class="line">    Elf64_Half    e_phnum;                <span class="comment">//program header 的个数</span></span><br><span class="line">    Elf64_Half    e_shentsize;            <span class="comment">//每个(Section Header)的大小</span></span><br><span class="line">    Elf64_Half    e_shnum;                <span class="comment">//section header 的个数</span></span><br><span class="line">    Elf64_Half    e_shstrndx;            <span class="comment">//节字符串表的节索引。</span></span><br><span class="line">&#125; Elf64_Ehdr;</span><br></pre></td></tr></table></figure>
+
+
+
+<p> e_ident(了解)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct MagicNum //16byte</span><br><span class="line">&#123;</span><br><span class="line">	BYTE FileName[4];</span><br><span class="line">	BYTE EI_CLASS;//ELFCLASS32代表是32位ELF，ELFCLASS64 代表64位ELF。</span><br><span class="line">	BYTE EI_DATA;//ELFDATA2LSB代表小端，ELFDATA2MSB代表大端。</span><br><span class="line">	BYTE EI_VERSION;//文件版本</span><br><span class="line">	BYTE EI_OS_ABI;//操作系统ABI标识（实际未使用）</span><br><span class="line">	BYTE EI_ABI_VERSION;//：ABI版本（实际 未使用）。</span><br><span class="line">	BYTE EI_Pad[6];//对齐填充，无实际意义。</span><br><span class="line">	BYTE EI_Nident_SIZE;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>e_type(了解)</p>
+<blockquote>
+<p>e_entry</p>
+</blockquote>
+<p>表示程序入口地址</p>
+<p>Relocatable objects file只是供再链接而已，所以它不存在进入点</p>
+<p>这些索引访问包含以下数值的字节</p>
+<h2 id="Segment-header-执行"><a href="#Segment-header-执行" class="headerlink" title="Segment header (执行)"></a>Segment header (执行)</h2><p>系统加载器将<strong>文件</strong>看作<code>ELF header</code>、<code>Program header table</code>、<code>Segment</code>的集合</p>
+<p>其中一个<code>Segment</code>通常由多个<code>Section</code>（节）组成</p>
+<p><strong>Program Header Table</strong>中包含了<strong>运行时</strong>加载程序所需要的信息，后面会进行分别介绍</p>
+<p>列举了所有有效的段(segments)和他们的属性。 程序头表需要加载器将文件中的节加载到虚拟内存段中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Elf64_ProgramHeader</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line">	DWORD p_type; <span class="comment">//段类型  </span></span><br><span class="line">	DWORD p_flags; <span class="comment">//rwx</span></span><br><span class="line">	QWORD p_offset;<span class="comment">//段偏移地址</span></span><br><span class="line">	QWORD p_vaddr;<span class="comment">//VA</span></span><br><span class="line">	QWORD p_paddr;<span class="comment">//FA</span></span><br><span class="line">	QWORD p_filesz;<span class="comment">//本ProgramHeader在文件中的大小</span></span><br><span class="line">	QWORD p_memsz;<span class="comment">//本ProgramHeader在内充中的大小</span></span><br><span class="line">	QWORD p_align;<span class="comment">//对齐方式</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221119223206838.png" alt="image-20221119223206838"></p>
+<p> 0 PT_NULL 无意义，可忽略。<br> 1 PT_LOAD 表示一个需要从二进制文件映射到虚拟地址空间的段。其中保存了常量数据（如字符串），程序的目标代码等。<br> 2 PT_DYNAMIC 动态段。包含动态链接所需的信息。<br> 3 PT_INTERP 本段包含一个路径字符串，该路径存放解释器。<br> 4 PT_NOTE 注释段，包含一些辅助信息。<br> 5 PT_SHLIB 保留的段类型，暂不关心。<br> 6 PT_PHDR 程序头段。指明程序头表在文件和内存映像中的位置和大小。</p>
+<h2 id="Section-header-链接"><a href="#Section-header-链接" class="headerlink" title="Section header ( 链接 )"></a>Section header ( 链接 )</h2><p><strong>Section Header Table</strong>则包含了<strong>链接时</strong>所需要用到的信息</p>
+<p>.o文件一般只有section,而没有segment部分</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Elf64_SectionHeader</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DWORD  sh_name;		<span class="comment">//节区名，名字是一个 NULL 结尾的字符串。</span></span><br><span class="line">	DWORD  sh_type;		<span class="comment">//为节区类型</span></span><br><span class="line">	QWORD  sh_flags;	<span class="comment">//节区awx</span></span><br><span class="line">	QWORD  sh_addr;		<span class="comment">//节区的第一个字节应处的位置。否则，此字段为 0。</span></span><br><span class="line">	QWORD  sh_offset;   <span class="comment">//此成员的取值给出节区的第一个字节与文件头之间的偏移。</span></span><br><span class="line">	QWORD  sh_size;		<span class="comment">//此 成 员 给 出 节 区 的 长 度 （ 字 节 数 ）</span></span><br><span class="line">	DWORD  sh_link;		<span class="comment">//此成员给出节区头部表索引链接。其具体的解释依赖于节区类型。</span></span><br><span class="line">	DWORD  sh_info;		<span class="comment">//此成员给出附加信息，其解释依赖于节区类型。</span></span><br><span class="line">	QWORD  sh_addralign;<span class="comment">//某些节区带有地址对齐约束.</span></span><br><span class="line">	QWORD  sh_entsize;  <span class="comment">//给出每个表项的长度字节数。</span></span><br><span class="line">&#125;; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221120001209719.png" alt="image-20221120001209719"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221121032736087.png" alt="image-20221121032736087"></p>
+<p>图中红色区域的section是没有被映射的内存，当然也在segment中找不到</p>
+<p>flag其中已经定义了的各位含义如下:</p>
+<p>SHF_WRITE: 节区包含进程执行过程中将可写的数据。</p>
+<p>SHF_ALLOC: 此节区在进程执行过程中<code>占用内存</code>。某些控制节区- 并不出现于目标文件的内存映像中，对于那些节区，此位应设置为 0。</p>
+<p>SHF_EXECINSTR: 节区包含可执行的机器指令。</p>
+<p>SHF_MASKPROC: 所有包含于此掩码中的四位都用于处理器专用的语义</p>
+<p>.dynsym</p>
+<p>符号表,简单的理解就是符号表记录了该文件中的所有符号，所谓的符号就是经过修饰了的函数名或者变量名，</p>
+<p>不同的编译器有不同的修饰规则。例如符号_ZL15global_static_a，就是由global_static_a变量名经过修饰而来</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Elf32_sym</span> </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line">     Elf32_Word st_name;      <span class="comment">//符号表项名称。如果该值非0，则表示符号名的字符串表索引(offset)，否则符号表项没有名称。</span></span><br><span class="line">     Elf32_Addr st_value;       <span class="comment">//符号的取值。依赖于具体的上下文，可能是一个绝对值、一个地址等等。</span></span><br><span class="line">     Elf32_Word st_size;         <span class="comment">//符号的尺寸大小。例如一个数据对象的大小是对象中包含的字节数。</span></span><br><span class="line">     <span class="type">unsigned</span> <span class="type">char</span> st_info;    <span class="comment">//符号的类型和绑定属性。</span></span><br><span class="line">     <span class="type">unsigned</span> <span class="type">char</span> st_other;  <span class="comment">//该成员当前包含 0，其含义没有定义。</span></span><br><span class="line">     Elf32_Half st_shndx;        <span class="comment">//每个符号表项都以和其他节区的关系的方式给出定义。此成员给出相关的节区头部表索引。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>.bss</code>SHT_NOBITS	包含将出现在程序的内存映像中的为初始化数据。</p>
+<p>​			根据定义，当程序开始执行，系统将把这些数据初始化为 0。此节区不占用文件空间</p>
+<p><code>.shstrtab	</code>中保存着各Section的名字，</p>
+<p><code>.strtab</code>	中保存着程序中用到的符号的名字</p>
+<p><code>.text</code>SHT_PROGBITS 	此节区包含程序的可执行指令。</p>
+<p><code>.data	</code>保存的是<strong>已经初始化</strong>了的全局静态变量和局部静态变量</p>
+<p><code>.rodata	</code>段存放的是只读数据，包括只读变量（const修饰的变量和字符串常量）,如一行C语言代码中的字符串</p>
+<p><code>.symtab</code>	符号表</p>
+<p><code> .rel.xx</code>	重定位表也是一个段，用于描述在重定位时链接器如何修改相应段里的内容。对于.text段，对应的重定位表是.rel.text表。</p>
+<p><code>.comment</code>SHT_PROGBITS	包含版本控制信息。</p>
+<p><code>.debug</code>SHT_PROGBITS	此节区包含用于符号调试的信息</p>
+<p><code>.dynamic</code>SHT_DYNAMIC	此节区包含动态链接信息。节区的属性将包含 SHF_ALLOC 位。是否 SHF_WRITE 位被设置取决于处理器</p>
+<p><code>.dynstr</code>SHT_STRTAB	（动态链接字符串表，此节区包含用于动态链接的字符串，大多数情况下这些字符串代表了与符号表项相关的名称。</p>
+<p><code>.dynsym</code>SHT_DYNSYM	（动态链接符号表），<strong>其保存了从共享库导入的动态符号表</strong></p>
+<p><code>.init</code>SHT_PROGBITS 	节区包含了可执行指令，是进程初始化代码的一部分。</p>
+<p>​							当程序开始执行时，系统要在开始调用主程序入口之前（通常指 C 语言的 main 函数）执行这些代码。</p>
+<p><code>.fini</code>SHT_PROGBITS	此节区包含了可执行的指令，是进程终止代码的一部分。程序正常退出时，系统将安排执行这里的代码。</p>
+<p><code>.got.plt节</code>SHT_PROGBITS	此节区包含全局偏移表。（全局偏移表-过程链接表）</p>
+<p><code>.hash</code>SHT_HASH	此节区包含了一个符号哈希表。</p>
+<p><code>.interp</code>SHT_PROGBITS 	此节区包含程序解释器的路径名。如果程序包含一个可加载的段，</p>
+<p>​							段中包含此节区，那么节区的属性将包含 SHF_ALLOC 位，否则该位为 0。</p>
+<p><code>.line</code>SHT_PROGBITS	此节区包含符号调试的行号信息，其中描述了源程序与机器指令之间的对应关系。其内容是未定义的。</p>
+<p><code>.note</code>SHT_NOTE	此节区中包含注释信息，有独立的格式。</p>
+<p><code>.plt</code>SHT_PROGBITS	此节区包含过程链接表（procedure linkage table）。</p>
+<p><code>.relname和.relaname</code>SHT_REL和SHT_RELA	（.relname和.relaname）这些节区中包含了重定位信息。</p>
+<p>​											如果文件中包含可加载的段，段中有重定位内容，节区的属性将包含 </p>
+<p>​											SHF_ALLOC 位，否则该位置 0。传统上 name 根据重定位所适用的节区给定。</p>
+<p>​											例如 .text 节区的重定位节区名字将是：.rel.text 或者 .rela.text。		                                                 </p>
+<p><code>.rodata和.rodata1</code>SHT_PROGBITS	这些节区包含只读数据，这些数据通常参与进程映像的不可写段。<br><code>.shstrtab</code>SHT_STRTAB	节区包含节区名称。<br><code>.strtab</code>SHT_STRTAB 	节区包含字符串，通常是代表与符号表项相关的名称。<br>                                                    如果文件拥有一个可加载的段，段中包含符号串表，<br>                                                    节区的属性将包含SHF_ALLOC 位，否则该位为 0。<br><code>.symtab</code>SHT_SYMTAB 	节区包含一个符号表。如果文件中包含一个可加载的段，<br>                                                 并且该段中包含符号表，那么节区的属性中包含SHF_ALLOC 位，否则该位置为 0。</p>
+<p>字符串表中的第一个字符串（序号为 0）永远是空串，即 <code>null</code></p>
+<h3 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h3><p>节的分类中我们介绍了<code>.dynsym</code>节和<code>.symtab</code>节，两者都是符号表。那么它们到底有什么区别呢？存在什么关系呢？</p>
+<p><strong>符号是对某些类型的数据或代码（如全局变量或函数）的符号引用，函数名或变量名就是符号名</strong>。</p>
+<p>在大多数共享库和动态链接可执行文件中，存在两个符号表。即<code>.dynsym</code>和<code>.symtab</code>。</p>
+<p><strong><code>.dynsym</code>保存了引用来自外部文件符号的全局符号</strong>。如<code>printf</code>库函数。</p>
+<p><strong><code>.symtab</code>中还保存了可执行文件的本地符号</strong>。如全局变量，代码中定义的本地函数等。</p>
+<p><code>.dynsym</code>保存的符号是<code>.symtab</code>所保存符合的子集，</p>
+<p>既然<code>.dynsym</code>是<code>.symtab</code>的子集，那为何要同时存在两个符号表呢？</p>
+<p>通过<code>readelf -S</code>命令可以查看可执行文件的输出，</p>
+<p>一部分节标志位（<code>sh_flags</code>）被标记为了<code>A（ALLOC）、WA（WRITE/ALLOC）、AXALLOC/EXEC），</code>.</p>
+<p>dynsym<code>被标记为ALLOC，而</code>.symtab&#96;则没有标记。</p>
+<p>说明<code>dynsym</code>载进入内存,而<code>.symtab</code>不是在运行时必需的，因此不会被装载到内存中。</p>
+<p>因此，ELF文件有两个符号表，symtab包含所有内容，但是它不是程序运行必需的，可以剥离，并且没有运行的副作用，dynsym是不可剥离的，包含支持运行时操作所需的符号。</p>
+<p>.symtab 符号表</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Elf64_Sym</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf64_Word	st_name;		<span class="comment">/* 符号名。该值为该符号名在字符串表中的偏移地址。 */</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span>	st_info;		<span class="comment">/* 符号类型及绑定属性*/</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">char</span> st_other;		<span class="comment">/* Symbol visibility */</span></span><br><span class="line">  Elf64_Section	st_shndx;		<span class="comment">/* 符号所在的节*/</span></span><br><span class="line">  Elf64_Addr	st_value;		<span class="comment">/*	符号对应的值。存放符号的值（可能是地址或位置偏移量）。 */</span></span><br><span class="line">  Elf64_Xword	st_size;		<span class="comment">/*符号的大小*/</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Elf32_sym</span></span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line">     Elf32_Word st_name;      <span class="comment">//符号表项名称。如果该值非0，则表示符号名的字</span></span><br><span class="line">                                             <span class="comment">//符串表索引(offset)，否则符号表项没有名称。</span></span><br><span class="line">     Elf32_Addr st_value;       <span class="comment">//符号的取值。依赖于具体的上下文，可能是一个绝对值、一个地址等等。</span></span><br><span class="line">     Elf32_Word st_size;         <span class="comment">//符号的尺寸大小。例如一个数据对象的大小是对象中包含的字节数。</span></span><br><span class="line">     <span class="type">unsigned</span> <span class="type">char</span> st_info;    <span class="comment">//符号的类型和绑定属性。</span></span><br><span class="line">     <span class="type">unsigned</span> <span class="type">char</span> st_other;  <span class="comment">//未定义。</span></span><br><span class="line">     Elf32_Half st_shndx;        <span class="comment">//每个符号表项都以和其他节区的关系的方式给出定义。</span></span><br><span class="line">　　　　　　　　　　　　　<span class="comment">//此成员给出相关的节区头部表索引。</span></span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="重定位表"><a href="#重定位表" class="headerlink" title="重定位表"></a>重定位表</h3><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gitee.io/res/photo/re/image-20221120002150960.png" alt="image-20221120002150960"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Addr	r_offset;		<span class="comment">/* Address */</span></span><br><span class="line">  Elf32_Word	r_info;			<span class="comment">/* Relocation type and symbol index */</span></span><br><span class="line">  Elf32_Sword	r_addend;		<span class="comment">/* Addend */</span></span><br><span class="line">&#125; Elf32_Rela;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf64_Addr	r_offset;		<span class="comment">/* Address */</span></span><br><span class="line">  Elf64_Xword	r_info;			<span class="comment">/* Relocation type and symbol index */</span></span><br><span class="line">  Elf64_Sxword	r_addend;		<span class="comment">/* Addend */</span></span><br><span class="line">&#125; Elf64_Rela;</span><br></pre></td></tr></table></figure>
+
+<p>其成员含义如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th align="left">成员</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">r_offset</td>
+<td align="left">重定位入口的偏移。</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">对于<strong>可重定位文件</strong>来说，这个值是该重定位入口所要修正的位置的第一个字节相对于节起始的偏移</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">对于<strong>可执行文件或共享对象文件</strong>来说，这个值是该重定位入口所要修正的位置的第一个字节的虚拟地址</td>
+</tr>
+<tr>
+<td align="left">r_info</td>
+<td align="left">重定位入口的类型和符号</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">因为不同处理器的指令系统不一样，所以重定位所要修正的指令地址格式也不一样。每种处理器都有自己的一套重定位入口的类型。</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">对于<strong>可执行文件和共享目标文件</strong>来说，它们的重定位入口是动态链接类型的。</td>
+</tr>
+</tbody></table>
+<p>重定位是目标文件链接成为可执行文件的关键。我们将在后面的进行介绍。</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="tiny-elf"><a href="#tiny-elf" class="headerlink" title="tiny.elf"></a>tiny.elf</h2><p><a target="_blank" rel="noopener" href="https://www.w3cschool.cn/cbook/7to1eozt.html">https://www.w3cschool.cn/cbook/7to1eozt.html</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">7F 45 4C 46 59 59 B2 05 B0 04 CD 80 B0 01 CD 80 </span><br><span class="line">02 00 03 00 01 00 00 00 04 80 04 08 2C 00 00 00 </span><br><span class="line">84 00 00 00 00 00 00 00 34 00 20 00 01 00 00 00 </span><br><span class="line">00 00 00 00 00 80 04 08 00 80 04 08 60 00 00 00 </span><br><span class="line">60 00 00 00 05 00 00 00 00 10 00 00</span><br></pre></td></tr></table></figure>
+
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2022/06/07/linux/syscall/%E5%9F%BA%E7%A1%80/linux/">Linux系统中断</a></div></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md-text reveal' id="comments">
+    <section class='header cmt-title cap theme'>
+      快来参与讨论吧
+    </section>
+    <section class='body cmt-body beaudar'>
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="beaudar" repo="re4mile/wp" issue-term="pathname" theme="preferred-color-scheme" input-position="top" comment-order="desc" loading="false" branch="main"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.18.5';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/re4mile/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function loadBeaudar() {
+    const els = document.querySelectorAll("#comments #beaudar");
+    if (els.length === 0) return;
+    els.forEach((el, i) => {
+      try {
+        el.innerHTML = '';
+      } catch (error) {
+        console.log(error);
+      }
+      var script = document.createElement('script');
+      script.src = 'https://beaudar.lipk.org/client.js';
+      script.async = true;
+      for (let key of Object.keys(el.attributes)) {
+        let attr = el.attributes[key];
+        if (['class', 'id'].includes(attr.name) === false) {
+          script.setAttribute(attr.name, attr.value);
+        }
+      }
+      el.appendChild(script);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+      loadBeaudar();
+  });
+</script>
+
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

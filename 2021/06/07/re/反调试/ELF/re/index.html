@@ -1,153 +1,116 @@
-<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ELF反调试 | ❄️</title><meta name="author" content="re4mile"><meta name="copyright" content="re4mile"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="参考链接https:&#x2F;&#x2F;www.cnblogs.com&#x2F;h2zZhou&#x2F;p&#x2F;6637890.html 带学习的参考链接 https:&#x2F;&#x2F;blog.csdn.net&#x2F;stonesharp&#x2F;article&#x2F;details&#x2F;8211526 数据加密 有源码加固 基于特定section的加解密实现   基于section的加解密，是指将elf文件的特定section进行加密，elf文件被加载时解密  代码">
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>ELF反调试 - re4mile</title>
+
+  
+    <meta name="description" content="参考链接https:&#x2F;&#x2F;www.cnblogs.com&#x2F;h2zZhou&#x2F;p&#x2F;6637890.html 带学习的参考链接 https:&#x2F;&#x2F;blog.csdn.net&#x2F;stonesharp&#x2F;article&#x2F;details&#x2F;8211526 数据加密 有源码加固 基于特定section的加解密实现   基于section的加解密，是指将elf文件的特定section进行加密，elf文件被加载时解密  代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ELF反调试">
 <meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/ELF/re/index.html">
-<meta property="og:site_name" content="❄️">
+<meta property="og:site_name" content="re4mile">
 <meta property="og:description" content="参考链接https:&#x2F;&#x2F;www.cnblogs.com&#x2F;h2zZhou&#x2F;p&#x2F;6637890.html 带学习的参考链接 https:&#x2F;&#x2F;blog.csdn.net&#x2F;stonesharp&#x2F;article&#x2F;details&#x2F;8211526 数据加密 有源码加固 基于特定section的加解密实现   基于section的加解密，是指将elf文件的特定section进行加密，elf文件被加载时解密  代码">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://gitee.com/re4mile/re4mile.git/img/bk5.jpg">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/630711_HKTSQYPN8PWY52F.png">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/630711_G7FYDT94A9NVKNU.png">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/Snipaste_2022-11-21_23-54-59.png">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/image-20221122084237397.png">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/image-20221122084302591.png">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/image-20221123131806341.png">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/image-20221123144227040.png">
+<meta property="og:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/image-20221123144643014.png">
 <meta property="article:published_time" content="2021-06-07T01:00:00.000Z">
-<meta property="article:modified_time" content="2022-12-29T08:28:51.021Z">
-<meta property="article:author" content="re4mile">
+<meta property="article:modified_time" content="2022-12-29T10:20:13.845Z">
+<meta property="article:author" content="邓渠香">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Anti_Dbg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/re4mile/re4mile.git/img/bk5.jpg"><link rel="shortcut icon" href="/re4mile/img/favicon.jpg"><link rel="canonical" href="https://gitee.com/re4mile/re4mile.git/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/ELF/re/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/re4mile/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/re4mile/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: 'Copy successfully',
-    error: 'Copy error',
-    noSupport: 'The browser does not support'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: 'Just',
-    min: 'minutes ago',
-    hour: 'hours ago',
-    day: 'days ago',
-    month: 'months ago'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'ELF反调试',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2022-12-29 16:28:51'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+<meta name="twitter:image" content="f:/5008/Note/blog/ELF%E6%B7%B7%E6%B7%86/630711_HKTSQYPN8PWY52F.png">
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
   
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
+
+  <!-- feed -->
+  
+
+  
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+<link rel="stylesheet" href="/re4mile/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="my.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/re4mile/img/wlq.jpg" onerror="onerror=null;src='img/banner.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/re4mile/archives/"><div class="headline">Articles</div><div class="length-num">47</div></a><a href="/re4mile/tags/"><div class="headline">Tags</div><div class="length-num">26</div></a><a href="/re4mile/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/re4mile/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/archives/"><i class="fa-fw fas fa-archive"></i><span> 一路走来</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas  fa-bed"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/2022/11/30/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/"><i class="fa-fw fas fa-list-alt"></i><span> 任务清单</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc"><i class="fa-fw fas fa-book"></i><span> 日记</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/re4mile/img/bk5.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/re4mile/">❄️</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/re4mile/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/archives/"><i class="fa-fw fas fa-archive"></i><span> 一路走来</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas  fa-bed"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/2022/11/30/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/"><i class="fa-fw fas fa-list-alt"></i><span> 任务清单</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc"><i class="fa-fw fas fa-book"></i><span> 日记</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ELF反调试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-06-07T01:00:00.000Z" title="Created 2021-06-07 09:00:00">2021-06-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-29T08:28:51.021Z" title="Updated 2022-12-29 16:28:51">2022-12-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/re4mile/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ELF反调试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/h2zZhou/p/6637890.html">https://www.cnblogs.com/h2zZhou/p/6637890.html</a></p>
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/re4mile/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://s1.ax1x.com/2022/12/21/zOXq9s.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/re4mile/"><div class="main" ff="title">re4mile</div><div class="sub cap">好记性不如烂笔头</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item active" href="/re4mile/">文章</a><a class="nav-item" href="/re4mile/wiki/">项目</a><a class="nav-item" href="/re4mile/about/">关于</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">ELF反调试</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Inline-hook"><span class="toc-text">Inline hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GOT-hook"><span class="toc-text">GOT hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PRELOAD-hook"><span class="toc-text">PRELOAD hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linker%E9%87%8D%E5%AE%9A%E4%BD%8Dhook"><span class="toc-text">Linker重定位hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UPX%E5%A3%B3%E5%8F%8A%E5%88%86%E6%9E%90"><span class="toc-text">UPX壳及分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shellcode%E4%BF%9D%E6%8A%A4%E6%96%B9%E6%A1%88"><span class="toc-text">Shellcode保护方案.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E5%99%A8%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-text">链接器及加载器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VMP"><span class="toc-text">VMP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E5%B9%B3%E5%9D%A6%E5%8C%96"><span class="toc-text">控制流平坦化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E8%A7%92%E5%BA%A6"><span class="toc-text">语法角度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BA%E4%B8%BA%E4%BC%98%E5%8C%96"><span class="toc-text">人为优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E4%BC%A0%E6%92%AD-%E5%88%B0%E8%BE%BE%E5%AE%9A%E5%80%BC%E5%88%86%E6%9E%90"><span class="toc-text">常量传播 | 到达定值分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="toc-text">死代码优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E5%81%87%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="toc-text">虚假控制流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%B1%E6%8C%87%E4%BB%A4"><span class="toc-text">花指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#r%E6%8C%87%E4%BB%A4%E4%B9%B1%E5%BA%8F%EF%BC%8C%E4%BD%BF%E7%94%A8B%E8%A1%94%E6%8E%A5"><span class="toc-text">r指令乱序，使用B衔接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%9B%BF%E6%8D%A2%EF%BC%8C%E6%9B%BF%E6%8D%A2%E4%B8%BAB%E6%8C%87%E4%BB%A4"><span class="toc-text">指令替换，替换为B指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%B4%A2%E5%BC%95%E5%B9%B6%E4%B8%94%E4%B9%B1%E5%BA%8F%EF%BC%8C%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E8%A1%A8%E6%9D%A5%E8%B7%B3%E8%BD%AC"><span class="toc-text">指令索引并且乱序，使用索引表来跳转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLVM%E6%96%B9%E5%BC%8F%E6%B7%B7%E6%B7%86"><span class="toc-text">LLVM方式混淆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#int3"><span class="toc-text">int3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E4%BA%8Emain%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C"><span class="toc-text">先于main函数执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%95%E6%8D%89%E4%BF%A1%E5%8F%B7"><span class="toc-text">捕捉信号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E8%BF%90%E8%A1%8CtracerPID%E7%8A%B6%E6%80%81%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="toc-text">检测运行tracerPID状态的检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E8%B0%83%E8%AF%95%E8%BF%9B%E7%A8%8B"><span class="toc-text">检测调试进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ptrace"><span class="toc-text">ptrace</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%B9b"><span class="toc-text">吹b</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="toc-text">函数介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%8A%9F%E8%83%BD"><span class="toc-text">应用功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="toc-text">例子</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%96%E5%87%BA%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-text">取出符号表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%8A%A0%E8%BD%BD"><span class="toc-text">静态加载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%87%BD%E6%95%B0"><span class="toc-text">用动态加载函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%AD%98%E5%82%A8%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">局部变量存储字符串</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%B1%87%E7%BC%96%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAptrace%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">用汇编实现一个ptrace的函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%85%E5%B5%8C%E6%B1%87%E7%BC%96%E5%AE%9E%E7%8E%B0ptrace"><span class="toc-text">内嵌汇编实现ptrace</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8SMC%E9%9A%90%E8%97%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B0%83%E7%94%A8"><span class="toc-text">用ＳＭＣ隐藏系统的调用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5"><span class="toc-text">代码注入</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86ELF%E6%A0%BC%E5%BC%8F%EF%BC%8C%E9%98%BB%E6%AD%A2IDA%E5%8A%A0%E8%BD%BD"><span class="toc-text">处理ELF格式，阻止IDA加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%AE%88%E6%8A%A4"><span class="toc-text">多进程守护</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CRC%E6%A0%A1%E9%AA%8C"><span class="toc-text">CRC校验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E4%B8%AD%E6%96%AD%E6%8C%87%E4%BB%A4%E6%A3%80%E6%B5%8B%EF%BC%88%E7%B1%BB%E4%BC%BCx86-0xCC%EF%BC%89"><span class="toc-text">调试中断指令检测（类似x86 0xCC）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%99%A8%E6%A3%80%E6%B5%8B"><span class="toc-text">调试器检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="toc-text">运行时间的检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E6%89%93%E5%BC%80%E7%9A%84fd%E6%96%87%E4%BB%B6"><span class="toc-text">检测打开的fd文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF%E5%85%A5%E5%8F%A3%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="toc-text">ELF入口加解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%8A%A8%E6%80%81%E5%8A%A0%E8%A7%A3%E5%AF%86%EF%BC%8C%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="toc-text">函数动态加解密，指令级加解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%87%BD%E6%95%B0%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="toc-text">基于加载器的函数加解密</span></a></li></ol></div></div></widget>
+
+
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/re4mile/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/re4mile/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/re4mile/categories/Reverse/">Reverse</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></div></div>
+
+<article class='md-text content post reveal'>
+<h1 class="article-title"><span>ELF反调试</span></h1>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/h2zZhou/p/6637890.html">https://www.cnblogs.com/h2zZhou/p/6637890.html</a></p>
 <p>带学习的参考链接</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/stonesharp/article/details/8211526">https://blog.csdn.net/stonesharp/article/details/8211526</a></p>
 <h1 id="数据加密"><a href="#数据加密" class="headerlink" title="数据加密"></a>数据加密</h1><ul>
@@ -186,22 +149,22 @@
 
 
 <h3 id="语法角度"><a href="#语法角度" class="headerlink" title="语法角度"></a>语法角度</h3><p>来个很吓人的图片,然后如果优化后</p>
-<p><img src="F:/5008/Note/blog/ELF混淆/630711_HKTSQYPN8PWY52F.png" alt="630711_HKTSQYPN8PWY52F"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/630711_HKTSQYPN8PWY52F.png" alt="630711_HKTSQYPN8PWY52F"></p>
 <p>于是优化后(这里是人为优化负责的代码)</p>
-<p><img src="F:/5008/Note/blog/ELF混淆/630711_G7FYDT94A9NVKNU.png" alt="630711_G7FYDT94A9NVKNU"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/630711_G7FYDT94A9NVKNU.png" alt="630711_G7FYDT94A9NVKNU"></p>
 <p>于是一些扁平化的代码，可以这么写</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> x=<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> y=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(!x)</span><br><span class="line">    &#123;</span><br><span class="line">        x=<span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!y)</span><br><span class="line">    &#123;</span><br><span class="line">        y=<span class="number">200</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!x)</span><br><span class="line">    &#123;</span><br><span class="line">        x=<span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!y)</span><br><span class="line">    &#123;</span><br><span class="line">        y=<span class="number">200</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">if</span>(!x)</span><br><span class="line">    &#123;</span><br><span class="line">        x=<span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!y)</span><br><span class="line">    &#123;</span><br><span class="line">        y=<span class="number">200</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="F:/5008/Note/blog/ELF混淆/Snipaste_2022-11-21_23-54-59.png"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/Snipaste_2022-11-21_23-54-59.png"></p>
 <h3 id="人为优化"><a href="#人为优化" class="headerlink" title="人为优化"></a>人为优化</h3><p>之前听说过，编译器优化之后的代码会比较恶心</p>
 <p>所以如果我们不用编译器优化，采用原始的编译效果，然后认为恶作剧的区优化代码</p>
 <p>这个如何实现?</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">while (1) &lt;-- 这个就是支配节点</span><br><span class="line">&#123;  			</span><br><span class="line">   if (a)</span><br><span class="line">      ....</span><br><span class="line">   if (b)</span><br><span class="line">      ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="F:/5008/Note/blog/ELF混淆/image-20221122084237397.png" alt="image-20221122084237397"></p>
-<p><img src="F:/5008/Note/blog/ELF混淆/image-20221122084302591.png" alt="image-20221122084302591"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/image-20221122084237397.png" alt="image-20221122084237397"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/image-20221122084302591.png" alt="image-20221122084302591"></p>
 <h3 id="常量传播-到达定值分析"><a href="#常量传播-到达定值分析" class="headerlink" title="常量传播 | 到达定值分析"></a>常量传播 | 到达定值分析</h3><p>这个确定性如果用于远程的距离的跳转,那么就是到达定值分析</p>
 <p>如果用于短距离跳转,就是一般的常量传播</p>
 <p>利用了结果的确定性吧</p>
@@ -220,7 +183,7 @@
 
 
 <p>效果图</p>
-<p> <img src="F:/5008/Note/blog/ELF混淆/image-20221123131806341.png" alt="image-20221123131806341"></p>
+<p> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/image-20221123131806341.png" alt="image-20221123131806341"></p>
 <p>3个红色🟥是基于while(1)的递归判断</p>
 <p>3个紫色🟪是基于if的判断</p>
 <p>3个蓝色🟦是基于if处理的处理</p>
@@ -228,12 +191,12 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a == <span class="number">7</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (a &gt; <span class="number">5</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">7</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (a &gt; <span class="number">4</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">6</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (a &gt; <span class="number">3</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">5</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (a &gt; <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">4</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (a &gt; <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">3</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (a &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (a &gt; <span class="number">-1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>效果</p>
-<p><img src="F:/5008/Note/blog/ELF混淆/image-20221123144227040.png" alt="image-20221123144227040"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/image-20221123144227040.png" alt="image-20221123144227040"></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a &gt; <span class="number">-1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a &gt; <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">3</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a &gt; <span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">4</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a &gt; <span class="number">3</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">5</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a &gt; <span class="number">4</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">6</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a &gt; <span class="number">5</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			a = <span class="number">7</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (a == <span class="number">7</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="F:/5008/Note/blog/ELF混淆/image-20221123144643014.png" alt="image-20221123144643014"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="F:/5008/Note/blog/ELF混淆/image-20221123144643014.png" alt="image-20221123144643014"></p>
 <h2 id="虚假控制流"><a href="#虚假控制流" class="headerlink" title="虚假控制流"></a>虚假控制流</h2><h2 id="花指令"><a href="#花指令" class="headerlink" title="花指令"></a>花指令</h2><h2 id="r指令乱序，使用B衔接"><a href="#r指令乱序，使用B衔接" class="headerlink" title="r指令乱序，使用B衔接"></a>r指令乱序，使用B衔接</h2><h2 id="指令替换，替换为B指令"><a href="#指令替换，替换为B指令" class="headerlink" title="指令替换，替换为B指令"></a>指令替换，替换为B指令</h2><h2 id="指令索引并且乱序，使用索引表来跳转"><a href="#指令索引并且乱序，使用索引表来跳转" class="headerlink" title="指令索引并且乱序，使用索引表来跳转"></a>指令索引并且乱序，使用索引表来跳转</h2><h2 id="LLVM方式混淆"><a href="#LLVM方式混淆" class="headerlink" title="LLVM方式混淆"></a>LLVM方式混淆</h2><h1 id="ELF反调试"><a href="#ELF反调试" class="headerlink" title="ELF反调试"></a>ELF反调试</h1><h2 id="int3"><a href="#int3" class="headerlink" title="int3"></a>int3</h2><p>一个比价老套的的指令</p>
 <p>就是如果你执行了int3,就会发出信号SIGTRAP</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="type">void</span> <span class="title function_">handler</span><span class="params">(<span class="type">int</span> signo)</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//signal(SIGTRAP, handler);</span></span><br><span class="line">    __asm__(<span class="string">&quot;nop\n\t&quot;</span></span><br><span class="line">        <span class="string">&quot;int3\n\t&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello from main!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -554,7 +517,12 @@
 
 <h5 id="代码注入"><a href="#代码注入" class="headerlink" title="代码注入"></a>代码注入</h5><p>其实就是用ｐｔｒａｃｅ实现一个简单的调试器</p>
 <p>可以达到对进程的寄存器内存修改和读取</p>
-<h2 id="处理ELF格式，阻止IDA加载"><a href="#处理ELF格式，阻止IDA加载" class="headerlink" title="处理ELF格式，阻止IDA加载"></a>处理ELF格式，阻止IDA加载</h2><h2 id="多进程守护"><a href="#多进程守护" class="headerlink" title="多进程守护"></a>多进程守护</h2><h2 id="CRC校验"><a href="#CRC校验" class="headerlink" title="CRC校验"></a>CRC校验</h2><h2 id="调试中断指令检测（类似x86-0xCC）"><a href="#调试中断指令检测（类似x86-0xCC）" class="headerlink" title="调试中断指令检测（类似x86 0xCC）"></a>调试中断指令检测（类似x86 0xCC）</h2><h2 id="调试器检测"><a href="#调试器检测" class="headerlink" title="调试器检测"></a>调试器检测</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>  <span class="title function_">CheckDbg1</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> buf0[<span class="number">32</span>], buf1[<span class="number">128</span>];</span><br><span class="line">	FILE* fin;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">snprintf</span>(buf0, <span class="number">24</span>, <span class="string">&quot;/proc/%d/cmdline&quot;</span>, getppid());</span><br><span class="line">	fin = fopen(buf0, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	fgets(buf1, <span class="number">128</span>, fin);</span><br><span class="line">	fclose(fin);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//puts(buf1);</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf1, <span class="string">&quot;gdb&quot;</span>)) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Find  gdb\n&quot;</span>);</span><br><span class="line">		<span class="comment">//abort();</span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//puts(buf1);</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf1, <span class="string">&quot;./linux_server64&quot;</span>)) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Find Romote Server Dbg\n&quot;</span>);</span><br><span class="line">		<span class="comment">//abort();</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//puts(buf1);</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf1, <span class="string">&quot;./64&quot;</span>)) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Find Romote Server Dbg\n&quot;</span>);</span><br><span class="line">		<span class="comment">//abort();</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Check All good\n&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="处理ELF格式，阻止IDA加载"><a href="#处理ELF格式，阻止IDA加载" class="headerlink" title="处理ELF格式，阻止IDA加载"></a>处理ELF格式，阻止IDA加载</h2><h2 id="多进程守护"><a href="#多进程守护" class="headerlink" title="多进程守护"></a>多进程守护</h2><p>其实有个思路,也哈桑蛮容易实现的</p>
+<p>就是是我们执行的主要进程是子进程</p>
+<p>然后在main函数种,fork出子进程,父进程关闭自己</p>
+<p>然后子进程慢慢运行</p>
+<p>那么就达到了一个可以不让IDA反调试的一个目的</p>
+<h2 id="CRC校验"><a href="#CRC校验" class="headerlink" title="CRC校验"></a>CRC校验</h2><h2 id="调试中断指令检测（类似x86-0xCC）"><a href="#调试中断指令检测（类似x86-0xCC）" class="headerlink" title="调试中断指令检测（类似x86 0xCC）"></a>调试中断指令检测（类似x86 0xCC）</h2><h2 id="调试器检测"><a href="#调试器检测" class="headerlink" title="调试器检测"></a>调试器检测</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>  <span class="title function_">CheckDbg1</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> buf0[<span class="number">32</span>], buf1[<span class="number">128</span>];</span><br><span class="line">	FILE* fin;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">snprintf</span>(buf0, <span class="number">24</span>, <span class="string">&quot;/proc/%d/cmdline&quot;</span>, getppid());</span><br><span class="line">	fin = fopen(buf0, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	fgets(buf1, <span class="number">128</span>, fin);</span><br><span class="line">	fclose(fin);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//puts(buf1);</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf1, <span class="string">&quot;gdb&quot;</span>)) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Find  gdb\n&quot;</span>);</span><br><span class="line">		<span class="comment">//abort();</span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//puts(buf1);</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf1, <span class="string">&quot;./linux_server64&quot;</span>)) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Find Romote Server Dbg\n&quot;</span>);</span><br><span class="line">		<span class="comment">//abort();</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//puts(buf1);</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(buf1, <span class="string">&quot;./64&quot;</span>)) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Find Romote Server Dbg\n&quot;</span>);</span><br><span class="line">		<span class="comment">//abort();</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Check All good\n&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -578,4 +546,234 @@
 <h1 id="ELF函数加密"><a href="#ELF函数加密" class="headerlink" title="ELF函数加密"></a>ELF函数加密</h1><h2 id="ELF入口加解密"><a href="#ELF入口加解密" class="headerlink" title="ELF入口加解密"></a>ELF入口加解密</h2><h2 id="函数动态加解密，指令级加解密"><a href="#函数动态加解密，指令级加解密" class="headerlink" title="函数动态加解密，指令级加解密"></a>函数动态加解密，指令级加解密</h2><h2 id="基于加载器的函数加解密"><a href="#基于加载器的函数加解密" class="headerlink" title="基于加载器的函数加解密"></a>基于加载器的函数加解密</h2><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上列出的反调试技术中，往往只进行了一次检测。为了提高强度，</p>
 <p>我们可以fork得到一个新的进程，在这个子进程中，每隔一段时间对父进程进行一次检测。<br>然而，这些技术都面临存在另外一个致命弱点：可以通过反汇编静态分析，找到相应的检测代码并修改，从而绕过反调试检测</p>
 <p>因此，我们通常还需要对二进制文件进行混淆以对抗静态分析，这样与反调试技术相结合，才能得到理想的保护效果</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://gitee.com/re4mile/re4mile.git">re4mile</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://gitee.com/re4mile/re4mile.git/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/ELF/re/">https://gitee.com/re4mile/re4mile.git/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/ELF/re/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/re4mile/tags/Linux/">Linux</a><a class="post-meta__tags" href="/re4mile/tags/Anti-Dbg/">Anti_Dbg</a></div><div class="post_share"><div class="social-share" data-image="/re4mile/img/bk5.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/re4mile/2021/06/07/re/Z3/%E5%9F%BA%E7%A1%80/re/" title="Python Z3"><img class="cover" src="/re4mile/img/bk5.jpg" onerror="onerror=null;src='/re4mile/img/banner.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Python Z3</div></div></a></div><div class="next-post pull-right"><a href="/re4mile/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/exe/re/" title="EXE反调试"><img class="cover" src="/re4mile/img/bk5.jpg" onerror="onerror=null;src='/re4mile/img/banner.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">EXE反调试</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/re4mile/2021/06/07/linux/%E7%BC%96%E7%A8%8B/linux/" title="LinuxC语言"><img class="cover" src="/re4mile/img/bk5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-07</div><div class="title">LinuxC语言</div></div></a></div><div><a href="/re4mile/2021/06/07/language/Asm/linux/language/" title="Linux汇编语言基础部分"><img class="cover" src="/re4mile/img/bk5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-07</div><div class="title">Linux汇编语言基础部分</div></div></a></div><div><a href="/re4mile/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/exe/re/" title="EXE反调试"><img class="cover" src="/re4mile/img/bk5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-07</div><div class="title">EXE反调试</div></div></a></div><div><a href="/re4mile/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/PYC/re/" title="PYC反调试"><img class="cover" src="/re4mile/img/bk5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-07</div><div class="title">PYC反调试</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/re4mile/img/wlq.jpg" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="avatar"/></div><div class="author-info__name">re4mile</div><div class="author-info__description">an ordinary people</div></div><div class="card-info-data site-data is-center"><a href="/re4mile/archives/"><div class="headline">Articles</div><div class="length-num">47</div></a><a href="/re4mile/tags/"><div class="headline">Tags</div><div class="length-num">26</div></a><a href="/re4mile/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.cnblogs.com/re4mile/"><i class="fab fa-linux"></i><span>我的另外一个博客</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/re4mile" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://gitee.com/re4mile" target="_blank" title="Gitee"><i class="fab fa-google"></i></a><a class="social-icon" href="mailto:935797872@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">路漫漫其修远兮,吾将上下而求索. ——屈原·离骚</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86"><span class="toc-number">2.</span> <span class="toc-text">数据加密</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TLS"><span class="toc-number">3.</span> <span class="toc-text">TLS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF-LOAD"><span class="toc-number">4.</span> <span class="toc-text">ELF_LOAD</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF%E5%B8%B8%E8%A7%81HOOK%E6%96%B9%E6%A1%88%E5%8F%8A%E5%BA%94%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">ELF常见HOOK方案及应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Inline-hook"><span class="toc-number">5.1.</span> <span class="toc-text">Inline hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GOT-hook"><span class="toc-number">5.2.</span> <span class="toc-text">GOT hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PRELOAD-hook"><span class="toc-number">5.3.</span> <span class="toc-text">PRELOAD hook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linker%E9%87%8D%E5%AE%9A%E4%BD%8Dhook"><span class="toc-number">5.4.</span> <span class="toc-text">Linker重定位hook</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF%E8%8B%A5%E5%B9%B2%E7%A7%8D%E4%BF%9D%E6%8A%A4%E6%96%B9%E6%A1%88"><span class="toc-number">6.</span> <span class="toc-text">ELF若干种保护方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UPX%E5%A3%B3%E5%8F%8A%E5%88%86%E6%9E%90"><span class="toc-number">6.1.</span> <span class="toc-text">UPX壳及分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shellcode%E4%BF%9D%E6%8A%A4%E6%96%B9%E6%A1%88"><span class="toc-number">6.2.</span> <span class="toc-text">Shellcode保护方案.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E5%99%A8%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-number">6.3.</span> <span class="toc-text">链接器及加载器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VMP"><span class="toc-number">6.4.</span> <span class="toc-text">VMP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF%E6%B7%B7%E6%B7%86%E6%96%B9%E6%A1%88"><span class="toc-number">7.</span> <span class="toc-text">ELF混淆方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E5%B9%B3%E5%9D%A6%E5%8C%96"><span class="toc-number">7.1.</span> <span class="toc-text">控制流平坦化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E8%A7%92%E5%BA%A6"><span class="toc-number">7.1.1.</span> <span class="toc-text">语法角度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BA%E4%B8%BA%E4%BC%98%E5%8C%96"><span class="toc-number">7.1.2.</span> <span class="toc-text">人为优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E4%BC%A0%E6%92%AD-%E5%88%B0%E8%BE%BE%E5%AE%9A%E5%80%BC%E5%88%86%E6%9E%90"><span class="toc-number">7.1.3.</span> <span class="toc-text">常量传播 | 到达定值分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="toc-number">7.1.4.</span> <span class="toc-text">死代码优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">7.1.5.</span> <span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E5%81%87%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="toc-number">7.2.</span> <span class="toc-text">虚假控制流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%B1%E6%8C%87%E4%BB%A4"><span class="toc-number">7.3.</span> <span class="toc-text">花指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#r%E6%8C%87%E4%BB%A4%E4%B9%B1%E5%BA%8F%EF%BC%8C%E4%BD%BF%E7%94%A8B%E8%A1%94%E6%8E%A5"><span class="toc-number">7.4.</span> <span class="toc-text">r指令乱序，使用B衔接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%9B%BF%E6%8D%A2%EF%BC%8C%E6%9B%BF%E6%8D%A2%E4%B8%BAB%E6%8C%87%E4%BB%A4"><span class="toc-number">7.5.</span> <span class="toc-text">指令替换，替换为B指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%B4%A2%E5%BC%95%E5%B9%B6%E4%B8%94%E4%B9%B1%E5%BA%8F%EF%BC%8C%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E8%A1%A8%E6%9D%A5%E8%B7%B3%E8%BD%AC"><span class="toc-number">7.6.</span> <span class="toc-text">指令索引并且乱序，使用索引表来跳转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLVM%E6%96%B9%E5%BC%8F%E6%B7%B7%E6%B7%86"><span class="toc-number">7.7.</span> <span class="toc-text">LLVM方式混淆</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF%E5%8F%8D%E8%B0%83%E8%AF%95"><span class="toc-number">8.</span> <span class="toc-text">ELF反调试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#int3"><span class="toc-number">8.1.</span> <span class="toc-text">int3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E4%BA%8Emain%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C"><span class="toc-number">8.2.</span> <span class="toc-text">先于main函数执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%95%E6%8D%89%E4%BF%A1%E5%8F%B7"><span class="toc-number">8.3.</span> <span class="toc-text">捕捉信号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E8%BF%90%E8%A1%8CtracerPID%E7%8A%B6%E6%80%81%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="toc-number">8.4.</span> <span class="toc-text">检测运行tracerPID状态的检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E8%B0%83%E8%AF%95%E8%BF%9B%E7%A8%8B"><span class="toc-number">8.5.</span> <span class="toc-text">检测调试进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ptrace"><span class="toc-number">8.5.1.</span> <span class="toc-text">ptrace</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%B9b"><span class="toc-number">8.5.1.1.</span> <span class="toc-text">吹b</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="toc-number">8.5.1.2.</span> <span class="toc-text">函数介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%8A%9F%E8%83%BD"><span class="toc-number">8.5.1.3.</span> <span class="toc-text">应用功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="toc-number">8.5.1.4.</span> <span class="toc-text">例子</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%96%E5%87%BA%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-number">8.5.1.4.1.</span> <span class="toc-text">取出符号表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%8A%A0%E8%BD%BD"><span class="toc-number">8.5.1.4.2.</span> <span class="toc-text">静态加载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%87%BD%E6%95%B0"><span class="toc-number">8.5.1.4.3.</span> <span class="toc-text">用动态加载函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%AD%98%E5%82%A8%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">8.5.1.4.4.</span> <span class="toc-text">局部变量存储字符串</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%B1%87%E7%BC%96%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAptrace%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">8.5.1.4.5.</span> <span class="toc-text">用汇编实现一个ptrace的函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%85%E5%B5%8C%E6%B1%87%E7%BC%96%E5%AE%9E%E7%8E%B0ptrace"><span class="toc-number">8.5.1.4.6.</span> <span class="toc-text">内嵌汇编实现ptrace</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8SMC%E9%9A%90%E8%97%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B0%83%E7%94%A8"><span class="toc-number">8.5.1.4.7.</span> <span class="toc-text">用ＳＭＣ隐藏系统的调用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5"><span class="toc-number">8.5.1.4.8.</span> <span class="toc-text">代码注入</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86ELF%E6%A0%BC%E5%BC%8F%EF%BC%8C%E9%98%BB%E6%AD%A2IDA%E5%8A%A0%E8%BD%BD"><span class="toc-number">8.6.</span> <span class="toc-text">处理ELF格式，阻止IDA加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%AE%88%E6%8A%A4"><span class="toc-number">8.7.</span> <span class="toc-text">多进程守护</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CRC%E6%A0%A1%E9%AA%8C"><span class="toc-number">8.8.</span> <span class="toc-text">CRC校验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E4%B8%AD%E6%96%AD%E6%8C%87%E4%BB%A4%E6%A3%80%E6%B5%8B%EF%BC%88%E7%B1%BB%E4%BC%BCx86-0xCC%EF%BC%89"><span class="toc-number">8.9.</span> <span class="toc-text">调试中断指令检测（类似x86 0xCC）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%99%A8%E6%A3%80%E6%B5%8B"><span class="toc-number">8.10.</span> <span class="toc-text">调试器检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="toc-number">8.11.</span> <span class="toc-text">运行时间的检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E6%89%93%E5%BC%80%E7%9A%84fd%E6%96%87%E4%BB%B6"><span class="toc-number">8.12.</span> <span class="toc-text">检测打开的fd文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF%E5%87%BD%E6%95%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">9.</span> <span class="toc-text">ELF函数加密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF%E5%85%A5%E5%8F%A3%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="toc-number">9.1.</span> <span class="toc-text">ELF入口加解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%8A%A8%E6%80%81%E5%8A%A0%E8%A7%A3%E5%AF%86%EF%BC%8C%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="toc-number">9.2.</span> <span class="toc-text">函数动态加解密，指令级加解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%87%BD%E6%95%B0%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="toc-number">9.3.</span> <span class="toc-text">基于加载器的函数加解密</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">10.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By re4mile</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/re4mile/js/utils.js"></script><script src="/re4mile/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script src="my.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/re/">数学公式</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/PYC/re/">PYC反调试</a></div></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md-text reveal' id="comments">
+    <section class='header cmt-title cap theme'>
+      快来参与讨论吧
+    </section>
+    <section class='body cmt-body beaudar'>
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="beaudar" repo="re4mile/wp" issue-term="pathname" theme="preferred-color-scheme" input-position="top" comment-order="desc" loading="false" branch="main"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.18.5';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/re4mile/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function loadBeaudar() {
+    const els = document.querySelectorAll("#comments #beaudar");
+    if (els.length === 0) return;
+    els.forEach((el, i) => {
+      try {
+        el.innerHTML = '';
+      } catch (error) {
+        console.log(error);
+      }
+      var script = document.createElement('script');
+      script.src = 'https://beaudar.lipk.org/client.js';
+      script.async = true;
+      for (let key of Object.keys(el.attributes)) {
+        let attr = el.attributes[key];
+        if (['class', 'id'].includes(attr.name) === false) {
+          script.setAttribute(attr.name, attr.value);
+        }
+      }
+      el.appendChild(script);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+      loadBeaudar();
+  });
+</script>
+
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

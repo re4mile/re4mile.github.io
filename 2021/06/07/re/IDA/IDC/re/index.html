@@ -1,154 +1,114 @@
-<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>IDC脚本学习 | ❄️</title><meta name="author" content="re4mile"><meta name="copyright" content="re4mile"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="IDC脚本参考链接🧡参考链接: lyshark  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;LyShark&#x2F;p&#x2F;13100048.html https:&#x2F;&#x2F;introspelliam.github.io&#x2F;2017&#x2F;09&#x2F;18&#x2F;tools&#x2F;IDA%E7%9A%84%E8%B0%83%E8%AF%95%E8%84%9A%E6%9C%ACidc&#x2F; 在IDA中按下【shift + F2】可调出脚本">
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>IDC脚本学习 - re4mile</title>
+
+  
+    <meta name="description" content="参考链接🧡参考链接: lyshark  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;LyShark&#x2F;p&#x2F;13100048.html https:&#x2F;&#x2F;introspelliam.github.io&#x2F;2017&#x2F;09&#x2F;18&#x2F;tools&#x2F;IDA%E7%9A%84%E8%B0%83%E8%AF%95%E8%84%9A%E6%9C%ACidc&#x2F; 在IDA中按下【shift + F2】可调出脚本编辑器 就">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IDC脚本学习">
 <meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2021/06/07/re/IDA/IDC/re/index.html">
-<meta property="og:site_name" content="❄️">
-<meta property="og:description" content="IDC脚本参考链接🧡参考链接: lyshark  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;LyShark&#x2F;p&#x2F;13100048.html https:&#x2F;&#x2F;introspelliam.github.io&#x2F;2017&#x2F;09&#x2F;18&#x2F;tools&#x2F;IDA%E7%9A%84%E8%B0%83%E8%AF%95%E8%84%9A%E6%9C%ACidc&#x2F; 在IDA中按下【shift + F2】可调出脚本">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://gitee.com/re4mile/re4mile.git/img/bk5.jpg">
+<meta property="og:site_name" content="re4mile">
+<meta property="og:description" content="参考链接🧡参考链接: lyshark  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;LyShark&#x2F;p&#x2F;13100048.html https:&#x2F;&#x2F;introspelliam.github.io&#x2F;2017&#x2F;09&#x2F;18&#x2F;tools&#x2F;IDA%E7%9A%84%E8%B0%83%E8%AF%95%E8%84%9A%E6%9C%ACidc&#x2F; 在IDA中按下【shift + F2】可调出脚本编辑器 就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://re4mile.gotee.io/res/photo/tool/image-20221213124838663.png">
 <meta property="article:published_time" content="2021-06-07T01:00:00.000Z">
-<meta property="article:modified_time" content="2022-12-29T03:49:50.927Z">
-<meta property="article:author" content="re4mile">
+<meta property="article:modified_time" content="2022-12-31T15:01:21.630Z">
+<meta property="article:author" content="邓渠香">
 <meta property="article:tag" content="IDA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/re4mile/re4mile.git/img/bk5.jpg"><link rel="shortcut icon" href="/re4mile/img/favicon.jpg"><link rel="canonical" href="https://gitee.com/re4mile/re4mile.git/2021/06/07/re/IDA/IDC/re/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/re4mile/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/re4mile/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: 'Copy successfully',
-    error: 'Copy error',
-    noSupport: 'The browser does not support'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: 'Just',
-    min: 'minutes ago',
-    hour: 'hours ago',
-    day: 'days ago',
-    month: 'months ago'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'IDC脚本学习',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2022-12-29 11:49:50'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+<meta name="twitter:image" content="https://re4mile.gotee.io/res/photo/tool/image-20221213124838663.png">
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
   
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
+
+  <!-- feed -->
+  
+
+  
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+<link rel="stylesheet" href="/re4mile/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="my.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/re4mile/img/wlq.jpg" onerror="onerror=null;src='img/banner.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/re4mile/archives/"><div class="headline">Articles</div><div class="length-num">47</div></a><a href="/re4mile/tags/"><div class="headline">Tags</div><div class="length-num">26</div></a><a href="/re4mile/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/re4mile/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/archives/"><i class="fa-fw fas fa-archive"></i><span> 一路走来</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas  fa-bed"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/2022/11/30/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/"><i class="fa-fw fas fa-list-alt"></i><span> 任务清单</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc"><i class="fa-fw fas fa-book"></i><span> 日记</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/re4mile/img/bk5.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/re4mile/">❄️</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/re4mile/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/archives/"><i class="fa-fw fas fa-archive"></i><span> 一路走来</span></a></div><div class="menus_item"><a class="site-page" href="/re4mile/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas  fa-bed"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/2022/11/30/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/"><i class="fa-fw fas fa-list-alt"></i><span> 任务清单</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://re4mile.notion.site/Recording-128f15b4906c43f19c64e7be1b6011cc"><i class="fa-fw fas fa-book"></i><span> 日记</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">IDC脚本学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-06-07T01:00:00.000Z" title="Created 2021-06-07 09:00:00">2021-06-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-29T03:49:50.927Z" title="Updated 2022-12-29 11:49:50">2022-12-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/re4mile/categories/Tool/">Tool</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="IDC脚本学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="IDC脚本"><a href="#IDC脚本" class="headerlink" title="IDC脚本"></a>IDC脚本</h1><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>🧡参考链接: lyshark  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/LyShark/p/13100048.html">https://www.cnblogs.com/LyShark/p/13100048.html</a></p>
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/re4mile/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://s1.ax1x.com/2022/12/21/zOXq9s.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/re4mile/"><div class="main" ff="title">re4mile</div><div class="sub cap">好记性不如烂笔头</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item active" href="/re4mile/">文章</a><a class="nav-item" href="/re4mile/wiki/">项目</a><a class="nav-item" href="/re4mile/about/">关于</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">IDC脚本学习</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HeloWorld"><span class="toc-text">HeloWorld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="toc-text">字符串操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="toc-text">函数定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-text">宏定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#patch"><span class="toc-text">patch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E4%BA%AE"><span class="toc-text">高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dump%E6%95%B0%E6%8D%AE"><span class="toc-text">dump数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E6%87%82"><span class="toc-text">不懂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%86%8C"><span class="toc-text">手册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%BF%AE%E6%94%B9"><span class="toc-text">数据读取修改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchByte-x2F-Word-x2F-Dword"><span class="toc-text">PatchByte&#x2F;Word&#x2F;Dword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Byte-x2F-Word-x2F-Dword"><span class="toc-text">Byte&#x2F;Word&#x2F;Dword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#isLoaded"><span class="toc-text">isLoaded</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92%E5%87%BD%E6%95%B0"><span class="toc-text">用户交互函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Message"><span class="toc-text">Message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#print"><span class="toc-text">print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#warning"><span class="toc-text">warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskStr"><span class="toc-text">AskStr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskFile"><span class="toc-text">AskFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskYN"><span class="toc-text">AskYN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ScreenEA"><span class="toc-text">ScreenEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jump"><span class="toc-text">Jump</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-text">字符串操作函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#form"><span class="toc-text">form</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sprintf"><span class="toc-text">sprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atol"><span class="toc-text">atol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xtol"><span class="toc-text">xtol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ltoa"><span class="toc-text">ltoa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-text">ord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strlen"><span class="toc-text">strlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strstr"><span class="toc-text">strstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr"><span class="toc-text">substr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-text">文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fopen"><span class="toc-text">fopen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fclose"><span class="toc-text">fclose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filelength"><span class="toc-text">filelength</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fgetc"><span class="toc-text">fgetc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fputc"><span class="toc-text">fputc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fprintf"><span class="toc-text">fprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writestr"><span class="toc-text">writestr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readstr"><span class="toc-text">readstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writelong"><span class="toc-text">writelong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readlong"><span class="toc-text">readlong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writeshort"><span class="toc-text">writeshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readshort"><span class="toc-text">readshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loadfile"><span class="toc-text">loadfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#savefile"><span class="toc-text">savefile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E7%A7%B0"><span class="toc-text">操作数据库名称</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Name"><span class="toc-text">Name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NameEx"><span class="toc-text">NameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeNameEx"><span class="toc-text">MakeNameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByName"><span class="toc-text">LocByName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByNameEx"><span class="toc-text">LocByNameEx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">操作数据库的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeUnkn"><span class="toc-text">MakeUnkn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeCode"><span class="toc-text">MakeCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeByte"><span class="toc-text">MakeByte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeComm"><span class="toc-text">MakeComm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeFunction"><span class="toc-text">MakeFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeStr"><span class="toc-text">MakeStr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%90%9C%E7%B4%A2%E5%87%BD%E6%95%B0"><span class="toc-text">数据库搜索函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FindCode"><span class="toc-text">FindCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindData"><span class="toc-text">FindData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindBinary"><span class="toc-text">FindBinary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindText"><span class="toc-text">FindText</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-text">操作函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionAttr"><span class="toc-text">GetFunctionAttr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionName"><span class="toc-text">GetFunctionName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NextFunction"><span class="toc-text">NextFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PrevFunction"><span class="toc-text">PrevFunction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">代码交叉引用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rfirst"><span class="toc-text">Rfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rnext"><span class="toc-text">Rnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType"><span class="toc-text">XrefType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RfirstB"><span class="toc-text">RfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RnextB"><span class="toc-text">RnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8"><span class="toc-text">数据交叉引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dfirst"><span class="toc-text">Dfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnext"><span class="toc-text">Dnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType-1"><span class="toc-text">XrefType()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DfirstB"><span class="toc-text">DfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DnextB"><span class="toc-text">DnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E6%B1%87%E7%BC%96%E6%8F%90%E5%8F%96"><span class="toc-text">反汇编提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetDisasm"><span class="toc-text">GetDisasm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetMnem"><span class="toc-text">GetMnem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpnd"><span class="toc-text">GetOpnd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpType"><span class="toc-text">GetOpType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOperandValue"><span class="toc-text">GetOperandValue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#misc-func"><span class="toc-text">misc-func</span></a></li></ol></div></div></widget>
+
+
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/re4mile/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/re4mile/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/re4mile/categories/Tool/">Tool</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></div></div>
+
+<article class='md-text content post reveal'>
+<h1 class="article-title"><span>IDC脚本学习</span></h1>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p>🧡参考链接: lyshark  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/LyShark/p/13100048.html">https://www.cnblogs.com/LyShark/p/13100048.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/09/18/tools/IDA%E7%9A%84%E8%B0%83%E8%AF%95%E8%84%9A%E6%9C%ACidc/">https://introspelliam.github.io/2017/09/18/tools/IDA%E7%9A%84%E8%B0%83%E8%AF%95%E8%84%9A%E6%9C%ACidc/</a></p>
 <p>在IDA中按下【shift + F2】可调出脚本编辑器</p>
+<p>就IDApython的话,感觉比价火</p>
+<p>但是,我喜欢C,IDC的参考指令可以说,巨少</p>
+<p><a target="_blank" rel="noopener" href="https://www.hex-rays.com/products/ida/support/idadoc/">https://www.hex-rays.com/products/ida/support/idadoc/</a></p>
+<p>有本事去把每个链接点一下,然后去总结一个函数的目录和列表</p>
 <h2 id="HeloWorld"><a href="#HeloWorld" class="headerlink" title="HeloWorld"></a>HeloWorld</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt; idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">     Message(<span class="string">&quot;HelloWorld \n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -249,7 +209,7 @@
 
 <h1 id="IDC-API"><a href="#IDC-API" class="headerlink" title="IDC-API"></a>IDC-API</h1><h2 id="手册"><a href="#手册" class="headerlink" title="手册"></a>手册</h2><p><a target="_blank" rel="noopener" href="https://www.hex-rays.com/products/ida/support/idadoc/162.shtml">https://www.hex-rays.com/products/ida/support/idadoc/162.shtml</a></p>
 <p>其实就是</p>
-<p><img src="F:\5008\GItee\res\photo\Reverse-Tool-IDA-IDC\image-20221213124838663.png" alt="image-20221213124838663"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://re4mile.gotee.io/res/photo/tool/image-20221213124838663.png" alt="image-20221213124838663"></p>
 <p>jmp 到当前位置+1</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">EB FF			jmp     <span class="type">short</span> near ptr loc_1144+<span class="number">1</span></span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">                dw <span class="number">0B</span>FC0h</span><br><span class="line">                dq <span class="number">0F</span>FFEDFE800000068h, <span class="number">65B</span>FC0FFEBFFh, <span class="number">0F</span>FEBFFFFFED2E800h</span><br><span class="line">                dq <span class="number">0</span>C5E80000006CBFC0h, <span class="number">6</span>CBFC0FFEBFFFFFEh, <span class="number">0F</span>FFFFEB8E8000000h</span><br><span class="line">                dq <span class="number">6F</span>BFC0FFEBh, <span class="number">0</span>C0FFEBFFFFFEABE8h, <span class="number">0F</span>E9EE800000020BFh</span><br><span class="line">                dq <span class="number">77B</span>FC0FFEBFFFFh, <span class="number">0</span>EBFFFFFE91E80000h, <span class="number">0E80000006</span>FBFC0FFh</span><br></pre></td></tr></table></figure>
 
@@ -425,6 +385,17 @@
 <p>在给定的地址处添加一条常规注释。</p>
 <h3 id="MakeFunction"><a href="#MakeFunction" class="headerlink" title="MakeFunction"></a>MakeFunction</h3><p>bool MakeFunction(long begin，long end)，</p>
 <p>将由begin到end 的指令转换成一个函数。如果end被指定为BADADDR ( -1)，IDA会尝试通过定位函数的返回指令，来自动确定该函数的结束地址。</p>
+<blockquote>
+<p>开始的地址,比如说push esi</p>
+<p>结束的地址, retn那个地址不是结束,retn之外那个地址,才是,结束的地址不属于函数地址,是函数地址的边界</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;idc.idc&gt;</span></span></span><br><span class="line"><span class="type">static</span> <span class="title function_">Y_MakeFunction</span><span class="params">(IP_start,IP_end)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> tmp=<span class="number">0</span>;<span class="comment">//先从开始的IP取消定义,然后再生成函数</span></span><br><span class="line">    tmp=MakeFunction(IP_start,IP_end);</span><br><span class="line">    <span class="keyword">if</span>(tmp==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Message(<span class="string">&quot;make func ok\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Message(<span class="string">&quot;make func failed\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">static</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">   </span><br><span class="line">    Message(<span class="string">&quot;work begin\n&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    Y_MakeFunction(<span class="number">0x0040A188</span>,<span class="number">0x0040A1AA</span>);</span><br><span class="line"></span><br><span class="line">    Message(<span class="string">&quot;work done\n&quot;</span>);   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">work begin</span><br><span class="line">make func ok</span><br><span class="line">work done</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="MakeStr"><a href="#MakeStr" class="headerlink" title="MakeStr"></a>MakeStr</h3><p>bool MakeStr(1ong begin，long end)，</p>
 <p>创建一个当前字符串(由GetStringType返回)类型的字符串,</p>
 <p>涵盖由begin到end-1之间的所有字节。</p>
@@ -536,6 +507,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto NextHead(auto 当前地址,auto 结尾地址) </span><br><span class="line">//head = NextHead(startOEP, End_FUnc);</span><br><span class="line">//head = NextHead(0x00000000, 0xFFFFFFFF);</span><br></pre></td></tr></table></figure>
 
 <p>获取一个当前指令的下一个指令的地址,遍历结束返回-1</p>
+<p>函数的不足是:</p>
+<p>如果遇到花指令,比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A1AA F9                                                              		  stc</span><br><span class="line">CAT1:0040A1AB 72 03                                                           jb      short loc_40A1B0</span><br><span class="line">CAT1:0040A1AD                                                                 db      64h</span><br><span class="line">CAT1:0040A1AD 64 E3 8F                                                        jecxz   short loc_40A13F</span><br></pre></td></tr></table></figure>
+
+<p>他是不会返回db 64h的地址的</p>
 <p>SetColor</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SetColor(auto 地址, CIC_ITEM,  16进制颜色值);</span><br></pre></td></tr></table></figure>
 
@@ -548,4 +524,234 @@
 
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>一个很好的IDA资源插件介绍,没去下载应用</p>
 <p><a target="_blank" rel="noopener" href="https://www.dazhuanlan.com/sisiyoki/topics/1183415">https://www.dazhuanlan.com/sisiyoki/topics/1183415</a></p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://gitee.com/re4mile/re4mile.git">re4mile</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://gitee.com/re4mile/re4mile.git/2021/06/07/re/IDA/IDC/re/">https://gitee.com/re4mile/re4mile.git/2021/06/07/re/IDA/IDC/re/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/re4mile/tags/IDA/">IDA</a></div><div class="post_share"><div class="social-share" data-image="/re4mile/img/bk5.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/re4mile/2021/06/07/re/IDA/IDApython/re/" title="IDAPython学习"><img class="cover" src="/re4mile/img/bk5.jpg" onerror="onerror=null;src='/re4mile/img/banner.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">IDAPython学习</div></div></a></div><div class="next-post pull-right"><a href="/re4mile/2021/06/07/re/VM/PYC/re/" title="PYC逆向"><img class="cover" src="/re4mile/img/bk5.jpg" onerror="onerror=null;src='/re4mile/img/banner.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">PYC逆向</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/re4mile/2021/06/07/re/IDA/IDApython/re/" title="IDAPython学习"><img class="cover" src="/re4mile/img/bk5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-07</div><div class="title">IDAPython学习</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/re4mile/img/wlq.jpg" onerror="this.onerror=null;this.src='/re4mile/img/banner.jpg'" alt="avatar"/></div><div class="author-info__name">re4mile</div><div class="author-info__description">an ordinary people</div></div><div class="card-info-data site-data is-center"><a href="/re4mile/archives/"><div class="headline">Articles</div><div class="length-num">47</div></a><a href="/re4mile/tags/"><div class="headline">Tags</div><div class="length-num">26</div></a><a href="/re4mile/categories/"><div class="headline">Categories</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://www.cnblogs.com/re4mile/"><i class="fab fa-linux"></i><span>我的另外一个博客</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/re4mile" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://gitee.com/re4mile" target="_blank" title="Gitee"><i class="fab fa-google"></i></a><a class="social-icon" href="mailto:935797872@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">路漫漫其修远兮,吾将上下而求索. ——屈原·离骚</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC%E8%84%9A%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">IDC脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.1.</span> <span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HeloWorld"><span class="toc-number">1.2.</span> <span class="toc-text">HeloWorld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.1.</span> <span class="toc-text">字符串操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">1.3.2.</span> <span class="toc-text">数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="toc-number">1.5.</span> <span class="toc-text">函数定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">1.6.</span> <span class="toc-text">宏定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC-Example"><span class="toc-number">2.</span> <span class="toc-text">IDC-Example</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#patch"><span class="toc-number">2.1.</span> <span class="toc-text">patch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E4%BA%AE"><span class="toc-number">2.2.</span> <span class="toc-text">高亮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dump%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.</span> <span class="toc-text">dump数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E6%87%82"><span class="toc-number">2.4.</span> <span class="toc-text">不懂</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IDC-API"><span class="toc-number">3.</span> <span class="toc-text">IDC-API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%86%8C"><span class="toc-number">3.1.</span> <span class="toc-text">手册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96%E4%BF%AE%E6%94%B9"><span class="toc-number">3.2.</span> <span class="toc-text">数据读取修改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PatchByte-x2F-Word-x2F-Dword"><span class="toc-number">3.2.1.</span> <span class="toc-text">PatchByte&#x2F;Word&#x2F;Dword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Byte-x2F-Word-x2F-Dword"><span class="toc-number">3.2.2.</span> <span class="toc-text">Byte&#x2F;Word&#x2F;Dword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#isLoaded"><span class="toc-number">3.2.3.</span> <span class="toc-text">isLoaded</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BA%A4%E4%BA%92%E5%87%BD%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">用户交互函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Message"><span class="toc-number">3.3.1.</span> <span class="toc-text">Message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#print"><span class="toc-number">3.3.2.</span> <span class="toc-text">print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#warning"><span class="toc-number">3.3.3.</span> <span class="toc-text">warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskStr"><span class="toc-number">3.3.4.</span> <span class="toc-text">AskStr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskFile"><span class="toc-number">3.3.5.</span> <span class="toc-text">AskFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AskYN"><span class="toc-number">3.3.6.</span> <span class="toc-text">AskYN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ScreenEA"><span class="toc-number">3.3.7.</span> <span class="toc-text">ScreenEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jump"><span class="toc-number">3.3.8.</span> <span class="toc-text">Jump</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-number">3.4.</span> <span class="toc-text">字符串操作函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#form"><span class="toc-number">3.4.1.</span> <span class="toc-text">form</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sprintf"><span class="toc-number">3.4.2.</span> <span class="toc-text">sprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#atol"><span class="toc-number">3.4.3.</span> <span class="toc-text">atol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xtol"><span class="toc-number">3.4.4.</span> <span class="toc-text">xtol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ltoa"><span class="toc-number">3.4.5.</span> <span class="toc-text">ltoa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ord"><span class="toc-number">3.4.6.</span> <span class="toc-text">ord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strlen"><span class="toc-number">3.4.7.</span> <span class="toc-text">strlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strstr"><span class="toc-number">3.4.8.</span> <span class="toc-text">strstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#substr"><span class="toc-number">3.4.9.</span> <span class="toc-text">substr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">3.5.</span> <span class="toc-text">文件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fopen"><span class="toc-number">3.5.1.</span> <span class="toc-text">fopen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fclose"><span class="toc-number">3.5.2.</span> <span class="toc-text">fclose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filelength"><span class="toc-number">3.5.3.</span> <span class="toc-text">filelength</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fgetc"><span class="toc-number">3.5.4.</span> <span class="toc-text">fgetc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fputc"><span class="toc-number">3.5.5.</span> <span class="toc-text">fputc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fprintf"><span class="toc-number">3.5.6.</span> <span class="toc-text">fprintf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writestr"><span class="toc-number">3.5.7.</span> <span class="toc-text">writestr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readstr"><span class="toc-number">3.5.8.</span> <span class="toc-text">readstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writelong"><span class="toc-number">3.5.9.</span> <span class="toc-text">writelong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readlong"><span class="toc-number">3.5.10.</span> <span class="toc-text">readlong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writeshort"><span class="toc-number">3.5.11.</span> <span class="toc-text">writeshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readshort"><span class="toc-number">3.5.12.</span> <span class="toc-text">readshort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loadfile"><span class="toc-number">3.5.13.</span> <span class="toc-text">loadfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#savefile"><span class="toc-number">3.5.14.</span> <span class="toc-text">savefile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E7%A7%B0"><span class="toc-number">3.6.</span> <span class="toc-text">操作数据库名称</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Name"><span class="toc-number">3.6.1.</span> <span class="toc-text">Name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NameEx"><span class="toc-number">3.6.2.</span> <span class="toc-text">NameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeNameEx"><span class="toc-number">3.6.3.</span> <span class="toc-text">MakeNameEx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByName"><span class="toc-number">3.6.4.</span> <span class="toc-text">LocByName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocByNameEx"><span class="toc-number">3.6.5.</span> <span class="toc-text">LocByNameEx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.7.</span> <span class="toc-text">操作数据库的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeUnkn"><span class="toc-number">3.7.1.</span> <span class="toc-text">MakeUnkn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeCode"><span class="toc-number">3.7.2.</span> <span class="toc-text">MakeCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeByte"><span class="toc-number">3.7.3.</span> <span class="toc-text">MakeByte</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeComm"><span class="toc-number">3.7.4.</span> <span class="toc-text">MakeComm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeFunction"><span class="toc-number">3.7.5.</span> <span class="toc-text">MakeFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MakeStr"><span class="toc-number">3.7.6.</span> <span class="toc-text">MakeStr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%90%9C%E7%B4%A2%E5%87%BD%E6%95%B0"><span class="toc-number">3.8.</span> <span class="toc-text">数据库搜索函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FindCode"><span class="toc-number">3.8.1.</span> <span class="toc-text">FindCode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindData"><span class="toc-number">3.8.2.</span> <span class="toc-text">FindData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindBinary"><span class="toc-number">3.8.3.</span> <span class="toc-text">FindBinary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FindText"><span class="toc-number">3.8.4.</span> <span class="toc-text">FindText</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-number">3.9.</span> <span class="toc-text">操作函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionAttr"><span class="toc-number">3.9.1.</span> <span class="toc-text">GetFunctionAttr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetFunctionName"><span class="toc-number">3.9.2.</span> <span class="toc-text">GetFunctionName</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NextFunction"><span class="toc-number">3.9.3.</span> <span class="toc-text">NextFunction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PrevFunction"><span class="toc-number">3.9.4.</span> <span class="toc-text">PrevFunction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">3.10.</span> <span class="toc-text">代码交叉引用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rfirst"><span class="toc-number">3.10.1.</span> <span class="toc-text">Rfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rnext"><span class="toc-number">3.10.2.</span> <span class="toc-text">Rnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType"><span class="toc-number">3.10.3.</span> <span class="toc-text">XrefType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RfirstB"><span class="toc-number">3.10.4.</span> <span class="toc-text">RfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RnextB"><span class="toc-number">3.10.5.</span> <span class="toc-text">RnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8"><span class="toc-number">3.11.</span> <span class="toc-text">数据交叉引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dfirst"><span class="toc-number">3.11.1.</span> <span class="toc-text">Dfirst</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnext"><span class="toc-number">3.11.2.</span> <span class="toc-text">Dnext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XrefType-1"><span class="toc-number">3.11.3.</span> <span class="toc-text">XrefType()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DfirstB"><span class="toc-number">3.11.4.</span> <span class="toc-text">DfirstB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DnextB"><span class="toc-number">3.11.5.</span> <span class="toc-text">DnextB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E6%B1%87%E7%BC%96%E6%8F%90%E5%8F%96"><span class="toc-number">3.12.</span> <span class="toc-text">反汇编提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GetDisasm"><span class="toc-number">3.12.1.</span> <span class="toc-text">GetDisasm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetMnem"><span class="toc-number">3.12.2.</span> <span class="toc-text">GetMnem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpnd"><span class="toc-number">3.12.3.</span> <span class="toc-text">GetOpnd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOpType"><span class="toc-number">3.12.4.</span> <span class="toc-text">GetOpType</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GetOperandValue"><span class="toc-number">3.12.5.</span> <span class="toc-text">GetOperandValue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#misc-func"><span class="toc-number">3.13.</span> <span class="toc-text">misc-func</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text">附录</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By re4mile</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/re4mile/js/utils.js"></script><script src="/re4mile/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script src="my.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/re/IDA/IDApython/re/">IDAPython学习</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/re/VM/EXE/re/">学习CTF的代码虚拟化</a></div></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md-text reveal' id="comments">
+    <section class='header cmt-title cap theme'>
+      快来参与讨论吧
+    </section>
+    <section class='body cmt-body beaudar'>
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="beaudar" repo="re4mile/wp" issue-term="pathname" theme="preferred-color-scheme" input-position="top" comment-order="desc" loading="false" branch="main"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.18.5';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/re4mile/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function loadBeaudar() {
+    const els = document.querySelectorAll("#comments #beaudar");
+    if (els.length === 0) return;
+    els.forEach((el, i) => {
+      try {
+        el.innerHTML = '';
+      } catch (error) {
+        console.log(error);
+      }
+      var script = document.createElement('script');
+      script.src = 'https://beaudar.lipk.org/client.js';
+      script.async = true;
+      for (let key of Object.keys(el.attributes)) {
+        let attr = el.attributes[key];
+        if (['class', 'id'].includes(attr.name) === false) {
+          script.setAttribute(attr.name, attr.value);
+        }
+      }
+      el.appendChild(script);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+      loadBeaudar();
+  });
+</script>
+
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

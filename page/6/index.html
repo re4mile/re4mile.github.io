@@ -97,31 +97,21 @@
 
 <div class="nav-wrap"><nav class="sub post cap"><a class="active" href="/re4mile/">近期发布</a><a href="/re4mile/categories">分类</a><a href="/re4mile/tags">标签</a><a href="/re4mile/archives">归档</a></nav></div>
 
-  <div class="post-list post"><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/ctype/language/">
-<article class="md-text"><h2 class="post-title">ctype.h</h2><div class="excerpt"><p>isprint 检测是否可打印空格也可以打印
-
-  int isprint(int ASCII)
-
-可打印返回非零
-否者返回0
-12345678910111213#include &lt;stdio.h&gt;#include &lt;ctype.h&gt;int main()&#123;       for (int i=0;i&lt;=127;++i)    &#123;        ...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/%E5%B0%8F%E7%BB%93/language/">
-<article class="md-text"><h2 class="post-title">x86汇编小结</h2><div class="excerpt"><p>参考链接https://www.shuzhiduo.com/topic/win32%e6%b1%87%e7%bc%96%e7%a1%ac%e4%bb%b6%e4%b8%ad%e6%96%ad/
-https://liuzhian.github.io/2018/07/28/%E6%B1%87%E7%BC%96-INT21h%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%BF%...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/exe/%E5%B0%8F%E4%B8%93%E9%A2%98/SEH%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/re/">
-<article class="md-text"><h2 class="post-title">EXE反调试小专题 SEH链</h2><div class="excerpt"><p>参考链接基础异常的处理方式
-在调试器下,手动修改异常
-正常运行下,exe自己有处理函数
-其他情况下,系统处理(通常是关闭)
-SEH链
-1234struct _EXCEPTION_REGISTRATION_RECORD &#123;    struct _EXCEPTION_REGISTRATION_RECORD *Next; //下一个节点    PEXCEPTION_ROUTINE Han...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/stdlib/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/language/">
-<article class="md-text"><h2 class="post-title">stdlib字符串处理</h2><div class="excerpt"><p>参考链接https://blog.csdn.net/qq_44205382/article/details/109528735
-ato-定义函数：
-12345double atof(const char *nptr);  // string-&gt;doubleint atoi(const char *nptr); 	// string-&gt;intlong atol(const char...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E7%BE%8E%E5%8C%96/language/">
-<article class="md-text"><h2 class="post-title">win32篇-美化</h2><div class="excerpt"><p>终端字体颜色SetConsoleTextAttribute函数用法
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">language</span></div></article>
+  <div class="post-list post"><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80/RC4/re/">
+<article class="md-text"><h2 class="post-title">RC4系列加密算法</h2><div class="excerpt"><p>待学习的参考链接在线网站MD5 https://www.cmd5.com/
+RC4123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081#in...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E9%AB%98%E7%BA%A7/MD5/re/">
+<article class="md-text"><h2 class="post-title">MD5加密算法</h2><div class="excerpt"><p>介绍对输入的任意长度进行运算,产生一个128位的摘要
+算法原理
+(1)数据填充：
+填充的方法是填充一个1和n个0。
+使得
+len%512&#x3D;512-64&#x3D;448
+你的长度-448是512的倍数
+(2),记录信息长度
+之前我们有len%512=512-64=448
+现在用64位来存储填充前信息长度。这样信息长度就变为
+real_len&#x3D;N*512+448+64&#x...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
 </a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E5%9F%BA%E7%A1%80/language/">
 <article class="md-text"><h2 class="post-title">x86汇编语言基础部分</h2><div class="excerpt"><p>寄存器段寄存器
 
@@ -150,6 +140,28 @@ ES(extra segment)
 
 控制寄存器
 IP(Instructi...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E7%BE%8E%E5%8C%96/language/">
+<article class="md-text"><h2 class="post-title">win32篇-美化</h2><div class="excerpt"><p>终端字体颜色SetConsoleTextAttribute函数用法
+</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E6%8C%87%E4%BB%A4/language/">
+<article class="md-text"><h2 class="post-title">x86汇编语言实践部分</h2><div class="excerpt"><p>常用指令系统x64 汇编网 https://www.felixcloutier.com/x86/index.html
+伪指令伪指令在编译阶段起作用
+没有对应的机器码
+\ 换行符 连接上一句如
+123456invoke	MessageBox,	\NULL,				\offset A_Text,		\offset A_Title,		\MB_OKinvoke	ExitProcess,NULL
+
+...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/stdlib/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/language/">
+<article class="md-text"><h2 class="post-title">stdlib字符串处理</h2><div class="excerpt"><p>参考链接https://blog.csdn.net/qq_44205382/article/details/109528735
+ato-定义函数：
+12345double atof(const char *nptr);  // string-&gt;doubleint atoi(const char *nptr); 	// string-&gt;intlong atol(const char...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8F%8D%E8%B0%83%E8%AF%95/exe/%E5%B0%8F%E4%B8%93%E9%A2%98/SEH%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/re/">
+<article class="md-text"><h2 class="post-title">EXE反调试小专题 SEH链</h2><div class="excerpt"><p>参考链接基础异常的处理方式
+在调试器下,手动修改异常
+正常运行下,exe自己有处理函数
+其他情况下,系统处理(通常是关闭)
+SEH链
+1234struct _EXCEPTION_REGISTRATION_RECORD &#123;    struct _EXCEPTION_REGISTRATION_RECORD *Next; //下一个节点    PEXCEPTION_ROUTINE Han...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
 </a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E5%B0%8F%E4%B8%93%E9%A2%98/CRT%E6%A0%87%E5%87%86%E5%BA%93/language/">
 <article class="md-text"><h2 class="post-title">x86汇编 CRT标准库</h2><div class="excerpt"><p>参考链接https://blog.csdn.net/huangxy10/article/details/8310087
 https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html
@@ -160,14 +172,6 @@ https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html
 
 
 常用的C...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E6%8C%87%E4%BB%A4/language/">
-<article class="md-text"><h2 class="post-title">x86汇编语言实践部分</h2><div class="excerpt"><p>常用指令系统x64 汇编网 https://www.felixcloutier.com/x86/index.html
-伪指令伪指令在编译阶段起作用
-没有对应的机器码
-\ 换行符 连接上一句如
-123456invoke	MessageBox,	\NULL,				\offset A_Text,		\offset A_Title,		\MB_OKinvoke	ExitProcess,NULL
-
-...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
 </a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E5%AE%9E%E8%B7%B5/language/">
 <article class="md-text"><h2 class="post-title">x86汇编语言实践部分</h2><div class="excerpt"><p>代码模板8086.exe1234567891011121314151617181920212223242526272829303132333435363738394041424344454647;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxassume cs:code , ds:data, ss:stack;xxx...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
 </a></div>

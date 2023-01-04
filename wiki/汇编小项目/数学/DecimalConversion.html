@@ -20,18 +20,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>博客链接：WebSecuriy - re4mile</title>
+  <title>汇编小项目：win32汇编实现任意进制转化 - re4mile</title>
 
   
-    <meta name="description" content="导入">
+    <meta name="description" content="参考链接https:&#x2F;&#x2F;blog.csdn.net&#x2F;huangxy10&#x2F;article&#x2F;details&#x2F;8310087 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;cloudeman&#x2F;archive&#x2F;2012&#x2F;04&#x2F;09&#x2F;2439438.html 其实也就是我们在汇编语言中,可以调用很多C语言的函数 比如下面涉及的函数 123stdio.hstdlib.hstring.h    常用的CRT函">
 <meta property="og:type" content="website">
-<meta property="og:title" content="WebSecuriy">
-<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/web/index.html">
+<meta property="og:title" content="win32汇编实现任意进制转化">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/wiki/%E6%B1%87%E7%BC%96%E5%B0%8F%E9%A1%B9%E7%9B%AE/%E6%95%B0%E5%AD%A6/DecimalConversion.html">
 <meta property="og:site_name" content="re4mile">
-<meta property="og:description" content="导入">
+<meta property="og:description" content="参考链接https:&#x2F;&#x2F;blog.csdn.net&#x2F;huangxy10&#x2F;article&#x2F;details&#x2F;8310087 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;cloudeman&#x2F;archive&#x2F;2012&#x2F;04&#x2F;09&#x2F;2439438.html 其实也就是我们在汇编语言中,可以调用很多C语言的函数 比如下面涉及的函数 123stdio.hstdlib.hstring.h    常用的CRT函">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-04T03:45:37.437Z">
-<meta property="article:modified_time" content="2023-01-04T03:19:55.398Z">
+<meta property="article:published_time" content="2023-01-04T04:53:54.191Z">
+<meta property="article:modified_time" content="2023-01-03T19:20:47.108Z">
 <meta property="article:author" content="邓渠香">
 <meta name="twitter:card" content="summary">
   
@@ -73,13 +73,13 @@
 
 
 
-<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/re4mile/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/index.html"><div class="main" ff="title">博客链接</div><div class="sub normal cap">三人行必有我师焉</div><div class="sub hover cap" style="opacity:0"> writen by 香香</div></a></div></widget>
-<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/wiki/博客链接/" placeholder="在 /wiki/博客链接/ 中搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/re4mile/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/re4mile/wiki/%E6%B1%87%E7%BC%96%E5%B0%8F%E9%A1%B9%E7%9B%AE/index.html"><div class="main" ff="title">汇编小项目</div><div class="sub normal cap">汇编也不是很枯燥吧</div><div class="sub hover cap" style="opacity:0"> writen by 香香</div></a></div></widget>
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/wiki/汇编小项目/" placeholder="在 /wiki/汇编小项目/ 中搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
 <widget class="widget-wrapper ghrepo"><div class="widget-body"><div class="items stellar-ghinfo-api" api="https://api.github.com/repos/xaoxuu/hexo-theme-stellar"><a class="repo" href="https://github.com/xaoxuu/hexo-theme-stellar" target="_blank" rel="external nofollow noopener noreferrer"><div class="repo-name flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>xaoxuu/hexo-theme-stellar</div><div class="repo-desc"><span type="text" id="description">&nbsp;</span></div><div class="grid"><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg><span type="text" id="stargazers_count"></span></div><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg><span type="text" id="forks_count"></span></div><div class="flex-row stellar-ghinfo-api" index="0" api="https://api.github.com/repos/xaoxuu/hexo-theme-stellar/tags"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg><span type="text" id="latest-tag-name">0</span></div></div></a></div></div></widget>
 
 
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">WebSecuriy</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/index.html#start"><span class="toc-text">博客链接</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/Github%E5%AE%9D%E8%97%8F%E4%BB%93%E5%BA%93/index.html"><span class="toc-text">Github仓库</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/ACM/index.html"><span class="toc-text">ACM</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/CTF/index.html"><span class="toc-text">CTF</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/pwn/index.html"><span class="toc-text">Pwn</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/csdn/index.html"><span class="toc-text">csdn</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/cnblog/index.html"><span class="toc-text">博客园cnblog</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/re/index.html"><span class="toc-text">RE</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/web/index.html"><span class="toc-text">WebSecuriy</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/%E5%89%8D%E8%BE%88/index.html"><span class="toc-text">老前辈</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/%E5%AF%86%E7%A0%81%E5%AD%A6/index.html"><span class="toc-text">密码学</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/%E5%AE%89%E5%85%A8%E5%B9%B3%E5%8F%B0/index.html"><span class="toc-text">安全平台</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/%E8%AE%BA%E5%9D%9B/index.html"><span class="toc-text">论坛</span></a></div></div></widget>
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">win32汇编实现任意进制转化</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/re4mile/wiki/%E6%B1%87%E7%BC%96%E5%B0%8F%E9%A1%B9%E7%9B%AE/index.html#start"><span class="toc-text">汇编小项目</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/re4mile/wiki/%E6%B1%87%E7%BC%96%E5%B0%8F%E9%A1%B9%E7%9B%AE/%E6%95%B0%E5%AD%A6/DecimalConversion.html"><span class="toc-text">win32汇编实现任意进制转化</span></a></div></div></widget>
 
 <widget class="widget-wrapper timeline"><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/xaoxuu/hexo-theme-stellar/issues?per_page=3"></div></div></widget>
 
@@ -95,11 +95,27 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/re4mile/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/re4mile/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/re4mile/wiki/%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5/index.html">博客链接</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-01-04T03:19:55.398Z">2023-01-04</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/re4mile/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/re4mile/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/re4mile/wiki/%E6%B1%87%E7%BC%96%E5%B0%8F%E9%A1%B9%E7%9B%AE/index.html">汇编小项目</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-01-03T19:20:47.108Z">2023-01-04</time></div></div>
 
   <article class='md-text content wiki'>
-  <h1 class="article-title"><span>WebSecuriy</span></h1>
-  <h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1>
+  <h1 class="article-title"><span>win32汇编实现任意进制转化</span></h1>
+  <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/huangxy10/article/details/8310087">https://blog.csdn.net/huangxy10/article/details/8310087</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html">https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html</a></p>
+<p>其实也就是我们在汇编语言中,可以调用很多C语言的函数</p>
+<p>比如下面涉及的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stdio.h</span><br><span class="line">stdlib.h</span><br><span class="line">string.h</span><br></pre></td></tr></table></figure>
+
+
+
+<p>常用的CRT函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">crt_memcpy</span><br><span class="line">crt_memset</span><br><span class="line">crt_strcpy</span><br><span class="line">crt_system</span><br><span class="line">crt_printf</span><br><span class="line">crt_scanf</span><br><span class="line">crt_fopen</span><br><span class="line">crt_gets</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其实涉及的很多的函数例子你就都可以加上<code>crt_</code>前缀,然后尝试一下可不可以正常使用该函数</p>
+<p>能用,当然就万事大吉啦</p>
+<p>实践</p>
+
   
 
 

@@ -99,25 +99,48 @@
 
 <div class="nav-wrap"><nav class="sub post cap"><a href="/re4mile/">近期发布</a><a class="active" href="/re4mile/categories">分类：Language</a><a href="/re4mile/tags">标签</a><a href="/re4mile/archives">归档</a></nav></div>
 
-  <div class="post-list post"><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Cpp/language/">
-<article class="md-text"><h2 class="post-title">C++文件处理</h2><div class="excerpt"><p>在 C++ 编程中，我们使用流插入运算符（ &lt;&lt; ）向文件写入信息，就像使用该运算符输出信息到屏幕上一样。唯一不同的是，在这里您使用的是 ofstream 或 fstream 对象，而不是 cout 对象。
-在 C++ 编程中，我们使用流提取运算符（ &gt;&gt; ）从文件读取信息，就像使用该运算符从键盘输入信息一样。唯一不同的是，在这里您使用的是 ifstream 或 fs...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Linux/language/">
-<article class="md-text"><h2 class="post-title">LinuxC文件处理</h2><div class="excerpt"><p>文件和IO123#define STDIN_FILENO 0#define STDOUT_FILENO 1#define STDERR_FILENO 2
-
-导入汇编
-下面是调用中断来printf
-123456789101112131415161718192021.section .data	msg:	.ascii &quot;Hello, world!\n&quot;  	len = . -...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Java/language/">
-<article class="md-text"><h2 class="post-title">Java文件处理</h2><div class="excerpt"><p>Java文件读取1234InputStream f = new FileInputStream(&quot;C:/java/hello&quot;);或者File f = new File(&quot;C:/java/hello&quot;);InputStream in = new FileInputStream(f);
+  <div class="post-list post"><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%9F%BA%E7%A1%80/language/">
+<article class="md-text"><h2 class="post-title">C语言</h2><div class="excerpt"><p>可变参数成员参数栈函数传递进来的参数在栈里面的分布情况
+ 
+va_list1typedef char * va_list;
 
 
 
-创建了InputStream对象，就可以使用下面的方法来读取流...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Python/language/">
-<article class="md-text"><h2 class="post-title">Python文件处理</h2><div class="excerpt"><p>Python</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/win32/language/">
-<article class="md-text"><h2 class="post-title">Win32文件处理</h2><div class="excerpt"><p>Win32CreateFile12345678910 CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL) //    filename 要创建文件的名字  //    GENERIC_WRITE 覆盖重写    	hFile = CreateFileA(filena...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+INTSIZEOF_INTSIZEOF(n): 把 n 圆整到 sizeof(int) 的倍数
+1#define _INTSIZEOF(n)       ( (sizeof(n)+sizeof(int)-1) &amp; ~(sizeof(int)-1) )
+
+_...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/Cpp/%E5%9F%BA%E7%A1%80/language/">
+<article class="md-text"><h2 class="post-title">C++</h2><div class="excerpt"><p></p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/re/Exception/C/re/">
+<article class="md-text"><h2 class="post-title">C Exception</h2><div class="excerpt"><p>参考链接https://zhuanlan.zhihu.com/p/103258431
+https://zhuanlan.zhihu.com/p/382909501
+导入（SEH链表是局部链表，在堆栈中）
+VC++中，通过提供四个微软关键字使得程序员能够良好的使用这一机制
+1__try、 __finally、 __except、 __leave
+
+
+
+1无论 __try 块中的指令以何种方式退...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/Python/%E5%9F%BA%E7%A1%80/language/">
+<article class="md-text"><h2 class="post-title">Python</h2><div class="excerpt"><p>变量记录一次全局变量,注意它的反汇编语句
+12345678a = 0  # initialize variable adef coo():    global a  # call a    a += 1    return a for i in range(10):    print(coo())
+
+
+
+12345678a = []def coo():    global a    a +=...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/%E5%9F%BA%E7%A1%80/re/">
+<article class="md-text"><h2 class="post-title">进程和线程</h2><div class="excerpt"><p>Cpp多线程是多任务处理的一种特殊形式，多任务处理允许让电脑同时运行两个或两个以上的程序。
+一般情况下，两种类型的多任务处理：基于进程和基于线程。
+
+基于进程的多任务处理是&#x3D;&#x3D;程序的并发执行&#x3D;&#x3D;。
+基于线程的多任务处理是&#x3D;&#x3D;同一程序的片段的并发执行&#x3D;&#x3D;。
+
+多线程程序包含可以同时运行的两个或多个部分。
+这样的程序...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/%E5%B0%8F%E7%BB%93/language/">
+<article class="md-text"><h2 class="post-title">x86汇编小结</h2><div class="excerpt"><p>参考链接https://www.shuzhiduo.com/topic/win32%e6%b1%87%e7%bc%96%e7%a1%ac%e4%bb%b6%e4%b8%ad%e6%96%ad/
+https://liuzhian.github.io/2018/07/28/%E6%B1%87%E7%BC%96-INT21h%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%BF%...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
 </a><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/ctype/language/">
 <article class="md-text"><h2 class="post-title">ctype.h</h2><div class="excerpt"><p>isprint 检测是否可打印空格也可以打印
 
@@ -126,13 +149,6 @@
 可打印返回非零
 否者返回0
 12345678910111213#include &lt;stdio.h&gt;#include &lt;ctype.h&gt;int main()&#123;       for (int i=0;i&lt;=127;++i)    &#123;        ...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/%E5%B0%8F%E7%BB%93/language/">
-<article class="md-text"><h2 class="post-title">x86汇编小结</h2><div class="excerpt"><p>参考链接https://www.shuzhiduo.com/topic/win32%e6%b1%87%e7%bc%96%e7%a1%ac%e4%bb%b6%e4%b8%ad%e6%96%ad/
-https://liuzhian.github.io/2018/07/28/%E6%B1%87%E7%BC%96-INT21h%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%BF%...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/stdlib/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/language/">
-<article class="md-text"><h2 class="post-title">stdlib字符串处理</h2><div class="excerpt"><p>参考链接https://blog.csdn.net/qq_44205382/article/details/109528735
-ato-定义函数：
-12345double atof(const char *nptr);  // string-&gt;doubleint atoi(const char *nptr); 	// string-&gt;intlong atol(const char...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
 </a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E5%9F%BA%E7%A1%80/language/">
 <article class="md-text"><h2 class="post-title">x86汇编语言基础部分</h2><div class="excerpt"><p>寄存器段寄存器
 
@@ -161,16 +177,18 @@ ES(extra segment)
 
 控制寄存器
 IP(Instructi...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E5%B0%8F%E4%B8%93%E9%A2%98/CRT%E6%A0%87%E5%87%86%E5%BA%93/language/">
-<article class="md-text"><h2 class="post-title">x86汇编 CRT标准库</h2><div class="excerpt"><p>参考链接https://blog.csdn.net/huangxy10/article/details/8310087
-https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html
-其实也就是我们在汇编语言中,可以调用很多C语言的函数
-比如下面涉及的函数
-123stdio.hstdlib.hstring.h
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/32/%E6%8C%87%E4%BB%A4/language/">
+<article class="md-text"><h2 class="post-title">x86汇编语言实践部分</h2><div class="excerpt"><p>常用指令系统x64 汇编网 https://www.felixcloutier.com/x86/index.html
+伪指令伪指令在编译阶段起作用
+没有对应的机器码
+\ 换行符 连接上一句如
+123456invoke	MessageBox,	\NULL,				\offset A_Text,		\offset A_Title,		\MB_OKinvoke	ExitProcess,NULL
 
-
-
-常用的C...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/stdlib/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/language/">
+<article class="md-text"><h2 class="post-title">stdlib字符串处理</h2><div class="excerpt"><p>参考链接https://blog.csdn.net/qq_44205382/article/details/109528735
+ato-定义函数：
+12345double atof(const char *nptr);  // string-&gt;doubleint atoi(const char *nptr); 	// string-&gt;intlong atol(const char...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
 </a></div>
   
 

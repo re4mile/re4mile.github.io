@@ -97,22 +97,61 @@
 
 <div class="nav-wrap"><nav class="sub post cap"><a class="active" href="/re4mile/">近期发布</a><a href="/re4mile/categories">分类</a><a href="/re4mile/tags">标签</a><a href="/re4mile/archives">归档</a></nav></div>
 
-  <div class="post-list post"><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Linux/language/">
-<article class="md-text"><h2 class="post-title">LinuxC文件处理</h2><div class="excerpt"><p>文件和IO123#define STDIN_FILENO 0#define STDOUT_FILENO 1#define STDERR_FILENO 2
+  <div class="post-list post"><a class="post-card post " href="/re4mile/2021/06/07/re/%E8%8A%B1%E6%8C%87%E4%BB%A4/Intel/re/">
+<article class="md-text"><h2 class="post-title">C语言的花指令</h2><div class="excerpt"><p>exe我们不应该垃圾代码不仅仅起着一个混淆的作用
+因为一旦nop后,垃圾代码就不再起作用.我们应该
+1). 让垃圾代码参与加密和运算,你的垃圾代码甚至可以是一堆字符串,用于加密
+2). 让垃圾代码和有效代码加密挨着,穿插运行(不知道如何实现)
+3). 
+基于跳转无条件跳转jmp
+无符号跳转above&#x2F;below
 
-导入汇编
-下面是调用中断来printf
-123456789101112131415161718192021.section .data	msg:	.ascii &quot;Hello, world!\n&quot;  	len = . -...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Java/language/">
-<article class="md-text"><h2 class="post-title">Java文件处理</h2><div class="excerpt"><p>Java文件读取1234InputStream f = new FileInputStream(&quot;C:/java/hello&quot;);或者File f = new File(&quot;C:/java/hello&quot;);InputStream in = new FileInputStream(f);
+
+
+助记符
+说明
 
 
 
-创建了InputStream对象，就可以使用下面的方法来读取流...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Python/language/">
-<article class="md-text"><h2 class="post-title">Python文件处理</h2><div class="excerpt"><p>Python</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/win32/language/">
-<article class="md-text"><h2 class="post-title">Win32文件处理</h2><div class="excerpt"><p>Win32CreateFile12345678910 CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL) //    filename 要创建文件的名字  //    GENERIC_WRITE 覆盖重写    	hFile = CreateFileA(filena...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+
+
+JA&#x3D;JNBE
+&gt;
+CF...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B/%E5%9F%BA%E7%A1%80/re/">
+<article class="md-text"><h2 class="post-title">进程和线程</h2><div class="excerpt"><p>Cpp多线程是多任务处理的一种特殊形式，多任务处理允许让电脑同时运行两个或两个以上的程序。
+一般情况下，两种类型的多任务处理：基于进程和基于线程。
+
+基于进程的多任务处理是&#x3D;&#x3D;程序的并发执行&#x3D;&#x3D;。
+基于线程的多任务处理是&#x3D;&#x3D;同一程序的片段的并发执行&#x3D;&#x3D;。
+
+多线程程序包含可以同时运行的两个或多个部分。
+这样的程序...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/web/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%88%9D%E7%BA%A7%E5%85%A5%E9%97%A8/web/">
+<article class="md-text"><h2 class="post-title">Web渗透尝试入门</h2><div class="excerpt"><p>导语1). 信息收集
+nslookup whois
+2). 扫描漏洞
+namp&#x3D;(ip范围) 端口 80 (ISS,Apache..)
+3). 漏洞利用
+4). 提权(Shell控制台 &#x2F; 桌面) 
+5). 毁尸灭迹
+6). 留后门
+7). 渗透测试报告
+8). 解决方案
+445win server
+1ipconfig
+
+kali
+1ip addr
+
+
+
+然后kali扫描...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">web</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/re/Z3/%E5%9F%BA%E7%A1%80/re/">
+<article class="md-text"><h2 class="post-title">Python Z3</h2><div class="excerpt"><p>参考链接https://ericpony.github.io/z3py-tutorial/guide-examples.htm
+https://developer.aliyun.com/article/815127#slide-1
+https://z3prover.github.io/api/html/namespacez3py.html
+环境配置运行环境 vscode ,Python3.8...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
 </a><a class="post-card post " href="/re4mile/2021/06/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E7%A1%80/pc/">
 <article class="md-text"><h2 class="post-title">算法和数据结构基础篇</h2><div class="excerpt"><p>基础知识算法基础插入排序用一张图就可以很好的说明插入排序的一个过程
 但是不同于我们平时打扑克牌插入排序
@@ -128,31 +167,27 @@
 https://blog.csdn.net/Rong_Toa/article/details/109845832
 其实这个参考链接讲的更多的是用8种语言的应用无文件执行elf
 C1234567891011121314151617181920212223242526272829303132333435363...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80/RC4/re/">
-<article class="md-text"><h2 class="post-title">RC4系列加密算法</h2><div class="excerpt"><p>待学习的参考链接在线网站MD5 https://www.cmd5.com/
-RC4123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081#in...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80/TEA/re/">
-<article class="md-text"><h2 class="post-title">TEA系列加密算法</h2><div class="excerpt"><p>待学习的参考链接傅里叶加密
-https://joi.usst.edu.cn/html/2015/1/20150116.htm#outline_anchor_5
-https://zhuanlan.zhihu.com/p/104079068
-https://baike.baidu.com/item/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/711...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/Asm/windwos/%E5%B0%8F%E7%BB%93/language/">
+<article class="md-text"><h2 class="post-title">x86汇编小结</h2><div class="excerpt"><p>参考链接https://www.shuzhiduo.com/topic/win32%e6%b1%87%e7%bc%96%e7%a1%ac%e4%bb%b6%e4%b8%ad%e6%96%ad/
+https://liuzhian.github.io/2018/07/28/%E6%B1%87%E7%BC%96-INT21h%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%BF%...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
 </a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80/BASE/re/">
 <article class="md-text"><h2 class="post-title">BASE系列加密算法</h2><div class="excerpt"><p>待学习的参考链接傅里叶加密
 https://joi.usst.edu.cn/html/2015/1/20150116.htm#outline_anchor_5
 https://zhuanlan.zhihu.com/p/104079068
 https://baike.baidu.com/item/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/711...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
-</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E9%AB%98%E7%BA%A7/MD5/re/">
-<article class="md-text"><h2 class="post-title">MD5加密算法</h2><div class="excerpt"><p>介绍对输入的任意长度进行运算,产生一个128位的摘要
-算法原理
-(1)数据填充：
-填充的方法是填充一个1和n个0。
-使得
-len%512&#x3D;512-64&#x3D;448
-你的长度-448是512的倍数
-(2),记录信息长度
-之前我们有len%512=512-64=448
-现在用64位来存储填充前信息长度。这样信息长度就变为
-real_len&#x3D;N*512+448+64&#x...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/ctype/language/">
+<article class="md-text"><h2 class="post-title">ctype.h</h2><div class="excerpt"><p>isprint 检测是否可打印空格也可以打印
+
+  int isprint(int ASCII)
+
+可打印返回非零
+否者返回0
+12345678910111213#include &lt;stdio.h&gt;#include &lt;ctype.h&gt;int main()&#123;       for (int i=0;i&lt;=127;++i)    &#123;        ...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Language</span></div></article>
+</a><a class="post-card post " href="/re4mile/2021/06/07/re/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80/TEA/re/">
+<article class="md-text"><h2 class="post-title">TEA系列加密算法</h2><div class="excerpt"><p>待学习的参考链接傅里叶加密
+https://joi.usst.edu.cn/html/2015/1/20150116.htm#outline_anchor_5
+https://zhuanlan.zhihu.com/p/104079068
+https://baike.baidu.com/item/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/711...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></span><span class="cap breadcrumb">Reverse</span></div></article>
 </a></div>
   
   <div class='paginator-wrap dis-select'>

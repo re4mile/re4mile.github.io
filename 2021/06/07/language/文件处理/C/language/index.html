@@ -74,7 +74,7 @@
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/re4mile/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://s1.ax1x.com/2022/12/21/zOXq9s.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/re4mile/"><div class="main" ff="title">re4mile</div><div class="sub cap">好记性不如烂笔头</div></a></div>
 
-<nav class="menu dis-select"><a class="nav-item" href="/re4mile/">文章</a><a class="nav-item" href="/re4mile/wiki/">项目</a><a class="nav-item" href="/re4mile/about/">关于</a><a class="nav-item" href="/re4mile/friends/">友链</a></nav>
+<nav class="menu dis-select"><a class="nav-item active" href="/re4mile/">文章</a><a class="nav-item" href="/re4mile/wiki/">项目</a><a class="nav-item" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/wiki/关于我/">关于</a><a class="nav-item" target="_blank" rel="noopener" href="https://re4mile.gitee.io/re4mile/wiki/博客链接/">友链</a></nav>
 </header>
 
 
@@ -269,7 +269,7 @@
 
 </article>
 
-<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/language/Python/%E5%9F%BA%E7%A1%80/language/">Python</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Cpp/language/">C++文件处理</a></div></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/language/C/%E6%9C%89%E8%B6%A3%E7%9A%84C%E8%AF%AD%E8%A8%80/language/">有趣的C语言</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Python/language/">Python文件处理</a></div></section></div>
 
 
 
@@ -280,10 +280,13 @@
     <section class='header cmt-title cap theme'>
       快来参与讨论吧
     </section>
-    <section class='body cmt-body twikoo'>
+    <section class='body cmt-body beaudar'>
       
 
-<div id="twikoo_container"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="beaudar" repo="re4mile/wp" issue-term="pathname" theme="preferred-color-scheme" input-position="top" comment-order="desc" loading="false" branch="main"></div>
+
     </section>
   </div>
 
@@ -455,25 +458,32 @@
 <!-- optional -->
 
   <script>
-    function load_twikoo() {
-        if (!document.querySelectorAll("#twikoo_container")[0]) return;
-        stellar.loadScript('https://gcore.jsdelivr.net/npm/twikoo@1.6.8/dist/twikoo.all.min.js', {defer: true}).then(function () {
-            const el = document.getElementById("twikoo_container");
-            var path = el.getAttribute('comment_id');
-            if (!path) {
-                path = decodeURI(window.location.pathname);
-            }
-            twikoo.init(Object.assign({"js":"https://gcore.jsdelivr.net/npm/twikoo@1.6.8/dist/twikoo.all.min.js","envId":"https://twik00.vercel.app"}, {
-                el: '#twikoo_container',
-                path: path,
-            }));
-        });
-    }
-
-    window.addEventListener('DOMContentLoaded', (event) => {
-        load_twikoo();
+  function loadBeaudar() {
+    const els = document.querySelectorAll("#comments #beaudar");
+    if (els.length === 0) return;
+    els.forEach((el, i) => {
+      try {
+        el.innerHTML = '';
+      } catch (error) {
+        console.log(error);
+      }
+      var script = document.createElement('script');
+      script.src = 'https://beaudar.lipk.org/client.js';
+      script.async = true;
+      for (let key of Object.keys(el.attributes)) {
+        let attr = el.attributes[key];
+        if (['class', 'id'].includes(attr.name) === false) {
+          script.setAttribute(attr.name, attr.value);
+        }
+      }
+      el.appendChild(script);
     });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+      loadBeaudar();
+  });
 </script>
+
 
 
 

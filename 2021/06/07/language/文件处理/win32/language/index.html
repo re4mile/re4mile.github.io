@@ -99,7 +99,7 @@
 
 <div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/re4mile/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/re4mile/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/re4mile/categories/Language/">Language</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></div></div>
 
-<article class='md-text content post reveal'>
+<article class='md-text content post'>
 <h1 class="article-title"><span>Win32文件处理</span></h1>
 <h1 id="Win32"><a href="#Win32" class="headerlink" title="Win32"></a>Win32</h1><h2 id="CreateFile"><a href="#CreateFile" class="headerlink" title="CreateFile"></a>CreateFile</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> CreateFileA(filename, GENERIC_WRITE, <span class="number">0</span>, <span class="literal">NULL</span>, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, <span class="literal">NULL</span>)</span><br><span class="line"> <span class="comment">//    filename 要创建文件的名字 </span></span><br><span class="line"> <span class="comment">//    GENERIC_WRITE 覆盖重写   </span></span><br><span class="line"> 	</span><br><span class="line">hFile = CreateFileA(filename, GENERIC_WRITE, <span class="number">0</span>, <span class="literal">NULL</span>, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, <span class="literal">NULL</span>);<span class="comment">//创建了一个文件</span></span><br><span class="line"><span class="keyword">if</span> (hFile == INVALID_HANDLE_VALUE)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;CreateFile error.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
 
@@ -123,7 +123,7 @@
 
 </article>
 
-<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Java/language/">Java文件处理</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/language/Python/%E5%9F%BA%E7%A1%80/language/">Python</a></div></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Python/language/">Python文件处理</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E7%A1%80/pc/">算法和数据结构基础篇</a></div></section></div>
 
 
 
@@ -288,8 +288,8 @@
   if ('true' == 'true') {
     stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
   }
-  if ('true' == 'true') {
-    stellar.plugins.scrollreveal = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
   }
   if ('true' == 'true') {
     stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});

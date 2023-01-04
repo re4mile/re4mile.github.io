@@ -98,7 +98,7 @@
 
 <div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/re4mile/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/re4mile/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/re4mile/categories/language/">language</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-06-07T01:00:00.000Z">2021-06-07</time></div></div>
 
-<article class='md-text content post reveal'>
+<article class='md-text content post'>
 <h1 class="article-title"><span>有趣的C语言</span></h1>
 <h1 id="音乐播放"><a href="#音乐播放" class="headerlink" title="音乐播放"></a>音乐播放</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;mmsystem.h&gt;</span><span class="comment">//包含多媒体设备接口头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment (lib,<span class="string">&quot;winmm.lib&quot;</span>)<span class="comment">//加载静态库</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//alias   的作用是取别名</span></span><br><span class="line">	mciSendString(<span class="string">&quot;open E:/0xC0de/C/2010/C1/C1/青花瓷.mp3 alias dqx &quot;</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);<span class="comment">//音乐在当前目录下也可以写&quot;open ./2.mp3&quot;./这里可以省略</span></span><br><span class="line">	mciSendString(<span class="string">&quot;play dqx&quot;</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	system(<span class="string">&quot;pause&quot;</span>);<span class="comment">//这里没有暂停程序会直接停止听不到音乐</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">返回值：MCIERROR即DWORD类型，而DWORD类型就是unsigned int，执行成功返回0，出错返回非0值</span></span><br><span class="line"><span class="comment">参数  :</span></span><br><span class="line"><span class="comment">1，lpstrCommand，指向以null结尾的命令字符串：”命令 设备[参数]” open 打开音乐文件 play 播放音乐 repeat 重复播放 close 关闭音乐文件</span></span><br><span class="line"><span class="comment">2，lpstrReturnString，指向接收返回信息的缓冲区，为NULL时不返回信息</span></span><br><span class="line"><span class="comment">3，uReturnLength，上述缓冲区的大小</span></span><br><span class="line"><span class="comment">4，hwndCallback，在命令串中含notify时，它指定一个回调窗口的句柄，一般为NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
@@ -109,7 +109,7 @@
 
 </article>
 
-<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Cpp/language/">C++文件处理</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/C/language/">C文件处理</a></div></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/re4mile/2021/06/07/language/C/%E5%9F%BA%E7%A1%80/language/">C语言</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/re4mile/2021/06/07/language/Python/%E5%9F%BA%E7%A1%80/language/">Python</a></div></section></div>
 
 
 
@@ -274,8 +274,8 @@
   if ('true' == 'true') {
     stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
   }
-  if ('true' == 'true') {
-    stellar.plugins.scrollreveal = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
   }
   if ('true' == 'true') {
     stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});

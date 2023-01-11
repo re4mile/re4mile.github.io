@@ -14,6 +14,122 @@
 ]]></content>
   </entry>
   <entry>
+    <title>任务清单</title>
+    <url>/re4mile/2023/01/11/other/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/other/</url>
+    <content><![CDATA[<p>已完成✅</p>
+<p>未完成❌</p>
+<h1 id="信安数学"><a href="#信安数学" class="headerlink" title="信安数学"></a>信安数学</h1><p>✅欧几里得扩展算法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://blog.csdn.net/ash_zheng/article/details/44751697</span><br><span class="line">https://blog.csdn.net/AAMahone/article/details/79320635</span><br></pre></td></tr></table></figure>
+
+<p>去百度的话,基本上都是ACM发的贴子,好像讲的很深奥,同时我自己基于原理,逆向出了一套算法</p>
+<p>还有几个</p>
+<p>❌还没有用C语言实现几个证明的推导</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p6:	引理1-1</span><br><span class="line">p7:	定理1-8,lcm(a,b)= |ab| / gcd(a,b)</span><br><span class="line">p8: 引理 1-2</span><br><span class="line">p8: 定i1-10</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><h2 id="迷宫"><a href="#迷宫" class="headerlink" title="迷宫"></a>迷宫</h2><p>❌实现一个环形的迷宫,正式因为是环形,于是就可以走很多圈,所以得要求走一定的圈数,然后才会进入迷宫</p>
+<p>❌你的地图为什么不可用用稀疏数组来压缩存储呢?</p>
+<p>❌可以考虑用双向链表出一迷宫的圆形</p>
+<p>❌我最近在Gitee上发现一个一个什么迷宫生成器或者什么迷宫来着,是汇编写的.你可以去看看,我已经下载了</p>
+<p>在<code>E:\Code\Project\asm_for_all-master.zip</code></p>
+<h2 id="记录一次使用free的失败"><a href="#记录一次使用free的失败" class="headerlink" title="记录一次使用free的失败"></a>记录一次使用free的失败</h2><p>可能是我的代码写的比较复杂,导致一些malloc存在越界写入,于是在free的时候就就很复杂</p>
+<p>最后我没有知道我的代码哪里写错了</p>
+<p>用了最垃圾的解决办法: 把代码写简单点</p>
+<p>但是有个想法</p>
+<p>我们可不可以让ctfer去走我们错误的代码?</p>
+<p>比如我们写了函数A,在tls的时候,拿了一个基本一模一样的函数B其替换函数A,而且还写入了我们异常的free代码,让程序无法执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">怀疑free()为什么会失败,是作者的问题?</span><br><span class="line">其实ctfer本身就走了一个假的函数</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>free()失败的原因</p>
+<ol>
+<li>对同一个地址free巨多次</li>
+<li>内存越界访问</li>
+<li>进程A去free进程B,比如我们用的当前模块的malloc,用另外一个dll模块的free来释放</li>
+</ol>
+<h2 id="Base58的欧拉函数"><a href="#Base58的欧拉函数" class="headerlink" title="Base58的欧拉函数"></a>Base58的欧拉函数</h2><p>其实就是复现一下Base58,去理解以前不理解的大数分解</p>
+<h2 id="扫雷"><a href="#扫雷" class="headerlink" title="扫雷"></a>扫雷</h2><p>也就基于之前那个题目做一些修改</p>
+<p>主要是它的那个扫雷会比较有趣</p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>感觉他可以用于加密</p>
+<h2 id="下棋"><a href="#下棋" class="headerlink" title="下棋"></a>下棋</h2><p>比如五子棋,</p>
+<p>是不是就是用单链表实现的,用五子棋出一个题目</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>CTF: 用链表的存储数据,然后去ctf,会导致更加的难以读取,除非别人只看输入和输出,如果你在过程中做了一些手脚的话,会更加难以识别</p>
+<h2 id="关于启动代码"><a href="#关于启动代码" class="headerlink" title="关于启动代码"></a>关于启动代码</h2><p>为什么你不写一些启动代码来加大寻找main函数的难度呢?</p>
+<p>这是可以的,不过启动代码的设计也是比较难的,所以你应该参考一下cfree的</p>
+<p>因为cfree5的IDA无法一下子跟到main</p>
+<p>变相的思考一下:为什么你不可以把你的main函数封装为一个启动函数,然后塞一个关键代码进去</p>
+<h2 id="正负数的概念"><a href="#正负数的概念" class="headerlink" title="正负数的概念"></a>正负数的概念</h2><p>也就是一个 数 + 正数 等价于一个数-负数</p>
+<p>好比10+1&#x3D;&#x3D;19-(-1)</p>
+<p>但是对于unsigned char 类型来说</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0x10 + 0x2E</span><br><span class="line">==</span><br><span class="line">0x10 - 0xD2</span><br></pre></td></tr></table></figure>
+
+<p>注意1+100和1+99是有区别的,就像0xFF不是256那么大一样</p>
+<p><code>2E + D2	==	0</code></p>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>可以修改栈里面的ip来达到一个循环的效果,这就明显的伪装了一个循环语句</p>
+<h2 id="fputc的bug"><a href="#fputc的bug" class="headerlink" title="fputc的bug"></a>fputc的bug</h2><p>fputchar在写入文件时,对于0xA(回车符)写入的是0x0D0A,也就是写入了换行与回车,这就很g</p>
+<p>所以在数据校验的时候,可以想办法利用这个固有的小bug</p>
+<h1 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h1><h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>❌SEH，还有就是那2篇文章</p>
+<h2 id="PYC逆向"><a href="#PYC逆向" class="headerlink" title="PYC逆向"></a>PYC逆向</h2><p>❌pyc的那个什么流程图软件,很强大,但是基于Python2,你得学习一下,然后修改过度到Python3</p>
+<p>❌自己定制一个pycdc,于是遇到nop后就可以很好的编译</p>
+<p>❌这个师傅的博客还没有来得及学习</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://qiumingshanshangdexiaoning.gitee.io/2021/11/28/CTF%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%9B%9B%E7%A7%8Dpython%E9%80%86%E5%90%91/#pyc%E6%96%87%E4%BB%B6</span><br></pre></td></tr></table></figure>
+
+<p>❌把那个花指令总结一下</p>
+<h2 id="PE"><a href="#PE" class="headerlink" title="PE"></a>PE</h2><p>❌ 学习一下&lt;&lt;windwos pe 权威指南&gt;&gt;</p>
+<p>❌去学习upx项目的源码</p>
+<p>❌ 学习如何去除upx特征码</p>
+<p>❌ 学习如何去除upx关键信息,如何让upx混淆,让你的upx -d直接失败</p>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="tls"><a href="#tls" class="headerlink" title="tls"></a>tls</h3><p>❌ 关于before main那个函数到底在哪里寻找,它的出现标志到底是什么,这还是很重要的吧</p>
+<h3 id="ptrace"><a href="#ptrace" class="headerlink" title="ptrace"></a>ptrace</h3><p>❌用它实现一个调试器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://www.myhack58.com/Article/html/3/92/2015/68568.htm</span><br><span class="line">https://www.cnblogs.com/tangr206/articles/3094358.html</span><br><span class="line">https://www.cnblogs.com/axiong/p/6184638.html</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="花指令"><a href="#花指令" class="headerlink" title="花指令"></a>花指令</h2><p>❌我记得有个花指令的arc.exe,我还没有再次学习和复现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">学习IDC</span><br><span class="line">学习花指令种类</span><br></pre></td></tr></table></figure>
+
+
+
+<p>❌smc多态解密也得学一下,我只是试过简单的原理,如何实现一个大的SMC,涉及一些静态地址该怎么办</p>
+<h2 id="反调试"><a href="#反调试" class="headerlink" title="反调试"></a>反调试</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Hipepper/anti_all_in_one/wiki</span><br></pre></td></tr></table></figure>
+
+
+
+<p>至少对于我来说的话,如果反调试的代码比较多,</p>
+<p>我就不会细看,而是仅仅看反调试在哪里异常或者卡住,</p>
+<p>然后跳过那个地方,而不会去关注其它因为反调试而修改的地方,因为它没有影响到我反汇编甚至是F8&#x2F;7,</p>
+<p>所以我就不会去关注</p>
+<p>❌反IDA</p>
+<p>之前反OD我见过钱老师演示过</p>
+<p>这次南邮CTF [WxyVM 0.0.2],直接把IDA给卡住了</p>
+<p>看上去很不错的文章</p>
+<p>❌ <a href="https://bbs.pediy.com/thread-258353-1.html">https://bbs.pediy.com/thread-258353-1.html</a></p>
+<p>❌ <a href="https://bbs.pediy.com/thread-224537.htm">https://bbs.pediy.com/thread-224537.htm</a></p>
+<h1 id="阅读"><a href="#阅读" class="headerlink" title="阅读"></a>阅读</h1><h2 id="技术书籍"><a href="#技术书籍" class="headerlink" title="技术书籍"></a>技术书籍</h2><p>❌《Linux 二进制分析》</p>
+<p>❌《程序员的自我修养》</p>
+<p>❌《编译原理》</p>
+<p>❌ 龙书,那基本编译原理得学习一下</p>
+<h1 id="CTF复现"><a href="#CTF复现" class="headerlink" title="CTF复现"></a>CTF复现</h1><p>❌ 2022-四川省-re</p>
+<p>❌学习vm,到底是一个什么东西</p>
+<p>❌ AES,XXTEA的加密,深入了解一下</p>
+<p>❌ 关于重邮CTF的一些总结</p>
+<p>关注CTF比赛</p>
+<p>❌ 收集到这门一个网站</p>
+<p>一个没有做的题目 <a href="https://qianfei11.github.io/MyOldBlog/2018/08/30/2017-CSAW-Quals-realism/">https://qianfei11.github.io/MyOldBlog/2018/08/30/2017-CSAW-Quals-realism/</a></p>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>写一个C语言,清理一下你的Gitee图床,就是进入markdown,搜索关键字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https//resmile.gitee.io/---/xxx.png</span><br></pre></td></tr></table></figure>
+
+<p>然后对比进入墓目录去清理删除,出现了不管,没出现就删除</p>
+]]></content>
+      <categories>
+        <category>other</category>
+      </categories>
+  </entry>
+  <entry>
     <title>三十六计</title>
     <url>/re4mile/2021/06/07/%E8%AF%BE%E5%A4%96%E4%B9%A6/%E4%B8%89%E5%8D%81%E5%85%AD%E8%AE%A1/</url>
     <content><![CDATA[<h1 id="胜战"><a href="#胜战" class="headerlink" title="胜战"></a>胜战</h1><h2 id="瞒天过海"><a href="#瞒天过海" class="headerlink" title="瞒天过海"></a>瞒天过海</h2><blockquote>
@@ -365,120 +481,16 @@
       </tags>
   </entry>
   <entry>
-    <title>任务清单</title>
-    <url>/re4mile/2023/01/11/other/%E4%BB%BB%E5%8A%A1%E6%B8%85%E5%8D%95/other/</url>
-    <content><![CDATA[<p>已完成✅</p>
-<p>未完成❌</p>
-<h1 id="信安数学"><a href="#信安数学" class="headerlink" title="信安数学"></a>信安数学</h1><p>✅欧几里得扩展算法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://blog.csdn.net/ash_zheng/article/details/44751697</span><br><span class="line">https://blog.csdn.net/AAMahone/article/details/79320635</span><br></pre></td></tr></table></figure>
-
-<p>去百度的话,基本上都是ACM发的贴子,好像讲的很深奥,同时我自己基于原理,逆向出了一套算法</p>
-<p>还有几个</p>
-<p>❌还没有用C语言实现几个证明的推导</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p6:	引理1-1</span><br><span class="line">p7:	定理1-8,lcm(a,b)= |ab| / gcd(a,b)</span><br><span class="line">p8: 引理 1-2</span><br><span class="line">p8: 定i1-10</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><h2 id="迷宫"><a href="#迷宫" class="headerlink" title="迷宫"></a>迷宫</h2><p>❌实现一个环形的迷宫,正式因为是环形,于是就可以走很多圈,所以得要求走一定的圈数,然后才会进入迷宫</p>
-<p>❌你的地图为什么不可用用稀疏数组来压缩存储呢?</p>
-<p>❌可以考虑用双向链表出一迷宫的圆形</p>
-<p>❌我最近在Gitee上发现一个一个什么迷宫生成器或者什么迷宫来着,是汇编写的.你可以去看看,我已经下载了</p>
-<p>在<code>E:\Code\Project\asm_for_all-master.zip</code></p>
-<h2 id="记录一次使用free的失败"><a href="#记录一次使用free的失败" class="headerlink" title="记录一次使用free的失败"></a>记录一次使用free的失败</h2><p>可能是我的代码写的比较复杂,导致一些malloc存在越界写入,于是在free的时候就就很复杂</p>
-<p>最后我没有知道我的代码哪里写错了</p>
-<p>用了最垃圾的解决办法: 把代码写简单点</p>
-<p>但是有个想法</p>
-<p>我们可不可以让ctfer去走我们错误的代码?</p>
-<p>比如我们写了函数A,在tls的时候,拿了一个基本一模一样的函数B其替换函数A,而且还写入了我们异常的free代码,让程序无法执行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">怀疑free()为什么会失败,是作者的问题?</span><br><span class="line">其实ctfer本身就走了一个假的函数</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>free()失败的原因</p>
-<ol>
-<li>对同一个地址free巨多次</li>
-<li>内存越界访问</li>
-<li>进程A去free进程B,比如我们用的当前模块的malloc,用另外一个dll模块的free来释放</li>
-</ol>
-<h2 id="Base58的欧拉函数"><a href="#Base58的欧拉函数" class="headerlink" title="Base58的欧拉函数"></a>Base58的欧拉函数</h2><p>其实就是复现一下Base58,去理解以前不理解的大数分解</p>
-<h2 id="扫雷"><a href="#扫雷" class="headerlink" title="扫雷"></a>扫雷</h2><p>也就基于之前那个题目做一些修改</p>
-<p>主要是它的那个扫雷会比较有趣</p>
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>感觉他可以用于加密</p>
-<h2 id="下棋"><a href="#下棋" class="headerlink" title="下棋"></a>下棋</h2><p>比如五子棋,</p>
-<p>是不是就是用单链表实现的,用五子棋出一个题目</p>
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>CTF: 用链表的存储数据,然后去ctf,会导致更加的难以读取,除非别人只看输入和输出,如果你在过程中做了一些手脚的话,会更加难以识别</p>
-<h2 id="关于启动代码"><a href="#关于启动代码" class="headerlink" title="关于启动代码"></a>关于启动代码</h2><p>为什么你不写一些启动代码来加大寻找main函数的难度呢?</p>
-<p>这是可以的,不过启动代码的设计也是比较难的,所以你应该参考一下cfree的</p>
-<p>因为cfree5的IDA无法一下子跟到main</p>
-<p>变相的思考一下:为什么你不可以把你的main函数封装为一个启动函数,然后塞一个关键代码进去</p>
-<h2 id="正负数的概念"><a href="#正负数的概念" class="headerlink" title="正负数的概念"></a>正负数的概念</h2><p>也就是一个 数 + 正数 等价于一个数-负数</p>
-<p>好比10+1&#x3D;&#x3D;19-(-1)</p>
-<p>但是对于unsigned char 类型来说</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0x10 + 0x2E</span><br><span class="line">==</span><br><span class="line">0x10 - 0xD2</span><br></pre></td></tr></table></figure>
-
-<p>注意1+100和1+99是有区别的,就像0xFF不是256那么大一样</p>
-<p><code>2E + D2	==	0</code></p>
-<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>可以修改栈里面的ip来达到一个循环的效果,这就明显的伪装了一个循环语句</p>
-<h2 id="fputc的bug"><a href="#fputc的bug" class="headerlink" title="fputc的bug"></a>fputc的bug</h2><p>fputchar在写入文件时,对于0xA(回车符)写入的是0x0D0A,也就是写入了换行与回车,这就很g</p>
-<p>所以在数据校验的时候,可以想办法利用这个固有的小bug</p>
-<h1 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h1><h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>❌SEH，还有就是那2篇文章</p>
-<h2 id="PYC逆向"><a href="#PYC逆向" class="headerlink" title="PYC逆向"></a>PYC逆向</h2><p>❌pyc的那个什么流程图软件,很强大,但是基于Python2,你得学习一下,然后修改过度到Python3</p>
-<p>❌自己定制一个pycdc,于是遇到nop后就可以很好的编译</p>
-<p>❌这个师傅的博客还没有来得及学习</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://qiumingshanshangdexiaoning.gitee.io/2021/11/28/CTF%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%9B%9B%E7%A7%8Dpython%E9%80%86%E5%90%91/#pyc%E6%96%87%E4%BB%B6</span><br></pre></td></tr></table></figure>
-
-<p>❌把那个花指令总结一下</p>
-<h2 id="PE"><a href="#PE" class="headerlink" title="PE"></a>PE</h2><p>❌ 学习一下&lt;&lt;windwos pe 权威指南&gt;&gt;</p>
-<p>❌去学习upx项目的源码</p>
-<p>❌ 学习如何去除upx特征码</p>
-<p>❌ 学习如何去除upx关键信息,如何让upx混淆,让你的upx -d直接失败</p>
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="tls"><a href="#tls" class="headerlink" title="tls"></a>tls</h3><p>❌ 关于before main那个函数到底在哪里寻找,它的出现标志到底是什么,这还是很重要的吧</p>
-<h3 id="ptrace"><a href="#ptrace" class="headerlink" title="ptrace"></a>ptrace</h3><p>❌用它实现一个调试器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://www.myhack58.com/Article/html/3/92/2015/68568.htm</span><br><span class="line">https://www.cnblogs.com/tangr206/articles/3094358.html</span><br><span class="line">https://www.cnblogs.com/axiong/p/6184638.html</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="花指令"><a href="#花指令" class="headerlink" title="花指令"></a>花指令</h2><p>❌我记得有个花指令的arc.exe,我还没有再次学习和复现</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">学习IDC</span><br><span class="line">学习花指令种类</span><br></pre></td></tr></table></figure>
-
-
-
-<p>❌smc多态解密也得学一下,我只是试过简单的原理,如何实现一个大的SMC,涉及一些静态地址该怎么办</p>
-<h2 id="反调试"><a href="#反调试" class="headerlink" title="反调试"></a>反调试</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/Hipepper/anti_all_in_one/wiki</span><br></pre></td></tr></table></figure>
-
-
-
-<p>至少对于我来说的话,如果反调试的代码比较多,</p>
-<p>我就不会细看,而是仅仅看反调试在哪里异常或者卡住,</p>
-<p>然后跳过那个地方,而不会去关注其它因为反调试而修改的地方,因为它没有影响到我反汇编甚至是F8&#x2F;7,</p>
-<p>所以我就不会去关注</p>
-<p>❌反IDA</p>
-<p>之前反OD我见过钱老师演示过</p>
-<p>这次南邮CTF [WxyVM 0.0.2],直接把IDA给卡住了</p>
-<p>看上去很不错的文章</p>
-<p>❌ <a href="https://bbs.pediy.com/thread-258353-1.html">https://bbs.pediy.com/thread-258353-1.html</a></p>
-<p>❌ <a href="https://bbs.pediy.com/thread-224537.htm">https://bbs.pediy.com/thread-224537.htm</a></p>
-<h1 id="阅读"><a href="#阅读" class="headerlink" title="阅读"></a>阅读</h1><h2 id="技术书籍"><a href="#技术书籍" class="headerlink" title="技术书籍"></a>技术书籍</h2><p>❌《Linux 二进制分析》</p>
-<p>❌《程序员的自我修养》</p>
-<p>❌《编译原理》</p>
-<p>❌ 龙书,那基本编译原理得学习一下</p>
-<h1 id="CTF复现"><a href="#CTF复现" class="headerlink" title="CTF复现"></a>CTF复现</h1><p>❌ 2022-四川省-re</p>
-<p>❌学习vm,到底是一个什么东西</p>
-<p>❌ AES,XXTEA的加密,深入了解一下</p>
-<p>❌ 关于重邮CTF的一些总结</p>
-<p>关注CTF比赛</p>
-<p>❌ 收集到这门一个网站</p>
-<p>一个没有做的题目 <a href="https://qianfei11.github.io/MyOldBlog/2018/08/30/2017-CSAW-Quals-realism/">https://qianfei11.github.io/MyOldBlog/2018/08/30/2017-CSAW-Quals-realism/</a></p>
-<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>写一个C语言,清理一下你的Gitee图床,就是进入markdown,搜索关键字符串</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https//resmile.gitee.io/---/xxx.png</span><br></pre></td></tr></table></figure>
-
-<p>然后对比进入墓目录去清理删除,出现了不管,没出现就删除</p>
-]]></content>
+    <title>Linux汇编语言基础部分</title>
+    <url>/re4mile/2023/01/11/language/Asm/linux/language/</url>
+    <content><![CDATA[]]></content>
       <categories>
-        <category>other</category>
+        <category>Language</category>
       </categories>
+      <tags>
+        <tag>Assembly</tag>
+        <tag>Linux</tag>
+      </tags>
   </entry>
   <entry>
     <title>好的文章和资源</title>
@@ -672,181 +684,6 @@
       <categories>
         <category>资源</category>
       </categories>
-  </entry>
-  <entry>
-    <title>Python</title>
-    <url>/re4mile/2023/01/11/language/Python/%E5%9F%BA%E7%A1%80/language/</url>
-    <content><![CDATA[<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>记录一次全局变量,注意它的反汇编语句</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">0</span>  <span class="comment"># initialize variable a</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">coo</span>():</span><br><span class="line">    <span class="keyword">global</span> a  <span class="comment"># call a</span></span><br><span class="line">    a += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(coo())</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = []</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">coo</span>():</span><br><span class="line">    <span class="keyword">global</span> a</span><br><span class="line">    a += [<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(coo())</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h1><p>参考链接 <a href="https://blog.csdn.net/python1639er/article/details/112325519">https://blog.csdn.net/python1639er/article/details/112325519</a></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = <span class="string">&quot;Li hua&quot;</span></span><br><span class="line">age = <span class="number">24</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello %s, you are %d years old&quot;</span> % (name, age))</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h1><h2 id="重定向示例"><a href="#重定向示例" class="headerlink" title="重定向示例"></a>重定向示例</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line">console = sys.stdout  <span class="comment"># 备份一下文件描述符  </span></span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">r&quot;.\file\data.txt&quot;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">sys.stdout = file    <span class="comment"># 把输出重定向到文件</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello\n&#x27;</span>+<span class="string">&#x27;java\n&#x27;</span>+<span class="string">&#x27;python&#x27;</span>)   <span class="comment"># 输出自然会送往文件</span></span><br><span class="line">sys.stdout = console  <span class="comment"># 恢复重定向</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">33</span>)  <span class="comment"># 向控制台打印33</span></span><br><span class="line"> </span><br><span class="line">console = sys.stdin   <span class="comment"># 备份一下文件描述符  </span></span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">r&quot;F:/input.txt&quot;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">sys.stdin = file  <span class="comment"># 把输入重定向到文件  </span></span><br><span class="line">mod = <span class="built_in">input</span>() <span class="comment"># 一下输入均来自文件</span></span><br><span class="line">src = <span class="built_in">input</span>()</span><br><span class="line">des = <span class="built_in">input</span>()</span><br><span class="line">size= <span class="built_in">input</span>()</span><br><span class="line">file.close() <span class="comment"># 关闭文件</span></span><br><span class="line">sys.stdin = console  <span class="comment"># 恢复重定向</span></span><br><span class="line"><span class="built_in">print</span>(mod) <span class="comment"># 打印到控制台</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(src,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(des,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(size,<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="读取文件的二进制数据"><a href="#读取文件的二进制数据" class="headerlink" title="读取文件的二进制数据"></a>读取文件的二进制数据</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 加载测试数据</span></span><br><span class="line">fpath=<span class="string">&#x27;./data.bin&#x27;</span></span><br><span class="line">f = <span class="built_in">open</span>(fpath,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">nums=<span class="built_in">int</span>(os.path.getsize(fpath)/<span class="number">4</span>) <span class="comment"># 4 是浮点数字节</span></span><br><span class="line">data = struct.unpack(<span class="string">&#x27;f&#x27;</span>*nums,f.read(<span class="number">4</span>*nums))  <span class="comment">#注意一次只能读取一次，直接再读取会报错</span></span><br><span class="line">f.close()</span><br><span class="line">data =  np.array(data).reshape(-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="强制转化"><a href="#强制转化" class="headerlink" title="强制转化"></a>强制转化</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">· int(x)             将x转换为一个整数</span><br><span class="line">· float(x)           将x转换到一个浮点数</span><br><span class="line">· str(x)             将对象 x 转换为字符串</span><br><span class="line">· tuple(s)           将序列 s 转换为一个元组</span><br><span class="line">· list(s)            将序列 s 转换为一个列表</span><br><span class="line">· set(s)             将序列 s 转换为一个集合</span><br><span class="line"></span><br><span class="line">int(x [,base]) ⇒ 将x转换为一个十进制的整数</span><br><span class="line">long(x [,base]) ⇒ 将x转换为一个十进制的长整数</span><br><span class="line">float(x) ⇒ 将x转换为一个浮点数</span><br><span class="line">str(object) ⇒ 转换为字符串</span><br><span class="line">repr(object) ⇒ 转换为表达式字符串</span><br><span class="line">eval(str) ⇒ 用来计算在字符串中的有效Python表达式,并返回一个对象</span><br><span class="line">tuple(seq) ⇒ 将序列seq转换为一个元组</span><br><span class="line">list(seq) ⇒ 将序列seq转换为一个列表</span><br><span class="line">chr(x ) ⇒ 将一个整数转换为一个字符</span><br><span class="line">unichr(x ) ⇒ 将一个整数转换为Unicode字符</span><br><span class="line">ord(x ) ⇒ 将一个字符转换为它的整数值</span><br><span class="line">hex(x ) ⇒ 将一个整数转换为一个十六进制字符串</span><br><span class="line">oct(x ) ⇒ 将一个整数转换为一个八进制字符串</span><br></pre></td></tr></table></figure>
-
-<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h3><p>参考链接</p>
-<p><a href="https://www.cxybb.com/article/qq_43679818/86574114">https://www.cxybb.com/article/qq_43679818/86574114</a></p>
-<p>struct 类型表</p>
-<table>
-<thead>
-<tr>
-<th align="left">Format</th>
-<th align="left">C Type</th>
-<th align="left">Python type</th>
-<th align="left">Standard size</th>
-<th align="left">Notes</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>x</code></td>
-<td align="left">pad byte</td>
-<td align="left">no value</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"><code>c</code></td>
-<td align="left"><code>char</code></td>
-<td align="left">string of length 1</td>
-<td align="left">1</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"><code>b</code></td>
-<td align="left"><code>signed char</code></td>
-<td align="left">integer</td>
-<td align="left">1</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>B</code></td>
-<td align="left"><code>unsigned char</code></td>
-<td align="left">integer</td>
-<td align="left">1</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>?</code></td>
-<td align="left"><code>_Bool</code></td>
-<td align="left">bool</td>
-<td align="left">1</td>
-<td align="left">(1)</td>
-</tr>
-<tr>
-<td align="left"><code>h</code></td>
-<td align="left"><code>short</code></td>
-<td align="left">integer</td>
-<td align="left">2</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>H</code></td>
-<td align="left"><code>unsigned short</code></td>
-<td align="left">integer</td>
-<td align="left">2</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>i</code></td>
-<td align="left"><code>int</code></td>
-<td align="left">integer</td>
-<td align="left">4</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>I</code></td>
-<td align="left"><code>unsigned int</code></td>
-<td align="left">integer</td>
-<td align="left">4</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>l</code></td>
-<td align="left"><code>long</code></td>
-<td align="left">integer</td>
-<td align="left">4</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>L</code></td>
-<td align="left"><code>unsigned long</code></td>
-<td align="left">integer</td>
-<td align="left">4</td>
-<td align="left">(3)</td>
-</tr>
-<tr>
-<td align="left"><code>q</code></td>
-<td align="left"><code>long long</code></td>
-<td align="left">integer</td>
-<td align="left">8</td>
-<td align="left">(2), (3)</td>
-</tr>
-<tr>
-<td align="left"><code>Q</code></td>
-<td align="left"><code>unsigned long long</code></td>
-<td align="left">integer</td>
-<td align="left">8</td>
-<td align="left">(2), (3)</td>
-</tr>
-<tr>
-<td align="left"><code>f</code></td>
-<td align="left"><code>float</code></td>
-<td align="left">float</td>
-<td align="left">4</td>
-<td align="left">(4)</td>
-</tr>
-<tr>
-<td align="left"><code>d</code></td>
-<td align="left"><code>double</code></td>
-<td align="left">float</td>
-<td align="left">8</td>
-<td align="left">(4)</td>
-</tr>
-<tr>
-<td align="left"><code>s</code></td>
-<td align="left"><code>char[]</code></td>
-<td align="left">string</td>
-<td align="left">1</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"><code>p</code></td>
-<td align="left"><code>char[]</code></td>
-<td align="left">string</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"><code>P</code></td>
-<td align="left"><code>void *</code></td>
-<td align="left">integer</td>
-<td align="left"></td>
-<td align="left">(5), (3)</td>
-</tr>
-</tbody></table>
-<h4 id="struct-pack"><a href="#struct-pack" class="headerlink" title="struct.pack"></a>struct.pack</h4><h4 id="struct-unpack"><a href="#struct-unpack" class="headerlink" title="struct.unpack"></a>struct.unpack</h4><h4 id="struct-calcsize"><a href="#struct-calcsize" class="headerlink" title="struct.calcsize"></a>struct.calcsize</h4><h4 id="struct-pack-into"><a href="#struct-pack-into" class="headerlink" title="struct.pack_into"></a>struct.pack_into</h4><h4 id="struct-unpack-from"><a href="#struct-unpack-from" class="headerlink" title="struct.unpack_from"></a>struct.unpack_from</h4>]]></content>
-      <categories>
-        <category>Language</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
   </entry>
   <entry>
     <title>信安数学基础</title>
@@ -1180,29 +1017,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Linux汇编语言基础部分</title>
-    <url>/re4mile/2023/01/11/language/Asm/linux/language/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Language</category>
-      </categories>
-      <tags>
-        <tag>Assembly</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++</title>
-    <url>/re4mile/2023/01/11/language/Cpp/%E5%9F%BA%E7%A1%80/language/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>Language</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>有趣的C语言</title>
     <url>/re4mile/2023/01/11/language/C/%E6%9C%89%E8%B6%A3%E7%9A%84C%E8%AF%AD%E8%A8%80/language/</url>
     <content><![CDATA[<h1 id="音乐播放"><a href="#音乐播放" class="headerlink" title="音乐播放"></a>音乐播放</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;mmsystem.h&gt;</span><span class="comment">//包含多媒体设备接口头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment (lib,<span class="string">&quot;winmm.lib&quot;</span>)<span class="comment">//加载静态库</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//alias   的作用是取别名</span></span><br><span class="line">	mciSendString(<span class="string">&quot;open E:/0xC0de/C/2010/C1/C1/青花瓷.mp3 alias dqx &quot;</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);<span class="comment">//音乐在当前目录下也可以写&quot;open ./2.mp3&quot;./这里可以省略</span></span><br><span class="line">	mciSendString(<span class="string">&quot;play dqx&quot;</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	system(<span class="string">&quot;pause&quot;</span>);<span class="comment">//这里没有暂停程序会直接停止听不到音乐</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">返回值：MCIERROR即DWORD类型，而DWORD类型就是unsigned int，执行成功返回0，出错返回非0值</span></span><br><span class="line"><span class="comment">参数  :</span></span><br><span class="line"><span class="comment">1，lpstrCommand，指向以null结尾的命令字符串：”命令 设备[参数]” open 打开音乐文件 play 播放音乐 repeat 重复播放 close 关闭音乐文件</span></span><br><span class="line"><span class="comment">2，lpstrReturnString，指向接收返回信息的缓冲区，为NULL时不返回信息</span></span><br><span class="line"><span class="comment">3，uReturnLength，上述缓冲区的大小</span></span><br><span class="line"><span class="comment">4，hwndCallback，在命令串中含notify时，它指定一个回调窗口的句柄，一般为NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
@@ -1213,6 +1027,250 @@
       </categories>
       <tags>
         <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言</title>
+    <url>/re4mile/2023/01/11/language/C/%E5%9F%BA%E7%A1%80/language/</url>
+    <content><![CDATA[<h1 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h1><h2 id="成员"><a href="#成员" class="headerlink" title="成员"></a>成员</h2><h3 id="参数栈"><a href="#参数栈" class="headerlink" title="参数栈"></a>参数栈</h3><p>函数传递进来的参数在栈里面的分布情况</p>
+<p> <img src="https://re4mile.gitee.io/res/photo/language/image-20221214143302362.png" alt="image-20221214143302362"></p>
+<h3 id="va-list"><a href="#va-list" class="headerlink" title="va_list"></a>va_list</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * va_list;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="INTSIZEOF"><a href="#INTSIZEOF" class="headerlink" title="INTSIZEOF"></a>INTSIZEOF</h3><p><code>_INTSIZEOF(n)</code>: 把 n 圆整到 sizeof(int) 的倍数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _INTSIZEOF(n)       ( (sizeof(n)+sizeof(int)-1) &amp; ~(sizeof(int)-1) )</span></span><br></pre></td></tr></table></figure>
+
+<p><code>_INTSIZEOF(n)</code>整个做的事情就是将字节长度n化为int长度的整数倍</p>
+<p>~(sizeof(int)-1)  &#x3D; 1111 1100</p>
+<p>一个数&amp; 1111 1100 ,结果一定为4的倍数</p>
+<p>然后(sizeof(n)+ 3)&amp;1111 1100</p>
+<p>例如，若<code>1≤sizeof(n)≤4</code>，则<code>_INTSIZEOF(n)＝4</code>；若<code>5≤sizeof(n)≤8</code>，则<code>_INTSIZEOF(n)=8</code></p>
+<p>至于如何化到整数倍,我觉得不是我们应该关心的,我我们应该关心,为什么要化到整数倍</p>
+<p>答案: 方便字节对齐,然后方便指针的访问,指针直接4字节4字节的移动</p>
+<p>疑惑: 可不可以不要那个方便…可以呀,如果只去掉那个方便,你的程序会g</p>
+<p>因为所有的参数都是push进去的,每个参数都战4字节,哪怕传递一个char进去</p>
+<p>所以你的指针只能4字节4字节的访问</p>
+<h3 id="va-start"><a href="#va-start" class="headerlink" title="va_start"></a>va_start</h3><p><code>va_start(out_ap,in_v)</code></p>
+<p>初始化 out_ap 指针，</p>
+<p>使其指向最第一个可变参数。</p>
+<p>也就是地址最低,最后push进去,最上面那个成员</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> va_start(out_ap,in_v)      (out_ap = (char*)&amp;in_v + _INTSIZEOF(in_v)) <span class="comment">//于是就指向来了下一次参数</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="va-arg"><a href="#va-arg" class="headerlink" title="va_arg"></a>va_arg</h3><p><code> va_arg(in_ap, type)</code></p>
+<p> 该宏返回当前变参值,并使 in_ap 指向列表中的下个变参,地址向下移动</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> va_arg(in_ap, type)    \</span></span><br><span class="line"><span class="meta">	( </span></span><br><span class="line">		*(type *)(</span><br><span class="line">            		(	in_ap += _INTSIZEOF(type) - _INTSIZEOF(type)	)</span><br><span class="line">        		)</span><br></pre></td></tr></table></figure>
+
+<h3 id="va-end"><a href="#va-end" class="headerlink" title="va_end"></a>va_end</h3><p><em>va_end</em>(ap)  ,将指针 ap 置为无效，结束变参的获取</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> va_end(ap)             ( ap = (va_list)0 )</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>如何遍历参数?</p>
+<ol>
+<li>设置cnt,记录有效参数个数</li>
+<li>设置哨兵,-1</li>
+<li>根据参数特定的标志来判断,eg: printf,scanf</li>
+</ol>
+<p>情况1</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_num</span><span class="params">(<span class="type">int</span> arg_cnt, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    parse_valist_by_num(<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一个参数定义可变参数的个数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_num</span><span class="params">(<span class="type">int</span> arg_cnt, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    va_list p_args;</span><br><span class="line">    va_start(p_args, arg_cnt);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> idx;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(idx = <span class="number">1</span>; idx &lt;= arg_cnt; ++idx)&#123;</span><br><span class="line">        val = va_arg(p_args, <span class="type">int</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;第 %d 个参数: %d\n&quot;</span>, idx, val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;---------------\n&quot;</span>);</span><br><span class="line">    va_end(p_args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>情况2</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_flag</span><span class="params">(<span class="type">int</span> num_1, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    parse_valist_by_flag(<span class="number">1</span>,<span class="number">-1</span>);</span><br><span class="line">    parse_valist_by_flag(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数定义一个结束标记(-1)，调用时通过最后一个参数传递该标记，以结束变参的遍历打印。</span></span><br><span class="line"><span class="comment">//最后一个参数作为变参结束符(-1)，用于循环获取变参内容</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_flag</span><span class="params">(<span class="type">int</span> num_1, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list p_args;</span><br><span class="line">    va_start(p_args, num_1);</span><br><span class="line">    <span class="type">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> val = num_1;</span><br><span class="line">    <span class="keyword">while</span>(val != <span class="number">-1</span>)&#123;</span><br><span class="line">        ++idx;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;第 %d 个参数: %d\n&quot;</span>, idx, val);</span><br><span class="line">        val = va_arg(p_args, <span class="type">int</span>); <span class="comment">//得到下个变参值</span></span><br><span class="line">    &#125;</span><br><span class="line">    va_end(p_args);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;---------------\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>情况3</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">minprintf</span><span class="params">(<span class="type">char</span>* fmt, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list ap;</span><br><span class="line">    <span class="type">char</span>* p, * sval;</span><br><span class="line">    <span class="type">int</span> ival;</span><br><span class="line">    <span class="type">double</span> dval;</span><br><span class="line"></span><br><span class="line">    va_start(ap, fmt);</span><br><span class="line">    <span class="keyword">for</span> (p = fmt; *p; p++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (*p != <span class="string">&#x27;%&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">putchar</span>(*p);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">switch</span> (*++p)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;d&#x27;</span>:</span><br><span class="line">            ival = va_arg(ap, <span class="type">int</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, ival);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;f&#x27;</span>:</span><br><span class="line">            dval = va_arg(ap, <span class="type">double</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>, dval);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">            <span class="keyword">for</span> (sval = va_arg(ap, <span class="type">char</span>*); *sval; sval++)</span><br><span class="line">                <span class="built_in">putchar</span>(*sval);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">putchar</span>(*p);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    va_end(ap);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    minprintf(<span class="string">&quot;%d %d&quot;</span>, <span class="number">123</span>, <span class="number">456</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h1><p>随机生成不重复的4选项</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;Four_Option;i++)	<span class="comment">//之所以是1开头,是因为0已经排好了 </span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">do</span>												<span class="comment">//生成不重复的随机数 </span></span><br><span class="line">    &#123;</span><br><span class="line">        Rand_Option_Flag=rand()%Num_Of_Words;</span><br><span class="line">        <span class="comment">//避免生成相同的随机数选项 </span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;i;j++)</span><br><span class="line">            <span class="keyword">if</span>(Option_Arr[j]==Rand_Option_Flag)								</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//这里只是跳出这个小的for的循环 </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(i!=j);<span class="comment">//这个判断说明了它发现了存在相同的随机数 </span></span><br><span class="line">    Option_Arr[i]=Rand_Option_Flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Language</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python</title>
+    <url>/re4mile/2023/01/11/language/Python/%E5%9F%BA%E7%A1%80/language/</url>
+    <content><![CDATA[<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>记录一次全局变量,注意它的反汇编语句</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">0</span>  <span class="comment"># initialize variable a</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">coo</span>():</span><br><span class="line">    <span class="keyword">global</span> a  <span class="comment"># call a</span></span><br><span class="line">    a += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(coo())</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = []</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">coo</span>():</span><br><span class="line">    <span class="keyword">global</span> a</span><br><span class="line">    a += [<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(coo())</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h1><p>参考链接 <a href="https://blog.csdn.net/python1639er/article/details/112325519">https://blog.csdn.net/python1639er/article/details/112325519</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = <span class="string">&quot;Li hua&quot;</span></span><br><span class="line">age = <span class="number">24</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello %s, you are %d years old&quot;</span> % (name, age))</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h1><h2 id="重定向示例"><a href="#重定向示例" class="headerlink" title="重定向示例"></a>重定向示例</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line">console = sys.stdout  <span class="comment"># 备份一下文件描述符  </span></span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">r&quot;.\file\data.txt&quot;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">sys.stdout = file    <span class="comment"># 把输出重定向到文件</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello\n&#x27;</span>+<span class="string">&#x27;java\n&#x27;</span>+<span class="string">&#x27;python&#x27;</span>)   <span class="comment"># 输出自然会送往文件</span></span><br><span class="line">sys.stdout = console  <span class="comment"># 恢复重定向</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">33</span>)  <span class="comment"># 向控制台打印33</span></span><br><span class="line"> </span><br><span class="line">console = sys.stdin   <span class="comment"># 备份一下文件描述符  </span></span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">r&quot;F:/input.txt&quot;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">sys.stdin = file  <span class="comment"># 把输入重定向到文件  </span></span><br><span class="line">mod = <span class="built_in">input</span>() <span class="comment"># 一下输入均来自文件</span></span><br><span class="line">src = <span class="built_in">input</span>()</span><br><span class="line">des = <span class="built_in">input</span>()</span><br><span class="line">size= <span class="built_in">input</span>()</span><br><span class="line">file.close() <span class="comment"># 关闭文件</span></span><br><span class="line">sys.stdin = console  <span class="comment"># 恢复重定向</span></span><br><span class="line"><span class="built_in">print</span>(mod) <span class="comment"># 打印到控制台</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(src,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(des,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(size,<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="读取文件的二进制数据"><a href="#读取文件的二进制数据" class="headerlink" title="读取文件的二进制数据"></a>读取文件的二进制数据</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 加载测试数据</span></span><br><span class="line">fpath=<span class="string">&#x27;./data.bin&#x27;</span></span><br><span class="line">f = <span class="built_in">open</span>(fpath,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">nums=<span class="built_in">int</span>(os.path.getsize(fpath)/<span class="number">4</span>) <span class="comment"># 4 是浮点数字节</span></span><br><span class="line">data = struct.unpack(<span class="string">&#x27;f&#x27;</span>*nums,f.read(<span class="number">4</span>*nums))  <span class="comment">#注意一次只能读取一次，直接再读取会报错</span></span><br><span class="line">f.close()</span><br><span class="line">data =  np.array(data).reshape(-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="强制转化"><a href="#强制转化" class="headerlink" title="强制转化"></a>强制转化</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">· int(x)             将x转换为一个整数</span><br><span class="line">· float(x)           将x转换到一个浮点数</span><br><span class="line">· str(x)             将对象 x 转换为字符串</span><br><span class="line">· tuple(s)           将序列 s 转换为一个元组</span><br><span class="line">· list(s)            将序列 s 转换为一个列表</span><br><span class="line">· set(s)             将序列 s 转换为一个集合</span><br><span class="line"></span><br><span class="line">int(x [,base]) ⇒ 将x转换为一个十进制的整数</span><br><span class="line">long(x [,base]) ⇒ 将x转换为一个十进制的长整数</span><br><span class="line">float(x) ⇒ 将x转换为一个浮点数</span><br><span class="line">str(object) ⇒ 转换为字符串</span><br><span class="line">repr(object) ⇒ 转换为表达式字符串</span><br><span class="line">eval(str) ⇒ 用来计算在字符串中的有效Python表达式,并返回一个对象</span><br><span class="line">tuple(seq) ⇒ 将序列seq转换为一个元组</span><br><span class="line">list(seq) ⇒ 将序列seq转换为一个列表</span><br><span class="line">chr(x ) ⇒ 将一个整数转换为一个字符</span><br><span class="line">unichr(x ) ⇒ 将一个整数转换为Unicode字符</span><br><span class="line">ord(x ) ⇒ 将一个字符转换为它的整数值</span><br><span class="line">hex(x ) ⇒ 将一个整数转换为一个十六进制字符串</span><br><span class="line">oct(x ) ⇒ 将一个整数转换为一个八进制字符串</span><br></pre></td></tr></table></figure>
+
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h3><p>参考链接</p>
+<p><a href="https://www.cxybb.com/article/qq_43679818/86574114">https://www.cxybb.com/article/qq_43679818/86574114</a></p>
+<p>struct 类型表</p>
+<table>
+<thead>
+<tr>
+<th align="left">Format</th>
+<th align="left">C Type</th>
+<th align="left">Python type</th>
+<th align="left">Standard size</th>
+<th align="left">Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>x</code></td>
+<td align="left">pad byte</td>
+<td align="left">no value</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>c</code></td>
+<td align="left"><code>char</code></td>
+<td align="left">string of length 1</td>
+<td align="left">1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>b</code></td>
+<td align="left"><code>signed char</code></td>
+<td align="left">integer</td>
+<td align="left">1</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>B</code></td>
+<td align="left"><code>unsigned char</code></td>
+<td align="left">integer</td>
+<td align="left">1</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>?</code></td>
+<td align="left"><code>_Bool</code></td>
+<td align="left">bool</td>
+<td align="left">1</td>
+<td align="left">(1)</td>
+</tr>
+<tr>
+<td align="left"><code>h</code></td>
+<td align="left"><code>short</code></td>
+<td align="left">integer</td>
+<td align="left">2</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>H</code></td>
+<td align="left"><code>unsigned short</code></td>
+<td align="left">integer</td>
+<td align="left">2</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>i</code></td>
+<td align="left"><code>int</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>I</code></td>
+<td align="left"><code>unsigned int</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>l</code></td>
+<td align="left"><code>long</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>L</code></td>
+<td align="left"><code>unsigned long</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>q</code></td>
+<td align="left"><code>long long</code></td>
+<td align="left">integer</td>
+<td align="left">8</td>
+<td align="left">(2), (3)</td>
+</tr>
+<tr>
+<td align="left"><code>Q</code></td>
+<td align="left"><code>unsigned long long</code></td>
+<td align="left">integer</td>
+<td align="left">8</td>
+<td align="left">(2), (3)</td>
+</tr>
+<tr>
+<td align="left"><code>f</code></td>
+<td align="left"><code>float</code></td>
+<td align="left">float</td>
+<td align="left">4</td>
+<td align="left">(4)</td>
+</tr>
+<tr>
+<td align="left"><code>d</code></td>
+<td align="left"><code>double</code></td>
+<td align="left">float</td>
+<td align="left">8</td>
+<td align="left">(4)</td>
+</tr>
+<tr>
+<td align="left"><code>s</code></td>
+<td align="left"><code>char[]</code></td>
+<td align="left">string</td>
+<td align="left">1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>p</code></td>
+<td align="left"><code>char[]</code></td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>P</code></td>
+<td align="left"><code>void *</code></td>
+<td align="left">integer</td>
+<td align="left"></td>
+<td align="left">(5), (3)</td>
+</tr>
+</tbody></table>
+<h4 id="struct-pack"><a href="#struct-pack" class="headerlink" title="struct.pack"></a>struct.pack</h4><h4 id="struct-unpack"><a href="#struct-unpack" class="headerlink" title="struct.unpack"></a>struct.unpack</h4><h4 id="struct-calcsize"><a href="#struct-calcsize" class="headerlink" title="struct.calcsize"></a>struct.calcsize</h4><h4 id="struct-pack-into"><a href="#struct-pack-into" class="headerlink" title="struct.pack_into"></a>struct.pack_into</h4><h4 id="struct-unpack-from"><a href="#struct-unpack-from" class="headerlink" title="struct.unpack_from"></a>struct.unpack_from</h4>]]></content>
+      <categories>
+        <category>Language</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1402,75 +1460,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C语言</title>
-    <url>/re4mile/2023/01/11/language/C/%E5%9F%BA%E7%A1%80/language/</url>
-    <content><![CDATA[<h1 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h1><h2 id="成员"><a href="#成员" class="headerlink" title="成员"></a>成员</h2><h3 id="参数栈"><a href="#参数栈" class="headerlink" title="参数栈"></a>参数栈</h3><p>函数传递进来的参数在栈里面的分布情况</p>
-<p> <img src="https://re4mile.gitee.io/res/photo/language/image-20221214143302362.png" alt="image-20221214143302362"></p>
-<h3 id="va-list"><a href="#va-list" class="headerlink" title="va_list"></a>va_list</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> * va_list;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="INTSIZEOF"><a href="#INTSIZEOF" class="headerlink" title="INTSIZEOF"></a>INTSIZEOF</h3><p><code>_INTSIZEOF(n)</code>: 把 n 圆整到 sizeof(int) 的倍数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _INTSIZEOF(n)       ( (sizeof(n)+sizeof(int)-1) &amp; ~(sizeof(int)-1) )</span></span><br></pre></td></tr></table></figure>
-
-<p><code>_INTSIZEOF(n)</code>整个做的事情就是将字节长度n化为int长度的整数倍</p>
-<p>~(sizeof(int)-1)  &#x3D; 1111 1100</p>
-<p>一个数&amp; 1111 1100 ,结果一定为4的倍数</p>
-<p>然后(sizeof(n)+ 3)&amp;1111 1100</p>
-<p>例如，若<code>1≤sizeof(n)≤4</code>，则<code>_INTSIZEOF(n)＝4</code>；若<code>5≤sizeof(n)≤8</code>，则<code>_INTSIZEOF(n)=8</code></p>
-<p>至于如何化到整数倍,我觉得不是我们应该关心的,我我们应该关心,为什么要化到整数倍</p>
-<p>答案: 方便字节对齐,然后方便指针的访问,指针直接4字节4字节的移动</p>
-<p>疑惑: 可不可以不要那个方便…可以呀,如果只去掉那个方便,你的程序会g</p>
-<p>因为所有的参数都是push进去的,每个参数都战4字节,哪怕传递一个char进去</p>
-<p>所以你的指针只能4字节4字节的访问</p>
-<h3 id="va-start"><a href="#va-start" class="headerlink" title="va_start"></a>va_start</h3><p><code>va_start(out_ap,in_v)</code></p>
-<p>初始化 out_ap 指针，</p>
-<p>使其指向最第一个可变参数。</p>
-<p>也就是地址最低,最后push进去,最上面那个成员</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> va_start(out_ap,in_v)      (out_ap = (char*)&amp;in_v + _INTSIZEOF(in_v)) <span class="comment">//于是就指向来了下一次参数</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="va-arg"><a href="#va-arg" class="headerlink" title="va_arg"></a>va_arg</h3><p><code> va_arg(in_ap, type)</code></p>
-<p> 该宏返回当前变参值,并使 in_ap 指向列表中的下个变参,地址向下移动</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> va_arg(in_ap, type)    \</span></span><br><span class="line"><span class="meta">	( </span></span><br><span class="line">		*(type *)(</span><br><span class="line">            		(	in_ap += _INTSIZEOF(type) - _INTSIZEOF(type)	)</span><br><span class="line">        		)</span><br></pre></td></tr></table></figure>
-
-<h3 id="va-end"><a href="#va-end" class="headerlink" title="va_end"></a>va_end</h3><p><em>va_end</em>(ap)  ,将指针 ap 置为无效，结束变参的获取</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> va_end(ap)             ( ap = (va_list)0 )</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>如何遍历参数?</p>
-<ol>
-<li>设置cnt,记录有效参数个数</li>
-<li>设置哨兵,-1</li>
-<li>根据参数特定的标志来判断,eg: printf,scanf</li>
-</ol>
-<p>情况1</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_num</span><span class="params">(<span class="type">int</span> arg_cnt, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    parse_valist_by_num(<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一个参数定义可变参数的个数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_num</span><span class="params">(<span class="type">int</span> arg_cnt, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    va_list p_args;</span><br><span class="line">    va_start(p_args, arg_cnt);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> idx;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(idx = <span class="number">1</span>; idx &lt;= arg_cnt; ++idx)&#123;</span><br><span class="line">        val = va_arg(p_args, <span class="type">int</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;第 %d 个参数: %d\n&quot;</span>, idx, val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;---------------\n&quot;</span>);</span><br><span class="line">    va_end(p_args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>情况2</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_flag</span><span class="params">(<span class="type">int</span> num_1, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    parse_valist_by_flag(<span class="number">1</span>,<span class="number">-1</span>);</span><br><span class="line">    parse_valist_by_flag(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数定义一个结束标记(-1)，调用时通过最后一个参数传递该标记，以结束变参的遍历打印。</span></span><br><span class="line"><span class="comment">//最后一个参数作为变参结束符(-1)，用于循环获取变参内容</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">parse_valist_by_flag</span><span class="params">(<span class="type">int</span> num_1, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list p_args;</span><br><span class="line">    va_start(p_args, num_1);</span><br><span class="line">    <span class="type">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> val = num_1;</span><br><span class="line">    <span class="keyword">while</span>(val != <span class="number">-1</span>)&#123;</span><br><span class="line">        ++idx;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;第 %d 个参数: %d\n&quot;</span>, idx, val);</span><br><span class="line">        val = va_arg(p_args, <span class="type">int</span>); <span class="comment">//得到下个变参值</span></span><br><span class="line">    &#125;</span><br><span class="line">    va_end(p_args);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;---------------\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>情况3</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">minprintf</span><span class="params">(<span class="type">char</span>* fmt, ...)</span></span><br><span class="line">&#123;</span><br><span class="line">    va_list ap;</span><br><span class="line">    <span class="type">char</span>* p, * sval;</span><br><span class="line">    <span class="type">int</span> ival;</span><br><span class="line">    <span class="type">double</span> dval;</span><br><span class="line"></span><br><span class="line">    va_start(ap, fmt);</span><br><span class="line">    <span class="keyword">for</span> (p = fmt; *p; p++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (*p != <span class="string">&#x27;%&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">putchar</span>(*p);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">switch</span> (*++p)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;d&#x27;</span>:</span><br><span class="line">            ival = va_arg(ap, <span class="type">int</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, ival);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;f&#x27;</span>:</span><br><span class="line">            dval = va_arg(ap, <span class="type">double</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>, dval);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">            <span class="keyword">for</span> (sval = va_arg(ap, <span class="type">char</span>*); *sval; sval++)</span><br><span class="line">                <span class="built_in">putchar</span>(*sval);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">putchar</span>(*p);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    va_end(ap);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    minprintf(<span class="string">&quot;%d %d&quot;</span>, <span class="number">123</span>, <span class="number">456</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h1><p>随机生成不重复的4选项</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;Four_Option;i++)	<span class="comment">//之所以是1开头,是因为0已经排好了 </span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">do</span>												<span class="comment">//生成不重复的随机数 </span></span><br><span class="line">    &#123;</span><br><span class="line">        Rand_Option_Flag=rand()%Num_Of_Words;</span><br><span class="line">        <span class="comment">//避免生成相同的随机数选项 </span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;i;j++)</span><br><span class="line">            <span class="keyword">if</span>(Option_Arr[j]==Rand_Option_Flag)								</span><br><span class="line">                <span class="keyword">break</span>;<span class="comment">//这里只是跳出这个小的for的循环 </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(i!=j);<span class="comment">//这个判断说明了它发现了存在相同的随机数 </span></span><br><span class="line">    Option_Arr[i]=Rand_Option_Flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Language</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++文件处理</title>
     <url>/re4mile/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Cpp/language/</url>
     <content><![CDATA[<p>在 C++ 编程中，我们使用流插入运算符（ &lt;&lt; ）向文件写入信息，就像使用该运算符输出信息到屏幕上一样。唯一不同的是，在这里您使用的是 <strong>ofstream</strong> 或 <strong>fstream</strong> 对象，而不是 <strong>cout</strong> 对象。</p>
@@ -1561,8 +1550,8 @@
         <category>Language</category>
       </categories>
       <tags>
-        <tag>C++</tag>
         <tag>文件处理</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1936,6 +1925,18 @@
       </tags>
   </entry>
   <entry>
+    <title>Python文件处理</title>
+    <url>/re4mile/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Python/language/</url>
+    <content><![CDATA[<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1>]]></content>
+      <categories>
+        <category>Language</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>文件处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Win32文件处理</title>
     <url>/re4mile/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/win32/language/</url>
     <content><![CDATA[<h1 id="Win32"><a href="#Win32" class="headerlink" title="Win32"></a>Win32</h1><h2 id="CreateFile"><a href="#CreateFile" class="headerlink" title="CreateFile"></a>CreateFile</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"> CreateFileA(filename, GENERIC_WRITE, <span class="number">0</span>, <span class="literal">NULL</span>, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, <span class="literal">NULL</span>)</span><br><span class="line"> <span class="comment">//    filename 要创建文件的名字 </span></span><br><span class="line"> <span class="comment">//    GENERIC_WRITE 覆盖重写   </span></span><br><span class="line"> 	</span><br><span class="line">hFile = CreateFileA(filename, GENERIC_WRITE, <span class="number">0</span>, <span class="literal">NULL</span>, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, <span class="literal">NULL</span>);<span class="comment">//创建了一个文件</span></span><br><span class="line"><span class="keyword">if</span> (hFile == INVALID_HANDLE_VALUE)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;CreateFile error.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
@@ -1963,15 +1964,14 @@
       </tags>
   </entry>
   <entry>
-    <title>Python文件处理</title>
-    <url>/re4mile/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Python/language/</url>
-    <content><![CDATA[<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1>]]></content>
+    <title>C++</title>
+    <url>/re4mile/2023/01/11/language/Cpp/%E5%9F%BA%E7%A1%80/language/</url>
+    <content><![CDATA[]]></content>
       <categories>
         <category>Language</category>
       </categories>
       <tags>
-        <tag>Python</tag>
-        <tag>文件处理</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -3484,6 +3484,15 @@ WAIT_TIMEOUT(0x102)			超时
       </tags>
   </entry>
   <entry>
+    <title>64未汇编语言基础部分</title>
+    <url>/re4mile/2023/01/11/language/Asm/windwos/64/%E5%9F%BA%E7%A1%80/language/</url>
+    <content><![CDATA[<h1 id="内联汇编"><a href="#内联汇编" class="headerlink" title="内联汇编"></a>内联汇编</h1><p>x64下好像不可以使用内敛汇编</p>
+<p>然后得单独把文件写为.asm</p>
+<p>然后在.c文件里面引用它</p>
+<p>虽然整体也没有这么改变</p>
+]]></content>
+  </entry>
+  <entry>
     <title></title>
     <url>/re4mile/2023/01/11/language/Asm/windwos/32/%E5%9F%BA%E7%A1%80/language/</url>
     <content><![CDATA[<hr>
@@ -4822,122 +4831,6 @@ WAIT_TIMEOUT(0x102)			超时
 <p>+1是字节+1</p>
 <p>12345678h的低位[1]开始于是获取了3456h</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>stdlib字符串处理</title>
-    <url>/re4mile/2023/01/11/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/stdlib/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/language/</url>
-    <content><![CDATA[<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://blog.csdn.net/qq_44205382/article/details/109528735">https://blog.csdn.net/qq_44205382/article/details/109528735</a></p>
-<h1 id="ato"><a href="#ato" class="headerlink" title="ato-"></a>ato-</h1><p>定义函数：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">atof</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span>;  <span class="comment">// string-&gt;double</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">atoi</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span>; 	<span class="comment">// string-&gt;int</span></span><br><span class="line"><span class="type">long</span> <span class="title function_">atol</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span>; 	<span class="comment">// strong-&gt;long</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>函数说明：</p>
-<p>会扫描参数nptr字符串,</p>
-<p>跳过前面的空格字符,</p>
-<p>直到遇上数字或正负符号才开始做转换,</p>
-<p>而再遇到<code>非数字</code>或<code>字符串结束</code>时才结束转换,并将结果返回。比如遇到空格就g</p>
-<p>参数nptr字符串可包含正负号、小数点或E(e)来表示指数部分,如123.456或123e-2。</p>
-<p>返回值：返回转换后的浮点型数。</p>
-<p>附加说明：atof()与使用strtod(nptr,(char**)NULL)结果相同</p>
-<p>附加说明：atoi()与使用strtol(nptr,(char**)NULL,10);结果相同</p>
-<p>附加说明：atol()与使用strtol(nptr,(char**)NULL,10);结果相同</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span>* a = <span class="string">&quot;3.1415&quot;</span>;</span><br><span class="line">    <span class="type">char</span>* b = <span class="string">&quot;-200e-2&quot;</span>;<span class="comment">//200,整数没有科学计数法,小数才有</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lf %lf \n&quot;</span>, atof(a), atof(b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d \n&quot;</span>, atoi(a), atoi(b));<span class="comment">//整数没有科学计数法,小数才有</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%ld %ld \n&quot;</span>, atol(a),atol(b));<span class="comment">//整数没有科学计数法,小数才有</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="strto"><a href="#strto" class="headerlink" title="strto-"></a>strto-</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">strtod</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr,<span class="type">char</span> **endptr)</span>; <span class="comment">//string -&gt; double</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">strtol</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr,<span class="type">char</span> **endptr,<span class="type">int</span> base)</span>; <span class="comment">//string-&gt;long </span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">strtoul</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr,<span class="type">char</span> **endptr,<span class="type">int</span> base)</span>;<span class="comment">//strong unsigned long </span></span><br></pre></td></tr></table></figure>
-
-
-
-<p><code>strtod函数</code>说明：</p>
-<p>strtod()会扫描参数nptr字符串,</p>
-<p>跳过前面的空格字符,直到遇上数字或正负符号才开始做转换,到出现非数字或字符串结束时 (‘&#x2F;0’)才结束转换,并将结果返回。</p>
-<p>若endptr不为NULL,则会将遇到不合条件而终止的nptr中的字符指针由endptr传回。</p>
-<p>参数nptr字符串可包含正负号、小数点或E(e)来表示指数部分。如123.456或123e-2。</p>
-<p>返回值：返回转换后的浮点型数。</p>
-<p><code>strtol函数</code>说明：</p>
-<p>strtol()会将参数nptr字符串根据参数base来转换成长整型数。</p>
-<p>参数base范围从2至36,或0。</p>
-<p>参数base代表采用的进制方式,</p>
-<p>如base值为10则采用10进制,</p>
-<p>若base值为16则采用16进制等。</p>
-<p>当base值为0时则是采用10进制做转换,但遇到如’0x’前置字符则会使用16进制做转换。</p>
-<p>一开始strtol()会扫描参数nptr字符串,跳过前面的空格字符,直到遇上数字或正负符号才开始做转换,</p>
-<p>再遇到非数字或字符串结束时(‘&#x2F;0’)结束转换,并将结果返回。</p>
-<p>若参数endptr不为NULL,则会将遇到不合条件而终止的nptr中的字符指针由endptr返回。</p>
-<p>返回值 返回转换后的长整型数,否则返回ERANGE并将错误代码存入errno中。</p>
-<p>附加说明：ERANGE指定的转换字符串超出合法范围。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> a[] = <span class="string">&quot;1000000000&quot;</span>;</span><br><span class="line">    <span class="type">char</span> b[] = <span class="string">&quot;1234ffff&quot;</span>;</span><br><span class="line">    <span class="type">char</span>* c = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a = %d \n&quot;</span>, (<span class="type">int</span>)strtod(a, <span class="literal">NULL</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;b = %d \n&quot;</span>, (<span class="type">int</span>)strtod(b, &amp;c));</span><br><span class="line">    <span class="keyword">if</span> (c)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;c = %s \n&quot;</span>, c);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> a[] = <span class="string">&quot;1000&quot;</span>;</span><br><span class="line">    <span class="type">char</span> b[] = <span class="string">&quot;0x64&quot;</span>;</span><br><span class="line">    <span class="type">char</span>* c = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;10:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>,<span class="number">10</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;10:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>, <span class="number">0</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;16:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>, <span class="number">16</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;01:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;16:b = %d \n&quot;</span>, strtol(b, <span class="literal">NULL</span>, <span class="number">16</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;16:b = %d \n&quot;</span>, strtol(b, <span class="literal">NULL</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="数字转字符串"><a href="#数字转字符串" class="headerlink" title="数字转字符串"></a>数字转字符串</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char *gcvt(double number,size_t ndigits,char *buf);</span><br></pre></td></tr></table></figure>
-
-
-
-<p>gcvt函数说明：</p>
-<p>gcvt()用来将参数number转换成ASCII码字符串,参数ndigits表示显示的位数。</p>
-<p>gcvt()与ecvt()和fcvt()不同的地方在于,</p>
-<p>gcvt()所转换后的字符串包含小数点或正负符号。若转换成功,转换后的字符串会放在参数buf指针所指的空间。</p>
-<p>返回值：返回一字符串指针,此地址即为buf指针</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> a = <span class="number">3.1415926</span>;</span><br><span class="line">    <span class="type">double</span> b = <span class="number">-3.1415926</span>;</span><br><span class="line">    <span class="type">char</span>  sz_tmp[<span class="number">64</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    _gcvt(a, <span class="number">2</span>, sz_tmp);<span class="comment">//保留2位数</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a value = %s \n&quot;</span>, sz_tmp);</span><br><span class="line"></span><br><span class="line">    _gcvt(b, <span class="number">4</span>, sz_tmp);<span class="comment">//保留4位数</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;b value = %s \n&quot;</span>, sz_tmp);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="转ASCII"><a href="#转ASCII" class="headerlink" title="转ASCII"></a>转ASCII</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int toascii(int c)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Language</category>
-      </categories>
-      <tags>
-        <tag>C语言库函数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>64未汇编语言基础部分</title>
-    <url>/re4mile/2023/01/11/language/Asm/windwos/64/%E5%9F%BA%E7%A1%80/language/</url>
-    <content><![CDATA[<h1 id="内联汇编"><a href="#内联汇编" class="headerlink" title="内联汇编"></a>内联汇编</h1><p>x64下好像不可以使用内敛汇编</p>
-<p>然后得单独把文件写为.asm</p>
-<p>然后在.c文件里面引用它</p>
-<p>虽然整体也没有这么改变</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>win32琐碎</title>
-    <url>/re4mile/2023/01/11/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E5%88%A8%E6%A0%B9%E9%97%AE%E5%BA%95/language/</url>
-    <content><![CDATA[<h2 id="LoadLibrary和GetModuleHandle的区别"><a href="#LoadLibrary和GetModuleHandle的区别" class="headerlink" title="LoadLibrary和GetModuleHandle的区别"></a>LoadLibrary和GetModuleHandle的区别</h2><p>LoadLibrary是把一个模块映射进调用进程的地址空间，需要时增加引用计数，</p>
-<p>每调用一次，引用计数增加一，</p>
-<p>需要通过相同步骤地调用FreeLibrary来减少引用次数，</p>
-<p>当为0时，系统卸载DLL</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HMODULE WINAPI <span class="title function_">LoadLibrary</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  LPCTSTR lpFileName</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>GetModuleHandle是返回一个已经映射进调用进程地址空间的模块的句柄，并不增加引用计数。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HMODULE WINAPI <span class="title function_">GetModuleHandle</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in_opt  LPCTSTR lpModuleName</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Language</category>
-      </categories>
-      <tags>
-        <tag>Win32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>未公开的win32-API说明</title>
-    <url>/re4mile/2023/01/11/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E6%9C%AA%E5%85%AC%E5%BC%80API/language/</url>
-    <content><![CDATA[<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://bbs.kanxue.com/thread-273199.htm">RtlpGetAssemblyStorageMapRootLocation</a></p>
-<p><a href="https://bbs.kanxue.com/thread-183181.htm">未命名</a></p>
-]]></content>
-      <categories>
-        <category>Language</category>
-      </categories>
-      <tags>
-        <tag>Win32</tag>
-      </tags>
   </entry>
   <entry>
     <title>x86汇编语言实践部分</title>
@@ -7291,6 +7184,39 @@ WAIT_TIMEOUT(0x102)			超时
       </tags>
   </entry>
   <entry>
+    <title>未公开的win32-API说明</title>
+    <url>/re4mile/2023/01/11/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E6%9C%AA%E5%85%AC%E5%BC%80API/language/</url>
+    <content><![CDATA[<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://bbs.kanxue.com/thread-273199.htm">RtlpGetAssemblyStorageMapRootLocation</a></p>
+<p><a href="https://bbs.kanxue.com/thread-183181.htm">未命名</a></p>
+]]></content>
+      <categories>
+        <category>Language</category>
+      </categories>
+      <tags>
+        <tag>Win32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win32琐碎</title>
+    <url>/re4mile/2023/01/11/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E5%88%A8%E6%A0%B9%E9%97%AE%E5%BA%95/language/</url>
+    <content><![CDATA[<h2 id="LoadLibrary和GetModuleHandle的区别"><a href="#LoadLibrary和GetModuleHandle的区别" class="headerlink" title="LoadLibrary和GetModuleHandle的区别"></a>LoadLibrary和GetModuleHandle的区别</h2><p>LoadLibrary是把一个模块映射进调用进程的地址空间，需要时增加引用计数，</p>
+<p>每调用一次，引用计数增加一，</p>
+<p>需要通过相同步骤地调用FreeLibrary来减少引用次数，</p>
+<p>当为0时，系统卸载DLL</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HMODULE WINAPI <span class="title function_">LoadLibrary</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  LPCTSTR lpFileName</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>GetModuleHandle是返回一个已经映射进调用进程地址空间的模块的句柄，并不增加引用计数。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">HMODULE WINAPI <span class="title function_">GetModuleHandle</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in_opt  LPCTSTR lpModuleName</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Language</category>
+      </categories>
+      <tags>
+        <tag>Win32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>win32篇-美化</title>
     <url>/re4mile/2023/01/11/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E7%BE%8E%E5%8C%96/language/</url>
     <content><![CDATA[<h1 id="终端字体颜色"><a href="#终端字体颜色" class="headerlink" title="终端字体颜色"></a>终端字体颜色</h1><p>SetConsoleTextAttribute函数用法</p>
@@ -7305,27 +7231,78 @@ WAIT_TIMEOUT(0x102)			超时
       </tags>
   </entry>
   <entry>
-    <title>x86汇编 CRT标准库</title>
-    <url>/re4mile/2023/01/11/language/Asm/windwos/32/%E5%B0%8F%E4%B8%93%E9%A2%98/CRT%E6%A0%87%E5%87%86%E5%BA%93/language/</url>
-    <content><![CDATA[<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://blog.csdn.net/huangxy10/article/details/8310087">https://blog.csdn.net/huangxy10/article/details/8310087</a></p>
-<p><a href="https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html">https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html</a></p>
-<p>其实也就是我们在汇编语言中,可以调用很多C语言的函数</p>
-<p>比如下面涉及的函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stdio.h</span><br><span class="line">stdlib.h</span><br><span class="line">string.h</span><br></pre></td></tr></table></figure>
+    <title>stdlib字符串处理</title>
+    <url>/re4mile/2023/01/11/language/C/%E5%BA%93%E5%87%BD%E6%95%B0/stdlib/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/language/</url>
+    <content><![CDATA[<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://blog.csdn.net/qq_44205382/article/details/109528735">https://blog.csdn.net/qq_44205382/article/details/109528735</a></p>
+<h1 id="ato"><a href="#ato" class="headerlink" title="ato-"></a>ato-</h1><p>定义函数：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">atof</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span>;  <span class="comment">// string-&gt;double</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">atoi</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span>; 	<span class="comment">// string-&gt;int</span></span><br><span class="line"><span class="type">long</span> <span class="title function_">atol</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr)</span>; 	<span class="comment">// strong-&gt;long</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>会扫描参数nptr字符串,</p>
+<p>跳过前面的空格字符,</p>
+<p>直到遇上数字或正负符号才开始做转换,</p>
+<p>而再遇到<code>非数字</code>或<code>字符串结束</code>时才结束转换,并将结果返回。比如遇到空格就g</p>
+<p>参数nptr字符串可包含正负号、小数点或E(e)来表示指数部分,如123.456或123e-2。</p>
+<p>返回值：返回转换后的浮点型数。</p>
+<p>附加说明：atof()与使用strtod(nptr,(char**)NULL)结果相同</p>
+<p>附加说明：atoi()与使用strtol(nptr,(char**)NULL,10);结果相同</p>
+<p>附加说明：atol()与使用strtol(nptr,(char**)NULL,10);结果相同</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span>* a = <span class="string">&quot;3.1415&quot;</span>;</span><br><span class="line">    <span class="type">char</span>* b = <span class="string">&quot;-200e-2&quot;</span>;<span class="comment">//200,整数没有科学计数法,小数才有</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lf %lf \n&quot;</span>, atof(a), atof(b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d \n&quot;</span>, atoi(a), atoi(b));<span class="comment">//整数没有科学计数法,小数才有</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%ld %ld \n&quot;</span>, atol(a),atol(b));<span class="comment">//整数没有科学计数法,小数才有</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
-<p>常用的CRT函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crt_memcpy</span><br><span class="line">crt_memset</span><br><span class="line">crt_strcpy</span><br><span class="line">crt_system</span><br><span class="line">crt_printf</span><br><span class="line">crt_scanf</span><br><span class="line">crt_fopen</span><br><span class="line">crt_gets</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h1 id="strto"><a href="#strto" class="headerlink" title="strto-"></a>strto-</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="title function_">strtod</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr,<span class="type">char</span> **endptr)</span>; <span class="comment">//string -&gt; double</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">strtol</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr,<span class="type">char</span> **endptr,<span class="type">int</span> base)</span>; <span class="comment">//string-&gt;long </span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">strtoul</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *nptr,<span class="type">char</span> **endptr,<span class="type">int</span> base)</span>;<span class="comment">//strong unsigned long </span></span><br></pre></td></tr></table></figure>
 
 
 
-<p>其实涉及的很多的函数例子你就都可以加上<code>crt_</code>前缀,然后尝试一下可不可以正常使用该函数</p>
-<p>能用,当然就万事大吉啦</p>
-<p>实践</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.386</span><br><span class="line">.model flat,stdcall</span><br><span class="line">option casemap:none</span><br><span class="line"></span><br><span class="line">;sub2   proto   StdCall,:DWORD,:DWORD</span><br><span class="line">; small_check proto uses esi ebx ecx,:DWORD</span><br><span class="line">; numToDec    proto :DWORD,:DWORD ,:DWORD</span><br><span class="line">; weclome     proto </span><br><span class="line">; f_Out       proto </span><br><span class="line">; f_In        proto </span><br><span class="line">; Ymain       proto </span><br><span class="line"></span><br><span class="line">include windows.inc</span><br><span class="line">include msvcrt.inc</span><br><span class="line">include user32.inc</span><br><span class="line">include kernel32.inc</span><br><span class="line"> </span><br><span class="line">includelib msvcrt.lib</span><br><span class="line">includelib user32.lib</span><br><span class="line">includelib kernel32.lib</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">.data</span><br><span class="line"></span><br><span class="line">sz_1  db &quot;--------------------------------------------&quot;,0Ah,00h</span><br><span class="line">sz_2  db &quot;convert xx from xx to xx&quot;,0Ah,00h</span><br><span class="line">sz_3  db &quot;if you want convert 100 from 10 to 16&quot;,0Ah,00h</span><br><span class="line">sz_4  db &quot;than input like below&quot;,0Ah,00h</span><br><span class="line">sz_5  db &quot;In [0]: 64 16 10&quot;,0Ah,00h</span><br><span class="line">sz_6  db &quot;Out[0]: 100&quot;,0Ah,00h</span><br><span class="line">sz_7  db &quot;In [1]: c&quot;,0Ah,00h</span><br><span class="line">sz_8  db &quot;Out[1]: clear screen...&quot;,0Ah,00h</span><br><span class="line">sz_9  db &quot;In [2]: q&quot;,0Ah,00h</span><br><span class="line">sz_10 db &quot;Out[2]: good byte...&quot;,0Ah,00h</span><br><span class="line">sz_11 db &quot;--------------------------------------------&quot;,0Ah,00h</span><br><span class="line"></span><br><span class="line">sz_info1        db &quot;In [&quot;,00H</span><br><span class="line">sz_info2        db &quot;Out[&quot;,00H</span><br><span class="line">sz_format1      db &quot;%s%d]: &quot;,00H</span><br><span class="line">sz_format2      db &quot;%s&quot;,0AH,0AH,00H</span><br><span class="line">sz_Pause        db &quot;pause&quot;,00h</span><br><span class="line">sz_Cls          db &quot;cls&quot;,00h</span><br><span class="line">sz_goodbye      db &quot;good byte...&quot;,00h</span><br><span class="line">sz_inputwrong   db &quot;input wrong&quot;,00H</span><br><span class="line">sz_Hex          db &quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXZ&quot;,00H</span><br><span class="line">sz_input db 128 dup(0)</span><br><span class="line">h_Output dd 0</span><br><span class="line">cnt_step dd 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.code</span><br><span class="line">f_inputWrong proc</span><br><span class="line">    invoke crt_memset,offset sz_input,0,128</span><br><span class="line">    invoke crt_strcpy,offset sz_input,offset sz_inputwrong</span><br><span class="line">    ret</span><br><span class="line">f_inputWrong endp</span><br><span class="line"></span><br><span class="line">small_check proc uses esi ebx ecx,lp_cur:DWORD</span><br><span class="line"></span><br><span class="line">    LOCAL @bool_check1:DWORD</span><br><span class="line">    LOCAL @bool_check2:DWORD</span><br><span class="line">    LOCAL @bool_check3:DWORD</span><br><span class="line"></span><br><span class="line">    mov @bool_check1,0</span><br><span class="line">    mov @bool_check2,0</span><br><span class="line">    mov @bool_check3,0</span><br><span class="line"></span><br><span class="line">    mov esi,lp_cur</span><br><span class="line">    movzx eax,byte ptr [esi]</span><br><span class="line">    mov ebx,eax</span><br><span class="line"></span><br><span class="line">    mov eax,ebx</span><br><span class="line">    sub eax,030H</span><br><span class="line">    .if  eax &gt;=0</span><br><span class="line">        .if eax&lt;10</span><br><span class="line">            mov @bool_check1,1</span><br><span class="line">        .endif</span><br><span class="line">    .endif    </span><br><span class="line"></span><br><span class="line">    mov eax,ebx</span><br><span class="line">    sub eax,041H</span><br><span class="line">    .if  eax  &gt;=0</span><br><span class="line">        .if eax &lt;6</span><br><span class="line">            mov @bool_check2,1</span><br><span class="line">        .endif</span><br><span class="line">     .endif  </span><br><span class="line">     mov eax,ebx</span><br><span class="line">     sub eax,061H</span><br><span class="line">    .if  eax &gt;=0</span><br><span class="line">        .if eax &lt;6</span><br><span class="line">            mov @bool_check3,1</span><br><span class="line">        .endif</span><br><span class="line">    .endif</span><br><span class="line">    mov eax,@bool_check1</span><br><span class="line">    shl eax,2</span><br><span class="line">    mov ebx,@bool_check2</span><br><span class="line">    shl ebx,1</span><br><span class="line">    mov ecx,@bool_check3</span><br><span class="line">    or eax,ebx</span><br><span class="line">    or eax,ecx </span><br><span class="line">    ret</span><br><span class="line">small_check endp</span><br><span class="line"></span><br><span class="line">numToDec proc in_sz_param:DWORD , in_dw_base:DWORD , out_dw_Param:DWORD</span><br><span class="line">    LOCAL @sz_tmp[128]:BYTE</span><br><span class="line"></span><br><span class="line">    lea eax,@sz_tmp</span><br><span class="line">    invoke crt_memset,eax,0,128;memset(sz_tmp, 0, 128);</span><br><span class="line">    mov ebx,out_dw_Param</span><br><span class="line">    mov dword ptr [ebx],0 ; *out_dw_Param = 0;</span><br><span class="line">    </span><br><span class="line">    mov esi,in_sz_param</span><br><span class="line">    mov ecx,0</span><br><span class="line">    .while byte ptr [esi+ecx]!=0</span><br><span class="line">        mov ebx,esi </span><br><span class="line">        add ebx,ecx </span><br><span class="line">        invoke small_check,ebx </span><br><span class="line">        mov ebx,eax</span><br><span class="line"></span><br><span class="line">        mov eax,ebx</span><br><span class="line">        and eax,4 </span><br><span class="line">        .if eax !=0 ;数字</span><br><span class="line">            movzx eax,byte ptr [esi+ecx] </span><br><span class="line">            sub eax,030H</span><br><span class="line">            mov byte ptr [esi+ecx],al</span><br><span class="line">            jmp L4</span><br><span class="line">        .endif</span><br><span class="line"></span><br><span class="line">        mov eax,ebx</span><br><span class="line">        and eax,2</span><br><span class="line">        .if eax !=0 ;大字母</span><br><span class="line">            movzx eax,byte ptr [esi+ecx] </span><br><span class="line">            sub eax,037H</span><br><span class="line">            mov byte ptr [esi+ecx],al</span><br><span class="line">            jmp L4</span><br><span class="line">        .endif</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">        mov eax,ebx</span><br><span class="line">        and eax,1</span><br><span class="line">        .if eax !=0 ;小写字谜</span><br><span class="line">            movzx eax,byte ptr [esi+ecx] </span><br><span class="line">            sub eax,057H</span><br><span class="line">            mov byte ptr [esi+ecx],al</span><br><span class="line">            jmp L4</span><br><span class="line">        .endif</span><br><span class="line">   </span><br><span class="line">   L4:</span><br><span class="line">        mov ebx,in_dw_base</span><br><span class="line">        .if eax&gt;=ebx</span><br><span class="line">            invoke f_inputWrong</span><br><span class="line">            ret </span><br><span class="line">        .endif</span><br><span class="line">        inc ecx</span><br><span class="line">    .endw</span><br><span class="line"></span><br><span class="line">    xor eax,eax</span><br><span class="line">    xor edx,edx</span><br><span class="line">    .while eax&lt;ecx</span><br><span class="line">        movzx ebx,byte ptr [esi+eax]</span><br><span class="line">        push eax</span><br><span class="line">        xor eax,eax</span><br><span class="line">        mov eax,edx</span><br><span class="line">        add eax,ebx</span><br><span class="line">        mov ebx,in_dw_base</span><br><span class="line">        mul ebx</span><br><span class="line">        mov edx,eax</span><br><span class="line">        pop eax </span><br><span class="line">        inc eax </span><br><span class="line">    .endw</span><br><span class="line">    mov eax,edx </span><br><span class="line">    xor edx,edx </span><br><span class="line">    div in_dw_base</span><br><span class="line">    mov ebx,out_dw_Param</span><br><span class="line">    mov dword ptr [ebx],eax </span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">numToDec endp</span><br><span class="line">;ExitProcess PROTO, dwExitCode:DWORD    </span><br><span class="line"></span><br><span class="line">DecToNum proc in_sz_param:DWORD, dw_src_base:DWORD,dw_dst_base:DWORD</span><br><span class="line"></span><br><span class="line">    LOCAL @sz_tmp[128]:BYTE</span><br><span class="line">    LOCAL @dw_tmp:DWORD</span><br><span class="line">    lea eax,@sz_tmp</span><br><span class="line">    invoke crt_memset, eax,0,128 ; memset(sz_tmp, 0, 128);</span><br><span class="line">    lea eax,@dw_tmp</span><br><span class="line">    invoke numToDec , in_sz_param,dw_src_base, eax ;numToDec(in_sz_param, dw_src_base, &amp;dw_tmp);//把第一个东西转化为10进制</span><br><span class="line">    .if @dw_tmp==0</span><br><span class="line">        ret</span><br><span class="line">    .endif</span><br><span class="line">    xor ecx,ecx </span><br><span class="line">    mov edx,@dw_tmp</span><br><span class="line">    mov esi,offset sz_Hex</span><br><span class="line">    lea edi ,@sz_tmp</span><br><span class="line">    .while edx!=0</span><br><span class="line">        mov eax,edx</span><br><span class="line">        push edx</span><br><span class="line">        xor edx,edx</span><br><span class="line">        mov ebx,dw_dst_base </span><br><span class="line">        div ebx ;eax..edx</span><br><span class="line">        mov bl,byte ptr [esi+edx]</span><br><span class="line">        mov byte ptr [edi+ecx],bl</span><br><span class="line">        pop edx</span><br><span class="line">        mov edx,eax</span><br><span class="line">        inc ecx </span><br><span class="line">    .endw</span><br><span class="line">    push ecx</span><br><span class="line">    invoke crt_memset,offset sz_input ,0,128 ;memset(input, 0, 128);</span><br><span class="line">    pop ecx</span><br><span class="line">    lea esi ,@sz_tmp</span><br><span class="line">    mov edi ,offset sz_input</span><br><span class="line">    mov eax,0</span><br><span class="line">    .while eax&lt;ecx </span><br><span class="line">        mov ebx,ecx</span><br><span class="line">        dec ebx</span><br><span class="line">        sub ebx,eax</span><br><span class="line">        mov dl,byte ptr [esi+ebx] </span><br><span class="line">        mov ebx,eax</span><br><span class="line">        mov byte ptr [edi+eax],dl</span><br><span class="line">        inc eax</span><br><span class="line">    .endw</span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">DecToNum endp</span><br><span class="line"></span><br><span class="line">weclome proc</span><br><span class="line"></span><br><span class="line">    invoke SetConsoleTextAttribute ,h_Output , 0DH</span><br><span class="line"></span><br><span class="line">    invoke crt_printf , offset sz_1</span><br><span class="line">    invoke crt_printf , offset sz_2</span><br><span class="line">    invoke crt_printf , offset sz_3</span><br><span class="line">    invoke crt_printf , offset sz_4</span><br><span class="line">    invoke crt_printf , offset sz_5</span><br><span class="line">    invoke crt_printf , offset sz_6</span><br><span class="line">    invoke crt_printf , offset sz_7</span><br><span class="line">    invoke crt_printf , offset sz_8</span><br><span class="line">    invoke crt_printf , offset sz_9</span><br><span class="line">    invoke crt_printf , offset sz_10</span><br><span class="line">    invoke crt_printf , offset sz_11</span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">weclome endp</span><br><span class="line"></span><br><span class="line">f_Out proc</span><br><span class="line">    mov esi,offset sz_input</span><br><span class="line">    mov edi ,offset cnt_step</span><br><span class="line">    .if byte ptr [esi] != 00H</span><br><span class="line">        invoke SetConsoleTextAttribute,h_Output,0AH ;SetConsoleTextAttribute(h_Output, 0xA);</span><br><span class="line">        invoke crt_printf , offset sz_format1 , offset sz_info2, cnt_step ;printf(&quot;%s%d]: &quot;, sz_info2, cnt_step);</span><br><span class="line">        ;cnt_step++;</span><br><span class="line">        mov eax , dword ptr [edi]</span><br><span class="line">        inc eax</span><br><span class="line">        mov dword ptr [edi],eax</span><br><span class="line">        invoke SetConsoleTextAttribute,h_Output,0FH ;SetConsoleTextAttribute(h_Output, 0xF);</span><br><span class="line">        invoke crt_printf , offset sz_format2,offset sz_input ;printf(&quot;%s\n\n&quot;, input);</span><br><span class="line">    .endif</span><br><span class="line">    ret</span><br><span class="line">f_Out endp</span><br><span class="line"></span><br><span class="line">f_In proc</span><br><span class="line">    LOCAL @cnt:dword</span><br><span class="line"></span><br><span class="line">    LOCAL @num:dword</span><br><span class="line">    LOCAL @src_base:dword</span><br><span class="line">    LOCAL @dst_base:dword</span><br><span class="line"></span><br><span class="line">    LOCAL @lp_src_base:dword</span><br><span class="line">    LOCAL @lp_dst_base:dword</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    invoke SetConsoleTextAttribute ,h_Output , 0AH ;SetConsoleTextAttribute(h_Output, 0xA);</span><br><span class="line">    invoke crt_printf , offset sz_format1, offset sz_info1, cnt_step ;printf(&quot;%s%d]: &quot;, sz_info1, cnt_step);</span><br><span class="line">    invoke SetConsoleTextAttribute ,h_Output , 0FH ;SetConsoleTextAttribute(h_Output, 0xF);</span><br><span class="line">    invoke crt_gets ,offset sz_input ;  fgets(input, 128, stdin);</span><br><span class="line"></span><br><span class="line">    mov esi,offset sz_input</span><br><span class="line">    .if  byte ptr [esi] == 071H ; q</span><br><span class="line">        invoke crt_memset,offset sz_input,0,128 ;memset(input, 0, 128);</span><br><span class="line">        invoke crt_strcpy ,offset sz_input ,offset sz_goodbye;strcpy(input, &quot;good bye...&quot;);</span><br><span class="line">        invoke f_Out;f_Out();</span><br><span class="line">        invoke SetConsoleTextAttribute ,h_Output , 0FH ;SetConsoleTextAttribute(h_Output, 0xF);</span><br><span class="line">        invoke crt_exit,0;exit(0);</span><br><span class="line">    .endif</span><br><span class="line"></span><br><span class="line">    .if  byte ptr [esi] == 063H ; c</span><br><span class="line">        invoke crt_system ,offset sz_Cls;system(&quot;cls&quot;);</span><br><span class="line">        invoke crt_memset ,offset sz_input,0,128 ;memset(input, 0, 128);</span><br><span class="line">        invoke weclome;weclome();</span><br><span class="line">        ret</span><br><span class="line">    .endif</span><br><span class="line"></span><br><span class="line">    mov @cnt,1 ;mov     dword ptr [ebp-4], 1</span><br><span class="line">    mov ecx,0  </span><br><span class="line">    .while ecx&lt;128</span><br><span class="line">        mov ebx,esi </span><br><span class="line">        add ebx,ecx </span><br><span class="line"></span><br><span class="line">        invoke small_check,ebx</span><br><span class="line">        push eax</span><br><span class="line">        inc ebx</span><br><span class="line">        invoke small_check,ebx</span><br><span class="line">        push eax</span><br><span class="line"></span><br><span class="line">        mov ebx,esi </span><br><span class="line">        add ebx,ecx </span><br><span class="line">        inc ebx</span><br><span class="line"></span><br><span class="line">        mov eax,dword ptr [esp+4]</span><br><span class="line">        .if eax!=0</span><br><span class="line">            mov eax,dword ptr [esp]</span><br><span class="line">            .if eax==0</span><br><span class="line">                mov byte ptr [ebx],0 </span><br><span class="line">                .if @cnt==3</span><br><span class="line">                    .break</span><br><span class="line">                .endif</span><br><span class="line">            .endif</span><br><span class="line">        .endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mov eax,dword ptr [esp+4]</span><br><span class="line">        .if eax==0</span><br><span class="line">            mov eax,dword ptr [esp]</span><br><span class="line">            .if eax!=0</span><br><span class="line">                .if @cnt==1</span><br><span class="line">                    mov @lp_src_base,ebx</span><br><span class="line">                    mov ebx,@cnt </span><br><span class="line">                    inc ebx</span><br><span class="line">                    mov @cnt,ebx</span><br><span class="line">                    jmp L3</span><br><span class="line">                .endif</span><br><span class="line"></span><br><span class="line">                .if @cnt==2</span><br><span class="line">                    mov @lp_dst_base,ebx</span><br><span class="line">                    mov ebx,@cnt </span><br><span class="line">                    inc ebx</span><br><span class="line">                    mov @cnt,ebx</span><br><span class="line">                    jmp L3</span><br><span class="line">                .endif</span><br><span class="line">            .endif</span><br><span class="line">        .endif</span><br><span class="line">L3:</span><br><span class="line">        add esp,8</span><br><span class="line">        inc ecx</span><br><span class="line">    .endw</span><br><span class="line"></span><br><span class="line">    mov eax,0</span><br><span class="line">    .if @lp_dst_base ==0</span><br><span class="line">        jmp L1</span><br><span class="line">    .endif</span><br><span class="line">    .if @lp_src_base ==0</span><br><span class="line">        jmp L1 </span><br><span class="line">    .endif</span><br><span class="line">    jmp L2</span><br><span class="line">L1:</span><br><span class="line">    mov eax,1</span><br><span class="line">L2:</span><br><span class="line">    .if eax==1</span><br><span class="line">        invoke f_inputWrong</span><br><span class="line">        ret</span><br><span class="line">    .endif</span><br><span class="line">    lea eax,@src_base</span><br><span class="line">    invoke numToDec ,@lp_src_base,10,eax;numToDec(lp_src_base, 10,&amp;src_base);</span><br><span class="line">    lea eax,@dst_base</span><br><span class="line">    invoke numToDec ,@lp_dst_base,10,eax;numToDec(lp_dst_base, 10,&amp;dst_base);</span><br><span class="line"></span><br><span class="line">    ;下面操作不是&amp;</span><br><span class="line">    .if @src_base &gt; 1</span><br><span class="line">        .if @src_base &lt;35</span><br><span class="line">            .if @dst_base &gt;1</span><br><span class="line">                .if @dst_base &lt;35</span><br><span class="line">                    invoke DecToNum , offset sz_input,@src_base,@dst_base</span><br><span class="line">                .endif</span><br><span class="line">            .endif</span><br><span class="line">        .endif</span><br><span class="line">    .else</span><br><span class="line">        invoke f_inputWrong</span><br><span class="line">    .endif</span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">f_In endp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Ymain proc</span><br><span class="line">    invoke  GetStdHandle ,STD_OUTPUT_HANDLE</span><br><span class="line">    mov h_Output,eax</span><br><span class="line">    invoke  weclome</span><br><span class="line">    .while 1</span><br><span class="line">        invoke f_In</span><br><span class="line">        invoke f_Out</span><br><span class="line">    .endw</span><br><span class="line">    ret</span><br><span class="line">Ymain endp</span><br><span class="line"></span><br><span class="line">START:</span><br><span class="line">    invoke Ymain </span><br><span class="line">    ret</span><br><span class="line">end START</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>strtod函数</code>说明：</p>
+<p>strtod()会扫描参数nptr字符串,</p>
+<p>跳过前面的空格字符,直到遇上数字或正负符号才开始做转换,到出现非数字或字符串结束时 (‘&#x2F;0’)才结束转换,并将结果返回。</p>
+<p>若endptr不为NULL,则会将遇到不合条件而终止的nptr中的字符指针由endptr传回。</p>
+<p>参数nptr字符串可包含正负号、小数点或E(e)来表示指数部分。如123.456或123e-2。</p>
+<p>返回值：返回转换后的浮点型数。</p>
+<p><code>strtol函数</code>说明：</p>
+<p>strtol()会将参数nptr字符串根据参数base来转换成长整型数。</p>
+<p>参数base范围从2至36,或0。</p>
+<p>参数base代表采用的进制方式,</p>
+<p>如base值为10则采用10进制,</p>
+<p>若base值为16则采用16进制等。</p>
+<p>当base值为0时则是采用10进制做转换,但遇到如’0x’前置字符则会使用16进制做转换。</p>
+<p>一开始strtol()会扫描参数nptr字符串,跳过前面的空格字符,直到遇上数字或正负符号才开始做转换,</p>
+<p>再遇到非数字或字符串结束时(‘&#x2F;0’)结束转换,并将结果返回。</p>
+<p>若参数endptr不为NULL,则会将遇到不合条件而终止的nptr中的字符指针由endptr返回。</p>
+<p>返回值 返回转换后的长整型数,否则返回ERANGE并将错误代码存入errno中。</p>
+<p>附加说明：ERANGE指定的转换字符串超出合法范围。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> a[] = <span class="string">&quot;1000000000&quot;</span>;</span><br><span class="line">    <span class="type">char</span> b[] = <span class="string">&quot;1234ffff&quot;</span>;</span><br><span class="line">    <span class="type">char</span>* c = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a = %d \n&quot;</span>, (<span class="type">int</span>)strtod(a, <span class="literal">NULL</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;b = %d \n&quot;</span>, (<span class="type">int</span>)strtod(b, &amp;c));</span><br><span class="line">    <span class="keyword">if</span> (c)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;c = %s \n&quot;</span>, c);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> a[] = <span class="string">&quot;1000&quot;</span>;</span><br><span class="line">    <span class="type">char</span> b[] = <span class="string">&quot;0x64&quot;</span>;</span><br><span class="line">    <span class="type">char</span>* c = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;10:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>,<span class="number">10</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;10:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>, <span class="number">0</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;16:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>, <span class="number">16</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;01:a = %d \n&quot;</span>, strtol(a, <span class="literal">NULL</span>, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;16:b = %d \n&quot;</span>, strtol(b, <span class="literal">NULL</span>, <span class="number">16</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;16:b = %d \n&quot;</span>, strtol(b, <span class="literal">NULL</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="数字转字符串"><a href="#数字转字符串" class="headerlink" title="数字转字符串"></a>数字转字符串</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char *gcvt(double number,size_t ndigits,char *buf);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>gcvt函数说明：</p>
+<p>gcvt()用来将参数number转换成ASCII码字符串,参数ndigits表示显示的位数。</p>
+<p>gcvt()与ecvt()和fcvt()不同的地方在于,</p>
+<p>gcvt()所转换后的字符串包含小数点或正负符号。若转换成功,转换后的字符串会放在参数buf指针所指的空间。</p>
+<p>返回值：返回一字符串指针,此地址即为buf指针</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> a = <span class="number">3.1415926</span>;</span><br><span class="line">    <span class="type">double</span> b = <span class="number">-3.1415926</span>;</span><br><span class="line">    <span class="type">char</span>  sz_tmp[<span class="number">64</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    _gcvt(a, <span class="number">2</span>, sz_tmp);<span class="comment">//保留2位数</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a value = %s \n&quot;</span>, sz_tmp);</span><br><span class="line"></span><br><span class="line">    _gcvt(b, <span class="number">4</span>, sz_tmp);<span class="comment">//保留4位数</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;b value = %s \n&quot;</span>, sz_tmp);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="转ASCII"><a href="#转ASCII" class="headerlink" title="转ASCII"></a>转ASCII</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int toascii(int c)</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>Language</category>
+      </categories>
+      <tags>
+        <tag>C语言库函数</tag>
+      </tags>
   </entry>
   <entry>
     <title>win32 API积累</title>
@@ -7644,6 +7621,29 @@ WAIT_TIMEOUT(0x102)			超时
       <tags>
         <tag>Win32</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>x86汇编 CRT标准库</title>
+    <url>/re4mile/2023/01/11/language/Asm/windwos/32/%E5%B0%8F%E4%B8%93%E9%A2%98/CRT%E6%A0%87%E5%87%86%E5%BA%93/language/</url>
+    <content><![CDATA[<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://blog.csdn.net/huangxy10/article/details/8310087">https://blog.csdn.net/huangxy10/article/details/8310087</a></p>
+<p><a href="https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html">https://www.cnblogs.com/cloudeman/archive/2012/04/09/2439438.html</a></p>
+<p>其实也就是我们在汇编语言中,可以调用很多C语言的函数</p>
+<p>比如下面涉及的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stdio.h</span><br><span class="line">stdlib.h</span><br><span class="line">string.h</span><br></pre></td></tr></table></figure>
+
+
+
+<p>常用的CRT函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crt_memcpy</span><br><span class="line">crt_memset</span><br><span class="line">crt_strcpy</span><br><span class="line">crt_system</span><br><span class="line">crt_printf</span><br><span class="line">crt_scanf</span><br><span class="line">crt_fopen</span><br><span class="line">crt_gets</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其实涉及的很多的函数例子你就都可以加上<code>crt_</code>前缀,然后尝试一下可不可以正常使用该函数</p>
+<p>能用,当然就万事大吉啦</p>
+<p>实践</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.386</span><br><span class="line">.model flat,stdcall</span><br><span class="line">option casemap:none</span><br><span class="line"></span><br><span class="line">;sub2   proto   StdCall,:DWORD,:DWORD</span><br><span class="line">; small_check proto uses esi ebx ecx,:DWORD</span><br><span class="line">; numToDec    proto :DWORD,:DWORD ,:DWORD</span><br><span class="line">; weclome     proto </span><br><span class="line">; f_Out       proto </span><br><span class="line">; f_In        proto </span><br><span class="line">; Ymain       proto </span><br><span class="line"></span><br><span class="line">include windows.inc</span><br><span class="line">include msvcrt.inc</span><br><span class="line">include user32.inc</span><br><span class="line">include kernel32.inc</span><br><span class="line"> </span><br><span class="line">includelib msvcrt.lib</span><br><span class="line">includelib user32.lib</span><br><span class="line">includelib kernel32.lib</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">.data</span><br><span class="line"></span><br><span class="line">sz_1  db &quot;--------------------------------------------&quot;,0Ah,00h</span><br><span class="line">sz_2  db &quot;convert xx from xx to xx&quot;,0Ah,00h</span><br><span class="line">sz_3  db &quot;if you want convert 100 from 10 to 16&quot;,0Ah,00h</span><br><span class="line">sz_4  db &quot;than input like below&quot;,0Ah,00h</span><br><span class="line">sz_5  db &quot;In [0]: 64 16 10&quot;,0Ah,00h</span><br><span class="line">sz_6  db &quot;Out[0]: 100&quot;,0Ah,00h</span><br><span class="line">sz_7  db &quot;In [1]: c&quot;,0Ah,00h</span><br><span class="line">sz_8  db &quot;Out[1]: clear screen...&quot;,0Ah,00h</span><br><span class="line">sz_9  db &quot;In [2]: q&quot;,0Ah,00h</span><br><span class="line">sz_10 db &quot;Out[2]: good byte...&quot;,0Ah,00h</span><br><span class="line">sz_11 db &quot;--------------------------------------------&quot;,0Ah,00h</span><br><span class="line"></span><br><span class="line">sz_info1        db &quot;In [&quot;,00H</span><br><span class="line">sz_info2        db &quot;Out[&quot;,00H</span><br><span class="line">sz_format1      db &quot;%s%d]: &quot;,00H</span><br><span class="line">sz_format2      db &quot;%s&quot;,0AH,0AH,00H</span><br><span class="line">sz_Pause        db &quot;pause&quot;,00h</span><br><span class="line">sz_Cls          db &quot;cls&quot;,00h</span><br><span class="line">sz_goodbye      db &quot;good byte...&quot;,00h</span><br><span class="line">sz_inputwrong   db &quot;input wrong&quot;,00H</span><br><span class="line">sz_Hex          db &quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXZ&quot;,00H</span><br><span class="line">sz_input db 128 dup(0)</span><br><span class="line">h_Output dd 0</span><br><span class="line">cnt_step dd 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.code</span><br><span class="line">f_inputWrong proc</span><br><span class="line">    invoke crt_memset,offset sz_input,0,128</span><br><span class="line">    invoke crt_strcpy,offset sz_input,offset sz_inputwrong</span><br><span class="line">    ret</span><br><span class="line">f_inputWrong endp</span><br><span class="line"></span><br><span class="line">small_check proc uses esi ebx ecx,lp_cur:DWORD</span><br><span class="line"></span><br><span class="line">    LOCAL @bool_check1:DWORD</span><br><span class="line">    LOCAL @bool_check2:DWORD</span><br><span class="line">    LOCAL @bool_check3:DWORD</span><br><span class="line"></span><br><span class="line">    mov @bool_check1,0</span><br><span class="line">    mov @bool_check2,0</span><br><span class="line">    mov @bool_check3,0</span><br><span class="line"></span><br><span class="line">    mov esi,lp_cur</span><br><span class="line">    movzx eax,byte ptr [esi]</span><br><span class="line">    mov ebx,eax</span><br><span class="line"></span><br><span class="line">    mov eax,ebx</span><br><span class="line">    sub eax,030H</span><br><span class="line">    .if  eax &gt;=0</span><br><span class="line">        .if eax&lt;10</span><br><span class="line">            mov @bool_check1,1</span><br><span class="line">        .endif</span><br><span class="line">    .endif    </span><br><span class="line"></span><br><span class="line">    mov eax,ebx</span><br><span class="line">    sub eax,041H</span><br><span class="line">    .if  eax  &gt;=0</span><br><span class="line">        .if eax &lt;6</span><br><span class="line">            mov @bool_check2,1</span><br><span class="line">        .endif</span><br><span class="line">     .endif  </span><br><span class="line">     mov eax,ebx</span><br><span class="line">     sub eax,061H</span><br><span class="line">    .if  eax &gt;=0</span><br><span class="line">        .if eax &lt;6</span><br><span class="line">            mov @bool_check3,1</span><br><span class="line">        .endif</span><br><span class="line">    .endif</span><br><span class="line">    mov eax,@bool_check1</span><br><span class="line">    shl eax,2</span><br><span class="line">    mov ebx,@bool_check2</span><br><span class="line">    shl ebx,1</span><br><span class="line">    mov ecx,@bool_check3</span><br><span class="line">    or eax,ebx</span><br><span class="line">    or eax,ecx </span><br><span class="line">    ret</span><br><span class="line">small_check endp</span><br><span class="line"></span><br><span class="line">numToDec proc in_sz_param:DWORD , in_dw_base:DWORD , out_dw_Param:DWORD</span><br><span class="line">    LOCAL @sz_tmp[128]:BYTE</span><br><span class="line"></span><br><span class="line">    lea eax,@sz_tmp</span><br><span class="line">    invoke crt_memset,eax,0,128;memset(sz_tmp, 0, 128);</span><br><span class="line">    mov ebx,out_dw_Param</span><br><span class="line">    mov dword ptr [ebx],0 ; *out_dw_Param = 0;</span><br><span class="line">    </span><br><span class="line">    mov esi,in_sz_param</span><br><span class="line">    mov ecx,0</span><br><span class="line">    .while byte ptr [esi+ecx]!=0</span><br><span class="line">        mov ebx,esi </span><br><span class="line">        add ebx,ecx </span><br><span class="line">        invoke small_check,ebx </span><br><span class="line">        mov ebx,eax</span><br><span class="line"></span><br><span class="line">        mov eax,ebx</span><br><span class="line">        and eax,4 </span><br><span class="line">        .if eax !=0 ;数字</span><br><span class="line">            movzx eax,byte ptr [esi+ecx] </span><br><span class="line">            sub eax,030H</span><br><span class="line">            mov byte ptr [esi+ecx],al</span><br><span class="line">            jmp L4</span><br><span class="line">        .endif</span><br><span class="line"></span><br><span class="line">        mov eax,ebx</span><br><span class="line">        and eax,2</span><br><span class="line">        .if eax !=0 ;大字母</span><br><span class="line">            movzx eax,byte ptr [esi+ecx] </span><br><span class="line">            sub eax,037H</span><br><span class="line">            mov byte ptr [esi+ecx],al</span><br><span class="line">            jmp L4</span><br><span class="line">        .endif</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">        mov eax,ebx</span><br><span class="line">        and eax,1</span><br><span class="line">        .if eax !=0 ;小写字谜</span><br><span class="line">            movzx eax,byte ptr [esi+ecx] </span><br><span class="line">            sub eax,057H</span><br><span class="line">            mov byte ptr [esi+ecx],al</span><br><span class="line">            jmp L4</span><br><span class="line">        .endif</span><br><span class="line">   </span><br><span class="line">   L4:</span><br><span class="line">        mov ebx,in_dw_base</span><br><span class="line">        .if eax&gt;=ebx</span><br><span class="line">            invoke f_inputWrong</span><br><span class="line">            ret </span><br><span class="line">        .endif</span><br><span class="line">        inc ecx</span><br><span class="line">    .endw</span><br><span class="line"></span><br><span class="line">    xor eax,eax</span><br><span class="line">    xor edx,edx</span><br><span class="line">    .while eax&lt;ecx</span><br><span class="line">        movzx ebx,byte ptr [esi+eax]</span><br><span class="line">        push eax</span><br><span class="line">        xor eax,eax</span><br><span class="line">        mov eax,edx</span><br><span class="line">        add eax,ebx</span><br><span class="line">        mov ebx,in_dw_base</span><br><span class="line">        mul ebx</span><br><span class="line">        mov edx,eax</span><br><span class="line">        pop eax </span><br><span class="line">        inc eax </span><br><span class="line">    .endw</span><br><span class="line">    mov eax,edx </span><br><span class="line">    xor edx,edx </span><br><span class="line">    div in_dw_base</span><br><span class="line">    mov ebx,out_dw_Param</span><br><span class="line">    mov dword ptr [ebx],eax </span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">numToDec endp</span><br><span class="line">;ExitProcess PROTO, dwExitCode:DWORD    </span><br><span class="line"></span><br><span class="line">DecToNum proc in_sz_param:DWORD, dw_src_base:DWORD,dw_dst_base:DWORD</span><br><span class="line"></span><br><span class="line">    LOCAL @sz_tmp[128]:BYTE</span><br><span class="line">    LOCAL @dw_tmp:DWORD</span><br><span class="line">    lea eax,@sz_tmp</span><br><span class="line">    invoke crt_memset, eax,0,128 ; memset(sz_tmp, 0, 128);</span><br><span class="line">    lea eax,@dw_tmp</span><br><span class="line">    invoke numToDec , in_sz_param,dw_src_base, eax ;numToDec(in_sz_param, dw_src_base, &amp;dw_tmp);//把第一个东西转化为10进制</span><br><span class="line">    .if @dw_tmp==0</span><br><span class="line">        ret</span><br><span class="line">    .endif</span><br><span class="line">    xor ecx,ecx </span><br><span class="line">    mov edx,@dw_tmp</span><br><span class="line">    mov esi,offset sz_Hex</span><br><span class="line">    lea edi ,@sz_tmp</span><br><span class="line">    .while edx!=0</span><br><span class="line">        mov eax,edx</span><br><span class="line">        push edx</span><br><span class="line">        xor edx,edx</span><br><span class="line">        mov ebx,dw_dst_base </span><br><span class="line">        div ebx ;eax..edx</span><br><span class="line">        mov bl,byte ptr [esi+edx]</span><br><span class="line">        mov byte ptr [edi+ecx],bl</span><br><span class="line">        pop edx</span><br><span class="line">        mov edx,eax</span><br><span class="line">        inc ecx </span><br><span class="line">    .endw</span><br><span class="line">    push ecx</span><br><span class="line">    invoke crt_memset,offset sz_input ,0,128 ;memset(input, 0, 128);</span><br><span class="line">    pop ecx</span><br><span class="line">    lea esi ,@sz_tmp</span><br><span class="line">    mov edi ,offset sz_input</span><br><span class="line">    mov eax,0</span><br><span class="line">    .while eax&lt;ecx </span><br><span class="line">        mov ebx,ecx</span><br><span class="line">        dec ebx</span><br><span class="line">        sub ebx,eax</span><br><span class="line">        mov dl,byte ptr [esi+ebx] </span><br><span class="line">        mov ebx,eax</span><br><span class="line">        mov byte ptr [edi+eax],dl</span><br><span class="line">        inc eax</span><br><span class="line">    .endw</span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">DecToNum endp</span><br><span class="line"></span><br><span class="line">weclome proc</span><br><span class="line"></span><br><span class="line">    invoke SetConsoleTextAttribute ,h_Output , 0DH</span><br><span class="line"></span><br><span class="line">    invoke crt_printf , offset sz_1</span><br><span class="line">    invoke crt_printf , offset sz_2</span><br><span class="line">    invoke crt_printf , offset sz_3</span><br><span class="line">    invoke crt_printf , offset sz_4</span><br><span class="line">    invoke crt_printf , offset sz_5</span><br><span class="line">    invoke crt_printf , offset sz_6</span><br><span class="line">    invoke crt_printf , offset sz_7</span><br><span class="line">    invoke crt_printf , offset sz_8</span><br><span class="line">    invoke crt_printf , offset sz_9</span><br><span class="line">    invoke crt_printf , offset sz_10</span><br><span class="line">    invoke crt_printf , offset sz_11</span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">weclome endp</span><br><span class="line"></span><br><span class="line">f_Out proc</span><br><span class="line">    mov esi,offset sz_input</span><br><span class="line">    mov edi ,offset cnt_step</span><br><span class="line">    .if byte ptr [esi] != 00H</span><br><span class="line">        invoke SetConsoleTextAttribute,h_Output,0AH ;SetConsoleTextAttribute(h_Output, 0xA);</span><br><span class="line">        invoke crt_printf , offset sz_format1 , offset sz_info2, cnt_step ;printf(&quot;%s%d]: &quot;, sz_info2, cnt_step);</span><br><span class="line">        ;cnt_step++;</span><br><span class="line">        mov eax , dword ptr [edi]</span><br><span class="line">        inc eax</span><br><span class="line">        mov dword ptr [edi],eax</span><br><span class="line">        invoke SetConsoleTextAttribute,h_Output,0FH ;SetConsoleTextAttribute(h_Output, 0xF);</span><br><span class="line">        invoke crt_printf , offset sz_format2,offset sz_input ;printf(&quot;%s\n\n&quot;, input);</span><br><span class="line">    .endif</span><br><span class="line">    ret</span><br><span class="line">f_Out endp</span><br><span class="line"></span><br><span class="line">f_In proc</span><br><span class="line">    LOCAL @cnt:dword</span><br><span class="line"></span><br><span class="line">    LOCAL @num:dword</span><br><span class="line">    LOCAL @src_base:dword</span><br><span class="line">    LOCAL @dst_base:dword</span><br><span class="line"></span><br><span class="line">    LOCAL @lp_src_base:dword</span><br><span class="line">    LOCAL @lp_dst_base:dword</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    invoke SetConsoleTextAttribute ,h_Output , 0AH ;SetConsoleTextAttribute(h_Output, 0xA);</span><br><span class="line">    invoke crt_printf , offset sz_format1, offset sz_info1, cnt_step ;printf(&quot;%s%d]: &quot;, sz_info1, cnt_step);</span><br><span class="line">    invoke SetConsoleTextAttribute ,h_Output , 0FH ;SetConsoleTextAttribute(h_Output, 0xF);</span><br><span class="line">    invoke crt_gets ,offset sz_input ;  fgets(input, 128, stdin);</span><br><span class="line"></span><br><span class="line">    mov esi,offset sz_input</span><br><span class="line">    .if  byte ptr [esi] == 071H ; q</span><br><span class="line">        invoke crt_memset,offset sz_input,0,128 ;memset(input, 0, 128);</span><br><span class="line">        invoke crt_strcpy ,offset sz_input ,offset sz_goodbye;strcpy(input, &quot;good bye...&quot;);</span><br><span class="line">        invoke f_Out;f_Out();</span><br><span class="line">        invoke SetConsoleTextAttribute ,h_Output , 0FH ;SetConsoleTextAttribute(h_Output, 0xF);</span><br><span class="line">        invoke crt_exit,0;exit(0);</span><br><span class="line">    .endif</span><br><span class="line"></span><br><span class="line">    .if  byte ptr [esi] == 063H ; c</span><br><span class="line">        invoke crt_system ,offset sz_Cls;system(&quot;cls&quot;);</span><br><span class="line">        invoke crt_memset ,offset sz_input,0,128 ;memset(input, 0, 128);</span><br><span class="line">        invoke weclome;weclome();</span><br><span class="line">        ret</span><br><span class="line">    .endif</span><br><span class="line"></span><br><span class="line">    mov @cnt,1 ;mov     dword ptr [ebp-4], 1</span><br><span class="line">    mov ecx,0  </span><br><span class="line">    .while ecx&lt;128</span><br><span class="line">        mov ebx,esi </span><br><span class="line">        add ebx,ecx </span><br><span class="line"></span><br><span class="line">        invoke small_check,ebx</span><br><span class="line">        push eax</span><br><span class="line">        inc ebx</span><br><span class="line">        invoke small_check,ebx</span><br><span class="line">        push eax</span><br><span class="line"></span><br><span class="line">        mov ebx,esi </span><br><span class="line">        add ebx,ecx </span><br><span class="line">        inc ebx</span><br><span class="line"></span><br><span class="line">        mov eax,dword ptr [esp+4]</span><br><span class="line">        .if eax!=0</span><br><span class="line">            mov eax,dword ptr [esp]</span><br><span class="line">            .if eax==0</span><br><span class="line">                mov byte ptr [ebx],0 </span><br><span class="line">                .if @cnt==3</span><br><span class="line">                    .break</span><br><span class="line">                .endif</span><br><span class="line">            .endif</span><br><span class="line">        .endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mov eax,dword ptr [esp+4]</span><br><span class="line">        .if eax==0</span><br><span class="line">            mov eax,dword ptr [esp]</span><br><span class="line">            .if eax!=0</span><br><span class="line">                .if @cnt==1</span><br><span class="line">                    mov @lp_src_base,ebx</span><br><span class="line">                    mov ebx,@cnt </span><br><span class="line">                    inc ebx</span><br><span class="line">                    mov @cnt,ebx</span><br><span class="line">                    jmp L3</span><br><span class="line">                .endif</span><br><span class="line"></span><br><span class="line">                .if @cnt==2</span><br><span class="line">                    mov @lp_dst_base,ebx</span><br><span class="line">                    mov ebx,@cnt </span><br><span class="line">                    inc ebx</span><br><span class="line">                    mov @cnt,ebx</span><br><span class="line">                    jmp L3</span><br><span class="line">                .endif</span><br><span class="line">            .endif</span><br><span class="line">        .endif</span><br><span class="line">L3:</span><br><span class="line">        add esp,8</span><br><span class="line">        inc ecx</span><br><span class="line">    .endw</span><br><span class="line"></span><br><span class="line">    mov eax,0</span><br><span class="line">    .if @lp_dst_base ==0</span><br><span class="line">        jmp L1</span><br><span class="line">    .endif</span><br><span class="line">    .if @lp_src_base ==0</span><br><span class="line">        jmp L1 </span><br><span class="line">    .endif</span><br><span class="line">    jmp L2</span><br><span class="line">L1:</span><br><span class="line">    mov eax,1</span><br><span class="line">L2:</span><br><span class="line">    .if eax==1</span><br><span class="line">        invoke f_inputWrong</span><br><span class="line">        ret</span><br><span class="line">    .endif</span><br><span class="line">    lea eax,@src_base</span><br><span class="line">    invoke numToDec ,@lp_src_base,10,eax;numToDec(lp_src_base, 10,&amp;src_base);</span><br><span class="line">    lea eax,@dst_base</span><br><span class="line">    invoke numToDec ,@lp_dst_base,10,eax;numToDec(lp_dst_base, 10,&amp;dst_base);</span><br><span class="line"></span><br><span class="line">    ;下面操作不是&amp;</span><br><span class="line">    .if @src_base &gt; 1</span><br><span class="line">        .if @src_base &lt;35</span><br><span class="line">            .if @dst_base &gt;1</span><br><span class="line">                .if @dst_base &lt;35</span><br><span class="line">                    invoke DecToNum , offset sz_input,@src_base,@dst_base</span><br><span class="line">                .endif</span><br><span class="line">            .endif</span><br><span class="line">        .endif</span><br><span class="line">    .else</span><br><span class="line">        invoke f_inputWrong</span><br><span class="line">    .endif</span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">f_In endp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Ymain proc</span><br><span class="line">    invoke  GetStdHandle ,STD_OUTPUT_HANDLE</span><br><span class="line">    mov h_Output,eax</span><br><span class="line">    invoke  weclome</span><br><span class="line">    .while 1</span><br><span class="line">        invoke f_In</span><br><span class="line">        invoke f_Out</span><br><span class="line">    .endw</span><br><span class="line">    ret</span><br><span class="line">Ymain endp</span><br><span class="line"></span><br><span class="line">START:</span><br><span class="line">    invoke Ymain </span><br><span class="line">    ret</span><br><span class="line">end START</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
   </entry>
   <entry>
     <title>x86汇编语言实践部分</title>

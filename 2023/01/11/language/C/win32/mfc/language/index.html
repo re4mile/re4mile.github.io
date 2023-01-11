@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="mask-icon" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png" color="#222">
+
+<link rel="stylesheet" href="/re4mile/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gitee.com","root":"/re4mile/","images":"/re4mile/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":10},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/re4mile/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/re4mile/js/config.js"></script>
+
+    <meta name="description" content="导入关于模块的概念 不是说一个exe就是u一个模块 好比一辆汽车，发动机可以跑，空调可以吹 此刻发动机，空调就是2个模块，然后构成了一个汽车 汽车就是 由很多的模块构成 handle 一般是编号,因为和内核相关,HWND也是编号 hinstance和hmodule一般是内存地址 一个编译流程 消息队列消息  初始化的一个过程 CreateWindwos发出一个消息,进入消息队列 然后消息循环抓取到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="win32入门篇-1">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/mfc/language/index.html">
+<meta property="og:site_name" content="实践是检验真理的唯一标准">
+<meta property="og:description" content="导入关于模块的概念 不是说一个exe就是u一个模块 好比一辆汽车，发动机可以跑，空调可以吹 此刻发动机，空调就是2个模块，然后构成了一个汽车 汽车就是 由很多的模块构成 handle 一般是编号,因为和内核相关,HWND也是编号 hinstance和hmodule一般是内存地址 一个编译流程 消息队列消息  初始化的一个过程 CreateWindwos发出一个消息,进入消息队列 然后消息循环抓取到">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20221019085719714.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20221019090304274.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20221023204517435.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20221023211346105.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6948b7d079224260ac89fc1ea2e08157.png">
+<meta property="article:published_time" content="2023-01-11T14:41:23.021Z">
+<meta property="article:modified_time" content="2023-01-11T13:00:56.410Z">
+<meta property="article:author" content="re4mile(邓渠香)">
+<meta property="article:tag" content="Win32">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://re4mile.gitee.io/res/photo/language/image-20221019085719714.png">
+
+
+<link rel="canonical" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/mfc/language/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/mfc/language/","path":"2023/01/11/language/C/win32/mfc/language/","title":"win32入门篇-1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>win32入门篇-1 | 实践是检验真理的唯一标准</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/re4mile/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/re4mile/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">实践是检验真理的唯一标准</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好记性不如烂笔头</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/re4mile/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/re4mile/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/re4mile/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/re4mile/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">导入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">一个编译流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.2.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E4%B8%80%E4%B8%AA%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">初始化的一个过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">一般的流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E6%97%B6%E9%97%B4%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">空闲时间的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%AA%97%E5%8F%A3%E7%9A%84%E5%BB%BA%E7%AB%8B%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">一个窗口的建立过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E7%AA%97%E5%8F%A3%E7%B1%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">注册窗口类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%AA%97%E5%8F%A3%E7%B1%BB%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3"><span class="nav-number">1.6.2.</span> <span class="nav-text">基于窗口类创建窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.6.3.</span> <span class="nav-text">消息循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97-1"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">消息循环的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GetMessage-%E6%8A%93"><span class="nav-number">1.6.3.2.1.</span> <span class="nav-text">GetMessage 抓</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TranslateMessage-%E7%BF%BB%E8%AF%91"><span class="nav-number">1.6.3.2.2.</span> <span class="nav-text">TranslateMessage 翻译</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DispatchMessage-%E8%B0%83%E9%81%A3"><span class="nav-number">1.6.3.2.3.</span> <span class="nav-text">DispatchMessage() 调遣</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PeekMessag-%E4%BE%A6%E5%AF%9F"><span class="nav-number">1.6.3.2.4.</span> <span class="nav-text">PeekMessag 侦察</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E6%B4%BE%E5%8F%91"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">消息派发</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MsgID"><span class="nav-number">2.</span> <span class="nav-text">MsgID</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID"><span class="nav-number">2.1.</span> <span class="nav-text">ID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">窗口消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%88%9B%E5%BB%BA"><span class="nav-number">2.2.1.</span> <span class="nav-text">窗口创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E6%91%A7%E6%AF%81%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.2.</span> <span class="nav-text">窗口摧毁消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E8%BF%9B%E7%A8%8B%E7%BB%93%E6%9D%9F%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.3.</span> <span class="nav-text">窗口进程结束消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E6%B6%88%E6%81%AF"><span class="nav-number">2.3.</span> <span class="nav-text">键盘消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BC%A0%E6%A0%87%E6%B6%88%E6%81%AF"><span class="nav-number">2.4.</span> <span class="nav-text">鼠标消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%BC%A0%E6%A0%87%E6%B6%88%E6%81%AF"><span class="nav-number">2.4.1.</span> <span class="nav-text">基本鼠标消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%87%BB%E6%B6%88%E6%81%AF"><span class="nav-number">2.4.2.</span> <span class="nav-text">双击消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%9A%E8%BD%AE%E6%B6%88%E6%81%AF"><span class="nav-number">2.4.3.</span> <span class="nav-text">滚轮消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E6%A0%8F%E5%8F%91%E7%94%9F%E7%9A%84%E6%B6%88%E6%81%AF"><span class="nav-number">2.4.4.</span> <span class="nav-text">鼠标点击系统菜单栏发生的消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E6%B6%88%E6%81%AF"><span class="nav-number">2.5.</span> <span class="nav-text">定时器消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E7%BB%98%E5%88%B6%E6%B6%88%E6%81%AF"><span class="nav-number">2.6.</span> <span class="nav-text">窗口绘制消息</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="re4mile(邓渠香)"
+      src="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+  <p class="site-author-name" itemprop="name">re4mile(邓渠香)</p>
+  <div class="site-description" itemprop="description">an ordinary people</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/re4mile/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/re4mile/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/re4mile/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://re4mile.gitee.io/" title="Gitee → https:&#x2F;&#x2F;re4mile.gitee.io" rel="noopener me" target="_blank"><i class="fa fa-subway fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/re4mile/" title="cnblog → https:&#x2F;&#x2F;www.cnblogs.com&#x2F;re4mile&#x2F;" rel="noopener me" target="_blank"><i class="fa fa-space-shuttle fa-fw"></i>cnblog</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/mfc/language/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+      <meta itemprop="name" content="re4mile(邓渠香)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="实践是检验真理的唯一标准">
+      <meta itemprop="description" content="an ordinary people">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="win32入门篇-1 | 实践是检验真理的唯一标准">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          win32入门篇-1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-11 22:41:23 / 修改时间：21:00:56" itemprop="dateCreated datePublished" datetime="2023-01-11T22:41:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/re4mile/categories/Language/" itemprop="url" rel="index"><span itemprop="name">Language</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>关于模块的概念</p>
+<p>不是说一个exe就是u一个模块</p>
+<p>好比一辆汽车，发动机可以跑，空调可以吹</p>
+<p>此刻发动机，空调就是2个模块，然后构成了一个汽车</p>
+<p>汽车就是 由很多的模块构成</p>
+<p>handle 一般是编号,因为和内核相关,HWND也是编号</p>
+<p>hinstance和hmodule一般是内存地址</p>
+<h2 id="一个编译流程"><a href="#一个编译流程" class="headerlink" title="一个编译流程"></a>一个编译流程</h2><p><img src="https://re4mile.gitee.io/res/photo/language/image-20221019085719714.png" alt="image-20221019085719714"></p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>消息</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20221019090304274.png" alt="image-20221019090304274"></p>
+<h2 id="初始化的一个过程"><a href="#初始化的一个过程" class="headerlink" title="初始化的一个过程"></a>初始化的一个过程</h2><p><img src="https://re4mile.gitee.io/res/photo/language/image-20221023204517435.png" alt="image-20221023204517435"></p>
+<p>CreateWindwos发出一个消息,进入消息队列</p>
+<p>然后消息循环抓取到消息,做一些处理的函数</p>
+<p>当窗口发出WO_CLOSE消息,会触发DestroyWindow()</p>
+<p>然后会触发WM_DESTROY,才会触发摧毁</p>
+<p>关于一般的流程</p>
+<h2 id="一般的流程"><a href="#一般的流程" class="headerlink" title="一般的流程"></a>一般的流程</h2><p>程序初始化过程中调用CreateWindow，为程序建立了一个窗口，做为程序的屏幕舞台。</p>
+<p>1	 CreateWindow 产生窗口之后会送出WM_CREATE直接给窗口函数</p>
+<p>​	  后者于是可以在此时机做些初始化动作（例如配置内存、开文件、读初始数据…）。</p>
+<p>2	 程序活着的过程中，不断以GetMessage从消息贮列中抓取消息。</p>
+<p>​	  如果这个消息是WM_QUIT，GetMessage 会传回0而结束while循环，进而结束Mian整个程序。</p>
+<p>3	 DispatchMessage 通过Windows USER 模块的协助与监督，把消息分派至窗口函数。消息将在该处被判别并处理。</p>
+<p>4 	程序不断进行2.和3.的动作。消息循环</p>
+<p>点击关闭, 发出系统SYS送出WM_CLOSE,一般 DefWindowProc处理这个消息,然后DefWindowProc处理调用DestroyWindow 把窗口清除</p>
+<p>DestroyWindow 本身又会送出WM_DESTROY。消息循环对WM_DESTROY的标准反应是调用PostQuitMessage</p>
+<p>PostQuitMessage  本身又会送出WM_QUIT,消息循环中的GetMessage 取得，结束消息循环。</p>
+<h2 id="空闲时间的处理"><a href="#空闲时间的处理" class="headerlink" title="空闲时间的处理"></a>空闲时间的处理</h2><p><img src="https://re4mile.gitee.io/res/photo/language/image-20221023211346105.png" alt="image-20221023211346105"></p>
+<h2 id="一个窗口的建立过程"><a href="#一个窗口的建立过程" class="headerlink" title="一个窗口的建立过程"></a>一个窗口的建立过程</h2><h3 id="注册窗口类"><a href="#注册窗口类" class="headerlink" title="注册窗口类"></a>注册窗口类</h3><p>也就是一个窗口的身份注册</p>
+<p>RegisterClass(&amp;wc)只注册了窗口基本的信息</p>
+<p>很多的窗口可以拿着相同的WndClass去DIY属于自己的窗口</p>
+<p>DIY的过程就是进一步完善自己窗口信息的过程,类似于一个继承的行为,然后重新或者增加</p>
+<p>窗口类就是一个结构体</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef struct tagWNDCLASSW &#123;</span><br><span class="line">    UINT        style    ;            // 类风格</span><br><span class="line">    WNDPROC     lpfnWndProc;           // 窗口的处理过程</span><br><span class="line">    int         cbClsExtra;            // 指定紧随在 WNDCLASS 数据结构后分配的字节数</span><br><span class="line">    int         cbWndExtra;            // 指定紧随在窗口实例之后分配的字节数            </span><br><span class="line">    HINSTANCE   hInstance;             // 窗口类所在模块的实例句柄</span><br><span class="line">    HICON       hIcon;                 // 窗口类的图标</span><br><span class="line">    HCURSOR     hCursor;               // 窗口类的光标</span><br><span class="line">    HBRUSH      hbrBackground;         // 窗口类的背景画刷</span><br><span class="line">    LPCWSTR     lpszMenuName;          // 窗口类的菜单资源名</span><br><span class="line">    LPCWSTR     lpszClassName;         // 窗口类的名称</span><br><span class="line">&#125; WNDCLASSW</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">WNDCLASS wc = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">wc.cbClsExtra = <span class="number">0</span>;</span><br><span class="line">wc.cbWndExtra = <span class="number">0</span>;</span><br><span class="line">wc.hbrBackground = (HBRUSH)(COLOR_WINDOW );<span class="comment">//背景色</span></span><br><span class="line">wc.hCursor = <span class="literal">NULL</span>;<span class="comment">//默认光标,</span></span><br><span class="line">wc.hIcon = <span class="literal">NULL</span>;<span class="comment">//默认图标</span></span><br><span class="line">wc.hInstance = hInstance; <span class="comment">//ImageABse</span></span><br><span class="line">wc.lpfnWndProc = WndProc_DIY;<span class="comment">//窗口处理函数,请引起注意,</span></span><br><span class="line">wc.lpszClassName = <span class="string">&quot;Dqx-x9d&quot;</span>;<span class="comment">//窗口类的名字,也就是模板窗口的名字</span></span><br><span class="line">wc.lpszMenuName = <span class="literal">NULL</span>;<span class="comment">//没有菜单</span></span><br><span class="line">wc.style = CS_HREDRAW | CS_VREDRAW;<span class="comment">//窗口的属性风格</span></span><br><span class="line"></span><br><span class="line">RegisterClass(&amp;wc);<span class="comment">//直接把窗口结构体的地址给他,这个函数就把窗口类的信息写入内核</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>系统窗口类</p>
+<p>系统已经定义好的窗口类,无需注册</p>
+<p>所有应用程序都可以直接使用。</p>
+<p>类似的系统窗口有很多</p>
+<p>包括：BUTTON（按钮），EDIT（文本框），LISTBOX（列表），MDICLIENT（子窗口），SCROLLBAR（滚动条），RICHEDIT（富文本），STATIC（静态控件）；</p>
+<h3 id="基于窗口类创建窗口"><a href="#基于窗口类创建窗口" class="headerlink" title="基于窗口类创建窗口"></a>基于窗口类创建窗口</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">HWND <span class="title function_">CreateWindowEx</span></span><br><span class="line"><span class="params">(</span></span><br><span class="line"><span class="params">        DWORD    dwExStyle,    <span class="comment">//窗口的扩展风格</span></span></span><br><span class="line"><span class="params">      LPCTSTR    lpClassName,  <span class="comment">//已经注册的窗口类名称 wc.lpszClassName</span></span></span><br><span class="line"><span class="params">      LPCTSTR    lpWindowName, <span class="comment">//窗口标题栏的名字</span></span></span><br><span class="line"><span class="params">        DWORD    dwStyle,    <span class="comment">//窗口的基本风格</span></span></span><br><span class="line"><span class="params">          <span class="type">int</span>    x,          <span class="comment">//窗口左上角水平坐标位置</span></span></span><br><span class="line"><span class="params">          <span class="type">int</span>    y,          <span class="comment">//窗口左上角垂直坐标位置</span></span></span><br><span class="line"><span class="params">          <span class="type">int</span>    nWidth,     <span class="comment">//窗口的宽度</span></span></span><br><span class="line"><span class="params">          <span class="type">int</span>    nHeight,    <span class="comment">//窗口的高度</span></span></span><br><span class="line"><span class="params">         HWND    hWndParent, <span class="comment">//窗口的父窗口句柄,针对与子窗口,父窗口的话,这里就是NULL</span></span></span><br><span class="line"><span class="params">        HMENU    hMenu,      <span class="comment">//窗口菜单句柄</span></span></span><br><span class="line"><span class="params">    HINSTANCE    hInstance,  <span class="comment">//应用程序实例句柄</span></span></span><br><span class="line"><span class="params">       LPVOID    lpParam     <span class="comment">//窗口创建时附加参数   </span></span></span><br><span class="line"><span class="params">)</span>; <span class="comment">//创建成功返回窗口句柄</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dw_Append_Wind_Style = WS_OVERLAPPEDWINDOW;</span><br><span class="line">Hwnd01 = CreateWindowEx(</span><br><span class="line">       <span class="literal">NULL</span>, wc.lpszClassName, </span><br><span class="line">       <span class="string">&quot;MY_Title&quot;</span>, dw_Append_Wind_Style, </span><br><span class="line">       <span class="number">200</span>, <span class="number">200</span>, <span class="number">1000</span>, <span class="number">1000</span>,</span><br><span class="line">       <span class="literal">NULL</span>,<span class="literal">NULL</span>, hInstance, str</span><br><span class="line">   );</span><br></pre></td></tr></table></figure>
+
+
+
+<p>创建的原理</p>
+<p> 拿着RegisterClass的信息,去根据那个信息注册窗口</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CreateWindwos</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">bool</span> ok=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)<span class="comment">//3是局部窗口,全局窗口,系统窗口,一共3个</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;局部窗口个数;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ok=<span class="built_in">strcmp</span>( lpClassName,局部窗口[j].name);</span><br><span class="line">            <span class="keyword">if</span>(ok==<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span>(实例句柄==局部窗口[j].实例句柄)</span><br><span class="line">                &#123;</span><br><span class="line">                    申请一块内存,把之前<span class="keyword">register</span>注册的一些信息和createwindow传入的信息写入内存</span><br><span class="line">                    <span class="keyword">return</span> 内存的句柄;<span class="comment">//于是他就是窗口句柄</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">continue</span>;<span class="comment">//继续遍历</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;全局窗口个数;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ok=<span class="built_in">strcmp</span>( lpClassName,全局窗口[j].name);</span><br><span class="line">            <span class="keyword">if</span>(ok==<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                申请一块内存,把之前<span class="keyword">register</span>注册的一些信息和Createwindow传入的信息写入内存</span><br><span class="line">                <span class="keyword">return</span> 内存的句柄;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">continue</span>;<span class="comment">//继续遍历</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;系统窗口个数;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ok=<span class="built_in">strcmp</span>( lpClassName,系统窗口[j].name);</span><br><span class="line">            <span class="keyword">if</span>(ok==<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                申请一块内存,把之前<span class="keyword">register</span>注册的一些信息和Createwindow传入的信息写入内存</span><br><span class="line">                <span class="keyword">return</span> 内存的句柄;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">continue</span>;<span class="comment">//继续遍历</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>dwStyle:指定窗口样式。其值为以下值中的一个或多个：</p>
+<table>
+<thead>
+<tr>
+<th>WS_BORDER</th>
+<th>创建一个有边框的窗口。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WS_CAPTION</td>
+<td>创建一个具有标题栏 （意味着WS_BORDER样式） 的窗口。不能用的WS_DLGFRAME样式。</td>
+</tr>
+<tr>
+<td>★ WS_CHILD</td>
+<td>创建一个子窗口。不能用的WS_POPUP样式。★</td>
+</tr>
+<tr>
+<td>WS_CHILDWINDOW</td>
+<td>与WS_CHILD样式相同。</td>
+</tr>
+<tr>
+<td>WS_CLIPCHILDREN</td>
+<td>不包括在父窗口内绘制时子窗口所占用的区域。当您创建父窗口时使用。</td>
+</tr>
+<tr>
+<td>WS_CLIPSIBLINGS</td>
+<td>剪辑子窗口彼此;也就是说，当一个特定的子窗口接收绘制消息， WS_CLIPSIBLINGS风格剪辑子窗口要更新的区域外的所有其他重叠的子窗口。 （如果没有给WS_CLIPSIBLINGS和子窗口重叠内子窗口的客户区, 绘制时，它是可能内相邻的子窗口的客户区的绘制。与WS_CHILD样式只一起使用。</td>
+</tr>
+<tr>
+<td>WS_DISABLED</td>
+<td>创建一个窗口是最初被禁用。</td>
+</tr>
+<tr>
+<td>WS_DLGFRAME</td>
+<td>创建一个窗口，但是没有头衔的双边框。</td>
+</tr>
+<tr>
+<td>WS_GROUP</td>
+<td>指定一组控件，用户可以从一个控件移向下的箭头键的第一个控件。用虚假的WS_GROUP样式后的第一个控件定义的所有控件都属于同一个组。 WS_GROUP样式的下一控件启动下一个组 （就是下一步的开始位置的一组结束）。</td>
+</tr>
+<tr>
+<td>WS_HSCROLL</td>
+<td>创建一个具有水平滚动条的窗口。</td>
+</tr>
+<tr>
+<td>WS_ICONIC</td>
+<td>创建一个最初最小化的窗口。WS_MINIMIZE样式相同。</td>
+</tr>
+<tr>
+<td>WS_MAXIMIZE</td>
+<td>创建一个窗口的最大大小。</td>
+</tr>
+<tr>
+<td>WS_MAXIMIZEBOX</td>
+<td>创建一个窗口有最大化按钮。</td>
+</tr>
+<tr>
+<td>WS_MINIMIZE</td>
+<td>创建一个最初最小化的窗口。与仅WS_OVERLAPPED样式一起使用。</td>
+</tr>
+<tr>
+<td>WS_MINIMIZEBOX</td>
+<td>创建一个具有最小化按钮的窗口。</td>
+</tr>
+<tr>
+<td>WS_OVERLAPPED</td>
+<td>创建重叠的窗口。重叠的窗口通常具有标题和边框。</td>
+</tr>
+<tr>
+<td>WS_OVERLAPPEDWINDOW</td>
+<td>与WS_OVERLAPPED、 WS_CAPTION、 WS_SYSMENU、 WS_THICKFRAME、 WS_MINIMIZEBOX和WS_MAXIMIZEBOX样式创建重叠的窗口。</td>
+</tr>
+<tr>
+<td>WS_POPUP</td>
+<td>创建一个弹出窗口。不能使用具有WS_CHILD样式。</td>
+</tr>
+<tr>
+<td>WS_POPUPWINDOW</td>
+<td>用WS_BORDER， WS_POPUP和WS_SYSMENU的样式创建一个弹出窗口。WS_CAPTION样式必须结合WS_POPUPWINDOW样式，以使控制菜单上可见。</td>
+</tr>
+<tr>
+<td>WS_SIZEBOX</td>
+<td>创建一个具有大小调整边框的窗口。WS_THICKFRAME样式相同。</td>
+</tr>
+<tr>
+<td>WS_SYSMENU</td>
+<td>创建一个窗口，都有一个控制菜单框在其标题栏中。仅用于带有标题栏的窗口。</td>
+</tr>
+<tr>
+<td>WS_TABSTOP</td>
+<td>指定任意数量的控件，通过它用户可以通过使用 TAB 键移动之一。TAB 键移动用户到指定WS_TABSTOP风格的下一个控件。</td>
+</tr>
+<tr>
+<td>WS_THICKFRAME</td>
+<td>创建一个窗口，用厚厚的框架，可以用来调整窗口的大小。</td>
+</tr>
+<tr>
+<td>WS_TILED</td>
+<td>创建重叠的窗口。重叠的窗口有标题栏和边框。WS_OVERLAPPED样式相同。</td>
+</tr>
+<tr>
+<td>WS_TILEDWINDOW</td>
+<td>用 WS_OVERLAPPED、 WS_CAPTION、 WS_SYSMENU、 WS_THICKFRAME、 WS_MINIMIZEBOX 和 WS_MAXIMIZEBOX 的样式创建重叠的窗口。 与WS_OVERLAPPEDWINDOW 样式相同。</td>
+</tr>
+<tr>
+<td>WS_VISIBLE</td>
+<td>创建的窗体可见</td>
+</tr>
+<tr>
+<td>WS_VSCROLL</td>
+<td>创建一个具有垂直滚动条的窗口.</td>
+</tr>
+</tbody></table>
+<h3 id="消息循环"><a href="#消息循环" class="headerlink" title="消息循环"></a>消息循环</h3><h4 id="消息队列-1"><a href="#消息队列-1" class="headerlink" title="消息队列"></a>消息队列</h4><p><strong>(1)MSG 结构体</strong></p>
+<p>消息组成( windows平台下)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">tagMSG</span> </span><br><span class="line">&#123;</span><br><span class="line">    HWND        hwnd;		<span class="comment">//窗口的句柄,属于哪个窗口发出的消息</span></span><br><span class="line">    UINT        message;	<span class="comment">//窗口发出的是什么类型的消息</span></span><br><span class="line">    WPARAM      wParam; 	<span class="comment">//附加参数x2</span></span><br><span class="line">    LPARAM      lParam; </span><br><span class="line">    DWORD       time;		<span class="comment">//消息产生的时间</span></span><br><span class="line">    POINT       pt;			<span class="comment">//消息产生时,鼠标的位置</span></span><br><span class="line">&#125; MSG;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>1.窗口句柄,也就是hWnd,这个参数由CreateWindow函数返回,说明了这个消息是属于哪个窗口的</p>
+<p>2.消息ID,每个消息都有他的ID编号,这个编号说明了窗口发出的是什么类型的消息</p>
+<p>3&#x2F;4.</p>
+<p>消息的两个参数(两个附带信息),消息产生时,不仅仅是产生单独的消息,还会夹杂一些附带的信息,通过这个2个参数返回</p>
+<p>PS: GetMessage(&amp;msg, NULL, 0, 0)会初始化Msg</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MSG msg = &#123; <span class="number">0</span> &#125;;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">GetMessage</span>(&amp;msg, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">TranslateMessage</span>(&amp;msg);</span><br><span class="line">    <span class="built_in">DispatchMessage</span>(&amp;msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>(2)消息队列</strong></p>
+<p>GetMessage可以从程序的消息队列中获取消息。</p>
+<p>系统消息队列- 由系统维护的消息队列。存放系统产生的消息,例如鼠标、键盘等。<code>会不定时的</code>把一些程序的消息派发到程序的消息队列</p>
+<p>程序消息队列- 属于每一个应用程序(线程)的消息队列。由应用程序(线程)维护。程序消息队列不会直接的抓取消息,而是由系统消息队列转发到程序消息队列</p>
+<p>所有的消息产生都是依靠下面2个函数产生</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">SendMessage</span>()</span><br><span class="line"><span class="built_in">PostMessage</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>消息分为队列消息和非队列消息</p>
+<p>但是队列消息和非队列消息不是消息的本身属性</p>
+<p>你把消息放入队列,他就是队列消息,然后Gestmessage抓取,然后处理</p>
+<p>你不把消息方放入队列,他就是非队列消息,然后就会直接调用对应的消息处理函数,而不会直接接触GetMeesage</p>
+<p>大多数的消息都会被放入消息队列</p>
+<p>● 队列消息-消息发送后，首先放入队列,然后通过消息循环的GetMessage,从队列当中获取。</p>
+<p>​		GetMessage  -从消息队列中获取消息一</p>
+<p>​		PostMessage -将消息投递到消息队列</p>
+<p>​		常见队列消息: WM_PAINT、 键盘、鼠标、定时器。</p>
+<p>● 非队列消息-消息发送时，首先查找消息接收窗口的窗口处理函数, 直接调用处理函数,完成消息。</p>
+<p>​	   SendMessage -直接将消息发送给窗口的处理函数,并等候处理结果。</p>
+<p>​	   常见消息:   WM_CREATE、WM_SIZE等。</p>
+<p>消息产生后首先会进入系统消息队列,而不是本进程的的队列</p>
+<p>系统消息队列根据Msg变量,寻找Hwnd成员,每个窗口的Hwnd成员是独一无二</p>
+<p>根据Hwnd,把产生的消息转发给该进程</p>
+<p>SendMessage既不会把消息给系统队列也不会给本进程的消息队列</p>
+<p>WM_QUIT一定是队列消息,如果GetMessage抓不到它,消息循环就不会退出</p>
+<p>WM_CREATE一定不是队列消息,因为WM_CREAT是在Register之后,Show_Windwo之前,消息循环之前产生的</p>
+<p>所以GetMessage是抓不到他的,因为WM_CREATE产生时,GetMessage还没有出生</p>
+<h4 id="消息循环的函数"><a href="#消息循环的函数" class="headerlink" title="消息循环的函数"></a>消息循环的函数</h4><h5 id="GetMessage-抓"><a href="#GetMessage-抓" class="headerlink" title="GetMessage 抓"></a>GetMessage 抓</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">GetMessage</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="comment">//阻塞函数</span></span></span><br><span class="line"><span class="params">    LPMSG IpMsg, <span class="comment">//存放获取到的消息的结构体</span></span></span><br><span class="line"><span class="params">    HWND hWnd, <span class="comment">//窗口句柄 ,表示抓哪个窗口</span></span></span><br><span class="line"><span class="params">    UINT min_ID,<span class="comment">//获取消息的最小ID编号</span></span></span><br><span class="line"><span class="params">    UINT Max_ID<span class="comment">//获取消息的最大ID编号</span></span></span><br><span class="line"><span class="params">    <span class="comment">//在[min_ID,Max_ID]之间抓取,如果都为0 ,表示没有范围,什么都抓取</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>他会去程序的消息队列,抓取本进程的消息,也不是不可以抓其他的进程(那是黑客编程的事情)</p>
+<p>从程序的消息队列获取消息,将消息从消息队列中移除,</p>
+<p>比如抓取鼠标的消息,抓取键盘的消息,成功地抓取消息后他就会返回,不再阻塞</p>
+<p>当系统无消息时,会一直等候下一条消息,等待的过程中就是一个消息也没有抓取到,相当于一直在睡觉,一直阻塞</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">GerMessge原理</span><br><span class="line"></span><br><span class="line">GerMessge首先去本进程的程序消息队列抓取消息</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(抓取到了)</span><br><span class="line">&#123;</span><br><span class="line">	就执行消息处理函数</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    GetMessage就循询问系统消息队列,那里有没有它的消息</span><br><span class="line">    <span class="keyword">if</span>(有)</span><br><span class="line">    &#123;</span><br><span class="line">        系统消息队列由之前的不定时派发消息到各个进程</span><br><span class="line">		变为了马上就派发各个消息到对应的程序消息队列</span><br><span class="line">		然后执行消息处理函数	</span><br><span class="line">       	<span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        那么getMessage就去查看有没有要重新绘制的窗口</span><br><span class="line">        <span class="keyword">if</span>(有)</span><br><span class="line">        &#123;</span><br><span class="line">            就发出WM_PAINT消息,然后处理</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            自己去寻找有没有要炸的定时器</span><br><span class="line">            <span class="keyword">if</span>(有)</span><br><span class="line">            &#123;</span><br><span class="line">                 就发出消息ID为WM_TIMER,然后处理消息</span><br><span class="line">                 <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                GetMessag就去整理一下程序的资源和内存</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line">开始阻塞,实在无事可做</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="TranslateMessage-翻译"><a href="#TranslateMessage-翻译" class="headerlink" title="TranslateMessage 翻译"></a>TranslateMessage 翻译</h5><p>它只会抓取键盘的可见字符消息</p>
+<p>检查消息是否是按键的消息,如果不是按键消息,不做任何处理。</p>
+<p>TranslateMessage在转换WM_KEYDOWN消息时,对于可见字符可以产生WM_CHAR的消息,对于不可见字符无此消息。</p>
+<p>附带信息:</p>
+<p>WPARAM  -输入的字符的ASCII字符编码值</p>
+<p>LPARAM  -按键的相关参数</p>
+<p>当你按下一个键帽,发出一个KEY_DOWN的消息</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">TranslateMessage</span><span class="params">(msg)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(msg.mseID!=KEYDOWN)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(msg.wParam!=可见字符的虚拟键值)</span><br><span class="line">		reurn;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(大写锁打开了)</span><br><span class="line">		PostMessage(msg.hWnd,WM_CHAR,虚拟按键的可见大写ASCII大写,<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		PostMessage(msg.hWnd,WM_CHAR,虚拟按键的可见小写ASCII大写,<span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当TranslateMessage发送了WM_CAHR到系队消息队列,早晚会被getMessage抓取,然后TranslateMessage接收到消息不是</p>
+<p>WM_KEYDOWN,而是WM_CHAR</p>
+<p>于是就直接返回</p>
+<h5 id="DispatchMessage-调遣"><a href="#DispatchMessage-调遣" class="headerlink" title="DispatchMessage() 调遣"></a>DispatchMessage() 调遣</h5><p>根据消息,调用消息处理函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DispatchMessage(&amp;msg)</span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>他的具体流程是</p>
+<p>msg.Hwnd-&gt;WndProc_deal,根据Msg结构体遍历他的成员,最后寻找消息处理函数</p>
+<p>拿到消息处理函数WidnProc,把Msg的前4个成员作为参数传递给消息处理函数,此刻的4个参数都已经被初始化了</p>
+<p>调用WndProc_deal_DIY(hWnd,MsgID,wParam,lParam)</p>
+<h5 id="PeekMessag-侦察"><a href="#PeekMessag-侦察" class="headerlink" title="PeekMessag 侦察"></a>PeekMessag 侦察</h5><p>PeekMessage -非阻塞,以查看的方式从系统获取消息,可以不将消息从系统移除,</p>
+<p>当系统有消息时,返回true,继续执行后续代码。</p>
+<p>当系统无消息时,返回FALSE,不会阻塞继续执行后续代码。</p>
+<p>这个函数相比较与GetMessage</p>
+<p>它有眼睛去侦察消息,</p>
+<p>有嘴巴去返回消息</p>
+<p>可以用手去移除消息,但是一般没有手,于是主要的功能就是侦察</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">PeekMessage</span></span></span><br><span class="line"><span class="function"><span class="params">(          </span></span></span><br><span class="line"><span class="params"><span class="function">	LPMSG lpMsg,</span></span></span><br><span class="line"><span class="params"><span class="function">    HWND hWnd,</span></span></span><br><span class="line"><span class="params"><span class="function">    UINT wMsgFilterMin, <span class="comment">//first message</span></span></span></span><br><span class="line"><span class="params"><span class="function">    UINT wMsgFilterMax, <span class="comment">//last message</span></span></span></span><br><span class="line"><span class="params"><span class="function">    UINT wRemoveMsg    <span class="comment">//PM_REMOVE 加上手 PM_NOREMOVE 移除</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>主要是去侦察消息,然后返回</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    MSG msg = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (PeekMessage(&amp;msg, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>, PM_NOREMOVE))<span class="comment">//有消息返回非0,无消息就不处理</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (GetMessage(&amp;msg, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                TranslateMessage(&amp;msg);</span><br><span class="line">                DispatchMessage(&amp;msg);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Sleep(<span class="number">100</span>);</span><br><span class="line">            WriteConsole(g_handle, <span class="string">&quot;...&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;...&quot;</span>), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="消息派发"><a href="#消息派发" class="headerlink" title="消息派发"></a>消息派发</h4><p>无论什么消息的发送,都是直接或者间接的调用这2个函数</p>
+<p>SendMessage -发送消息,会等候消息处理的结果。这是一个阻塞函数,发送的消息直接调消息处理函数,而不会进入消息循环</p>
+<p>PostMessage -投递消息,消息发出后立刻返回,不等候消息执行结果。不是一个阻塞函数,发送消息到系统消息队列</p>
+<p>说一下这2个函数的区别</p>
+<p>SendMessage就像是打电话,你拨打一个电话,于是就相当于发出一个消息,然后你就会等待对方接通</p>
+<p>接通完毕后,消息处理,你才会挂断电话,然后返回,不在阻塞</p>
+<p>PostMessage.可以看到Post这个单词,也就是邮递的意思</p>
+<p>这个函数就像是你去邮局寄一封信,然后你把信件扔进邮箱,于是你就马上离开了</p>
+<p>你也不会说等到对方把信收到手了,然后才离开邮局</p>
+<blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LRESULT <span class="title">SendMessage</span><span class="params">(          </span></span></span><br><span class="line"><span class="params"><span class="function">HWND hWnd, <span class="comment">//这个消息是哪个窗口的,我要送到那里去</span></span></span></span><br><span class="line"><span class="params"><span class="function">UINT Msg,  <span class="comment">//这是一个什么样的消息</span></span></span></span><br><span class="line"><span class="params"><span class="function">WPARAM wParam, <span class="comment">//下面是附带的2个参数</span></span></span></span><br><span class="line"><span class="params"><span class="function">LPARAM lParam</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">PostMessage</span><span class="params">(          </span></span></span><br><span class="line"><span class="params"><span class="function">HWND hWnd,</span></span></span><br><span class="line"><span class="params"><span class="function">UINT Msg,</span></span></span><br><span class="line"><span class="params"><span class="function">WPARAM wParam,</span></span></span><br><span class="line"><span class="params"><span class="function">LPARAM lParam</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>我们之前遇到的第一个消息产生的函数</p>
+<p>PostQuitMessage(0),他的内部也是调用的SendMessage或者PostMessage</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        <span class="comment">//PostQuitMessage(0);//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="comment">//SendMessage(hWnd,WM_QUIT,0,0);关闭失败</span></span><br><span class="line">        PostMessage(hWnd,WM_QUIT,<span class="number">0</span>,<span class="number">0</span>);<span class="comment">//可以成功地退出      </span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="MsgID"><a href="#MsgID" class="headerlink" title="MsgID"></a>MsgID</h1><h2 id="ID"><a href="#ID" class="headerlink" title="ID"></a>ID</h2><p>WM_CREATE 			 窗口创建</p>
+<p>WM_DESTROY 			窗口摧毁消息</p>
+<p>WM_ QUIT 			  窗口进程结束消息</p>
+<p>WM_SIZE &#x2F; WM_PAINT 	窗口绘制消息</p>
+<p>WM_KEYDOWN 			-按键被按下时产生消息</p>
+<p>WM_KEYUP 	  		-按键被放开时产生消息</p>
+<p>WM_SYSKEYDOWN   		-系统键按下时产生的消息,比如ALT、F10,他们</p>
+<p>WM_SYSKEYUP     		-系统键放开时产生的消息</p>
+<p>●基本鼠标消息</p>
+<p>WM_LBUTTONDOWN -鼠标左键按下</p>
+<p>WM_LBUTTONUP   -鼠标左键抬起</p>
+<p>WM_RBUTTONDOWN -鼠标右键按下</p>
+<p>WM_RBUTTONUP   -鼠标右键抬起</p>
+<p>WM_MOUSEMOVE   -鼠标移动消息</p>
+<p>●双击消息</p>
+<p>​	WM_ LBUTTONDBLCLK -鼠标左键双击按下</p>
+<p>​	WM_ RBUTTONDBLCLK -鼠标右键双击按下</p>
+<p>●滚轮消息</p>
+<p>​	WM_ MOUSEWHEEL -  鼠标滚轮消息</p>
+<p>●鼠标点击菜单发生的消息</p>
+<p>WM_SYSCOMMAND 		鼠标点击系统菜单栏发生的消息,放大缩小,关闭</p>
+<p>WM_COMMADN    		鼠标点击菜单发生的消息</p>
+<p>WM_TIMER 	 		定时器消息</p>
+<p>WM_INITDIALOG 		对话框创建之后显示之前发出的消息,注意这里的特殊之处 <code>不是产生WM_CREATE</code>,而是WM_INITDIALOG</p>
+<p><strong>系统消息ID &#x2F; 自定义消息ID</strong></p>
+<p>系统消息- ID范围(0 - 0x03FF),一共有0x400个</p>
+<p>由系统定义好的消息,可以在程序中直接使用。</p>
+<p>系统消息只是系统或者人为的发送,消息的处理也是系统来做</p>
+<p>用户自定义消息D范围0x0400 -0x7FFF ()</p>
+<p>由用户自己定义,满足用户自己的需求。需要由用户自己发出消息,并处理消息</p>
+<blockquote>
+<p>自定义消息宏: WM_USER+n</p>
+<p>自定义一个消息<code>#define dqx ( 0x400+10 )</code></p>
+<p>然后选择一个时间点,发送消息</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_SIZE:</span><br><span class="line">        PostMessage(hWnd, dqx, <span class="number">13</span>, <span class="number">14</span>);<span class="comment">//选择了一个消息发送的时间</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:      </span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> dqx:</span><br><span class="line">        Ondqx(hWnd, wParam, lParam);<span class="comment">//写了一个消息处理的函数</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>自己写的一个消息处理函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Ondqx</span><span class="params">(HWND hWnd, WPARAM wParam, LPARAM lParam)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;爱你%d%d&quot;</span>, wParam, lParam);</span><br><span class="line">    <span class="built_in">MessageBox</span>(hWnd, str, <span class="string">&quot;info&quot;</span>, MB_OK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="窗口消息"><a href="#窗口消息" class="headerlink" title="窗口消息"></a>窗口消息</h2><h3 id="窗口创建"><a href="#窗口创建" class="headerlink" title="窗口创建"></a>窗口创建</h3><blockquote>
+<p>WM_CREATE 窗口创建</p>
+</blockquote>
+<p>● 产生时间:    在窗口创建成功但还未显示时。<code>CreateWindow已经创建好了,但是还没有ShowWindwo</code></p>
+<p>● 附带信息:	IParam : 为CREATESTRUCT类型的结构体指针。通过这个指针可以获取CreatWindowEx中的全部12个参数的信息。</p>
+<p>● 般用法:	常用于初始化窗口的参数、资源等等,包括创建子窗口等。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> junk NULL</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dqx ( 0x400+10 )</span></span><br><span class="line">HANDLE g_handle = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">just_for_fun</span><span class="params">(HWND hWnd, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    CREATESTRUCT* ptr1 = (CREATESTRUCT*)lParam;</span><br><span class="line">    <span class="type">char</span>* ptr2 = (<span class="type">char</span>*)(ptr1-&gt;lpCreateParams);</span><br><span class="line">    HWND  father_window = hWnd;</span><br><span class="line">    MessageBox(hWnd, ptr2, <span class="string">&quot;info&quot;</span>, MB_OK);<span class="comment">//我们先弹窗,然后出现一个子窗口,编辑框</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc__DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span>  WM_CREATE:</span><br><span class="line">        just_for_fun(hWnd, lParam);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="窗口摧毁消息"><a href="#窗口摧毁消息" class="headerlink" title="窗口摧毁消息"></a>窗口摧毁消息</h3><blockquote>
+<p> WM_DESTROY 窗口摧毁消息</p>
+</blockquote>
+<p>产生时间:        点击关闭按钮,窗口被销毁时</p>
+<p>●附带信息:		不用它 	   </p>
+<p>●一般用法:		常用于在窗口被销毁之前,做相应的善后处理,例如资源、内存…的处理,也就是要死了,留下的遗言</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LRESULT CALLBACK <span class="title">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID) </span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:<span class="comment">//这个case代表了消息要死了,而要执行的语句就是i留下的遗言</span></span><br><span class="line">        <span class="built_in">PostQuitMessage</span>(<span class="number">0</span>);<span class="comment">//这里就是遗言的具体内容</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">DefWindowProc</span>(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="窗口进程结束消息"><a href="#窗口进程结束消息" class="headerlink" title="窗口进程结束消息"></a>窗口进程结束消息</h3><blockquote>
+<p>WM_ QUIT 窗口进程结束消息</p>
+</blockquote>
+<p>● 产生时间:  程序员有我们发送。也就会程序员自己调用PostQuitMessage()发出WM_QUIT的消息</p>
+<p>● 附带信息:  wParam: PostQuitMessage函数传递的参数。<br>         		   IParam : 0。</p>
+<p>●一般用法:  用于结束消息循环，</p>
+<p>程序死亡前,发送WM_DESTORY</p>
+<p>然后消息处理函数根据WM_DESTORY派遣PostMessage发送WM_QUIT</p>
+<p>最后GetMessage抓取后,返回0,退出消息循环</p>
+<h2 id="键盘消息"><a href="#键盘消息" class="headerlink" title="键盘消息"></a>键盘消息</h2><p>WM_KEYDOWN 	 		-按键被按下时产生消息</p>
+<p>WM_KEYUP 	          -按键被放开时产生消息</p>
+<p>WM_SYSKEYDOWN   		-系统键按下时产生的消息,比如ALT、F10,他们</p>
+<p>WM_SYSKEYUP         	-系统键放开时产生的消息</p>
+<blockquote>
+<p>其它键帽消息</p>
+<p>WM_CHAR 键盘消息</p>
+<p>TranslateMessage接受到可见字符按下时,派遣消息加工厂发送了WM_CAHR</p>
+</blockquote>
+<p>附带信息:<br>    WPARAM -按键的Virtual Key键值 </p>
+<p>​	LPARAM -按键的参数,例如按下次数 </p>
+<p>可以同时按下ctrl+可见字符键,他们也有对应ID</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">up</span><span class="params">(HWND hWnd, WPARAM wParam )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;down:%#x\n&quot;</span>, wParam);</span><br><span class="line">    WriteConsole(g_handle, str, <span class="built_in">strlen</span>(str), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">down</span><span class="params">(HWND hWnd, WPARAM wParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;up:%#x\n&quot;</span>, wParam);</span><br><span class="line">    WriteConsole(g_handle, str, <span class="built_in">strlen</span>(str), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_KEYDOWN:</span><br><span class="line">        down(hWnd, wParam);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_KEYUP:</span><br><span class="line">        up(hWnd, wParam);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>WM_CHAR</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">OnChar</span><span class="params">(HWND hWnd, WPARAM wParam )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;ASCII:%c\n&quot;</span>, wParam);</span><br><span class="line">    WriteConsole(g_handle, str, <span class="built_in">strlen</span>(str), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_CHAR:</span><br><span class="line">        OnChar(hWnd,wParam);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="鼠标消息"><a href="#鼠标消息" class="headerlink" title="鼠标消息"></a>鼠标消息</h2><blockquote>
+<p>WM_SETCURSOR 这个消息的产生就是在你移动鼠标的时候</p>
+<p>WM_SETCURSOR消息参数</p>
+<p>​	wPARAM   -当前使用的光标句柄</p>
+<p>​	IPARAM    -<code>LOWORD</code>当前区域的代码( Hit-Test code )</p>
+<p>​			  	   HTCLIENT &#x2F; HTCAPTION…客户区域,标题栏区域</p>
+<p>​				     HIWORD -当前鼠标消息ID.比如是左键还是右键按下等等,基本上不用</p>
+</blockquote>
+<blockquote>
+<p>WM_COMMAND,鼠标点击菜单发生的消息</p>
+<p>●附带信息:</p>
+<p>wPARAM :</p>
+<p>​	HIWORD -对于菜单为0 &#x2F;&#x2F;无用</p>
+<p>​    LOWORD -菜单项的ID</p>
+<p>IPARAM -对于菜单为0 &#x2F;&#x2F;无用,鼠标点击菜单发生的消息</p>
+</blockquote>
+<h3 id="基本鼠标消息"><a href="#基本鼠标消息" class="headerlink" title="基本鼠标消息"></a>基本鼠标消息</h3><p>●基本鼠标消息</p>
+<p>WM_LBUTTONDOWN -鼠标左键按下</p>
+<p>WM_LBUTTONUP   -鼠标左键抬起</p>
+<p>WM_RBUTTONDOWN -鼠标右键按下</p>
+<p>WM_RBUTTONUP   -鼠标右键抬起</p>
+<p>WM_MOUSEMOVE   -鼠标移动消息</p>
+<p>●基本鼠标消息的附带信息:<br>    wPARAM :其他按键的状态,例如Ctrl&#x2F;Shift, 好比你ctrl c的时候,鼠标在选中一些东西复制</p>
+<p>​	IPARAM :鼠标的位置,窗口客户区坐标系。</p>
+<p>​		   LOWORD X坐标位置</p>
+<p>​		   HIWORD Y坐标位置</p>
+<p>●一般情况鼠标按下&#x2F;抬起成对出现。在鼠标移动过程中, 会根据移动速度产生一系列的WM_ MOUSEMOVE消息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">down</span><span class="params">(HWND hWnd, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;down: %d other :[%03d,%03d]\n&quot;</span>, wParam, LOWORD(lParam), HIWORD(lParam));</span><br><span class="line">    WriteConsole(g_handle, str, <span class="built_in">strlen</span>(str), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">up</span><span class="params">(HWND hWnd, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;up  : %d other :[%03d,%03d]\n&quot;</span>, wParam,LOWORD(lParam),HIWORD(lParam));</span><br><span class="line">    WriteConsole(g_handle, str, <span class="built_in">strlen</span>(str), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_LBUTTONDOWN:</span><br><span class="line">        down(hWnd, wParam,lParam);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_LBUTTONUP:</span><br><span class="line">        up(hWnd, wParam, lParam);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>一般来说按下与按上,之间相差一个值</p>
+<p>你可以在某个地方按下,在另外一个地方按上去,,哈哈,笑死</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    WriteConsole(g_handle, <span class="string">&quot;hello world\n&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;hello\n&quot;</span>), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-----------------------------------------------------------------------------------消息处理函数</span></span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_MOUSEMOVE:</span><br><span class="line">        func();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>你的鼠标移动的越快,它发送消息的时间就越少,</p>
+<p>你的鼠标移动的越慢,它发送消息的时间就越多,</p>
+<h3 id="双击消息"><a href="#双击消息" class="headerlink" title="双击消息"></a>双击消息</h3><p>●双击消息<br>    WM_ LBUTTONDBLCLK -鼠标左键双击按下<br>    WM_ RBUTTONDBLCLK -鼠标右键双击按下</p>
+<p>●<br>附带信息:<br>wPARAM -其他按键的状态,例如Ctrl&#x2F;Shift等<br>IPARAM -鼠标的位置,窗口客户区坐标系。<br>LOWORD(IParam) &#x2F;&#x2F;X坐标位置<br>HIWORD(IParam) &#x2F;&#x2F;Y坐标位置<br>●消息产生顺序<br>以左键双击为例:</p>
+<p><code>使用时需要在register注册窗口类的时候添加CS_DBLCLKS 风格。而不是CreateWindow创建窗口的时候</code></p>
+<blockquote>
+<p>​	WM_ LBUTTONDOWN 	左键按下<br>​	WM_ LBUTTONUP		左键弹起<br>​	WM_ LBUTTONDBLCLK	左键双击<br>​	WM_ LBUT TONUP		左键弹起</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Ldd</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    WriteConsole(g_handle, <span class="string">&quot;double clink\n&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;double clink\n&quot;</span>), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">Lup</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    WriteConsole(g_handle, <span class="string">&quot;up\n&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;up\n&quot;</span>), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">Ldown</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    WriteConsole(g_handle, <span class="string">&quot;down\n&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;down\n&quot;</span>), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-----------------------------------------------------------------------------------消息处理函数</span></span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_LBUTTONDOWN:</span><br><span class="line">        Ldown();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_LBUTTONUP:</span><br><span class="line">        Lup();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_LBUTTONDBLCLK:</span><br><span class="line">        Ldd();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//窗口注册</span></span><br><span class="line">wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;</span><br><span class="line">RegisterClass(&amp;wc);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="滚轮消息"><a href="#滚轮消息" class="headerlink" title="滚轮消息"></a>滚轮消息</h3><p>滚轮消息</p>
+<p>​	WM_ MOUSEWHEEL -  鼠标滚轮消息</p>
+<p>●附带信息:<br>wPARAM :<br>    LOWORD -其他按键的状态<br>    HIWORD -滚轮的偏移量,通过正负值表示表示滚动方向。<br>        正:向前滚动<br>        负:向后滚动<br>IPARAM :鼠标当前的位置,屏幕坐标系&#x2F;<br>    LOWORD- X坐标<br>    HIWORD - Y坐标<br>●使用:<br>通过偏移量,获取滚动的方向和距离。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">mouse_whell</span><span class="params">(WPARAM wParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;%d\n&quot;</span>, (<span class="type">signed</span> <span class="type">short</span>)HIWORD(wParam));</span><br><span class="line">    WriteConsole(g_handle, str, <span class="built_in">strlen</span>(str), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-----------------------------------------------------------------------------------消息处理函数</span></span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_MOUSEWHEEL:</span><br><span class="line">        mouse_whell(wParam);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="鼠标点击系统菜单栏发生的消息"><a href="#鼠标点击系统菜单栏发生的消息" class="headerlink" title="鼠标点击系统菜单栏发生的消息"></a>鼠标点击系统菜单栏发生的消息</h3><p>WM_SYSCOMMAND 鼠标点击系统菜单栏发生的消息</p>
+<p>●产生时间: 当点击窗口的最大化、最小化、关闭…</p>
+<p>●附带信息: </p>
+<p>wParam:  具体点击的位置,例如关闭SC_CLOSE等.</p>
+<p>IParam : 鼠标光标的位置。是一个4字节数据<br>         LOWORD(IParam) ; &#x2F;&#x2F;水平位置<br>         HIWORD(IParam) ; &#x2F;&#x2F;垂直位置</p>
+<p>●-般用法: 常用在窗口关闭时,提示用户处理。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_SYSCOMMAND:</span><br><span class="line">        <span class="keyword">if</span> (wParam == SC_CLOSE)<span class="comment">//如果点击的是关闭的按钮</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> ret=MessageBox(hWnd, <span class="string">&quot;Close it ?&quot;</span>, <span class="string">&quot;info&quot;</span>, MB_YESNO);</span><br><span class="line">            <span class="keyword">if</span> (ret == IDYES)</span><br><span class="line">                ;<span class="comment">//因为点击了关闭按钮,默认函数会销毁窗口,然后发出WM_DESTROY,然后PostQuitMessage(0)</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//表示不关闭,直接返回</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//点击其它的按钮由默认出函数处理,因为是其它的按钮,所以就不是关闭的按钮</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当你点击关闭的按钮后</p>
+<p>最先获取的消息是WM_SYSCOMMAND</p>
+<p>然后跳出MessagebOx</p>
+<p>在return的时候,DefWindowProc默认的给你销毁窗口,除非你先前就return了</p>
+<p>否则不会有一个WM_DESTROY的消息,</p>
+<p><img src="https://img-blog.csdnimg.cn/6948b7d079224260ac89fc1ea2e08157.png" alt="在这里插入图片描述"></p>
+<h2 id="定时器消息"><a href="#定时器消息" class="headerlink" title="定时器消息"></a>定时器消息</h2><p>●产生时间:<br>    在程序中创建定时器,当到达时间间隔时,定时器会向程序发送一个WM_TIMER消息。定时器的精度是毫秒，但是准确度很低。</p>
+<p>例如设置时间间隔为1000ms，但是会在非1000毫秒到达消息。</p>
+<p>●附带信息:<br>    wPARAM :定时器ID<br>    IPARAM :定时器处理函数的指针</p>
+<p>定时器消息主要是给GetMessage函数使用的</p>
+<p>埋了很多的炸弹,如果其中一个炸弹炸了,我得根据不同的炸弹炸了,干不同的事情,于是就需要知道定时器ID</p>
+<p>创建定时器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UINT_PTR SetTimer(          </span><br><span class="line">	HWND hWnd,//定时器的窗口句柄,也就是炸弹炸了,哪个窗口的处理函数来处理消息WM_TIME</span><br><span class="line">    UINT_PTR nIDEvent,//定时器的ID</span><br><span class="line">    UINT uElapse, //时间间隔,毫秒级别</span><br><span class="line">    TIMERPROC lpTimerFunc //定时器函数处理指针,一般为NULL,</span><br><span class="line">);//创建成功返回非0</span><br></pre></td></tr></table></figure>
+
+<p>销毁定时器</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">KillTimer</span><span class="params">(          </span></span><br><span class="line"><span class="params">	HWND hWnd, <span class="comment">//定时器窗口句柄</span></span></span><br><span class="line"><span class="params">    UINT_PTR uIDEvent <span class="comment">//定时器ID</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">(HWND hWnd,WPARAM wParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;Iam %d\n&quot;</span>, wParam);</span><br><span class="line">    WriteConsole(g_handle, str, <span class="built_in">strlen</span>(str), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="comment">//KillTimer(hWnd, 1);//如果要杀死其中一个炸弹</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-----------------------------------------------------------------------------------消息处理函数</span></span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_deal_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_CREATE:</span><br><span class="line">        SetTimer(hWnd, <span class="number">1</span>, <span class="number">1000</span>, <span class="literal">NULL</span>);<span class="comment">//埋下炸弹</span></span><br><span class="line">        SetTimer(hWnd, <span class="number">2</span>, <span class="number">3000</span>, <span class="literal">NULL</span>);<span class="comment">//埋下炸弹</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_TIMER:</span><br><span class="line">        func(hWnd,wParam);<span class="comment">//炸弹爆炸时要做的事情</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="窗口绘制消息"><a href="#窗口绘制消息" class="headerlink" title="窗口绘制消息"></a>窗口绘制消息</h2><p>WM_SIZE&#x2F;WM_PAINT 窗口绘制消息</p>
+<p>WM_SIZE</p>
+<p>产生时间:	 在窗口的大小发生变化需要重新绘制,</p>
+<p>附带信息:     wParam : 窗口大小变化的原因。</p>
+<p>​		     IParam : 窗口变化后的大小。</p>
+<p>​			 LOWORD(IParam) &#x2F;&#x2F;变化后的宽度</p>
+<p>​			 HIWORD(IParam) &#x2F;&#x2F;变化后的高度</p>
+<p>一般用法:	常用于窗口大小变化后,调整窗口内各个部分的布局。</p>
+<p>WM_PAINT</p>
+<p>产生时间:    GetMessage找不到事情干并且窗口需要重新绘制的时候,基本上都是GetMessage派遣SendMessage去MW_PAINT</p>
+<p>​			 Show_window的时候,只会发送一次</p>
+<p>附带信息:    他的附带信息都没用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Onpaint</span><span class="params">(HWND hWnd)</span><span class="comment">//如果你修改一些东西,就会触发这个消息</span></span><br><span class="line">&#123;</span><br><span class="line">    WriteConsole(g_handle, <span class="string">&quot;wind need paint\n&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;wind need paint\n&quot;</span>), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">OnSize</span><span class="params">(HWND hWnd, LPARAM lParam)</span><span class="comment">//如果你修改一些东西,就会触发这个消息</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">short</span> nWidth = LOWORD(lParam);</span><br><span class="line">    <span class="type">short</span> nHight = HIWORD(lParam);</span><br><span class="line">    <span class="type">char</span> szText[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="built_in">sprintf</span>(szText, <span class="string">&quot;宽:%d,高:%d\n&quot;</span>, nWidth, nHight);</span><br><span class="line">    WriteConsole(g_handle, szText, <span class="built_in">strlen</span>(szText), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//-----------------------------------------------------------------------------------消息处理函数</span></span><br><span class="line">LRESULT CALLBACK <span class="title function_">WndProc_DIY</span><span class="params">(HWND hWnd, UINT MsgID, WPARAM wParam, LPARAM lParam)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (MsgID)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> WM_DESTROY:</span><br><span class="line">        PostQuitMessage(<span class="number">0</span>);<span class="comment">//它可以让你的窗口退出后,进程也退出</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_SIZE:</span><br><span class="line">        OnSize(hWnd, lParam);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> WM_PAINT:</span><br><span class="line">        Onpaint(hWnd);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DefWindowProc(hWnd, MsgID, wParam, lParam);<span class="comment">//默认处理方式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/re4mile/tags/Win32/" rel="tag"># Win32</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/Asm/windwos/%E5%B0%8F%E7%BB%93/language/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/C/win32/win32/language/" rel="next" title="win32入门篇-2">
+                  win32入门篇-2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">re4mile(邓渠香)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/comments.js"></script><script src="/re4mile/js/utils.js"></script><script src="/re4mile/js/motion.js"></script><script src="/re4mile/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

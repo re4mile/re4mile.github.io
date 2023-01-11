@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="mask-icon" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png" color="#222">
+
+<link rel="stylesheet" href="/re4mile/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gitee.com","root":"/re4mile/","images":"/re4mile/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":10},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/re4mile/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/re4mile/js/config.js"></script>
+
+    <meta name="description" content="文件示例文件末尾由于字符的ASCII码不可能出现 -1, 因此EOF定义为 -1 是合适的 当以文本形式读取文件内容, 读入的字符值等于EOF时, 表示读入的已不是正常的字符而是文件结束符 当以二进制形式读取文件内容, 信息都是以数值方式存在的, EOF的值可能就是所要处理的二进制文件中的信息, 此时需要用 feof() 来判断是否到达了文件结尾 即EOF可以作为文本文件的结束标志, 但不能作为二">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C文件处理">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/C/language/index.html">
+<meta property="og:site_name" content="实践是检验真理的唯一标准">
+<meta property="og:description" content="文件示例文件末尾由于字符的ASCII码不可能出现 -1, 因此EOF定义为 -1 是合适的 当以文本形式读取文件内容, 读入的字符值等于EOF时, 表示读入的已不是正常的字符而是文件结束符 当以二进制形式读取文件内容, 信息都是以数值方式存在的, EOF的值可能就是所要处理的二进制文件中的信息, 此时需要用 feof() 来判断是否到达了文件结尾 即EOF可以作为文本文件的结束标志, 但不能作为二">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-11T14:41:23.128Z">
+<meta property="article:modified_time" content="2023-01-07T00:03:28.420Z">
+<meta property="article:author" content="re4mile(邓渠香)">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="文件目录处理">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/C/language/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gitee.com/re4mile/re4mile.git/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/C/language/","path":"2023/01/11/language/文件处理/C/language/","title":"C文件处理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C文件处理 | 实践是检验真理的唯一标准</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/re4mile/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/re4mile/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">实践是检验真理的唯一标准</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好记性不如烂笔头</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/re4mile/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/re4mile/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/re4mile/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/re4mile/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">文件示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9C%AB%E5%B0%BE"><span class="nav-number">1.1.</span> <span class="nav-text">文件末尾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="nav-number">1.2.</span> <span class="nav-text">获取文件大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8D%E5%AD%97"><span class="nav-number">1.3.</span> <span class="nav-text">修改文件名字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">目录示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">2.1.</span> <span class="nav-text">创建文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%BA%A7%E7%9B%AE%E5%BD%95%E6%89%AB%E6%8F%8F"><span class="nav-number">2.2.</span> <span class="nav-text">一级目录扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%91%BD%E5%90%8D"><span class="nav-number">2.3.</span> <span class="nav-text">未命名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0-API"><span class="nav-number">3.</span> <span class="nav-text">函数| API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">文件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E"><span class="nav-number">3.1.1.</span> <span class="nav-text">增</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setbuf"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">setbuf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setvbuf"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">setvbuf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tmpfile"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">tmpfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tmpnam"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">tmpnam</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0"><span class="nav-number">3.1.2.</span> <span class="nav-text">删</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#remove"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">remove</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clearerr"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">clearerr</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9"><span class="nav-number">3.1.3.</span> <span class="nav-text">改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rename"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">rename</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5"><span class="nav-number">3.1.4.</span> <span class="nav-text">查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ferror"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">ferror</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E5%A4%84%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">目录处理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="re4mile(邓渠香)"
+      src="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+  <p class="site-author-name" itemprop="name">re4mile(邓渠香)</p>
+  <div class="site-description" itemprop="description">an ordinary people</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/re4mile/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/re4mile/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/re4mile/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://re4mile.gitee.io/" title="Gitee → https:&#x2F;&#x2F;re4mile.gitee.io" rel="noopener me" target="_blank"><i class="fa fa-subway fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/re4mile/" title="cnblog → https:&#x2F;&#x2F;www.cnblogs.com&#x2F;re4mile&#x2F;" rel="noopener me" target="_blank"><i class="fa fa-space-shuttle fa-fw"></i>cnblog</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/C/language/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+      <meta itemprop="name" content="re4mile(邓渠香)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="实践是检验真理的唯一标准">
+      <meta itemprop="description" content="an ordinary people">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C文件处理 | 实践是检验真理的唯一标准">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C文件处理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-11 22:41:23" itemprop="dateCreated datePublished" datetime="2023-01-11T22:41:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-07 08:03:28" itemprop="dateModified" datetime="2023-01-07T08:03:28+08:00">2023-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/re4mile/categories/Language/" itemprop="url" rel="index"><span itemprop="name">Language</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="文件示例"><a href="#文件示例" class="headerlink" title="文件示例"></a>文件示例</h1><h2 id="文件末尾"><a href="#文件末尾" class="headerlink" title="文件末尾"></a>文件末尾</h2><p>由于字符的ASCII码不可能出现 -1, 因此EOF定义为 -1 是合适的</p>
+<p>当以文本形式读取文件内容, 读入的字符值等于EOF时, 表示读入的已不是正常的字符而是文件结束符</p>
+<p>当以二进制形式读取文件内容, 信息都是以数值方式存在的, EOF的值可能就是所要处理的二进制文件中的信息, 此时需要用 feof() 来判断是否到达了文件结尾</p>
+<p>即EOF可以作为文本文件的结束标志, 但不能作为二进制文件的结束符, feof函数既可以判断二进制文件, 又可以判断文本文件</p>
+<p>文本方式在读文件时, 会将换行符号CRLF(0x0D 0x0A)全部转换成单个的0x0A, 并且当遇到结束符CTRLZ(0x1A)时, 就认为文件已经结束, </p>
+<p>相应的, 写文件时, 会将所有的0x0A换成0x0D0x0A,</p>
+<p> 所以, 若使用文本方式打开二进制文件时, 就很容易出现文件读不完整, 或內容不对的错误, 即使是用文本方式打开文本文件, </p>
+<p>也要谨慎使用, 比如复制文件, 就不应该使用文本方式</p>
+<p>Linux下带不带 “b” 是相同的</p>
+<h2 id="获取文件大小"><a href="#获取文件大小" class="headerlink" title="获取文件大小"></a>获取文件大小</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">ReadFileSize</span><span class="params">(<span class="type">char</span>* filename)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> size = <span class="number">0</span>;</span><br><span class="line">	FILE* fp = fopen(filename, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (!fp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;wrong open\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	fseek(fp, <span class="number">0L</span>, SEEK_END);</span><br><span class="line">	size = ftell(fp);</span><br><span class="line">	fclose(fp);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="修改文件名字"><a href="#修改文件名字" class="headerlink" title="修改文件名字"></a>修改文件名字</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;windows.h&gt;</span> </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//way1</span></span><br><span class="line">	rename(<span class="string">&quot;tmp.js&quot;</span>,<span class="string">&quot;tmp.exe&quot;</span>); </span><br><span class="line">	ShellExecute(<span class="literal">NULL</span>, <span class="string">&quot;open&quot;</span>, <span class="string">&quot;tmp.exe&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, SW_SHOWNORMAL); </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	//way2</span></span><br><span class="line"><span class="comment">	char cmd[]=&quot;ren  help.server tmp.exe&quot;;</span></span><br><span class="line"><span class="comment">	system(cmd);</span></span><br><span class="line"><span class="comment">	ShellExecute(NULL, &quot;open&quot;, &quot;tmp.exe&quot;, NULL, NULL, SW_SHOWNORMAL); </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="目录示例"><a href="#目录示例" class="headerlink" title="目录示例"></a>目录示例</h1><h2 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;direct.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> filename[<span class="number">128</span>] = <span class="string">&quot;F:/linux/syscall&quot;</span>;<span class="comment">//50</span></span><br><span class="line">	<span class="keyword">if</span> (_access(filename, <span class="number">0</span>) == <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		_mkdir(filename);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;mkdir wrong %s\n&quot;</span>, filename);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中,</p>
+<p><code>_access</code>用于监测,该文件是否存在</p>
+<p><code>_mkdir</code>用于创建文件</p>
+<p>值得注意的是,<code>_mkdir</code>一次调用只能创建一个文件夹,也就是不能递归创建,只能多次调用</p>
+<p>下面是我创建文件夹,然后往文件夹里面创建文件的一个操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;direct.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> errorCode = <span class="number">0</span>;</span><br><span class="line">	FILE* fp = <span class="number">0</span>;</span><br><span class="line">	<span class="type">char</span> filename[<span class="number">128</span>] = <span class="string">&quot;F:/5008/Note/re4mile/source/_posts/linux/syscall/中断详讲&quot;</span>;<span class="comment">//50</span></span><br><span class="line">	<span class="type">char</span> tmp[<span class="number">64</span>];</span><br><span class="line">	<span class="keyword">if</span> (_access(filename, <span class="number">0</span>) == <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		_mkdir(filename);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;mkdir wrong %s\n&quot;</span>, filename);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">400</span>; i += <span class="number">16</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memset</span>(tmp, <span class="number">0</span>, <span class="number">64</span>);</span><br><span class="line">		<span class="built_in">memset</span>(filename + <span class="number">57</span>, <span class="number">0</span>, <span class="number">64</span>);</span><br><span class="line"></span><br><span class="line">		<span class="built_in">sprintf</span>(tmp, <span class="string">&quot;/%03d-%03d&quot;</span>, i, i + <span class="number">15</span>);<span class="comment">//要创建的文件夹</span></span><br><span class="line">		<span class="built_in">strcat</span>(filename, tmp);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (_access(filename, <span class="number">0</span>) == <span class="number">-1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			_mkdir(filename);<span class="comment">//然后创建文件夹</span></span><br><span class="line">			<span class="comment">//打开那个文件夹.在里面创建文件</span></span><br><span class="line">			<span class="built_in">strcat</span>(filename, <span class="string">&quot;/linux.md&quot;</span>);</span><br><span class="line">			fp = fopen(filename, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">			<span class="keyword">if</span> (fp != <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				fclose(fp);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%s yes\n&quot;</span>, filename);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%s no\n&quot;</span>, filename);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;mkdir wrong %s\n&quot;</span>,filename);</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="一级目录扫描"><a href="#一级目录扫描" class="headerlink" title="一级目录扫描"></a>一级目录扫描</h2><p>参考链接</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24662747/article/details/80669627">qq_24662747</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;io.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span>  <span class="title function_">printDir</span><span class="params">(<span class="type">const</span>  <span class="type">char</span>* path)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span>   nRet = <span class="number">0</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span>  _<span class="title">finddata_t</span>  <span class="title">data</span>;</span></span><br><span class="line">    <span class="type">int</span>  hnd = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    hnd= _findfirst(path, &amp;data);     <span class="comment">// 查找文件名与正则表达式chRE的匹配第一个文件</span></span><br><span class="line">    <span class="keyword">if</span> (hnd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(path);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    nRet = (hnd &lt; <span class="number">0</span>) ? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (nRet &gt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (data.attrib == _A_SUBDIR)   <span class="comment">// 如果是目录</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;d:%s\n&quot;</span>, data.name);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;f:%s\n&quot;</span>, data.name);</span><br><span class="line">        &#125;</span><br><span class="line">        nRet = _findnext(hnd, &amp;data);</span><br><span class="line">    &#125;</span><br><span class="line">    _findclose(hnd);      <span class="comment">// 关闭当前句柄</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span>  <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    printDir(<span class="string">&quot;d:/*.*&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="未命名"><a href="#未命名" class="headerlink" title="未命名"></a>未命名</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">// 功  能 : 打印目录path中与模式chRE匹配的所有文件明</span></span><br><span class="line"><span class="comment">// 输  入 : path - 待打印的目录</span></span><br><span class="line"><span class="comment">//          chRE - 要求匹配的正则表达式</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">printDir</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* path, <span class="type">const</span> <span class="type">char</span>* chRE)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span>* chCurPath = getcwd(<span class="literal">NULL</span>, <span class="number">0</span>);              <span class="comment">// 当前工作目录</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;current work path: %s\n&quot;</span>, chCurPath);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> ret = _chdir(path);</span><br><span class="line">	<span class="keyword">if</span> (ret &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(path);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="type">char</span>* newPath = getcwd(<span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;new work path: %s\n&quot;</span>, newPath);</span><br><span class="line">	<span class="built_in">free</span>(newPath);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> _<span class="title">finddata_t</span> <span class="title">data</span>;</span></span><br><span class="line">	<span class="type">long</span> hnd = _findfirst(chRE, &amp;data);    <span class="comment">// 查找文件名与正则表达式chRE的匹配第一个文件</span></span><br><span class="line">	<span class="comment">// 返回唯一的搜索句柄</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (hnd &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(chRE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span>  nRet = (hnd &lt; <span class="number">0</span>) ? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (nRet &gt;= <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (data.attrib == _A_SUBDIR)  <span class="comment">// 如果是目录</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;   [%s]*\n&quot;</span>, data.name);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;   [%s]\n&quot;</span>, data.name);</span><br><span class="line"></span><br><span class="line">		nRet = _findnext(hnd, &amp;data);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_findclose(hnd);     <span class="comment">// 关闭当前句柄</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	chdir(chCurPath);         <span class="comment">// 切换回之前的工作目录</span></span><br><span class="line">	<span class="built_in">free</span>(chCurPath);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="函数-API"><a href="#函数-API" class="headerlink" title="函数| API"></a>函数| API</h1><h2 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h2><h3 id="增"><a href="#增" class="headerlink" title="增"></a>增</h3><h4 id="setbuf"><a href="#setbuf" class="headerlink" title="setbuf"></a>setbuf</h4><p>读取文本到缓冲区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void setbuf(FILE *stream, char *buffer)</span><br></pre></td></tr></table></figure>
+
+<p>参数 </p>
+<p>FILE *stream,  一个流</p>
+<p>char *buffer 一个缓冲区</p>
+<p>功能 </p>
+<p>把指向流的数据显缓冲在缓冲区,然后通过fflush送到流</p>
+<p>返回值</p>
+<p>注意事项</p>
+<p><strong>buffer</strong> – 这是分配给用户的缓冲，它的长度至少为 BUFSIZ 字节，BUFSIZ 是一个宏常量，表示数组的长度 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> buf[BUFSIZ];</span><br><span class="line">setbuf(<span class="built_in">stdout</span>, buf);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>例子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> buff[BUFSIZ];</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>;</span><br><span class="line">	setbuf(<span class="built_in">stdout</span>, buff);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;456&quot;</span>);</span><br><span class="line">	fflush(<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;yes&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出的语句会被送达缓冲区</p>
+<p>0x31,0x32,0x33,0xa,0x34,0x35,0x36,0xa,</p>
+<p>然后fflush把缓冲区的数据送到流stdout</p>
+<h4 id="setvbuf"><a href="#setvbuf" class="headerlink" title="setvbuf"></a>setvbuf</h4><p>相比较setbuf,它多了模式mode可言</p>
+<p>C 库函数 <strong>int setvbuf(FILE *stream, char *buffer, int mode, size_t size)</strong> 定义流 stream 应如何缓冲。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">setvbuf</span><span class="params">(FILE *stream, <span class="type">char</span> *buffer, <span class="type">int</span> mode, <span class="type">size_t</span> size)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>参数</p>
+<ul>
+<li><strong>stream</strong> – 这是指向 FILE 对象的指针，该 FILE 对象标识了一个打开的流。</li>
+<li><strong>buffer</strong> – 这是分配给用户的缓冲。如果设置为 NULL，该函数会自动分配一个指定大小的缓冲。</li>
+<li><strong>mode</strong> – 这指定了文件缓冲的模式：</li>
+</ul>
+<p>关于mode</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_IOFBF</td>
+<td align="left"><strong>全缓冲</strong>：对于输出，数据在缓冲填满时被一次性写入。对于输入，缓冲会在请求输入且缓冲为空时被填充。</td>
+</tr>
+<tr>
+<td align="left">_IOLBF</td>
+<td align="left"><strong>行缓冲</strong>：对于输出，数据在遇到换行符或者在缓冲填满时被写入，具体视情况而定。对于输入，缓冲会在请求输入且缓冲为空时被填充，直到遇到下一个换行符。</td>
+</tr>
+<tr>
+<td align="left">_IONBF</td>
+<td align="left"><strong>无缓冲</strong>：不使用缓冲。每个 I&#x2F;O 操作都被即时写入。buffer 和 size 参数被忽略。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>size</strong> –这是缓冲的大小，以字节为单位。</li>
+</ul>
+<p>功能</p>
+<p>返回值</p>
+<p>如果成功，则该函数返回 0，否则返回非零值。</p>
+<p>和setbuf没太多的区别</p>
+<h4 id="tmpfile"><a href="#tmpfile" class="headerlink" title="tmpfile"></a>tmpfile</h4><p>创建临时文件</p>
+<p>以二进制更新模式(wb+)创建临时文件</p>
+<p>流关闭的时候或者在程序终止的时候自动删除。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span> <span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">   FILE *fp;</span><br><span class="line"></span><br><span class="line">   fp = tmpfile();</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;临时文件被创建\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 您可以在这里使用临时文件</span></span><br><span class="line"><span class="comment">   </span></span><br><span class="line"><span class="comment">   ...</span></span><br><span class="line"><span class="comment">   ...</span></span><br><span class="line"><span class="comment">   ...</span></span><br><span class="line"><span class="comment">   </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"></span><br><span class="line">   fclose(fp);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="tmpnam"><a href="#tmpnam" class="headerlink" title="tmpnam"></a>tmpnam</h4><p>返回临时文件名字的指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">tmpnam</span><span class="params">(<span class="type">char</span> *arr)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>返回一个指向字符串arr的指针</p>
+<p><code>arr</code>是一个字符串数组</p>
+<p>参数<code>arr</code>也可以为<code>NULL</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span>* ptr;</span><br><span class="line">	<span class="type">char</span> buffer[L_tmpnam];</span><br><span class="line">	<span class="comment">//L_tmpnam = 16</span></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//库函数被调用1次 [0]</span></span><br><span class="line">	ptr=tmpnam(buffer);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;临时名称 : %s\n&quot;</span>, buffer);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;临时名称 : %s\n&quot;</span>, ptr);</span><br><span class="line">	<span class="comment">//库函数被调用2次 [1]</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;临时名称 : %s\n&quot;</span>, tmpnam(<span class="literal">NULL</span>));</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h3 id="删"><a href="#删" class="headerlink" title="删"></a>删</h3><h4 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h4><p>永久删除文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">remove</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename)</span><span class="comment">//里面是一个字符串罢了</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除如果成功，则返回零。</p>
+<p>如果错误，则返回 -1，并设置 errno。</p>
+<p>另外垃圾桶找不到文件了,可以说真的删除找不到了</p>
+<h4 id="clearerr"><a href="#clearerr" class="headerlink" title="clearerr"></a>clearerr</h4><p>文件错误的清理</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">clearerr</span><span class="params">(FILE *file_ptr)</span></span><br></pre></td></tr></table></figure>
+
+<p>清除文件发生的错误</p>
+<h3 id="改"><a href="#改" class="headerlink" title="改"></a>改</h3><h4 id="rename"><a href="#rename" class="headerlink" title="rename"></a>rename</h4><p> 重命名文件的名字</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">rename</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *old_filename, <span class="type">const</span> <span class="type">char</span> *new_filename)</span></span><br></pre></td></tr></table></figure>
+
+<p>const char *old_filename: 原来文件的名字</p>
+<p>const char *new_filename: 新的文件名字</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span> <span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="type">int</span> ret;</span><br><span class="line">   <span class="type">char</span> oldname[] = <span class="string">&quot;d:/file.txt&quot;</span>;</span><br><span class="line">   <span class="type">char</span> newname[] = <span class="string">&quot;d:/dqx.txt&quot;</span>;</span><br><span class="line">   </span><br><span class="line">   ret = rename(oldname, newname);</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">if</span>(ret == <span class="number">0</span>) </span><br><span class="line">   &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;文件重命名成功&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> </span><br><span class="line">   &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;错误：不能重命名该文件&quot;</span>);</span><br><span class="line">   &#125; </span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果找到了”d:&#x2F;file.txt”</p>
+<p>但是没有找到d:&#x2F;dqx.txt”;</p>
+<p>那么源文件会被永久的删除</p>
+<p>程序暂时还不会报错,正常的退出</p>
+<h3 id="查"><a href="#查" class="headerlink" title="查"></a>查</h3><h4 id="ferror"><a href="#ferror" class="headerlink" title="ferror"></a>ferror</h4><p>文件获取的错误类型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">ferror</span><span class="params">(FILE *file_ptr)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>返回文件发生错误的类型,</p>
+<p>出错就返回非零的编号</p>
+<p>没出错就返回0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( ferror(fp) )</span><br><span class="line">&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;读取文件：file.txt 时发生错误\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="目录处理"><a href="#目录处理" class="headerlink" title="目录处理"></a>目录处理</h2><p>函数说明</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span>  _findfirst(  <span class="type">char</span>  *filespec,  <span class="keyword">struct</span>  <span class="type">_finddata_t</span>  *fileinfo );  </span><br><span class="line"><span class="comment">// 功  能 : 提供与filespec指定入口泛式匹配的第一个文件.通常后继用_findnext（）函数来完成某泛式下的文件遍历.  </span></span><br><span class="line"><span class="comment">// 头文件 : #include &lt;io.h&gt;  </span></span><br><span class="line"><span class="comment">// 参  数 : filespec - 目标文件规范,可以包含通配符  </span></span><br><span class="line"><span class="comment">//          fileinfo - 文件信息buffer  </span></span><br><span class="line"><span class="comment">// 返回值 : 成功返回唯一的搜索句柄  </span></span><br><span class="line"><span class="comment">//          出错返回-1,且设置errno为如下值:  </span></span><br><span class="line"><span class="comment">//          ENOENT 该泛式无法匹配  </span></span><br><span class="line"><span class="comment">//          EINVAL 无效文件名  </span></span><br><span class="line"><span class="type">int</span>  _findnext(  <span class="type">long</span>  handle,  <span class="keyword">struct</span>  <span class="type">_finddata_t</span>  *fileinfo );  </span><br><span class="line"><span class="comment">// 功  能 : 按照前面_findfirst中的泛式规则，查找下一个符合该泛式的文件，并以此为依据修改fileinfo中的值  </span></span><br><span class="line"><span class="comment">// 头文件 : #include &lt;io.h&gt;  </span></span><br><span class="line"><span class="comment">// 参  数 : long handle - 搜索句柄(通常由紧靠其前的_findfirst()返回)  </span></span><br><span class="line"><span class="comment">//          fileinfo    - 文件信息buffer  </span></span><br><span class="line"><span class="comment">// 返回值 : 成功返回0  </span></span><br><span class="line"><span class="comment">//          出错返回-1</span></span><br><span class="line"><span class="type">int</span>  _findclose(  <span class="type">long</span>  handle );  </span><br><span class="line"><span class="comment">// 功  能 : 关闭搜寻句柄并释放相应资源  </span></span><br><span class="line"><span class="comment">// 头文件 : #include &lt;io.h&gt;  </span></span><br><span class="line"><span class="comment">// 参  数 : long handle - 搜索句柄(通常由紧靠其前的_findfirst()返回)  </span></span><br><span class="line"><span class="comment">// 返回值 : 成功返回0  </span></span><br><span class="line"><span class="comment">//          出错返回-1</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/re4mile/tags/C/" rel="tag"># C</a>
+              <a href="/re4mile/tags/%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E5%A4%84%E7%90%86/" rel="tag"># 文件目录处理</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/Python/%E5%9F%BA%E7%A1%80/language/" rel="prev" title="Python">
+                  <i class="fa fa-chevron-left"></i> Python
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/Cpp/language/" rel="next" title="C++文件处理">
+                  C++文件处理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">re4mile(邓渠香)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/comments.js"></script><script src="/re4mile/js/utils.js"></script><script src="/re4mile/js/motion.js"></script><script src="/re4mile/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

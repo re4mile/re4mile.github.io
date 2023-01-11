@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="mask-icon" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png" color="#222">
+
+<link rel="stylesheet" href="/re4mile/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gitee.com","root":"/re4mile/","images":"/re4mile/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":10},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/re4mile/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/re4mile/js/config.js"></script>
+
+    <meta name="description" content="变量记录一次全局变量,注意它的反汇编语句 12345678a &#x3D; 0  # initialize variable adef coo():    global a  # call a    a +&#x3D; 1    return a for i in range(10):    print(coo())    12345678a &#x3D; []def coo():    global a    a +&#x3D; [1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/Python/%E5%9F%BA%E7%A1%80/language/index.html">
+<meta property="og:site_name" content="实践是检验真理的唯一标准">
+<meta property="og:description" content="变量记录一次全局变量,注意它的反汇编语句 12345678a &#x3D; 0  # initialize variable adef coo():    global a  # call a    a +&#x3D; 1    return a for i in range(10):    print(coo())    12345678a &#x3D; []def coo():    global a    a +&#x3D; [1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-11T14:41:23.116Z">
+<meta property="article:modified_time" content="2023-01-06T09:40:40.876Z">
+<meta property="article:author" content="re4mile(邓渠香)">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/Python/%E5%9F%BA%E7%A1%80/language/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gitee.com/re4mile/re4mile.git/2023/01/11/language/Python/%E5%9F%BA%E7%A1%80/language/","path":"2023/01/11/language/Python/基础/language/","title":"Python"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python | 实践是检验真理的唯一标准</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/re4mile/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/re4mile/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">实践是检验真理的唯一标准</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好记性不如烂笔头</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/re4mile/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/re4mile/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/re4mile/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/re4mile/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">文件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.1.</span> <span class="nav-text">重定向示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.</span> <span class="nav-text">读取文件的二进制数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E8%BD%AC%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">强制转化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97"><span class="nav-number">5.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#struct"><span class="nav-number">5.0.1.</span> <span class="nav-text">struct</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-pack"><span class="nav-number">5.0.1.1.</span> <span class="nav-text">struct.pack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-unpack"><span class="nav-number">5.0.1.2.</span> <span class="nav-text">struct.unpack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-calcsize"><span class="nav-number">5.0.1.3.</span> <span class="nav-text">struct.calcsize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-pack-into"><span class="nav-number">5.0.1.4.</span> <span class="nav-text">struct.pack_into</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-unpack-from"><span class="nav-number">5.0.1.5.</span> <span class="nav-text">struct.unpack_from</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="re4mile(邓渠香)"
+      src="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+  <p class="site-author-name" itemprop="name">re4mile(邓渠香)</p>
+  <div class="site-description" itemprop="description">an ordinary people</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/re4mile/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/re4mile/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/re4mile/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://re4mile.gitee.io/" title="Gitee → https:&#x2F;&#x2F;re4mile.gitee.io" rel="noopener me" target="_blank"><i class="fa fa-subway fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/re4mile/" title="cnblog → https:&#x2F;&#x2F;www.cnblogs.com&#x2F;re4mile&#x2F;" rel="noopener me" target="_blank"><i class="fa fa-space-shuttle fa-fw"></i>cnblog</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/Python/%E5%9F%BA%E7%A1%80/language/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+      <meta itemprop="name" content="re4mile(邓渠香)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="实践是检验真理的唯一标准">
+      <meta itemprop="description" content="an ordinary people">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python | 实践是检验真理的唯一标准">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-11 22:41:23" itemprop="dateCreated datePublished" datetime="2023-01-11T22:41:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-06 17:40:40" itemprop="dateModified" datetime="2023-01-06T17:40:40+08:00">2023-01-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/re4mile/categories/Language/" itemprop="url" rel="index"><span itemprop="name">Language</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>记录一次全局变量,注意它的反汇编语句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">0</span>  <span class="comment"># initialize variable a</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">coo</span>():</span><br><span class="line">    <span class="keyword">global</span> a  <span class="comment"># call a</span></span><br><span class="line">    a += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(coo())</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = []</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">coo</span>():</span><br><span class="line">    <span class="keyword">global</span> a</span><br><span class="line">    a += [<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(coo())</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h1><p>参考链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/python1639er/article/details/112325519">https://blog.csdn.net/python1639er/article/details/112325519</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&quot;Li hua&quot;</span></span><br><span class="line">age = <span class="number">24</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello %s, you are %d years old&quot;</span> % (name, age))</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h1><h2 id="重定向示例"><a href="#重定向示例" class="headerlink" title="重定向示例"></a>重定向示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line">console = sys.stdout  <span class="comment"># 备份一下文件描述符  </span></span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">r&quot;.\file\data.txt&quot;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">sys.stdout = file    <span class="comment"># 把输出重定向到文件</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello\n&#x27;</span>+<span class="string">&#x27;java\n&#x27;</span>+<span class="string">&#x27;python&#x27;</span>)   <span class="comment"># 输出自然会送往文件</span></span><br><span class="line">sys.stdout = console  <span class="comment"># 恢复重定向</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">33</span>)  <span class="comment"># 向控制台打印33</span></span><br><span class="line"> </span><br><span class="line">console = sys.stdin   <span class="comment"># 备份一下文件描述符  </span></span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">r&quot;F:/input.txt&quot;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">sys.stdin = file  <span class="comment"># 把输入重定向到文件  </span></span><br><span class="line">mod = <span class="built_in">input</span>() <span class="comment"># 一下输入均来自文件</span></span><br><span class="line">src = <span class="built_in">input</span>()</span><br><span class="line">des = <span class="built_in">input</span>()</span><br><span class="line">size= <span class="built_in">input</span>()</span><br><span class="line">file.close() <span class="comment"># 关闭文件</span></span><br><span class="line">sys.stdin = console  <span class="comment"># 恢复重定向</span></span><br><span class="line"><span class="built_in">print</span>(mod) <span class="comment"># 打印到控制台</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(src,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(des,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(size,<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="读取文件的二进制数据"><a href="#读取文件的二进制数据" class="headerlink" title="读取文件的二进制数据"></a>读取文件的二进制数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 加载测试数据</span></span><br><span class="line">fpath=<span class="string">&#x27;./data.bin&#x27;</span></span><br><span class="line">f = <span class="built_in">open</span>(fpath,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">nums=<span class="built_in">int</span>(os.path.getsize(fpath)/<span class="number">4</span>) <span class="comment"># 4 是浮点数字节</span></span><br><span class="line">data = struct.unpack(<span class="string">&#x27;f&#x27;</span>*nums,f.read(<span class="number">4</span>*nums))  <span class="comment">#注意一次只能读取一次，直接再读取会报错</span></span><br><span class="line">f.close()</span><br><span class="line">data =  np.array(data).reshape(-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="强制转化"><a href="#强制转化" class="headerlink" title="强制转化"></a>强制转化</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">· int(x)             将x转换为一个整数</span><br><span class="line">· float(x)           将x转换到一个浮点数</span><br><span class="line">· str(x)             将对象 x 转换为字符串</span><br><span class="line">· tuple(s)           将序列 s 转换为一个元组</span><br><span class="line">· list(s)            将序列 s 转换为一个列表</span><br><span class="line">· set(s)             将序列 s 转换为一个集合</span><br><span class="line"></span><br><span class="line">int(x [,base]) ⇒ 将x转换为一个十进制的整数</span><br><span class="line">long(x [,base]) ⇒ 将x转换为一个十进制的长整数</span><br><span class="line">float(x) ⇒ 将x转换为一个浮点数</span><br><span class="line">str(object) ⇒ 转换为字符串</span><br><span class="line">repr(object) ⇒ 转换为表达式字符串</span><br><span class="line">eval(str) ⇒ 用来计算在字符串中的有效Python表达式,并返回一个对象</span><br><span class="line">tuple(seq) ⇒ 将序列seq转换为一个元组</span><br><span class="line">list(seq) ⇒ 将序列seq转换为一个列表</span><br><span class="line">chr(x ) ⇒ 将一个整数转换为一个字符</span><br><span class="line">unichr(x ) ⇒ 将一个整数转换为Unicode字符</span><br><span class="line">ord(x ) ⇒ 将一个字符转换为它的整数值</span><br><span class="line">hex(x ) ⇒ 将一个整数转换为一个十六进制字符串</span><br><span class="line">oct(x ) ⇒ 将一个整数转换为一个八进制字符串</span><br></pre></td></tr></table></figure>
+
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h3><p>参考链接</p>
+<p><a target="_blank" rel="noopener" href="https://www.cxybb.com/article/qq_43679818/86574114">https://www.cxybb.com/article/qq_43679818/86574114</a></p>
+<p>struct 类型表</p>
+<table>
+<thead>
+<tr>
+<th align="left">Format</th>
+<th align="left">C Type</th>
+<th align="left">Python type</th>
+<th align="left">Standard size</th>
+<th align="left">Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>x</code></td>
+<td align="left">pad byte</td>
+<td align="left">no value</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>c</code></td>
+<td align="left"><code>char</code></td>
+<td align="left">string of length 1</td>
+<td align="left">1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>b</code></td>
+<td align="left"><code>signed char</code></td>
+<td align="left">integer</td>
+<td align="left">1</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>B</code></td>
+<td align="left"><code>unsigned char</code></td>
+<td align="left">integer</td>
+<td align="left">1</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>?</code></td>
+<td align="left"><code>_Bool</code></td>
+<td align="left">bool</td>
+<td align="left">1</td>
+<td align="left">(1)</td>
+</tr>
+<tr>
+<td align="left"><code>h</code></td>
+<td align="left"><code>short</code></td>
+<td align="left">integer</td>
+<td align="left">2</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>H</code></td>
+<td align="left"><code>unsigned short</code></td>
+<td align="left">integer</td>
+<td align="left">2</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>i</code></td>
+<td align="left"><code>int</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>I</code></td>
+<td align="left"><code>unsigned int</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>l</code></td>
+<td align="left"><code>long</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>L</code></td>
+<td align="left"><code>unsigned long</code></td>
+<td align="left">integer</td>
+<td align="left">4</td>
+<td align="left">(3)</td>
+</tr>
+<tr>
+<td align="left"><code>q</code></td>
+<td align="left"><code>long long</code></td>
+<td align="left">integer</td>
+<td align="left">8</td>
+<td align="left">(2), (3)</td>
+</tr>
+<tr>
+<td align="left"><code>Q</code></td>
+<td align="left"><code>unsigned long long</code></td>
+<td align="left">integer</td>
+<td align="left">8</td>
+<td align="left">(2), (3)</td>
+</tr>
+<tr>
+<td align="left"><code>f</code></td>
+<td align="left"><code>float</code></td>
+<td align="left">float</td>
+<td align="left">4</td>
+<td align="left">(4)</td>
+</tr>
+<tr>
+<td align="left"><code>d</code></td>
+<td align="left"><code>double</code></td>
+<td align="left">float</td>
+<td align="left">8</td>
+<td align="left">(4)</td>
+</tr>
+<tr>
+<td align="left"><code>s</code></td>
+<td align="left"><code>char[]</code></td>
+<td align="left">string</td>
+<td align="left">1</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>p</code></td>
+<td align="left"><code>char[]</code></td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>P</code></td>
+<td align="left"><code>void *</code></td>
+<td align="left">integer</td>
+<td align="left"></td>
+<td align="left">(5), (3)</td>
+</tr>
+</tbody></table>
+<h4 id="struct-pack"><a href="#struct-pack" class="headerlink" title="struct.pack"></a>struct.pack</h4><h4 id="struct-unpack"><a href="#struct-unpack" class="headerlink" title="struct.unpack"></a>struct.unpack</h4><h4 id="struct-calcsize"><a href="#struct-calcsize" class="headerlink" title="struct.calcsize"></a>struct.calcsize</h4><h4 id="struct-pack-into"><a href="#struct-pack-into" class="headerlink" title="struct.pack_into"></a>struct.pack_into</h4><h4 id="struct-unpack-from"><a href="#struct-unpack-from" class="headerlink" title="struct.unpack_from"></a>struct.unpack_from</h4>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/re4mile/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/Cpp/%E5%9F%BA%E7%A1%80/language/" rel="prev" title="C++">
+                  <i class="fa fa-chevron-left"></i> C++
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/C/language/" rel="next" title="C文件处理">
+                  C文件处理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">re4mile(邓渠香)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/comments.js"></script><script src="/re4mile/js/utils.js"></script><script src="/re4mile/js/motion.js"></script><script src="/re4mile/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

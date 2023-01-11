@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png">
+  <link rel="mask-icon" href="https://s1.ax1x.com/2023/01/03/pSip2aF.png" color="#222">
+
+<link rel="stylesheet" href="/re4mile/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gitee.com","root":"/re4mile/","images":"/re4mile/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":10},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/re4mile/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/re4mile/js/config.js"></script>
+
+    <meta name="description" content="对话框普通窗口:	自定义函数最后调用缺省函数 对话框窗口:  缺省函数先调用自定义函数 对话框窗口处理函数(并非真正的对话框窗口处理函数) 12345678910INT CALLBACK DialogProc(    HWND hwndDlg, &#x2F;&#x2F;窗口句柄    UINT uMsg，&#x2F;&#x2F;消息ID    WPARAM wParam, &#x2F;&#x2F;消息参数    LPARAM IParam &#x2F;&#x2F;消息参数);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="win32入门篇-2">
+<meta property="og:url" content="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/win32/language/index.html">
+<meta property="og:site_name" content="实践是检验真理的唯一标准">
+<meta property="og:description" content="对话框普通窗口:	自定义函数最后调用缺省函数 对话框窗口:  缺省函数先调用自定义函数 对话框窗口处理函数(并非真正的对话框窗口处理函数) 12345678910INT CALLBACK DialogProc(    HWND hwndDlg, &#x2F;&#x2F;窗口句柄    UINT uMsg，&#x2F;&#x2F;消息ID    WPARAM wParam, &#x2F;&#x2F;消息参数    LPARAM IParam &#x2F;&#x2F;消息参数);">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220824232555541.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220729210314519.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220729210351392.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220729210440652.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220729211858229.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220729211637470.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220730002056486.png">
+<meta property="og:image" content="https://re4mile.gitee.io/res/photo/language/image-20220730003134572.png">
+<meta property="article:published_time" content="2023-01-11T14:41:23.029Z">
+<meta property="article:modified_time" content="2023-01-11T13:01:00.264Z">
+<meta property="article:author" content="re4mile(邓渠香)">
+<meta property="article:tag" content="Win32">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://re4mile.gitee.io/res/photo/language/image-20220824232555541.png">
+
+
+<link rel="canonical" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/win32/language/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/win32/language/","path":"2023/01/11/language/C/win32/win32/language/","title":"win32入门篇-2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>win32入门篇-2 | 实践是检验真理的唯一标准</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/re4mile/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/re4mile/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">实践是检验真理的唯一标准</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好记性不如烂笔头</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/re4mile/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/re4mile/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/re4mile/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/re4mile/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="nav-number">1.</span> <span class="nav-text">对话框</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dll"><span class="nav-number">2.</span> <span class="nav-text">Dll</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DLlMain"><span class="nav-number">2.1.</span> <span class="nav-text">DLlMain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%BA%93"><span class="nav-number">2.2.</span> <span class="nav-text">静态库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%BA%93"><span class="nav-number">2.3.</span> <span class="nav-text">动态库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">导出方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%AF%BC%E5%87%BA"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">声明导出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">模块定义文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">2.3.2.</span> <span class="nav-text">隐式链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E9%93%BE%E6%8E%A5"><span class="nav-number">2.3.3.</span> <span class="nav-text">显示链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AA%E7%B1%BB"><span class="nav-number">2.3.4.</span> <span class="nav-text">动态链接库封装一个类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="nav-number">3.1.</span> <span class="nav-text">线程创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">线程处理函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.3.</span> <span class="nav-text">退出线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8F%A5%E6%9F%84"><span class="nav-number">3.4.</span> <span class="nav-text">获取当前线程的句柄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%BA%BF%E7%A8%8B%E7%9A%84ID"><span class="nav-number">3.5.</span> <span class="nav-text">获取当前线程的ID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E7%AD%89%E5%BE%85"><span class="nav-number">3.6.</span> <span class="nav-text">句柄等待</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%82%E8%B5%B7%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.7.</span> <span class="nav-text">挂起线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%94%A4%E9%86%92%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.8.</span> <span class="nav-text">唤醒线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">3.9.</span> <span class="nav-text">线程上下文</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E8%B5%84%E6%BA%90%E5%88%86%E9%85%8D"><span class="nav-number">4.</span> <span class="nav-text">线程资源分配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">4.1.</span> <span class="nav-text">临界区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E5%8A%A0%E9%94%81"><span class="nav-number">4.2.</span> <span class="nav-text">互斥加锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.3.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">4.4.</span> <span class="nav-text">信号量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">创建一个进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E8%BF%9B%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">终止进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E4%BA%8B%E4%BB%B6%E5%8F%A5%E6%9F%84"><span class="nav-number">5.3.</span> <span class="nav-text">继承事件句柄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E7%BA%BF%E7%A8%8B%E5%8F%A5%E6%9F%84%E5%92%8C%E8%BF%9B%E7%A8%8B%E5%8F%A5%E6%9F%84"><span class="nav-number">5.4.</span> <span class="nav-text">继承线程句柄和进程句柄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%82%E8%B5%B7%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B"><span class="nav-number">5.5.</span> <span class="nav-text">挂起的方式创建一个进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E8%BF%9B%E7%A8%8B"><span class="nav-number">5.6.</span> <span class="nav-text">打开进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8B%E9%80%80%E5%87%BA%E7%A0%81"><span class="nav-number">5.7.</span> <span class="nav-text">获取进程退出码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E5%89%8D%E8%BF%9B%E7%A8%8B%E8%B7%AF%E5%BE%84%E8%8E%B7%E5%8F%96"><span class="nav-number">5.8.</span> <span class="nav-text">当前进程路径获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%99%E8%BF%9B%E7%A8%8B%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="nav-number">5.9.</span> <span class="nav-text">给进程分配内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E8%BF%9B%E7%A8%8B%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">5.10.</span> <span class="nav-text">向进程写入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E8%BF%9B%E7%A8%8B%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">5.11.</span> <span class="nav-text">在进程中读取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%BF%9B%E7%A8%8B%E4%B8%80%E6%AE%B5%E5%86%85%E5%AD%98%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">5.12.</span> <span class="nav-text">设置进程一段内存的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%AA%97%E5%8F%A3%E5%8F%A5%E6%9F%84"><span class="nav-number">5.13.</span> <span class="nav-text">枚举窗口句柄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E5%AD%90%E7%AA%97%E5%8F%A3%E5%8F%A5%E6%9F%84"><span class="nav-number">5.14.</span> <span class="nav-text">枚举子窗口句柄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%AA%97%E5%8F%A3%E5%8F%A5%E6%9F%84"><span class="nav-number">5.15.</span> <span class="nav-text">获取窗口句柄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">5.16.</span> <span class="nav-text">进程之间通信</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#misc"><span class="nav-number">6.</span> <span class="nav-text">misc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E5%A3%B3%E9%A1%B9%E7%9B%AE%E9%9C%80%E6%B1%82"><span class="nav-number">7.</span> <span class="nav-text">加密壳项目需求</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="re4mile(邓渠香)"
+      src="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+  <p class="site-author-name" itemprop="name">re4mile(邓渠香)</p>
+  <div class="site-description" itemprop="description">an ordinary people</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/re4mile/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/re4mile/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/re4mile/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://re4mile.gitee.io/" title="Gitee → https:&#x2F;&#x2F;re4mile.gitee.io" rel="noopener me" target="_blank"><i class="fa fa-subway fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.cnblogs.com/re4mile/" title="cnblog → https:&#x2F;&#x2F;www.cnblogs.com&#x2F;re4mile&#x2F;" rel="noopener me" target="_blank"><i class="fa fa-space-shuttle fa-fw"></i>cnblog</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gitee.com/re4mile/re4mile.git/2023/01/11/language/C/win32/win32/language/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://s1.ax1x.com/2023/01/10/pSefBp6.jpg">
+      <meta itemprop="name" content="re4mile(邓渠香)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="实践是检验真理的唯一标准">
+      <meta itemprop="description" content="an ordinary people">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="win32入门篇-2 | 实践是检验真理的唯一标准">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          win32入门篇-2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-11 22:41:23 / 修改时间：21:01:00" itemprop="dateCreated datePublished" datetime="2023-01-11T22:41:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/re4mile/categories/Language/" itemprop="url" rel="index"><span itemprop="name">Language</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h1><p>普通窗口:	自定义函数最后调用缺省函数</p>
+<p>对话框窗口:  缺省函数先调用自定义函数</p>
+<p>对话框窗口处理函数(并非真正的对话框窗口处理函数)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">INT CALLBACK <span class="title function_">DialogProc</span><span class="params">(</span></span><br><span class="line"><span class="params">    HWND hwndDlg, <span class="comment">//窗口句柄</span></span></span><br><span class="line"><span class="params">    UINT uMsg，<span class="comment">//消息ID</span></span></span><br><span class="line"><span class="params">    WPARAM wParam, <span class="comment">//消息参数</span></span></span><br><span class="line"><span class="params">    LPARAM IParam <span class="comment">//消息参数</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br><span class="line">返回TRUE -缺省处理函数不需要处理。</span><br><span class="line">返回FALSE-交给缺省处理函数处理。</span><br><span class="line">不需要调用缺省对话框窗口处理函数</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>阻塞形对话框</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">INT <span class="title function_">DialogBox</span><span class="params">(</span></span><br><span class="line"><span class="params">    HINSTANCE hInstance,	<span class="comment">//应用程序实例句柄</span></span></span><br><span class="line"><span class="params">    LPCTSTR IpTemplate, 	<span class="comment">//对话框资源ID</span></span></span><br><span class="line"><span class="params">    HWND hWndParent, 		<span class="comment">//对话框父窗口</span></span></span><br><span class="line"><span class="params">    DLGPROC IpDialogFunc 	<span class="comment">//自定义函数</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>DialogBox 是一个阻塞函数,只有当对话框关闭后,才会返回,继续执行后续代码。返回值是通过EndDialog设置。</p>
+<p>EndDialog 可以结束阻塞形对话框对话框,然后消除阻塞,消除阻塞这一步非常的重要</p>
+<p>对话框的关闭</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">EndDialog</span><span class="params">(</span></span><br><span class="line"><span class="params">	HWND hDIg,<span class="comment">//关闭的对话框窗口句柄,你要关闭哪个对话框?</span></span></span><br><span class="line"><span class="params">	INT_ PTR nResult <span class="comment">//关闭的返回值 ,关闭后,你要返回什么值</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关闭模式对话框,只能使用EndDialog ,不能使用DestroyWindow等函数</p>
+<p>nResult是DialogBox函数退出时的返回值</p>
+<p><strong>非阻塞行对话框</strong></p>
+<p>●创建对话框</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HWND <span class="title function_">CreateDialog</span><span class="params">(</span></span><br><span class="line"><span class="params">    HINSTANCE hInstance, <span class="comment">//应用程序实例句柄</span></span></span><br><span class="line"><span class="params">    LPCTSTR IpTemplate，<span class="comment">//模板资源ID</span></span></span><br><span class="line"><span class="params">    HWND hWndParent,<span class="comment">//父窗口</span></span></span><br><span class="line"><span class="params">    DLGPROC IpDialogFunc <span class="comment">//自定义函数</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>非阻塞函数,创建成功返回窗口句柄, <code>需要使用ShowWindow函数显示对话框。</code></p>
+<p>对话框的关闭</p>
+<p>关闭时使用DestroyWindow销毁窗口, 不能使用EndDialog关闭对话框。</p>
+<p>SetWindowText</p>
+<p>更改指定窗口标题栏的文本（如果有的话）。如果指定的窗口是控件，则更改控件的文本。但是，<strong>SetWindowText</strong>不能更改另一个应用程序中控件的文本。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">SetWindowTextA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           HWND   hWnd, <span class="comment">//改变文本内容的窗口或控件的句柄</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] LPCSTR lpString <span class="comment">//指向一个空结束的字符串的指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Dll"><a href="#Dll" class="headerlink" title="Dll"></a>Dll</h1><p>静态链接库就是把源代码放入.c文件，或者说 在静态编译的时候，把二进制数据放入源文件</p>
+<p>如果lib文件发生了修改，那么.c文件也要重新编译</p>
+<p>动态链接库，只是提供一个接口</p>
+<p>如果dll文件发生了改变，.c文件的exe不需要重新编译，就会使用最新的dll</p>
+<h2 id="DLlMain"><a href="#DLlMain" class="headerlink" title="DLlMain"></a>DLlMain</h2><p>DOS     程序的入口函数是 main()</p>
+<p>Win32   程序的入口函数是 WinMain() </p>
+<p>DLL 	程序的入口函数是 DllMain()</p>
+<p>一些例子中，DLL并没有提供DllMain函数，应用工程也能成功引用DLL，</p>
+<p>这是因为Windows在找不到DllMain的时候，系统会从其它运行库中引入一个不做任何操作的缺省DllMain函数版本，并不意味着DLL可以放弃DllMain函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">DllMain</span><span class="params">(</span></span><br><span class="line"><span class="params">   HINSTANCE hinstDLL, <span class="comment">// Dll的ImageBase</span></span></span><br><span class="line"><span class="params">   DWORD fdwReason, <span class="comment">// 调用原因</span></span></span><br><span class="line"><span class="params">   LPVOID lpvReserved <span class="comment">// 表示一个保留参数</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其中fdwReason用来表示Dll被调用的状态，一共分为四种：</p>
+<ul>
+<li>DLL_PROCESS_ATTACH  &#x3D;&#x3D;1 被进程加载 进程映射 LoadLibiary的时候</li>
+<li>DLL_PROCESS_DETACH  &#x3D;&#x3D;0 被进程释放 进程卸载 FreeLibiary的时候</li>
+<li>DLL_THREAD_ATTACH   &#x3D;&#x3D;2 被线程加载 线程映射</li>
+<li>DLL_THREAD_DETACH   &#x3D;&#x3D;3 被线程释放 线程卸载</li>
+</ul>
+<h2 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h2><p>way-1</p>
+<p>将xxx.h和xxx. 1ib复制到要使用的项目中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;xxx.x. h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment (lib,<span class="string">&quot;xxx.lib&quot;</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>way-2</p>
+<p>将xxx.h和xxx. lib复制到要使用的项目中<br>在需要使用的文件中包含: #include xxx. h</p>
+<p>然后</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220824232555541.png" alt="image-20220824232555541"></p>
+<h2 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h2><h3 id="导出方式"><a href="#导出方式" class="headerlink" title="导出方式"></a>导出方式</h3><h4 id="声明导出"><a href="#声明导出" class="headerlink" title="声明导出"></a>声明导出</h4><p>使用_declspec(dllexport)导出函数,只需要在函数声明<code>最前面</code>加上这一句就欧克[^这里我会非常任意忘记]</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">__declspec(dllexport) <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span>,<span class="type">int</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//不写_declspec的话,你的函数就不会导出,也就是不会出现在导出表里面</span></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意:动态库编译链接后, 也会有LIB文件,是作为动态库函数<code>映射</code>使用,与静态库<code>不完全相同</code>。</p>
+<p>这种导出方式对于cpp文件来说,会出现换名的机制,woc</p>
+<h4 id="模块定义文件"><a href="#模块定义文件" class="headerlink" title="模块定义文件"></a>模块定义文件</h4><p>模块定义文件.def<br>例如: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LIBRARY DLLFunc //库,LIBRARY是必须写的,后面的是dll的名字,此刻不带后缀名</span><br><span class="line">EXPORTS    //库导出表</span><br><span class="line">add_func @1 //导出的函数</span><br><span class="line">sub_func @2</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+
+<p>为什么会有模块化定义文件的序号导出??</p>
+<p>因为函数的名字就是最好的注释</p>
+<p>如果函数的名字没有,只有符号,那么对于逆向分析就会加大难度</p>
+<h3 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h3><p>操作系统负责使动态库执行,系统悄悄的把数据丢到内存</p>
+<p>可以在函数原型的声明前,增加 <code>_declspec(dllimport)</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment( lib, <span class="string">&quot;lib的绝对/相对路径&quot;</span>) <span class="comment">//寻找lib文件,dll文件得放在系统目录或者当前目录</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明下面为导入的函数</span></span><br><span class="line">_declspec(dllimport) <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line">_declspec(dllimport) <span class="type">int</span> <span class="title function_">sub</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> ret=add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="type">int</span> ret2=sub(<span class="number">10</span>, <span class="number">6</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>dll的源文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//把下面的函数声明为导出函数</span></span><br><span class="line">__declspec(dllexport)<span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line">__declspec(dllexport)<span class="type">int</span> <span class="title function_">sub</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> x - y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>隐式链接的情况，dll文件可以存放的路径:</p>
+<p>( 1 ) 与执行文件中同一个目录下</p>
+<p>( 2 ) 当前工作目录</p>
+<p>( 3 ) Windows目录</p>
+<p>( 4 ) Windows&#x2F;System32目录</p>
+<p>( 5 ) Windows&#x2F;System</p>
+<p>( 6 ) 环境变量PATH指定目录</p>
+<h3 id="显示链接"><a href="#显示链接" class="headerlink" title="显示链接"></a>显示链接</h3><p>显式链接(程序员自己负责使动态库执行)</p>
+<p>1 )定义函数指针类型、typedef</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef  int(*ptr)(int, int);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2 )加载动态库</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HMODULE <span class="title function_">LoadLibrary</span><span class="params">(</span></span><br><span class="line"><span class="params">	LPCTSTR IpFileName <span class="comment">//动态库文件名或全路径</span></span></span><br><span class="line"><span class="params">)</span>;返回DLL的实例句柄( HINSTANCE )</span><br></pre></td></tr></table></figure>
+
+<p>3 )获取函数地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FARPROC <span class="title function_">GetProcAddress</span><span class="params">(</span></span><br><span class="line"><span class="params">    HMODULE hModule,   <span class="comment">//DLL句柄</span></span></span><br><span class="line"><span class="params">    LPCSTR IpProcName  <span class="comment">//函数名称</span></span></span><br><span class="line"><span class="params">)</span>;成功返回函数地址</span><br></pre></td></tr></table></figure>
+
+<p>4 )使用函数</p>
+<p>5 )卸载动态库</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">FreeLibrary</span><span class="params">(</span></span><br><span class="line"><span class="params">	HMODULE hModule <span class="comment">//DLL的实例句柄</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>cpp文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.cpp : 此文件包含 &quot;main&quot; 函数。程序执行将在此处开始并结束。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span>  <span class="title function_">int</span><span class="params">(*ptr)</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    HINSTANCE dll_ptr = LoadLibrary(<span class="string">&quot;dll.dll&quot;</span>); </span><br><span class="line">    <span class="keyword">if</span> (dll_ptr == <span class="literal">NULL</span>) </span><br><span class="line">           <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    ptr me_add = (ptr)GetProcAddress(dll_ptr, <span class="string">&quot;?add@@YAHHH@Z&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (me_add == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    <span class="type">int</span> sum = me_add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d/n&quot;</span>, sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>dll文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_declspec(dllexport)<span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> (x + y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="动态链接库封装一个类"><a href="#动态链接库封装一个类" class="headerlink" title="动态链接库封装一个类"></a>动态链接库封装一个类</h3><p>话不多说</p>
+<p>关于dll项目</p>
+<p>设立头文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _DLLCLASS_H <span class="comment">//注意这个东西,记住就可以了</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _DLLCLASS_H</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面这个宏定义值得学习,如果有会是怎么样,如果没有会是怎么样</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> dll_class_botton</span></span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> dll_class _declspec(dllexport)<span class="comment">//DLL开发者</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> dll_class _declspec(dllimport)<span class="comment">//使用者</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">dll_class</span> <span class="title">math</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	public: <span class="comment">//注意这个权限</span></span><br><span class="line">	<span class="type">int</span> <span class="title function_">sub</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">//注意这个东西,记住就可以了</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于源文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pch.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> dll_class_botton  <span class="comment">//打开那个开关</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;test.h&quot;</span> <span class="comment">//包含刚才的头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">math::sub</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> <span class="comment">//定义一下刚才的头文件</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> x - y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于main项目如何使用dll的class</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt; iostream&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment( lib, <span class="string">&quot;../Main_NULL/Debug/one.lib&quot;</span> ) <span class="comment">//隐式的调用lib文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span>  <span class="string">&quot;../one/test.h&quot;</span> <span class="comment">//访问那个dll的类class</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> </span><br><span class="line">&#123;</span><br><span class="line">	math class_math;<span class="comment">//用那个声明创建一个对象</span></span><br><span class="line">	<span class="type">int</span> sum = class_math.sub(<span class="number">10</span>, <span class="number">3</span>);<span class="comment">//调用成员函数</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;sum=&quot;</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>进程4GB,线程eip</p>
+<h2 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI <span class="title function_">CreateThread</span><span class="params">(</span></span><br><span class="line"><span class="params">    LPSECURITY_ATTRIBUTES lpThreadAttributes, 	<span class="comment">//安全属性,一个废弃的参数,直接0</span></span></span><br><span class="line"><span class="params">    SIZE_T dwStackSize, 						<span class="comment">//栈空间分配大小,0</span></span></span><br><span class="line"><span class="params">    LPTHREAD_START_ROUTINE lpStartAddress, 		<span class="comment">//线程函数址</span></span></span><br><span class="line"><span class="params">    LPVOID lpParameter, 						<span class="comment">//线程处理函数的参数指针,</span></span></span><br><span class="line"><span class="params">    DWORD dwCreationFlags, 						<span class="comment">//线程的创建的方式.分为立即执行和休眠2钟方式</span></span></span><br><span class="line"><span class="params">    												<span class="comment">//立即执行是0</span></span></span><br><span class="line"><span class="params">    												<span class="comment">//挂起是CREATE_SUSPENDWD,线程在挂起状态下创建，直到调用 ResumeThread 才会恢复</span></span></span><br><span class="line"><span class="params">    LPDWORD lpThreadId 							<span class="comment">//返回线程的ID,可以选择不接受</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br><span class="line">HANDLE hThread =  CreateThread(<span class="literal">NULL</span>, <span class="number">0</span>, Proc1, <span class="string">&quot;*********&quot;</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HANDLE <span class="title function_">CreateRemoteThread</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in]  HANDLE                 hProcess, <span class="comment">//线程所属进程的进程句柄.</span></span></span><br><span class="line"><span class="params">  [in]  LPSECURITY_ATTRIBUTES  lpThreadAttributes,<span class="comment">//线程的安全属性.</span></span></span><br><span class="line"><span class="params">  [in]  SIZE_T                 dwStackSize, <span class="comment">//线程堆栈大小，一般设置为0，表示使用默认的大小</span></span></span><br><span class="line"><span class="params">  [in]  LPTHREAD_START_ROUTINE lpStartAddress, <span class="comment">//线程函数的地址</span></span></span><br><span class="line"><span class="params">  [in]  LPVOID                 lpParameter, <span class="comment">//线程参数指针</span></span></span><br><span class="line"><span class="params">  [in]  DWORD                  dwCreationFlags, <span class="comment">//线程的创建标志</span></span></span><br><span class="line"><span class="params">  [out] LPDWORD                lpThreadId <span class="comment">//输出参数，记录创建的远程线程的ID,如果创建失败,该参数为NULL.</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br><span class="line">hThread = CreateRemoteThread(Target_Process, <span class="literal">NULL</span>, <span class="number">0</span>,pThreadProc, p_RemoteBuf_D, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果函数成功，则返回值是新线程的句柄。</p>
+<p>如果函数失败，则返回值为<strong>NULL</strong>。</p>
+<h2 id="线程处理函数"><a href="#线程处理函数" class="headerlink" title="线程处理函数"></a>线程处理函数</h2><p>线程处理函数,函数的返回值类型不能修改,函数的参数类型不能修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DWORD CALLBACK Proc1(LPVOID pParam);</span><br></pre></td></tr></table></figure>
+
+<p>LoadLibrary函数与线程处理函数的类型是一样的</p>
+<p>使用类型转化,就可以实现把LoadLibrary当作线程处理函数</p>
+<h2 id="退出线程"><a href="#退出线程" class="headerlink" title="退出线程"></a>退出线程</h2><p><strong>另开一个线程来退出线程</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">TerminateThread</span></span><br><span class="line"><span class="params">(</span></span><br><span class="line"><span class="params">  __inout  HANDLE hThread,</span></span><br><span class="line"><span class="params">  __in     DWORD dwExitCode</span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"><span class="comment">//不会清理堆栈,为了后续的使用留了一手</span></span><br><span class="line"><span class="comment">//会清理自己的栈空间,堆不会清理,erminalThread是一个异步的调用,</span></span><br><span class="line">&#123;</span><br><span class="line">    TerminalThread()</span><br><span class="line">    code1</span><br><span class="line">    code2</span><br><span class="line">&#125;</span><br><span class="line">意味着TerminalThread函数要另外开一个线程来关闭线程</span><br><span class="line">那么的话,在TerminalThread()执行中,code1,code2就已经执行了</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>退出当前线程</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">VOID WINAPI <span class="title function_">ExitThread</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  DWORD dwExitCode <span class="comment">//这是线程处理函数的返回值,同时也是退出码</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ExitThread是一个同步的调用</span><br><span class="line">&#123;</span><br><span class="line">	ExitThread()</span><br><span class="line">	code1</span><br><span class="line">	code2</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//意识就是ExitThread()函数执行完,才会执行code1,code1</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h2 id="获取当前线程的句柄"><a href="#获取当前线程的句柄" class="headerlink" title="获取当前线程的句柄"></a>获取当前线程的句柄</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI <span class="title function_">GetCurrentThread</span><span class="params">()</span>;<span class="comment">//参数为0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="获取当前线程的ID"><a href="#获取当前线程的ID" class="headerlink" title="获取当前线程的ID"></a>获取当前线程的ID</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DWORD GetCurrentThreadId();//参数为空</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="句柄等待"><a href="#句柄等待" class="headerlink" title="句柄等待"></a>句柄等待</h2><p>阻塞函数</p>
+<p><strong>WaitForSingleObject</strong></p>
+<p>等待单个句柄有信号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DWORD <span class="title function_">WaitForSingleObject</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in] HANDLE hHandle,</span></span><br><span class="line"><span class="params">  [in] DWORD  dwMilliseconds</span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br><span class="line">WaitForSingleObject(A_Handle_Of_Resource, INFINITE); </span><br><span class="line"><span class="comment">//参数1 要等待的句柄</span></span><br><span class="line"><span class="comment">//参数2 等待的时间</span></span><br><span class="line">	<span class="number">-1</span>==INFINIT,表示时间无限长,一直等待</span><br><span class="line">    等待实现是毫秒为单位</span><br><span class="line">        </span><br><span class="line">什么时候等待结束?</span><br><span class="line">    <span class="number">1.</span>事件信号被触发</span><br><span class="line">    <span class="number">2.</span>事件的时间等待超时了,我不想等了,直接退出阻塞</span><br><span class="line">    否则就一直阻塞</span><br></pre></td></tr></table></figure>
+
+
+
+<p>返回类型</p>
+<p>有三种返回类型：</p>
+<p>WAIT_OBJECT_0 &#x3D;&#x3D;0       表示不再阻塞,对方有信号</p>
+<p>WAIT_TIMEOUT &#x3D;0x102     表示等待指定时间内，对象一直没有信号,我继续阻塞</p>
+<p>WAIT_ABANDONED 		 表示对象有信号，但还是不能执行  一般是因为未获取到锁或其他原因</p>
+<p><strong>WaitForMultipleObjects</strong></p>
+<p>等待多个句柄有信号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DWORD WINAPI <span class="title function_">WaitForMultipleObjects</span></span><br><span class="line"><span class="params">(</span></span><br><span class="line"><span class="params">  __in  DWORD nCount, 				<span class="comment">//等候多少个句柄有信号</span></span></span><br><span class="line"><span class="params">  __in  <span class="type">const</span> HANDLE* lpHandles, 	<span class="comment">//句柄数组的地址</span></span></span><br><span class="line"><span class="params">  __in  BOOL bWaitAll, 				<span class="comment">//等候方式	</span></span></span><br><span class="line"><span class="params">    									<span class="comment">//TRUE,当所有的句柄都有信号的时候才会解除阻塞</span></span></span><br><span class="line"><span class="params">    									<span class="comment">//FALSE ,但凡有1个句柄有信号就会解除阻塞			</span></span></span><br><span class="line"><span class="params">  __in  DWORD dwMilliseconds 		<span class="comment">//最大等候时间</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>bWaitAll&#x3D; true  表示等待所有进程结束</p>
+<p>bWaitAll&#x3D; false 表示其中一个进程结束就不再等待</p>
+<pre><code>bWaitAll为TRUE时，			 返回WAIT_OBJECT_0 =0 代码所以内核对象都变成已通知
+bWaitAll为FALSE时，		 返回最先变成已通知的内核对象在数组中的索引index														
+WAIT_TIMEOUT(0x102)			超时				
+</code></pre>
+<h2 id="挂起线程"><a href="#挂起线程" class="headerlink" title="挂起线程"></a>挂起线程</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DWORD WINAPI <span class="title function_">SuspendThread</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  HANDLE hThread <span class="comment">//线程句柄</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="唤醒线程"><a href="#唤醒线程" class="headerlink" title="唤醒线程"></a>唤醒线程</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DWORD WINAPI <span class="title function_">ResumeThread</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  HANDLE hThread  <span class="comment">//线程句柄</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="线程上下文"><a href="#线程上下文" class="headerlink" title="线程上下文"></a>线程上下文</h2><p>什么是上下文.就是一个环境罢了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CONTEXT st_context; <span class="comment">//上下文结构体</span></span><br><span class="line">st_context.ContextFlags=CONTEXT_CONTROL;<span class="comment">//获取上下文的什么类型的内容</span></span><br><span class="line">st_context.Eip=<span class="number">0x00401000</span>;				<span class="comment">//获取的是CONTEXT_CONTROL内容的eip内容,然后修改他</span></span><br><span class="line">SetThreadContext(lp_Thread01,&amp;st_context);</span><br></pre></td></tr></table></figure>
+
+<p>st_context.ContextFlags决定来st_context具体存储什么内容</p>
+<p>SetThreadContext(lp_Thread01,&amp;st_context);是注入上下文</p>
+<p><strong>SetThreadContext</strong></p>
+<p>给线程的环境赋值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">SetThreadContext</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] HANDLE        hThread, 	<span class="comment">//要设置其环境的线程的句柄。</span></span></span></span><br><span class="line"><span class="params"><span class="function">    							<span class="comment">//句柄必须具有线程的 THREAD_SET_CONTEXT访问权限。有关详细信息</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in] <span class="type">const</span> CONTEXT *lpContext <span class="comment">//指向包含要在指定线程中设置的上下文的CONTEXT结构的指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">    							<span class="comment">//此结构的ContextFlags成员的值指定要设置线程上下文的哪些部分</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果设置了上下文，则返回值非零。</p>
+<p>如果函数失败，则返回值为零。要获取扩展的错误信息</p>
+<p><strong>GetThreadContext</strong></p>
+<p>获取线程的环境</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">GetThreadContext</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]      HANDLE    hThread, <span class="comment">//要检索其环境的线程的句柄,</span></span></span></span><br><span class="line"><span class="params"><span class="function">    							<span class="comment">//句柄还必须具有THREAD_QUERY_INFORMATION访问权限</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in, out] LPCONTEXT lpContext <span class="comment">//向接收指定线程的适当上下文的CONTEXT</span></span></span></span><br><span class="line"><span class="params"><span class="function">    							<span class="comment">//此结构的ContextFlags成员的值指定检索线程上下文的哪些部分</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="线程资源分配"><a href="#线程资源分配" class="headerlink" title="线程资源分配"></a>线程资源分配</h1><p>在一个进程之内的资源访问,首选临界区</p>
+<p>主要是很多个wait不好看,来个互斥体,会很整齐</p>
+<p>互斥体</p>
+<p>多个线程对于同一个资源的有序访问,这个挺好的,</p>
+<p>事件</p>
+<p>可以实现多个线程同时的读取一个资源,而不是写入</p>
+<p>也可以实现多个线程对同一个资源的有序访问,相当于互斥体</p>
+<p>信号量</p>
+<p>它基于事件,限制了事件的次数,可以精确控制信号发出的个数</p>
+<p>事件和信号量没有太大的区别</p>
+<h2 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h2><p>对应的结构体</p>
+<p>CRITICAL_SECTION cs</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">RTL_CRITICAL_SECTION</span> &#123;</span>		</span><br><span class="line">    PRTL_CRITICAL_SECTION_DEBUG DebugInfo;		</span><br><span class="line">    LONG LockCount;		</span><br><span class="line">    LONG RecursionCount;		</span><br><span class="line">    HANDLE OwningThread;       		</span><br><span class="line">    HANDLE LockSemaphore;		</span><br><span class="line">    DWORD SpinCount;		</span><br><span class="line">&#125; RTL_CRITICAL_SECTION, *PRTL_CRITICAL_SECTION;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>使用的流程</p>
+<ol>
+<li></li>
+</ol>
+<p>创建一个全局的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CRITICAL_SECTION cs;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">InitializeCriticalSection(&amp;cs);//使用前必须初始化结构体</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EnterCriticalSection(&amp;cs);//获取令牌</span><br><span class="line">LeaveCriticalSection(&amp;cs);//丢弃令牌	</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DeleteCriticalSection(&amp;g_cs);//使用后销毁</span><br></pre></td></tr></table></figure>
+
+
+
+<p>‪代码示例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:/JGY/P0st/post/Language/Win32/Code/线程资源分配/临界区<span class="number">1.</span>c</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="互斥加锁"><a href="#互斥加锁" class="headerlink" title="互斥加锁"></a>互斥加锁</h2><p>多个线程对于同一个资源的有序访问</p>
+<p>创建互斥</p>
+<p>解决多个线程下对同一个代码资源的共享问题</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI <span class="title function_">CreateMutex</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in_opt  	LPSECURITY_ATTRIBUTES lpMutexAttributes, <span class="comment">//安全属性,垃圾,NULL	</span></span></span><br><span class="line"><span class="params">  __in      	BOOL bInitialOwner,</span></span><br><span class="line"><span class="params">            		<span class="comment">//true 互斥信号这属于当前线程</span></span></span><br><span class="line"><span class="params">            		<span class="comment">//false 互斥信号不属于任何人</span></span></span><br><span class="line"><span class="params">  __in_opt  LPCTSTR lpName <span class="comment">//互斥的字符串名字,随便取</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"><span class="comment">//返回线程句柄的东西,就是创建了一个内存空间</span></span><br><span class="line"><span class="comment">//也就是这个空间最后是要释放的</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">g_hMUtex=CreateMutex(<span class="literal">NULL</span>,FALSE,<span class="string">&quot;HB&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>通常,我们让 bInitialOwner&#x3D;FALSE</p>
+<p>因为这样实现了在任意地方创建,可以在任意地方获取</p>
+<p>如果是TRUE的话,就让该互斥体只属于了该线程,显得不那么灵活</p>
+<p>坐等互斥信号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WaitForSingleObject(hHandle);</span><br></pre></td></tr></table></figure>
+
+<p>WaitForSingleObject()相当于进入互斥区</p>
+<p>互斥信号的释放</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">ReleaseMutex</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  HANDLE hMutex <span class="comment">//创建互斥的时候返回的句柄</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>句柄的关闭</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">CloseHandle</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  HANDLE hObject</span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>OpenMutex Function</p>
+<p>打开互斥体,常用于进程之间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI <span class="title function_">OpenMutex</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  DWORD dwDesiredAccess,</span></span><br><span class="line"><span class="params">  __in  BOOL bInheritHandle,</span></span><br><span class="line"><span class="params">  __in  LPCTSTR lpName</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>实例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:/JGY/P0st/post/Language/Win32/Code/线程资源分配/互斥体/进程之间</span><br></pre></td></tr></table></figure>
+
+<p>如果同时执行2个项目,</p>
+<p>那么项目B执行完CreateMutex</p>
+<p>项目A是可以打开项目B的互斥体的</p>
+<p>临界区可以实现在一个进程里,多个线程之间对同一个资源的互斥访问</p>
+<p>互斥体可以实现多个进程的不同线程中对同一个资源资源的互斥访问</p>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>可以实现多个线程同时的读取一个资源,而不是写入</p>
+<p>也可以实现多个线程对同一个资源的有序访问,相当于互斥体</p>
+<p>为什么创建互斥体可以实现进程之间的访问??</p>
+<p>因为互斥体是内核对象,所以通过红色的内核对象桥梁,就可以实现进程之间的通信</p>
+<p>创建事件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI <span class="title function_">CreateEvent</span></span><br><span class="line"><span class="params">(</span></span><br><span class="line"><span class="params">  __in_opt  LPSECURITY_ATTRIBUTES lpEventAttributes, <span class="comment">//安全属性,直接设置为NULL就可</span></span></span><br><span class="line"><span class="params">  __in      BOOL bManualReset, </span></span><br><span class="line"><span class="params">    				<span class="comment">//有信号-&gt;无信号的过程</span></span></span><br><span class="line"><span class="params">    				<span class="comment">//TRUE  手动控制,也就是需要手动关闭信号,发展无法关闭信号,resetevent</span></span></span><br><span class="line"><span class="params">    				<span class="comment">//FALSE 自动控制,也就是WaitForSingleObject后,自动的变为无信号,于是需要手动发信号 setevent</span></span></span><br><span class="line"><span class="params">  __in      BOOL bInitialState,<span class="comment">//事件的状态</span></span></span><br><span class="line"><span class="params">    				<span class="comment">//true  一创建就有信号,别人可以通过wait获取 waitforsingleobject</span></span></span><br><span class="line"><span class="params">    				<span class="comment">//false 一开始没信号,也就是别人和自己都无法wait得到,必须有人setevent</span></span></span><br><span class="line"><span class="params">  __in_opt  LPCTSTR lpName <span class="comment">//事件的字符串名字</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>PS:最好不要不要去手动复位,而要自动复位,那样会存在一个线程安全的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BOOL bManualReset, 有信号-&gt;无信号的过程</span><br><span class="line"></span><br><span class="line">	TRUE   手动控制 ,如果不去手动干扰的话,信号一旦发出,就会一直存在,适用于多个线程并发的读取一个资源</span><br><span class="line"></span><br><span class="line">	注意是读取一个资源,可以写TRUE, 写入, 一定不TRUE</span><br><span class="line"></span><br><span class="line">	FALSE 自动控制,也就是WaitForSingleObject接触阻塞后,自动的变为无信号,信号消失</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>发送的信号</p>
+<p>信号 无-&gt;有</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">SetEvent</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  HANDLE hEvent <span class="comment">//创建事件时返回的句柄</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>消除已有的信号</p>
+<p>信号 有-&gt;无</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">ResetEvent</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in  HANDLE hEvent <span class="comment">//创建事件时返回的句柄</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>线程的死锁,有必要了解一下,可以出题</p>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>除了事件,还有信号量可以解决事件问题</p>
+<p>它基于事件,限制了事件的次数</p>
+<p>创建信号量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI <span class="title function_">CreateSemaphore</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in_opt  LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, <span class="comment">//安全属性,NULL</span></span></span><br><span class="line"><span class="params">  __in      LONG InitialCount, 		<span class="comment">//可以解除wait阻塞的初始化次数</span></span></span><br><span class="line"><span class="params">    								<span class="comment">//当InitialCount=5,可以无条件通过wait,相当于有信号,每通过一次,就InitialCount--.少1</span></span></span><br><span class="line"><span class="params">    								<span class="comment">//当lInitialCoun=0,无法通过</span></span></span><br><span class="line"><span class="params">  __in      LONG lMaximumCount, 	<span class="comment">//信号量的可设置的最大个数</span></span></span><br><span class="line"><span class="params">  __in_opt  LPCTSTR lpName		 	<span class="comment">//信号量的字符串名字</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>它也拥有可等候的信号句柄</p>
+<p>打开信号量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HANDLE OpenSemaphore(		</span><br><span class="line">		</span><br><span class="line">  DWORD dwDesiredAccess,		</span><br><span class="line">		</span><br><span class="line">  BOOL bInheritHandle,		</span><br><span class="line">		</span><br><span class="line">  LPCTSTR lpName		</span><br><span class="line">		</span><br><span class="line">);		</span><br></pre></td></tr></table></figure>
+
+<p>​		</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g_hSemaphore = CreateSemaphore(NULL,0,3,NULL);		</span><br></pre></td></tr></table></figure>
+
+
+
+<p>函数说明：		</p>
+<p>第一个参数表示访问权限，对一般传入SEMAPHORE_ALL_ACCESS。详细解释可以查看MSDN文档。		</p>
+<p>第二个参数表示信号量句柄继承性，一般传入FALSE即可。		</p>
+<p>第三个参数表示名称，不同进程中的各线程可以通过名称来确保它们访问同一个信号量。		</p>
+<p>​			</p>
+<p>给信号量指定数量,释放信号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">ReleaseSemaphore</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in       HANDLE hSemaphore, <span class="comment">//信号量句柄,创建信号返回的句柄</span></span></span><br><span class="line"><span class="params">  __in       LONG lReleaseCount, <span class="comment">//新的信号量数量</span></span></span><br><span class="line"><span class="params">  __out_opt  LPLONG lpPreviousCount <span class="comment">//一个指针,返回原来剩余的信号量</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ReleaseSemaphore 就让信号量处于一定的数量</p>
+<p>WaitforSinglesObject 可以让信号量–</p>
+<p>最后CloseHandle</p>
+<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><h2 id="创建一个进程"><a href="#创建一个进程" class="headerlink" title="创建一个进程"></a>创建一个进程</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI <span class="title function_">CreateProcess</span><span class="params">(</span></span><br><span class="line"><span class="params">  __in_opt     LPCTSTR lpApplicationName, <span class="comment">//应用程序的字符串名字</span></span></span><br><span class="line"><span class="params">  __inout_opt  LPTSTR lpCommandLine,	<span class="comment">//对应的命令行参数</span></span></span><br><span class="line"><span class="params">  __in_opt     LPSECURITY_ATTRIBUTES lpProcessAttributes,<span class="comment">//与CreateProcess创建的进程的进程句柄是否可以继承有关</span></span></span><br><span class="line"><span class="params">  __in_opt     LPSECURITY_ATTRIBUTES lpThreadAttributes, <span class="comment">// 与CreateProcess创建的进程的线程句柄是否可以继承有关</span></span></span><br><span class="line"><span class="params">  __in         BOOL bInheritHandles, <span class="comment">//创建子进程的时候,是否[需要]继承父进程的句柄表中能够继承的部分,</span></span></span><br><span class="line"><span class="params">    								<span class="comment">//只有那些父进程句柄表中安全属性结构体SECURITY_ATTRIBUTES::bInheritHandle = TRUE;</span></span></span><br><span class="line"><span class="params">    								<span class="comment">//子进程创建的时候,参数5 InheritHandles=true,才代表一定传递下去</span></span></span><br><span class="line"><span class="params">  __in         DWORD dwCreationFlags, <span class="comment">//出现的形式,如果为null,子进程将会使用父进程的控制台</span></span></span><br><span class="line"><span class="params">  __in_opt     LPVOID lpEnvironment,</span></span><br><span class="line"><span class="params">  __in_opt     LPCTSTR lpCurrentDirectory,<span class="comment">//如果为NULL,那么子进程的argv[0]将会是父进程的地址,你可以为子进程指定一个字符串地址</span></span></span><br><span class="line"><span class="params">  __in         LPSTARTUPINFO lpStartupInfo, <span class="comment">//exe以怎样的方式出现</span></span></span><br><span class="line"><span class="params">  __out        LPPROCESS_INFORMATION lpProcessInformation<span class="comment">//会返回 进程句柄	,主线程句柄	,进程ID   ,线程ID</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>创建进程实例代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:/JGY/P0st/post/Language/Win32/Code/进程/直接创建进程/<span class="number">1.</span>txt</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h2><p>我现在还没有办法获取火绒或者360的进程句柄,也就无法关闭它</p>
+<p>为什么无法获取那个句柄</p>
+<p>这可能和权限有关把</p>
+<p>终止进程的三种方式：										</p>
+<p>1、VOID　ExitProcess(UINT fuExitCode)	&#x2F;&#x2F;进程自己调用			</p>
+<p>2、BOOL TerminateProcess(HANDLE hProcess, UINT fuExitCode);	&#x2F;&#x2F;终止其他进程			</p>
+<p>3、ExitThread			&#x2F;&#x2F;终止进程中的所有线程，进程也会终止</p>
+<p>​	</p>
+<h2 id="继承事件句柄"><a href="#继承事件句柄" class="headerlink" title="继承事件句柄"></a>继承事件句柄</h2><p>​					</p>
+<p>通过进程的内核句柄表,实现事件句柄的继承给子进程</p>
+<p>项目A中句柄表中的事件句柄直接继承到了项目B的句柄表中</p>
+<p>项目B直接可以使用那个对应的句柄</p>
+<p>项目A</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Console02.cpp : 定义控制台应用程序的入口点。</span></span><br><span class="line"><span class="comment">// vs2010</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;qdll.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">testA</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">( )</span></span><br><span class="line">&#123;</span><br><span class="line">	testA();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">testA</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="type">char</span> sz_Buffer[<span class="number">64</span>] = &#123;<span class="number">0</span>&#125;;							</span><br><span class="line">	<span class="type">char</span> sz_Handle[<span class="number">8</span>] = &#123;<span class="number">0</span>&#125;;							</span><br><span class="line">	HANDLE hEvent =<span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	SECURITY_ATTRIBUTES sa;</span><br><span class="line">	STARTUPINFO si = &#123;<span class="number">0</span>&#125;;   							</span><br><span class="line">	PROCESS_INFORMATION pi;	</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//三个成员的意义：大小、默认安全属性、是否可以继承		</span></span><br><span class="line">	sa.nLength = <span class="keyword">sizeof</span>(sa);							</span><br><span class="line">	sa.lpSecurityDescriptor = <span class="literal">NULL</span>;							</span><br><span class="line">	sa.bInheritHandle = TRUE; </span><br><span class="line">	<span class="comment">//创建一个可以被继承的内核对象							</span></span><br><span class="line">	hEvent = CreateEvent(&amp;sa, TRUE, FALSE, <span class="literal">NULL</span>);		</span><br><span class="line"></span><br><span class="line">	<span class="comment">//组织命令行参数	让另外一个exe获取我们的句柄参数		</span></span><br><span class="line">	qzero(sz_Buffer,<span class="number">64</span>);</span><br><span class="line">	<span class="built_in">sprintf</span>(sz_Buffer,<span class="string">&quot;D:/Console.exe %#x&quot;</span>,hEvent);							</span><br><span class="line"></span><br><span class="line">	<span class="comment">//定义创建进程需要用的结构体														</span></span><br><span class="line">	si.cb = <span class="keyword">sizeof</span>(si);													</span><br><span class="line">	CreateProcess(<span class="literal">NULL</span>, sz_Buffer, 						</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>, 						</span><br><span class="line">		TRUE, 				<span class="comment">//TRUE的时候，说明我的子进程可以继承父进程的句柄表		</span></span><br><span class="line">		CREATE_NEW_CONSOLE, 						</span><br><span class="line">		<span class="literal">NULL</span>,<span class="literal">NULL</span>, &amp;si, &amp;pi); 						</span><br><span class="line"></span><br><span class="line">	SetEvent(hEvent);		<span class="comment">//设置事件为已通知	,观察子进程是否可以正常的使用父进程的事件句柄</span></span><br><span class="line">	CloseHandle(hEvent);   <span class="comment">//关闭句柄 无论你CloseHandle,内核对象都不会被销毁 								</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​	</p>
+<p>项目B</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span>		</span><br><span class="line">&#123;		</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="type">char</span> sz_Handle[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;						</span><br><span class="line">	DWORD dw_Handle = <span class="number">0</span>;		</span><br><span class="line">	<span class="built_in">memcpy</span>(sz_Handle,argv[<span class="number">1</span>],<span class="number">8</span>);	<span class="comment">//	从另外一个获取的参数		</span></span><br><span class="line">	<span class="built_in">sscanf</span>(sz_Handle,<span class="string">&quot;%x&quot;</span>,&amp;dw_Handle);						</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s %#x/n&quot;</span>,argv[<span class="number">0</span>],dw_Handle);					</span><br><span class="line">	HANDLE g_hEvent = (HANDLE)dw_Handle;						</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;开始等待...../n&quot;</span>);							</span><br><span class="line">	WaitForSingleObject(g_hEvent, INFINITE);	<span class="comment">//当事件变成已通知时						</span></span><br><span class="line">	DWORD dwCode = GetLastError();						</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;等到消息.....%x/n&quot;</span>,dwCode);						</span><br><span class="line">	getchar();			</span><br><span class="line">&#125;		</span><br></pre></td></tr></table></figure>
+
+<p>​	</p>
+<p>项目B生产的exe放在了D盘根目录</p>
+<p>单步调试项目A</p>
+<p>出现了2个进程,一个是父进程,一个是子进程</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220729210314519.png" alt="image-20220729210314519"></p>
+<p>子进程在等待父进程发出信号</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220729210351392.png" alt="image-20220729210351392"></p>
+<p>​				</p>
+<p>当父进程SetEvent后,子进程等待结束</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220729210440652.png" alt="image-20220729210440652"></p>
+<p>​						</p>
+<h2 id="继承线程句柄和进程句柄"><a href="#继承线程句柄和进程句柄" class="headerlink" title="继承线程句柄和进程句柄"></a>继承线程句柄和进程句柄</h2><p>创建一个进程</p>
+<p>会生成句柄表</p>
+<p>会生成<code>进程</code>的内核对象和<code>线程</code>的内核对象</p>
+<p>在句柄表中有这2个内核对象的信息</p>
+<p>如果创建进程的时候,你的第3&#x2F;4个参数是NULL,那么你的进程的句柄表中的<code>线程内核对象和进程内核对象</code>就无法继承</p>
+<p>其实就是关于是否可以继承 <code>进程句柄和线程句柄</code>的2个参数</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220729211858229.png" alt="image-20220729211858229"></p>
+<p>只有当</p>
+<p>参数3&#x2F;4中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SECURITY_ATTRIBUTES SA_Process;							</span><br><span class="line">SA_Process.nLength = sizeof(SA_Process);							</span><br><span class="line">SA_Process.lpSecurityDescriptor = NULL;							</span><br><span class="line">SA_Process.bInheritHandle = TRUE; 	//可以继承进程句柄							</span><br><span class="line">							</span><br><span class="line">SECURITY_ATTRIBUTES SA_Thread;							</span><br><span class="line">SA_Thread.nLength = sizeof(SA_Thread);							</span><br><span class="line">SA_Thread.lpSecurityDescriptor = NULL;							</span><br><span class="line">SA_Thread.bInheritHandle = TRUE; 	//可以继承线程句柄						</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么才会可以继承的条件,至于是否被真的继承,取决于参数5<code>BOOL bInheritHandles, </code>  </p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220729211637470.png" alt="image-20220729211637470"></p>
+<p>项目A控制项目B,项目B控制项目A的另外一个子进程</p>
+<p>项目A</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// vs2010</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span>		</span><br><span class="line">&#123;		</span><br><span class="line"></span><br><span class="line">	SECURITY_ATTRIBUTES st_IE_SA_Process;	</span><br><span class="line">	SECURITY_ATTRIBUTES st_IE_SA_Thread;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	STARTUPINFO st_IE_Start_Info = &#123;<span class="number">0</span>&#125;;   								</span><br><span class="line">	PROCESS_INFORMATION st_IE_Process_Info;	</span><br><span class="line"></span><br><span class="line">	STARTUPINFO st_Child2_Start_Info = &#123;<span class="number">0</span>&#125;;   								</span><br><span class="line">	PROCESS_INFORMATION st_Chind2_Process_Info;		</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="type">char</span> sz_Cmdline_IE[] =<span class="string">&quot;c://program files//internet explorer//iexplore.exe&quot;</span>;		</span><br><span class="line">	<span class="type">char</span> sz_CmdLine_Child2[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;			</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	st_IE_SA_Process.nLength = <span class="keyword">sizeof</span>(st_IE_SA_Process);								</span><br><span class="line">	st_IE_SA_Process.lpSecurityDescriptor = <span class="literal">NULL</span>;								</span><br><span class="line">	st_IE_SA_Process.bInheritHandle = TRUE; 								</span><br><span class="line"></span><br><span class="line">								</span><br><span class="line">	st_IE_SA_Thread.nLength = <span class="keyword">sizeof</span>(st_IE_SA_Thread);								</span><br><span class="line">	st_IE_SA_Thread.lpSecurityDescriptor = <span class="literal">NULL</span>;								</span><br><span class="line">	st_IE_SA_Thread.bInheritHandle = TRUE; 		</span><br><span class="line"></span><br><span class="line">			</span><br><span class="line">	st_IE_Start_Info.cb = <span class="keyword">sizeof</span>(st_IE_Start_Info);	</span><br><span class="line"> </span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	CreateProcess(								</span><br><span class="line">		<span class="literal">NULL</span>,sz_Cmdline_IE, 							</span><br><span class="line">		&amp;st_IE_SA_Process, 	&amp;st_IE_SA_Thread, <span class="comment">// 代表我的线程句柄和进程句柄可以被别人被继承,不一定是儿子	,下面被同级的子进程给继承了				</span></span><br><span class="line">		FALSE, 								<span class="comment">//代表我不想继承父亲的中可以被继承的句柄				</span></span><br><span class="line">		CREATE_NEW_CONSOLE, 							</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>, </span><br><span class="line">		&amp;st_IE_Start_Info, &amp;st_IE_Process_Info); 							</span><br><span class="line">	</span><br><span class="line">					</span><br><span class="line">	<span class="built_in">sprintf</span>(sz_CmdLine_Child2,<span class="string">&quot;D:/Console.exe		%#x		%#x&quot;</span>,st_IE_Process_Info.hProcess,st_IE_Process_Info.hThread);		</span><br><span class="line">	st_Child2_Start_Info.cb = <span class="keyword">sizeof</span>(st_Child2_Start_Info);														</span><br><span class="line">	BOOL res = CreateProcess(								</span><br><span class="line">		<span class="literal">NULL</span>, sz_CmdLine_Child2, 							</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>, 							</span><br><span class="line">		TRUE, <span class="comment">//代表我想继承父亲的中可以被继承的句柄	,于是我创建的子进程就可以对我父进程创建的IE进程进行操作						</span></span><br><span class="line">		CREATE_NEW_CONSOLE, 							</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>, </span><br><span class="line">		&amp;st_Child2_Start_Info, &amp;st_Chind2_Process_Info); 							</span><br><span class="line">&#125;		</span><br></pre></td></tr></table></figure>
+
+<p>项目B</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Console02.cpp : 定义控制台应用程序的入口点。</span></span><br><span class="line"><span class="comment">// vs210</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	DWORD dw_IE_Process_Handle = <span class="number">0</span>;							</span><br><span class="line">	DWORD dw_IE_Thread_Handle = <span class="number">0</span>;							</span><br><span class="line">	<span class="type">char</span> sz_tmp[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;							</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="built_in">memcpy</span>(sz_tmp,argv[<span class="number">1</span>],<span class="number">10</span>);							</span><br><span class="line">	<span class="built_in">sscanf</span>(sz_tmp,<span class="string">&quot;%x&quot;</span>,&amp;dw_IE_Process_Handle);							</span><br><span class="line"></span><br><span class="line">	<span class="built_in">memset</span>(sz_tmp,<span class="number">0</span>,<span class="number">256</span>);							</span><br><span class="line">	<span class="built_in">memcpy</span>(sz_tmp,argv[<span class="number">2</span>],<span class="number">10</span>);							</span><br><span class="line">	<span class="built_in">sscanf</span>(sz_tmp,<span class="string">&quot;%x&quot;</span>,&amp;dw_IE_Thread_Handle);							</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;IE进程:,IE线程:/n&quot;</span>,dw_IE_Process_Handle,dw_IE_Thread_Handle);		</span><br><span class="line"></span><br><span class="line">										</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;挂起Thread_IE&quot;</span>);	</span><br><span class="line">	Sleep(<span class="number">1000</span>*<span class="number">5</span>);		</span><br><span class="line">	::SuspendThread((HANDLE)dw_IE_Thread_Handle);		<span class="comment">//挂起主线程						</span></span><br><span class="line"></span><br><span class="line">	Sleep(<span class="number">1000</span>*<span class="number">5</span>);												</span><br><span class="line">	::ResumeThread((HANDLE)dw_IE_Thread_Handle);		<span class="comment">//恢复主线程						</span></span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;恢复Thread_IE&quot;</span>);							</span><br><span class="line"></span><br><span class="line">	Sleep(<span class="number">1000</span>*<span class="number">5</span>);							</span><br><span class="line"></span><br><span class="line">	<span class="comment">//关闭IE进程							</span></span><br><span class="line">	::TerminateProcess((HANDLE)dw_IE_Process_Handle,<span class="number">1</span>);	</span><br><span class="line"></span><br><span class="line">	::WaitForSingleObject((HANDLE)dw_IE_Process_Handle, INFINITE);							</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;IE over ..........&quot;</span>);							</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="挂起的方式创建一个进程"><a href="#挂起的方式创建一个进程" class="headerlink" title="挂起的方式创建一个进程"></a>挂起的方式创建一个进程</h2><p>在挂起的方式创建一个进程的时候,进程只是分配了4G的空间</p>
+<p>还没有加载数据,内存占用小</p>
+<p>于是你可以在这里偷梁换柱,加载你需要的数据</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//vs2010</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">test1</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	test1();	</span><br><span class="line">	getchar();</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">test1</span><span class="params">()</span></span><br><span class="line">&#123;					</span><br><span class="line"></span><br><span class="line">	STARTUPINFO st_Start_Info = &#123;<span class="number">0</span>&#125;;   									</span><br><span class="line">	PROCESS_INFORMATION st_Notepad_Process_Info;									</span><br><span class="line">	st_Start_Info.cb = <span class="keyword">sizeof</span>(st_Start_Info);									</span><br><span class="line"></span><br><span class="line">							</span><br><span class="line">	TCHAR sz_Tmp[<span class="number">256</span>] = <span class="string">&quot;D:/notepad.exe&quot;</span>;									</span><br><span class="line">	CreateProcess(									</span><br><span class="line">		<span class="literal">NULL</span>,                    							</span><br><span class="line">		sz_Tmp,               							</span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>,  		            				</span><br><span class="line">		FALSE,                   							</span><br><span class="line">		CREATE_SUSPENDED,    <span class="comment">//挂起一个进程 							</span></span><br><span class="line">		<span class="literal">NULL</span>, <span class="literal">NULL</span>,                  						</span><br><span class="line">		&amp;st_Start_Info, &amp;st_Notepad_Process_Info                						</span><br><span class="line">		);								</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	CONTEXT contx;  									</span><br><span class="line">	contx.ContextFlags = CONTEXT_FULL; <span class="comment">// look all info 									</span></span><br><span class="line">	GetThreadContext(st_Notepad_Process_Info.hThread, &amp;contx);		</span><br><span class="line">	<span class="comment">//获取入口点									</span></span><br><span class="line">	DWORD dw_EntryPoint = contx.Eax;									</span><br><span class="line">	<span class="comment">//获取ImageBase									</span></span><br><span class="line">	<span class="type">char</span>* st_PEB = (CHAR *) contx.Ebx+<span class="number">8</span>;									</span><br><span class="line">	<span class="built_in">memset</span>(sz_Tmp,<span class="number">0</span>,<span class="number">256</span>);									</span><br><span class="line">	ReadProcessMemory(st_Notepad_Process_Info.hProcess,st_PEB,sz_Tmp,<span class="number">4</span>,<span class="literal">NULL</span>);	</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;EP: %#x ImageBae:%#x %#x&quot;</span>,dw_EntryPoint,st_PEB ,*((DWORD*)sz_Tmp));</span><br><span class="line"></span><br><span class="line">	ResumeThread(st_Notepad_Process_Info.hThread);	<span class="comment">//恢复进程	</span></span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>OpenProcess </p>
+<p>位置：Kernel32.dll</p>
+<p>OpenProces 打开现有的本地进程对象。 ，并返回进程的句柄。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">OpenProcess</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] DWORD dwDesiredAccess, <span class="comment">//渴望得到的访问权限</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in] BOOL  bInheritHandle, <span class="comment">//表示所得到的进程句柄是否可以被继承</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in] DWORD dwProcessId  <span class="comment">//被打开进程的PID</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    &#x2F;&#x2F;参数 访问权限,是否可继承，访问进程的PID<br>​    &#x2F;&#x2F;效果 打开某个exe,然后根据访问权限去干坏事<br>​    &#x2F;&#x2F;返回值 成功就返回进程的PID  失败就返回NULL</p>
+<p>返回值</p>
+<p>如成功，返回值为指定进程的句柄。</p>
+<p>如失败，返回值为NULL，可调用GetLastError()获得错误代码。</p>
+<h2 id="获取进程退出码"><a href="#获取进程退出码" class="headerlink" title="获取进程退出码"></a>获取进程退出码</h2><p>GetExitCodeProcess</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">GetExitCodeProcess</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in]  HANDLE  hProcess, <span class="comment">//进程句柄</span></span></span><br><span class="line"><span class="params">  [out] LPDWORD lpExitCode <span class="comment">//进程句柄</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="当前进程路径获取"><a href="#当前进程路径获取" class="headerlink" title="当前进程路径获取"></a>当前进程路径获取</h2><p>GetModuleFileNameA</p>
+<p>检获取当前进程已加载模块的文件的完整<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%B7%AF%E5%BE%84/1081474">路径</a>，该模块必须由当前进程加载。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DWORD <span class="title function_">GetModuleFileNameA</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in, optional] HMODULE hModule, <span class="comment">//装载一个程序实例的句柄。如果该参数为NULL，该函数返回该当前应用程序全路径。</span></span></span><br><span class="line"><span class="params">  [out]          LPSTR   lpFilename, <span class="comment">//是你存放返回的名字的内存块的指针，是一个输出参数</span></span></span><br><span class="line"><span class="params">  [in]           DWORD   nSize  <span class="comment">//lpFilename缓冲区的大小，以TCHARs为单位。</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>返回值</p>
+<p>如果函数运行成功，返回值为字符串的长度。包含了空字符</p>
+<p>如果字符串的长度大于nSize字节，返回值为nSize。包含了空字符</p>
+<p>如果函数运行失败，返回值为0</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">char</span> Exe_Path[_MAX_PATH] = &#123; <span class="number">0</span>, &#125;;</span><br><span class="line">	<span class="built_in">GetModuleFileNameA</span>(<span class="literal">NULL</span>, Exe_Path, MAX_PATH);</span><br><span class="line">	cout &lt;&lt; Exe_Path &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后他会输出当前cpp代码完整的exe路径</p>
+<h2 id="给进程分配内存"><a href="#给进程分配内存" class="headerlink" title="给进程分配内存"></a>给进程分配内存</h2><p>VirtualAllocEx() 内存内分配内存</p>
+<p>指定进程的虚拟空间保留或提交内存区域</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LPVOID <span class="title function_">VirtualAllocEx</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in]           HANDLE hProcess, <span class="comment">//申请内存所在的进程句柄</span></span></span><br><span class="line"><span class="params">  [in, optional] LPVOID lpAddress, <span class="comment">//保留页面的内存地址；一般用NULL自动分配 。</span></span></span><br><span class="line"><span class="params">  [in]           SIZE_T dwSize, <span class="comment">//欲分配的内存大小，字节单位；注意实际分 配的内存大小是页内存大小的整数倍</span></span></span><br><span class="line"><span class="params">  [in]           DWORD  flAllocationType, <span class="comment">//内存分配的类型</span></span></span><br><span class="line"><span class="params">  [in]           DWORD  flProtect <span class="comment">//页面区域的内存保护</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>返回值</p>
+<p>如果函数成功，则返回值是分配的页面区域的基地址。</p>
+<p>如果函数失败，则返回值为<strong>NULL</strong>。要获取扩展的错误信息，</p>
+<h2 id="向进程写入数据"><a href="#向进程写入数据" class="headerlink" title="向进程写入数据"></a>向进程写入数据</h2><p>WriteProcessMemory</p>
+<p>将数据写入指定进程中的内存区域。要写入的整个区域必须可访问，否则操作将失败。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">WriteProcessMemory</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in]  HANDLE  hProcess, 			<span class="comment">//由OpenProcess返回的进程句柄。</span></span></span><br><span class="line"><span class="params">  [in]  LPVOID  lpBaseAddress, 		<span class="comment">//指向要写入数据的指定进程中的基地址的指针 ,进程的基地址 D</span></span></span><br><span class="line"><span class="params">　　									<span class="comment">//再写入之前，此函数将先检查目标地址是否可用，并能容纳待写入的数据。</span></span></span><br><span class="line"><span class="params">  [in]  LPCVOID lpBuffer,				<span class="comment">//指向要写的数据来源的指针。 S</span></span></span><br><span class="line"><span class="params">  [in]  SIZE_T  nSize,			 		<span class="comment">//要写入的字节数。</span></span></span><br><span class="line"><span class="params">  [out] SIZE_T  *lpNumberOfBytesWritten</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>返回值</p>
+<p>非零值代表成功。</p>
+<p>他是一个复合的API</p>
+<p>细节流程如下</p>
+<ol>
+<li>首先调用 NtQueryVirtualMemory 查询内存信息</li>
+<li>如果原内存属性可写，直接调用 NtWriteVirtualMemory 写入内存</li>
+<li>如果原内存属性不可执行，则还原内存属性，然后返回 STATUS_ACCESS_VIOLATION</li>
+<li>如果内存类型为 MEM_IMAGE，则修改内存属性为 OldAccessProtection | PAGE_ENCLAVE_UNVALIDATED | PAGE_EXECUTE_WRITECOPY</li>
+<li>如果内存类型为 MEM_PRIVATE，则修改内存属性为 OldAccessProtection | OldAccessProtection | PAGE_EXECUTE_READWRITE</li>
+<li>调用NtWriteVirtualMemory写入内存</li>
+<li>还原内存属性</li>
+</ol>
+<h2 id="在进程中读取数据"><a href="#在进程中读取数据" class="headerlink" title="在进程中读取数据"></a>在进程中读取数据</h2><p><strong>ReadProcessMemory</strong></p>
+<p>将<code>指定地址范围内的Source数据</code>从指定进程的地址空间<code>copy</code>到<code>当前进程的指定缓冲区Destation中。</code></p>
+<p>任何具有 PROCESS_VM_READ 访问句柄的进程都可以调用该函数。</p>
+<p>要读取的整个区域必须是可访问的，如果不可访问，则函数失败</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">ReadProcessMemory</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  HANDLE  hProcess, 				<span class="comment">//远程进程句柄。 被读取者</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  LPCVOID lpBaseAddress, 			<span class="comment">//远程进程中内存地址。 从具体何处读取 S</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [out] LPVOID  lpBuffer, 				<span class="comment">//本地进程中内存地址. 存放读取数据缓冲区； D</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  SIZE_T  nSize, 					<span class="comment">//一次读取的字节数</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [out] SIZE_T  *lpNumberOfBytesRead 	<span class="comment">//实际读取的字节数</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>返回值</p>
+<p>如果函数成功，则返回值非零。</p>
+<p>如果函数失败，则返回值为 0（零）。要获取扩展的错误信息，请调用 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>。</p>
+<p>如果请求的读取操作进入进程中不可访问的区域，则该函数将失败。</p>
+<h2 id="设置进程一段内存的属性"><a href="#设置进程一段内存的属性" class="headerlink" title="设置进程一段内存的属性"></a>设置进程一段内存的属性</h2><p>VirtualProtect</p>
+<p>它会在呼叫处理程序的虚拟位置空间里，变更认可页面区域上的保护</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">VirtualProtect</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  LPVOID lpAddress,  <span class="comment">// 内存的起始地址</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  SIZE_T dwSize,  <span class="comment">//要保护的内存大小</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  DWORD  flNewProtect, <span class="comment">//新的内存属性</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [out] PDWORD lpflOldProtect <span class="comment">//&amp;内存的原始属性</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果函数成功，则返回值非零。</p>
+<p>如果函数失败，则返回值为零。要获取扩展的错误信息，请调用GetLastError</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">PAGE_READONLY 0x02//该区域为只读。如果应用程序试图访问区域中的页的时候，将会被拒绝访问</span><br><span class="line">PAGE_READWRITE 0x04//区域可被应用程序读写</span><br><span class="line">PAGE_EXECUTE  0x10//区域包含可被系统执行的代码。试图读写该区域的操作将被拒绝。</span><br><span class="line">PAGE_EXECUTE_READ 0x20//区域包含可执行代码，应用程序可以读该区域</span><br><span class="line">PAGE_EXECUTE_READW //区域包含可执行代码，应用程序可以读写该区域</span><br><span class="line">PAGE_GUARD 0x100//区域第一次被访问时进入一个STATUS_GUARD_PAGE异常，这个标志要和其他保护标志合并使用，表明区域被第一次访问的权限</span><br><span class="line">PAGE_NOACCESS 0x01//任何访问该区域的操作将被拒绝</span><br><span class="line">PAGE_NOCACHE 0x200//RAM中的页映射到该区域时将不会被微处理器缓存（cached)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="枚举窗口句柄"><a href="#枚举窗口句柄" class="headerlink" title="枚举窗口句柄"></a>枚举窗口句柄</h2><p>EnumWindows</p>
+<p>该函数枚举所有屏幕上的顶层窗口，并将<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%AA%97%E5%8F%A3%E5%8F%A5%E6%9F%84">窗口句柄</a>传送给应用程序定义的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0">回调函数</a>。</p>
+<p>回调函数返回FALSE将停止枚举，否则EnumWindows函数继续到所有顶层窗口枚举完为止。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">EnumWindows</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] WNDENUMPROC lpEnumFunc, <span class="comment">//处理函数</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in] LPARAM      lParam <span class="comment">//指定一个传递给回调函数的应用程序定义值</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>该API会枚举所有进程&#x2F;窗口,然乎调用你的处理函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">BOOL CALLBACK <span class="title function_">EnumOpenWindow_Proc</span><span class="params">(HWND hWnd,LPARAM lParam)</span>  								</span><br><span class="line">&#123;  								</span><br><span class="line">	<span class="type">char</span> szTitle[MAX_PATH];</span><br><span class="line">	<span class="built_in">memset</span>(szTitle,<span class="number">0</span>,<span class="number">256</span>);</span><br><span class="line">	GetWindowText(hWnd,szTitle,MAX_PATH); 								</span><br><span class="line">	MessageBox(<span class="literal">NULL</span>,szTitle,<span class="string">&quot;[窗口]&quot;</span>,MB_OK);  								</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">strcmp</span>(szTitle,<span class="string">&quot;ipmsg_feige&quot;</span>) == <span class="number">0</span>)							</span><br><span class="line">	&#123;							</span><br><span class="line">		MessageBox(<span class="literal">NULL</span>,szTitle,<span class="string">&quot;[窗口]&quot;</span>,MB_OK);  						</span><br><span class="line">		<span class="keyword">return</span> FALSE;						</span><br><span class="line">	&#125;							</span><br><span class="line">	<span class="keyword">return</span> TRUE;  								</span><br><span class="line">&#125;  								</span><br><span class="line">VOID <span class="title function_">function</span><span class="params">()</span>								</span><br><span class="line">&#123;								</span><br><span class="line">	EnumWindows(EnumOpenWindow_Proc,<span class="literal">NULL</span>);							</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">	function();		</span><br><span class="line">	getchar();</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="枚举子窗口句柄"><a href="#枚举子窗口句柄" class="headerlink" title="枚举子窗口句柄"></a>枚举子窗口句柄</h2><p>EnumChildWindows(hWnd,EnumChildProc,0);  				</p>
+<p>此函数相当于创建了一个进程,进程主要的操作是便利子窗口,便利后把子窗口的句柄给处理函数</p>
+<p>进程的处理函数就是你的指定的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BOOL CALLBACK <span class="title function_">EnumChildProc</span><span class="params">(HWND hWnd,LPARAM lParam)</span>  									</span><br><span class="line">&#123;  									</span><br><span class="line">	TCHAR szTitle[MAX_PATH] = &#123;<span class="number">0</span>&#125;;									</span><br><span class="line">	GetWindowText(hWnd,szTitle,MAX_PATH); 									</span><br><span class="line">	MessageBox(<span class="literal">NULL</span>,szTitle,<span class="string">&quot;[子窗口]&quot;</span>,MB_OK);  									</span><br><span class="line">	<span class="keyword">return</span> TRUE;  									</span><br><span class="line">&#125;  									</span><br><span class="line"></span><br><span class="line">VOID <span class="title function_">EnumChildWindow</span><span class="params">()</span>									</span><br><span class="line">&#123;									</span><br><span class="line">	<span class="type">char</span> szTitle[MAX_PATH] = &#123;<span class="number">0</span>&#125;;								</span><br><span class="line">	HWND hWnd = FindWindow(TEXT(<span class="string">&quot;Afx:00007FF6C8270000:0&quot;</span>),TEXT(<span class="string">&quot;Lingoes 灵格斯&quot;</span>));								</span><br><span class="line">	<span class="keyword">if</span>(hWnd != <span class="literal">NULL</span>)															</span><br><span class="line">		EnumChildWindows(hWnd,EnumChildProc,<span class="number">0</span>);  												</span><br><span class="line">	<span class="keyword">else</span>																</span><br><span class="line">		MessageBox(<span class="literal">NULL</span>,TEXT(<span class="string">&quot;窗口没有找到&quot;</span>),TEXT(<span class="string">&quot;[ERROR]&quot;</span>),MB_OK);															</span><br><span class="line">&#125;									</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">	EnumChildWindow();			</span><br><span class="line">	getchar();</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="获取窗口句柄"><a href="#获取窗口句柄" class="headerlink" title="获取窗口句柄"></a>获取窗口句柄</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">								</span><br><span class="line">TCHAR szTitle[MAX_PATH] = &#123;0&#125;;								</span><br><span class="line">HWND hwnd = FindWindow(&quot;#32770&quot;,&quot;飞鸽传书  IP Messenger&quot;);	//参数1  窗口类的名称 参数2 窗口的标题							</span><br><span class="line">if(hwnd != NULL)																						</span><br><span class="line">	SetWindowText(hwnd,&quot;新的窗口标题&quot;);	//修改窗口标题	飞鸽传书 IP Messenger-&gt;新的窗口标题			</span><br><span class="line">else													</span><br><span class="line">	MessageBox(NULL,&quot;窗口没有找到&quot;,&quot;[ERROR&quot;,MB_OK);														</span><br><span class="line">							</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h2 id="进程之间通信"><a href="#进程之间通信" class="headerlink" title="进程之间通信"></a>进程之间通信</h2><p>进程之间的通信</p>
+<p>代码示意</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:/JGY/P0st/post/Language/Win32/Code/进程通信</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="0">
+<li></li>
+</ol>
+<p>A往文件里面写,B往文件里面读 未尝试</p>
+<p>1 )</p>
+<p>A.exe找到FindWindwos来获取B.exe的窗口句柄</p>
+<p>然后给这个窗口句柄PostMessage</p>
+<p>B.exe接受到消息,然后根据消息处理函数处理消息</p>
+<p>SetWindowsHookEx可以实现消息处理函数的HOOK(适用于原来的case太少,想要添加一些case)</p>
+<p>未尝试</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>CreateFileMapping创建的内存,所有的进程都可以使用</p>
+<p>MapViewFile实现了<code>CreateFileMapping创建的内存</code>创建的内存映射到自己的内存上使用</p>
+<p>A.exe实现CreateFileMapping和MapViewFile</p>
+<p>B.exe也实现CreateFileMapping和MapViewFile</p>
+<p>那么就可以实现内存的共享</p>
+<p>尝试成功</p>
+<ol start="3">
+<li></li>
+</ol>
+<p>父进程和子进程之间的通信,用到的是管道</p>
+<p>尝试失败</p>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><p>EnumProcesses</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">EnumProcesses</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [out] DWORD   *lpidProcess, <span class="comment">//是保存进程ID的数组</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  DWORD   cb, <span class="comment">//进程组数的大小。</span></span></span></span><br><span class="line"><span class="params"><span class="function">  [out] LPDWORD lpcbNeeded <span class="comment">//返回进程数组的大小。</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include &quot;stdafx.h&quot;</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Psapi.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment (lib, <span class="string">&quot;Psapi.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> _tmain(<span class="type">int</span> argc, _TCHAR* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	DWORD dwProcessID[<span class="number">0x500</span>] = &#123; <span class="number">0</span> &#125;;  <span class="comment">//开始的预先分配较大的缓冲区，用来存放进程ID</span></span><br><span class="line">	DWORD dwNeeded = <span class="number">0</span>;</span><br><span class="line">	BOOL bEnumRes = <span class="built_in">EnumProcesses</span>(dwProcessID, <span class="built_in">sizeof</span>(dwProcessID), &amp;dwNeeded);</span><br><span class="line">	UINT uCount = dwNeeded / <span class="built_in">sizeof</span>(DWORD);<span class="comment">//获得枚举到进程的数量</span></span><br><span class="line">	<span class="keyword">for</span> (UINT i = <span class="number">0</span>; i &lt; uCount; i++)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//只对进程进程枚举，所以申请QUERY权限，具体还得根据应用申请权限</span></span><br><span class="line"></span><br><span class="line">		HANDLE hProcess = <span class="built_in">OpenProcess</span>(PROCESS_QUERY_INFORMATION, FALSE, dwProcessID[i]);</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">NULL</span> != hProcess)</span><br><span class="line">		&#123;</span><br><span class="line">			CHAR szProcessName[<span class="number">0x50</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">			DWORD dwNameLen = <span class="number">0x50</span>;</span><br><span class="line">			BOOL bRet = <span class="built_in">QueryFullProcessImageNameA</span>(hProcess, <span class="number">0</span>, szProcessName, &amp;dwNameLen);</span><br><span class="line">			<span class="keyword">if</span> (bRet)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;ID:%4d/tprocessName(%s)/n&quot;</span>, dwProcessID[i], szProcessName);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include &quot;stdafx.h&quot;</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;psapi.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tchar.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span>   comment   (lib, <span class="string">&quot;psapi.lib &quot;</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MyEnumProcess</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// Get the list of process identifiers.</span></span><br><span class="line">	DWORD aProcesses[<span class="number">1024</span>], cbNeeded, cProcesses;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!<span class="built_in">EnumProcesses</span>(aProcesses, <span class="built_in">sizeof</span>(aProcesses), &amp;cbNeeded))       <span class="comment">//枚举进程</span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	cProcesses = cbNeeded / <span class="built_in">sizeof</span>(DWORD);             <span class="comment">//计算进程个数</span></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; cProcesses; i++)</span><br><span class="line">		<span class="keyword">if</span> (aProcesses[i] != <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line"></span><br><span class="line">			TCHAR szProcessName[MAX_PATH] = <span class="built_in">TEXT</span>(<span class="string">&quot;&lt;unknown&gt;&quot;</span>);</span><br><span class="line">			HANDLE hProcess = <span class="built_in">OpenProcess</span>(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, aProcesses[i]);     <span class="comment">//获得进程句柄</span></span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (<span class="literal">NULL</span> != hProcess)</span><br><span class="line">			&#123;</span><br><span class="line">				HMODULE hMod;</span><br><span class="line">				DWORD cbNeeded;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (<span class="built_in">EnumProcessModules</span>(hProcess, &amp;hMod, <span class="built_in">sizeof</span>(hMod), &amp;cbNeeded))        <span class="comment">//枚举进程模块信息</span></span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">GetModuleBaseName</span>(hProcess, hMod, szProcessName, <span class="built_in">sizeof</span>(szProcessName) / <span class="built_in">sizeof</span>(TCHAR));       <span class="comment">//取得主模块全名,每个进程第一模块则为进程主模块</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			_tprintf(<span class="built_in">TEXT</span>(<span class="string">&quot;%s  (PID: %u)/n&quot;</span>), szProcessName, aProcesses[i]);     <span class="comment">//输出进程名及PID</span></span><br><span class="line">			<span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">MyEnumProcess</span>();</span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>CreateToolhelp32Snapshot </p>
+<p>函数通过获取进程信息为指定的进程、进程使用的堆[HEAP]、模块[MODULE]、线程建立一个快照.</p>
+<p>说到底，可以获取系统中正在运行的进程信息，线程信息</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HANDLE <span class="title function_">CreateToolhelp32Snapshot</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in] DWORD dwFlags, <span class="comment">//用来指定“快照”中需要返回的对象</span></span></span><br><span class="line"><span class="params">  [in] DWORD th32ProcessID  <span class="comment">//一个进程ID号，用来指定要获取哪一个进程的快照，当获取系统进程列表或获取 当前进程快照时可以设为0</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>返回值</p>
+<p>如果函数成功，它将返回指定快照的打开句柄。</p>
+<p>如果函数失败，则返回<strong>INVALID_HANDLE_VALUE</strong>。要获取扩展的错误信息，请调用 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include &quot;StdAfx.h&quot;</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;windows.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tlhelp32.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PROCESSENTRY32 Photo;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    typedef struct tagPROCESSENTRY32W</span></span><br><span class="line"><span class="comment">    &#123;</span></span><br><span class="line"><span class="comment">    DWORD   dwSize;</span></span><br><span class="line"><span class="comment">    DWORD   cntUsage;</span></span><br><span class="line"><span class="comment">    DWORD   th32ProcessID;          // this process</span></span><br><span class="line"><span class="comment">    ULONG_PTR th32DefaultHeapID;</span></span><br><span class="line"><span class="comment">    DWORD   th32ModuleID;           // associated exe</span></span><br><span class="line"><span class="comment">    DWORD   cntThreads;</span></span><br><span class="line"><span class="comment">    DWORD   th32ParentProcessID;    // this process&#x27;s parent process</span></span><br><span class="line"><span class="comment">    LONG    pcPriClassBase;         // Base priority of process&#x27;s threads</span></span><br><span class="line"><span class="comment">    DWORD   dwFlags;</span></span><br><span class="line"><span class="comment">    WCHAR   szExeFile[MAX_PATH];    // Path</span></span><br><span class="line"><span class="comment">    &#125; PROCESSENTRY32W;</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">//在使用这个结构前，先设置它的大小</span></span><br><span class="line">    Photo.dwSize = <span class="built_in">sizeof</span>(Photo);</span><br><span class="line">    <span class="comment">//给系统内所有的进程拍个快照</span></span><br><span class="line">    HANDLE Photo_Handle = ::<span class="built_in">CreateToolhelp32Snapshot</span>(TH32CS_SNAPPROCESS, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (Photo_Handle == INVALID_HANDLE_VALUE)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;CreateToolhelp32Snapshot 调用失败./n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//遍历进程快照，轮流显示每个进程的信息</span></span><br><span class="line">    BOOL Button = ::<span class="built_in">Process32First</span>(Photo_Handle, &amp;Photo);</span><br><span class="line">    <span class="keyword">while</span> (Button)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;进程名称：%ls/n&quot;</span>, Photo.szExeFile); <span class="comment">//这里得到的应该是宽字符，用%ls,不然无法正常打印</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;进程ID：%#x/n/n&quot;</span>, Photo.th32ProcessID);</span><br><span class="line">        Button = ::<span class="built_in">Process32Next</span>(Photo_Handle, &amp;Photo);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//不要忘记清除掉snapshot对象</span></span><br><span class="line">    ::<span class="built_in">CloseHandle</span>(Photo_Handle);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>另外一个实例代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">EjectDll</span><span class="params">(DWORD Exe_PID, LPCTSTR Dll_Name)</span></span><br><span class="line">&#123;</span><br><span class="line">    BOOL bMore = FALSE, bFound = FALSE;</span><br><span class="line">    HANDLE Target_Snapshot, QQ_Process, hThread;</span><br><span class="line">    HMODULE hModule = <span class="literal">NULL</span>;</span><br><span class="line">    MODULEENTRY32 me = &#123; <span class="keyword">sizeof</span>(me) &#125;;</span><br><span class="line">    LPTHREAD_START_ROUTINE A_DLL_Export_Func_ThreadProc;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Exe_Pid = notepad </span></span><br><span class="line">    <span class="comment">// TH32CS_SNAPMODULE </span></span><br><span class="line">    Target_Snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, Exe_PID);<span class="comment">//指定查看QQ的线程??/</span></span><br><span class="line"></span><br><span class="line">    bMore = Module32First(Target_Snapshot, &amp;me); <span class="comment">//Process32First,现在是MOudle,查看一个Procsee</span></span><br><span class="line">    <span class="comment">//的Modue</span></span><br><span class="line">    <span class="keyword">for</span> (; bMore; bMore = Module32Next(Target_Snapshot, &amp;me))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//路径或者直接软件的名字</span></span><br><span class="line">        <span class="comment">//szModule 是dll在内存中加载的地址</span></span><br><span class="line">        <span class="keyword">if</span> (!_tcsicmp((LPCTSTR)me.szModule, Dll_Name) ||</span><br><span class="line">            !_tcsicmp((LPCTSTR)me.szExePath, Dll_Name))</span><br><span class="line">        &#123;</span><br><span class="line">            bFound = TRUE; </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!bFound)<span class="comment">//关闭刚才打开的句柄</span></span><br><span class="line">    &#123;</span><br><span class="line">        CloseHandle(Target_Snapshot);</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!(QQ_Process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, Exe_PID)))<span class="comment">//打开QQ</span></span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;OpenProcess(%d) failed!!! [%d]/n&quot;</span>, Exe_PID, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hModule=GetModuleHandle(<span class="string">L&quot;kernel32.dll&quot;</span>);<span class="comment">//获取的dll的ImageBase,</span></span><br><span class="line">    <span class="keyword">if</span> (hModule == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    A_DLL_Export_Func_ThreadProc = (LPTHREAD_START_ROUTINE)GetProcAddress(hModule, <span class="string">&quot;FreeLibrary&quot;</span>);<span class="comment">//导出函数的地址</span></span><br><span class="line">    <span class="keyword">if</span> (A_DLL_Export_Func_ThreadProc == <span class="literal">NULL</span>)<span class="comment">//这里获取的地址不是QQ的dll-&gt;freelibary,而是ejectdll.exe中dll的freelibart地址</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);<span class="comment">//看上去有点矛盾,但是所有exe调用dll的在进程中的地址都是一样的,这个后面慢慢理解</span></span><br><span class="line">    hThread = CreateRemoteThread(QQ_Process, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="comment">//现在的me指向了QQ</span></span><br><span class="line">        A_DLL_Export_Func_ThreadProc, me.modBaseAddr, <span class="comment">//mw.modBaseaddr要卸载的dll加载地址</span></span><br><span class="line">        <span class="number">0</span>, <span class="literal">NULL</span>);<span class="comment">//打开远程线程</span></span><br><span class="line">    <span class="keyword">if</span> (hThread == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    WaitForSingleObject(hThread, INFINITE);<span class="comment">//一直等待线程有信号,有就返回</span></span><br><span class="line"></span><br><span class="line">    CloseHandle(hThread);<span class="comment">//关闭线程</span></span><br><span class="line">    CloseHandle(QQ_Process);<span class="comment">//关闭进程</span></span><br><span class="line">    CloseHandle(Target_Snapshot);<span class="comment">//关闭快照</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h1 id="加密壳项目需求"><a href="#加密壳项目需求" class="headerlink" title="加密壳项目需求"></a>加密壳项目需求</h1><p>ShellCode就是随便放在哪里都可以运行的硬编码</p>
+<p>ShellCode化: 不使用全局变量,不使用IAT表 </p>
+<p>二进制壳</p>
+<p>不会去修改硬编码,而是扭曲PE文件,对关键部位加密</p>
+<p>5000</p>
+<p>源代码加密</p>
+<p>(1)way1</p>
+<p>1.将各种表移动到一个新的节区</p>
+<p>2.对原来的PE文件进行加密</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220730002056486.png" alt="image-20220730002056486"></p>
+<p>对于IAT表</p>
+<p>有的壳会通过一定的逻辑告诉系统,让系统加载IAT表</p>
+<p>有的壳就是自己一个一个的加载IAT表</p>
+<p>(2)way2</p>
+<p>直接对源文件所有的数据加密,然后加密的数据追加到最后一个节区</p>
+<p><img src="https://re4mile.gitee.io/res/photo/language/image-20220730003134572.png" alt="image-20220730003134572"></p>
+<p>说什么迁移表的位置,只要你不走我的外壳,你就托不了</p>
+<p>1、获取SHELL程序的路径								</p>
+<p>2、获取src的数据								</p>
+<pre><code>(1) 定为到SHELL文件的最后一个节							
+                            
+(2) 将数据取出，并解密							
+</code></pre>
+<p>3、拉伸PE								</p>
+<pre><code>将解密后的PE文件在内存中拉伸，并存储到缓冲区中							
+</code></pre>
+<p>4、以挂起方式运行Shell进程								</p>
+<pre><code>(0) 以挂起形成创建Shell进程，并得到主线程的Context							
+                            
+(1) 卸载外壳程序的文件镜像(ZwUnmapViewOfSection)							
+                            
+(2) 在指定的位置(src的ImageBase)申请指定大小(src的SizeOfImage)的内存(VirtualAllocEx)							
+                            
+(3) 如果创建失败，查看src是否包含重定位表，如果包含重定位表，就在任意位置申请(src的SizeOfImage)							
+    大小的内存，然后修复重定位表.							
+                            
+(4) 如果在指定位置申请内存失败，并且没有重定位表的数据，直接返回失败.							
+                            
+(5) 如果内存申请成功，将新的数据复制到内存中 							
+                            
+(6) 修正运行环境的基址和入口地址 							
+                            
+(7) 恢复主线程执行							
+</code></pre>
+<p>​			</p>
+<p>整体流程</p>
+<p>1、读取主模块的数据					</p>
+<p>2、解密：得到原来的PE文件					</p>
+<p>3、以挂起的形式创建进程：CreateProcess					：要创建的进程在哪里？</p>
+<p>要创建的进程，就是壳子本身！					</p>
+<p>4、获取外壳程序的Context,后面要用.					</p>
+<p>5、卸载外壳程序.					</p>
+<p>6、在指定的位置分配空间：位置就是src的ImageBase  大小就是Src的SizeOfImage					</p>
+<p>7、如果成功，将Src的PE文件拉伸 复制到该空间中					</p>
+<p>8、如果申请空间失败，但有重定位表：在任意位置申请空间，然后将PE文件拉伸、复制、修复重定位表。					</p>
+<p>9、如果第6步申请空间失败，并且还没有重定位表，直接返回：失败.					</p>
+<p>10、修改外壳程序的Context:					</p>
+<pre><code>将Context的ImageBase 改成 Src的ImageBase					
+                
+将Context的OPE 改成 Src的OEP					
+</code></pre>
+<p>11、设置Context 并恢复主线程					</p>
+<p>12、终止外壳程序，解壳过程结束.					</p>
+<p>​						</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/re4mile/tags/Win32/" rel="tag"># Win32</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/C/win32/mfc/language/" rel="prev" title="win32入门篇-1">
+                  <i class="fa fa-chevron-left"></i> win32入门篇-1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/re4mile/2023/01/11/language/C/win32/%E5%B0%8F%E4%B8%93%E9%A2%98/%E5%88%A8%E6%A0%B9%E9%97%AE%E5%BA%95/language/" rel="next" title="win32琐碎">
+                  win32琐碎 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">re4mile(邓渠香)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/comments.js"></script><script src="/re4mile/js/utils.js"></script><script src="/re4mile/js/motion.js"></script><script src="/re4mile/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/re4mile/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
